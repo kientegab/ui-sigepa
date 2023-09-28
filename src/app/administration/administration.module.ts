@@ -13,12 +13,16 @@ import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { CrudToolbarComponent } from '../shared/comon/crud-toolbar/crud-toolbar.component';
 import {ArchwizardModule} from "angular-archwizard";
+import { CircuitComponent } from './parametre/circuit/circuit.component';
+import { CardModule } from 'primeng/card';
+
 
 @NgModule({
   declarations: [
     DashboardAdministrationComponent,
     ActionsToolbarIudComponent,
-    CrudToolbarComponent
+    CrudToolbarComponent,
+    CircuitComponent
   ],
   imports: [
   CommonModule,
@@ -30,6 +34,7 @@ import {ArchwizardModule} from "angular-archwizard";
     KnobModule,
     ChartModule,
     TableModule, 
+    CardModule,
     ArchwizardModule.forRoot()
   ],
   exports: [

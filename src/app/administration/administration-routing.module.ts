@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', data: {breadcrumb: 'Tableau de bord'}, component: DashboardAdministrationComponent },
   { path: 'account/infos-user', loadChildren: () => import('../account/infos-user/infos-user.module').then(m => m.InfosUserModule) },
   { path: 'communes', data: {breadcrumb: 'Gestion des communes'}, loadChildren: () => import('./parametre/commune/commune.module').then(m => m.CommuneModule) },
+  { path: 'circuit', data: {breadcrumb: 'Gestion des circuits'}, loadChildren: () => import('./parametre/circuit/circuit.module').then(m => m.CircuitModule) },
   { path: '**', redirectTo: '/notfound' }
 ];
 
