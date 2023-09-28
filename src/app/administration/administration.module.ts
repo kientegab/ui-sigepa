@@ -16,13 +16,19 @@ import {ArchwizardModule} from "angular-archwizard";
 import { CircuitComponent } from './parametre/circuit/circuit.component';
 import { CardModule } from 'primeng/card';
 
+import { AmpliationComponent } from './parametre/ampliation/ampliation.component';
+import {
+    CreerModifierAmpliationComponent
+} from "./parametre/ampliation/creer-modifier-ampliation/creer-modifier-ampliation.component";
 
 @NgModule({
   declarations: [
     DashboardAdministrationComponent,
     ActionsToolbarIudComponent,
     CrudToolbarComponent,
-    CircuitComponent
+    
+    AmpliationComponent,
+    CreerModifierAmpliationComponent
   ],
   imports: [
   CommonModule,
@@ -35,6 +41,7 @@ import { CardModule } from 'primeng/card';
     ChartModule,
     TableModule, 
     CardModule,
+    TableModule,
     ArchwizardModule.forRoot()
   ],
   exports: [

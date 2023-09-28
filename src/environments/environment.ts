@@ -4,7 +4,7 @@
 //10.170.24.118   ********
 //const commonAppURI: string = 'http://192.168.1.122:64642/api/affiliation-immatriculation/';
 //const commonAppURI: string = 'http://192.168.1.216:8089/api/affiliation-immatriculation/';
-const commonAppURI: string = 'http://localhost:8089/api/affiliation-immatriculation/';
+const commonAppURI: string = 'http://localhost:8080/api/';
 
 //const commonAppURI: string = 'http://192.168.1.150:8089/api/affiliation-immatriculation/';
 //const commonAppCOT: string = 'http://localhost:8090/api/';
@@ -37,6 +37,9 @@ export const environment = {
   privilegeUrl: commonAuth +'privileges',
   authResource: commonAuth +'utilisateurs/signin',
   accountResource: commonAuth +'utilisateurs/validate',
+  visaUrl: commonAuth + 'visas',
+  ministereUrl: commonAuth + 'ministeres',
+  ampliationUrl:commonAuth + 'ampliations',
    // typeEmployeurUrl: commonAppURI +'typeEmployeur',
 
   typesCotisationUrl:commonAppCOT+'type-cotisations',

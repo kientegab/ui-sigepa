@@ -19,9 +19,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PaginatorModule } from 'primeng/paginator';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { CircuitComponent } from './circuit.component';
 
 @NgModule({
   declarations: [
+    CircuitComponent,
     CreerModifierCircuitComponent
   ],
   imports: [

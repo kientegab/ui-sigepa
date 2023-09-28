@@ -1,12 +1,21 @@
 
 <p-card>
+    <!-- <ng-template pTemplate="header">
+      <div class="card-header bg-header-cnamu">
+        <h4 class="text-white text-center text-bold">Gestion des Visas</h4>
+      </div>
+    </ng-template> -->
+  
+    <!-- <p-divider></p-divider> -->
+    <!-- <h6 class="text-bold">Filtre</h6> -->
+    <!-- <hr /> -->
     <div class="_m-t-15">
      
       <div class="p-d-flex">
         <div class="p-ml-auto">
-          <!-- <p-message *ngIf="message" [severity]="message.severity" [text]="message.summary"></p-message> -->
-          <!-- <p-progressSpinner *ngIf="isOpInProgress" strokeWidth="4" [style]="{width: '50px', height: '50px'}">
-          </p-progressSpinner> -->
+          <p-message *ngIf="message" [severity]="message.severity" [text]="message.summary"></p-message>
+          <p-progressSpinner *ngIf="isOpInProgress" strokeWidth="4" [style]="{width: '50px', height: '50px'}">
+          </p-progressSpinner>
         </div>
       </div>
     </div>
@@ -39,36 +48,44 @@
       </div>
       <div class="col-md-4">
         <app-crud-toolbar [enableCreate]="enableCreate" (create)="openModalCreate()" [enableEdit]="enableBtnEdit"
-    (edit)="openModalEdit(circuit)">
+    (edit)="openModalEdit(Visa)">
   </app-crud-toolbar>
       </div>
   </div>
-    <p-table #dtf [value]="circuits" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)" 
+    <p-table #dtf [value]="Visas" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)" 
       [totalRecords]="totalRecords"  (onLazyLoad)="loadAll()" [lazy]="true"
-      [globalFilterFields]="['code','libelle','circuit.libelle']"
+      [globalFilterFields]="['code','libelle','Visa.libelle']"
       currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements" 
       [showCurrentPageReport]=true
       [rowsPerPageOptions]="[20, 50, 100, 500]" styleClass="p-datatable-gridlines">
   
+      <!-- <ng-template pTemplate="caption">
+        <div class="row">
+          <div class="col text-right">
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="dtf.filterGlobal($any($event.target)!.value, 'contains')"
+                placeholder="Recherche..." />
+            </span>
+          </div>
+        </div>
+      </ng-template> -->
       <ng-template pTemplate="header" let-columns>
         <tr>
           <!-- <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon></th>-->
-          <th pSortableColumn="libelle">Libéllé<p-sortIcon field="libelle"></p-sortIcon></th>
-          <th pSortableColumn="statut">Statut<p-sortIcon field="statut"></p-sortIcon></th>
-          <th pSortableColumn="parent.libelle">Parent<p-sortIcon field="parent.libelle"></p-sortIcon></th>
+          <th pSortableColumn="code">Code<p-sortIcon field="code"></p-sortIcon></th>
+          <th pSortableColumn="libelle">Visa<p-sortIcon field="libelle"></p-sortIcon></th>
           <th class="actionsStyle">Action</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-circuit>   
+      <ng-template pTemplate="body" let-Visa>   
         <tr>
-          <td>{{ circuit.libelle }}</td>
-          <td>{{ circuit.statut }}</td>
-          <td>{{ circuit?.parent?.libelle }}</td>
-  
+          <td>{{ Visa.code }}</td>
+          <td>{{ Visa.libelle }}</td>  
           <td class="actionsStyle">
-            <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(circuit)"
-              [enableBtnInfo]="enableBtnInfo" (edit)="openModalEdit(circuit)" [enableBtnEdit]="enableBtnEdit"
-              (delete)="onDelete(circuit)" [enableBtnDelete]="enableBtnDelete">
+            <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(Visa)"
+              [enableBtnInfo]="enableBtnInfo" (edit)="openModalEdit(Visa)" [enableBtnEdit]="enableBtnEdit"
+              (delete)="onDelete(Visa)" [enableBtnDelete]="enableBtnDelete">
             </app-actions-toolbar-iud>
           </td>
         </tr>
@@ -77,5 +94,5 @@
   
   
     <!-- Confirmation -->
-     <app-confirmation></app-confirmation> 
+    <app-confirmation></app-confirmation>
   </p-card>

@@ -32,7 +32,7 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-chart-line',
                        // visible: this.authService.checkPermission([Authority.ADMIN], AuthenticationService.privileges),
                         items: [
-                           
+
                         ]
                     },
                     {
@@ -56,6 +56,32 @@ export class AppMenuComponent implements OnInit {
                                         icon: 'pi pi-fw pi-eye-slash',
                                         routerLink: ['/admin/circuit']
                                     },
+                                    {   label: 'Structure',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/structures']
+                                    },
+                                    {
+                                        label: 'Type Structure',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/type-structures']
+                                    },
+                                    {
+                                        label: 'Type Demande',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/type-demandes']
+                                    },
+
+                                    {
+                                        label: 'visa',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/visas']
+                                    },
+                                    {
+                                        label: 'ministere',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/ministeres']
+                                    },
+
 
                                 ]
                             },
