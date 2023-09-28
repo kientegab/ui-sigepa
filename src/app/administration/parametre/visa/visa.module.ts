@@ -19,7 +19,6 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule } from 'primeng/table';
 import { AppCommonModule } from 'src/app/shared/common/app-common.module';
-import { CommuneRoutingModule } from '../commune/commune-routing.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { VisaComponent } from './visa.component';
 
@@ -37,7 +36,6 @@ import { VisaComponent } from './visa.component';
     FormsModule,
     ButtonModule,
     DynamicDialogModule,
-    CommuneRoutingModule,
     TableModule,
     CardModule,
     InputTextModule,
