@@ -37,6 +37,9 @@ export const environment = {
   privilegeUrl: commonAuth +'privileges',
   authResource: commonAuth +'utilisateurs/signin',
   accountResource: commonAuth +'utilisateurs/validate',
+  visaUrl: commonAuth + 'visas',
+  ministereUrl: commonAuth + 'ministeres',
+  ampliationUrl:commonAuth + 'ampliations',
    // typeEmployeurUrl: commonAppURI +'typeEmployeur',
 
   typesCotisationUrl:commonAppCOT+'type-cotisations',
