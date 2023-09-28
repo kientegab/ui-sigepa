@@ -13,6 +13,7 @@ import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { CrudToolbarComponent } from '../shared/comon/crud-toolbar/crud-toolbar.component';
 import {ArchwizardModule} from "angular-archwizard";
+import { MinistereComponent } from './parametre/ministere/ministere.component';
 
 @NgModule({
   declarations: [
