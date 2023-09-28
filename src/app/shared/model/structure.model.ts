@@ -5,6 +5,7 @@ export interface IStructure {
     code?: number;
     libelle?: string;
     typeStructure?: TypeStructure;
+    structureParent?: Structure
 }
 
 export class Structure implements IStructure {
@@ -12,7 +13,9 @@ export class Structure implements IStructure {
         public id?: number,
         public code?: number,
         public libelle?: string,
-        typeStructure?: TypeStructure
+        typeStructure?: TypeStructure,
+        structureParent?: Structure
+
     ){}
 }
 export interface GetAllStructureResponse {
