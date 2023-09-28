@@ -3,6 +3,7 @@ export interface ITypeDemande {
     id?: number;
     code?: number;
     libelle?: string;
+    plafondAnnee?: number;
 }
 
 export class TypeDemande implements ITypeDemande {
@@ -10,6 +11,7 @@ export class TypeDemande implements ITypeDemande {
         public id?: number,
         public code?: number,
         public libelle?: string,
+        public plafondAnnee?: number,
     ){}
 }
 export interface GetAllTypeDemandeResponse {
