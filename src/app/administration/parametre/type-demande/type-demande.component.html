@@ -45,7 +45,7 @@
     </div>
     <p-table #dtf [value]="typeDemandes" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)"
              [totalRecords]="totalRecords"  (onLazyLoad)="loadAll()" [lazy]="true"
-             [globalFilterFields]="['code','libelle']"
+             [globalFilterFields]="['code','libelle','plafondAnnee']"
              currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements"
              [showCurrentPageReport]=true
              [rowsPerPageOptions]="[20, 50, 100, 500]" styleClass="p-datatable-gridlines">
@@ -55,6 +55,7 @@
                 <!-- <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon></th>-->
                 <th pSortableColumn="code">Code<p-sortIcon field="code"></p-sortIcon></th>
                 <th pSortableColumn="libelle">Libelle<p-sortIcon field="libelle"></p-sortIcon></th>
+                <th pSortableColumn="libelle">Plafond Annee<p-sortIcon field="plafondAnnee"></p-sortIcon></th>
                 <th class="actionsStyle">Action</th>
             </tr>
         </ng-template>
@@ -62,6 +63,7 @@
             <tr>
                 <td>{{ typeDmd.code }}</td>
                 <td>{{ typeDmd.libelle }}</td>
+                <td>{{ typeDmd.plafondAnnee }}</td>
 
                 <td class="actionsStyle">
                     <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(typeDmd)"
