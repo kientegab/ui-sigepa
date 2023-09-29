@@ -26,9 +26,6 @@ import {
     DashboardAdministrationComponent,
     ActionsToolbarIudComponent,
     CrudToolbarComponent,
-    
-    AmpliationComponent,
-    CreerModifierAmpliationComponent
   ],
   imports: [
   CommonModule,

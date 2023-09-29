@@ -20,11 +20,13 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PaginatorModule } from 'primeng/paginator';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CircuitComponent } from './circuit.component';
+import { DetailsCircuitComponent } from './details-circuit/details-circuit.component';
 
 @NgModule({
   declarations: [
     CircuitComponent,
-    CreerModifierCircuitComponent
+    CreerModifierCircuitComponent,
+    DetailsCircuitComponent
   ],
   imports: [
     CommonModule,
