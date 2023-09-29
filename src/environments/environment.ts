@@ -38,6 +38,7 @@ export const environment = {
   authResource: commonAuth +'utilisateurs/signin',
   accountResource: commonAuth +'utilisateurs/validate',
   visaUrl: commonAuth + 'visas',
+  motifUrl: commonAuth + 'motifs',
   ministereUrl: commonAuth + 'ministeres',
   ampliationUrl:commonAuth + 'ampliations',
    // typeEmployeurUrl: commonAppURI +'typeEmployeur',
