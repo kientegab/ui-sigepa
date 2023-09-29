@@ -52,7 +52,11 @@ export class AppMenuComponent implements OnInit {
                                         routerLink: ['/admin/communes']
                                     },
                                     {
-                                        label: 'Structure',
+                                        label: 'Circuit',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/circuit']
+                                    },
+                                    {   label: 'Structure',
                                         icon: 'pi pi-fw pi-eye-slash',
                                         routerLink: ['/admin/structures']
                                     },

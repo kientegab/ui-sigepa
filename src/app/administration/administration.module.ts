@@ -13,6 +13,9 @@ import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { CrudToolbarComponent } from '../shared/comon/crud-toolbar/crud-toolbar.component';
 import {ArchwizardModule} from "angular-archwizard";
+import { CircuitComponent } from './parametre/circuit/circuit.component';
+import { CardModule } from 'primeng/card';
+
 import { AmpliationComponent } from './parametre/ampliation/ampliation.component';
 import {
     CreerModifierAmpliationComponent
@@ -23,8 +26,6 @@ import {
     DashboardAdministrationComponent,
     ActionsToolbarIudComponent,
     CrudToolbarComponent,
-    AmpliationComponent,
-    CreerModifierAmpliationComponent
   ],
   imports: [
   CommonModule,
@@ -35,6 +36,8 @@ import {
     ButtonModule,
     KnobModule,
     ChartModule,
+    TableModule, 
+    CardModule,
     TableModule,
     ArchwizardModule.forRoot()
   ],

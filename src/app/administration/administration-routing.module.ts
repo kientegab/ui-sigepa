@@ -5,6 +5,7 @@ import { DashboardAdministrationComponent } from './dashboard-administration.com
 const routes: Routes = [
   { path: '', data: {breadcrumb: 'Tableau de bord'}, component: DashboardAdministrationComponent },
   { path: 'account/infos-user', loadChildren: () => import('../account/infos-user/infos-user.module').then(m => m.InfosUserModule) },
+  { path: 'circuit', data: {breadcrumb: 'Gestion des circuits'}, loadChildren: () => import('./parametre/circuit/circuit.module').then(m => m.CircuitModule) },
   { path: 'ministeres', data: {breadcrumb: 'Gestion des ministeres'}, loadChildren: () => import('./parametre/ministere/ministere.module').then(m => m.MinistereModule) },
   { path: 'visas', data: {breadcrumb: 'Gestion des visas'}, loadChildren: () => import('./parametre/visa/visa.module').then(m => m.VisaModule) },
   { path: 'structures', data: {breadcrumb: 'Gestion des structures'}, loadChildren: () => import('./parametre/structure/structure.module').then(m => m.StructureModule) },
