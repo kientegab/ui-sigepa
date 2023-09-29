@@ -15,15 +15,12 @@ import { CrudToolbarComponent } from '../shared/comon/crud-toolbar/crud-toolbar.
 import {ArchwizardModule} from "angular-archwizard";
 import { MinistereComponent } from './parametre/ministere/ministere.component';
 import { AmpliationComponent } from './parametre/ampliation/ampliation.component';
-import { CreerModifierAmpliationComponent } from './parametre/creer-modifier-ampliation/creer-modifier-ampliation.component';
 
 @NgModule({
   declarations: [
     DashboardAdministrationComponent,
     ActionsToolbarIudComponent,
-    CrudToolbarComponent,
-    AmpliationComponent,
-    CreerModifierAmpliationComponent
+    CrudToolbarComponent
   ],
   imports: [
   CommonModule,

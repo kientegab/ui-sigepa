@@ -10,6 +10,8 @@ const routes: Routes = [
   { path: 'structures', data: {breadcrumb: 'Gestion des structures'}, loadChildren: () => import('./parametre/structure/structure.module').then(m => m.StructureModule) },
   { path: 'type-structures', data: {breadcrumb: 'Gestion des types de structures'}, loadChildren: () => import('./parametre/type-structure/type-structure.module').then(m => m.TypeStructureModule) },
   { path: 'type-demandes', data: {breadcrumb: 'Gestion des types de demandes'}, loadChildren: () => import('./parametre/type-demande/type-demande.module').then(m => m.TypeDemandeModule) },
+  { path: 'ampliations', data: {breadcrumb: 'Gestion des ampliations'}, loadChildren: () => import('./parametre/ampliation/ampliation.module').then(m => m.AmpliationModule) },
+
   { path: '**', redirectTo: '/notfound' }
 ];
 
