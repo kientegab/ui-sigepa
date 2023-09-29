@@ -23,6 +23,9 @@ export const environment = {
 
   exemple: commonAppURI +'pays',
   communeUrl: commonAppURI +'communes',
+  pieceUrl: commonAppURI +'pieces',
+  articleUrl: commonAppURI +'articles',
+  corpsUrl: commonAppURI +'corps',
   provinceUrl: commonAppURI +'provinces',
   typesPieceUrl: commonAppURI +'type-pieces',
   typesAssureUrl: commonAppURI +'type-assures',
