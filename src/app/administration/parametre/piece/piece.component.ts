@@ -5,12 +5,11 @@ import { MenuItem, ConfirmationService, Message } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { CURRENT_PAGE, MAX_SIZE_PAGE } from 'src/app/shared/constants/pagination.constants';
-import { IPiece, Piece } from 'src/app/shared/model/piece';
 import { PieceService } from 'src/app/shared/service/piece.service';
-import { ProvinceService } from 'src/app/shared/service/province-service';
 import { environment } from 'src/environments/environment';
 import { CreerModifierPieceComponent } from './creer-modifier-piece/creer-modifier-piece.component';
 import { DetailsPieceComponent } from './details-piece/details-piece.component';
+import {IPiece, Piece} from "../../../shared/model/piece.model";
 
 @Component({
   selector: 'app-piece',
@@ -49,12 +48,11 @@ export class PieceComponent {
   filtreLibelle: string | undefined;
   items: MenuItem[] = [];
 
-  
+
 
   constructor(
     private pieceService: PieceService,
     private activatedRoute: ActivatedRoute,
-    private provinceService: ProvinceService,
     private dialogService: DialogService,
     private dialogRef: DynamicDialogRef,
     private router: Router,
@@ -62,13 +60,13 @@ export class PieceComponent {
     ){}
 
 
-   ngOnInit(): void { 
+   ngOnInit(): void {
         this.activatedRoute.data.subscribe(
           () => {
             this.loadAll();
           }
         );
-        
+
       }
 
       ngOnDestroy(): void {
@@ -83,7 +81,7 @@ export class PieceComponent {
       filtrer(): void {
         this.loadAll();
       }
-    
+
       resetFilter(): void {
         this.filtreLibelle = undefined;
         this.filtrer();
@@ -91,12 +89,12 @@ export class PieceComponent {
 
       loadPage(event:any): void {
         if(event){
-          this.page = event.first/event.rows + 1; 
+          this.page = event.first/event.rows + 1;
           this.recordsPerPage = event.rows;
         }
         this.transition();
       }
-    
+
       transition(): void {
         this.router.navigate(['./'], {
           relativeTo: this.activatedRoute.parent,
@@ -117,8 +115,8 @@ export class PieceComponent {
           }
         });
       }
-      
-        
+
+
       sortMethod(): string[] {
         this.predicate = 'id';
         this.reverse = true;
@@ -195,7 +193,7 @@ export class PieceComponent {
               this.loadAll();
               this.showMessage({ severity: 'success', summary: 'Piece modifiée avec succès' });
             }
-           
+
           });
 
       }

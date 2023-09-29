@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
 import { CURRENT_PAGE, MAX_SIZE_PAGE } from 'src/app/shared/constants/pagination.constants';
 import { IArticle, Article } from 'src/app/shared/model/article.model';
 import { ArticleService } from 'src/app/shared/service/article.service';
-import { ProvinceService } from 'src/app/shared/service/province-service';
 import { environment } from 'src/environments/environment';
 import { CreerModifierArticleComponent } from './creer-modifier-article/creer-modifier-article.component';
 import { DetailsArticleComponent } from './details-article/details-article.component';
@@ -49,12 +48,11 @@ export class ArticleComponent {
   filtreLibelle: string | undefined;
   items: MenuItem[] = [];
 
-  
+
 
   constructor(
     private articleService: ArticleService,
     private activatedRoute: ActivatedRoute,
-    private provinceService: ProvinceService,
     private dialogService: DialogService,
     private dialogRef: DynamicDialogRef,
     private router: Router,
@@ -62,13 +60,13 @@ export class ArticleComponent {
     ){}
 
 
-   ngOnInit(): void { 
+   ngOnInit(): void {
         this.activatedRoute.data.subscribe(
           () => {
             this.loadAll();
           }
         );
-        
+
       }
 
       ngOnDestroy(): void {
@@ -83,7 +81,7 @@ export class ArticleComponent {
       filtrer(): void {
         this.loadAll();
       }
-    
+
       resetFilter(): void {
         this.filtreLibelle = undefined;
         this.filtrer();
@@ -91,12 +89,12 @@ export class ArticleComponent {
 
       loadPage(event:any): void {
         if(event){
-          this.page = event.first/event.rows + 1; 
+          this.page = event.first/event.rows + 1;
           this.recordsPerPage = event.rows;
         }
         this.transition();
       }
-    
+
       transition(): void {
         this.router.navigate(['./'], {
           relativeTo: this.activatedRoute.parent,
@@ -117,8 +115,8 @@ export class ArticleComponent {
           }
         });
       }
-      
-        
+
+
       sortMethod(): string[] {
         this.predicate = 'id';
         this.reverse = true;
@@ -195,7 +193,7 @@ export class ArticleComponent {
               this.loadAll();
               this.showMessage({ severity: 'success', summary: 'Article modifiée avec succès' });
             }
-           
+
           });
 
       }

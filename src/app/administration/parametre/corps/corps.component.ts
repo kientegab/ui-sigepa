@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
 import { CURRENT_PAGE, MAX_SIZE_PAGE } from 'src/app/shared/constants/pagination.constants';
 import { ICorps, Corps } from 'src/app/shared/model/corps.model';
 import { CorpsService } from 'src/app/shared/service/corps.service';
-import { ProvinceService } from 'src/app/shared/service/province-service';
 import { environment } from 'src/environments/environment';
 import { CreerModifierCorpsComponent } from './creer-modifier-corps/creer-modifier-corps.component';
 import { DetailsCorpsComponent } from './details-corps/details-corps.component';
@@ -47,12 +46,11 @@ export class CorpsComponent {
   filtreLibelle: string | undefined;
   items: MenuItem[] = [];
 
-  
+
 
   constructor(
     private corpsService: CorpsService,
     private activatedRoute: ActivatedRoute,
-    private provinceService: ProvinceService,
     private dialogService: DialogService,
     private dialogRef: DynamicDialogRef,
     private router: Router,
@@ -60,13 +58,13 @@ export class CorpsComponent {
     ){}
 
 
-   ngOnInit(): void { 
+   ngOnInit(): void {
         this.activatedRoute.data.subscribe(
           () => {
             this.loadAll();
           }
         );
-        
+
       }
 
       ngOnDestroy(): void {
@@ -81,7 +79,7 @@ export class CorpsComponent {
       filtrer(): void {
         this.loadAll();
       }
-    
+
       resetFilter(): void {
         this.filtreLibelle = undefined;
         this.filtrer();
@@ -89,12 +87,12 @@ export class CorpsComponent {
 
       loadPage(event:any): void {
         if(event){
-          this.page = event.first/event.rows + 1; 
+          this.page = event.first/event.rows + 1;
           this.recordsPerPage = event.rows;
         }
         this.transition();
       }
-    
+
       transition(): void {
         this.router.navigate(['./'], {
           relativeTo: this.activatedRoute.parent,
@@ -115,8 +113,8 @@ export class CorpsComponent {
           }
         });
       }
-      
-        
+
+
       sortMethod(): string[] {
         this.predicate = 'id';
         this.reverse = true;
@@ -176,7 +174,7 @@ export class CorpsComponent {
               this.loadAll();
               this.showMessage({ severity: 'success', summary: 'Corps modifiée avec succès' });
             }
-           
+
           });
 
       }

@@ -2,9 +2,9 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { IPiece } from '../model/piece';
 import { createRequestOption } from '../util/request-util';
 import { environment } from 'src/environments/environment';
+import {IPiece} from "../model/piece.model";
 
 type EntityResponseType = HttpResponse<IPiece>;
 type EntityArrayResponseType = HttpResponse<IPiece[]>;
