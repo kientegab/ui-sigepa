@@ -28,7 +28,7 @@
         <div class="col-12 md:col-12">
             <label for="ministere">Ministère :</label>
             <div>
-                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="typeStructures"  [(ngModel)]="structure.typeStructure" optionLabel="libelle" inputId="province"
+                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="ministeres"  [(ngModel)]="structure.ministere" optionLabel="libelle" inputId="province"
                             name="ministere" placeholder="Selectionner le ministère..." [filter]="true" appendTo="body" [showClear]="true">
                 </p-dropdown>
             </div>

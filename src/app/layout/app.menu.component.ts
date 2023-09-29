@@ -43,16 +43,49 @@ export class AppMenuComponent implements OnInit {
                         ]
                     },
                     {
+                        label: 'Détachements',
+                        icon: 'pi pi-lock',
+                        //visible: this.authService.checkPermission([Authority.ADMIN, Authority.VIEW_USER], AuthenticationService.privileges),
+                        items: [
+                            {
+                                label: 'Mes demandes',
+                                icon: 'pi pi-fw pi-eye-slash',
+                                routerLink: ['/detachements']
+                            },
+                            {
+                                label: 'Demandes agents',
+                                icon: 'pi pi-fw pi-eye-slash',
+                                routerLink: ['/detachements/agents']
+                            }
+                        ]
+                    },
+                    {
+                        label: 'Disponilités',
+                        icon: 'pi pi-lock',
+                        //visible: this.authService.checkPermission([Authority.ADMIN, Authority.VIEW_USER], AuthenticationService.privileges),
+                        items: [
+                            {
+                                label: 'Mes demandes',
+                                icon: 'pi pi-fw pi-eye-slash',
+                                routerLink: ['/disponibilites']
+                            },
+                            {
+                                label: 'Demandes agents',
+                                icon: 'pi pi-fw pi-eye-slash',
+                                routerLink: ['/disponibilites/agents']
+                            }
+                        ]
+                    },
+                    {
                         label: 'Paramètres',
                         icon: 'pi pi-fw pi-cog',
                         items: [
                                     {
-                                        label: 'Commune',
+                                        label: 'Circuit',
                                         icon: 'pi pi-fw pi-eye-slash',
-                                        routerLink: ['/admin/communes']
+                                        routerLink: ['/admin/circuit']
                                     },
-                                    {
-                                        label: 'Structure',
+                                    {   label: 'Structure',
                                         icon: 'pi pi-fw pi-eye-slash',
                                         routerLink: ['/admin/structures']
                                     },
@@ -81,7 +114,23 @@ export class AppMenuComponent implements OnInit {
                                         label: 'ampliations',
                                         icon: 'pi pi-fw pi-eye-slash',
                                         routerLink: ['/admin/ampliations']
-                                    }
+                                    },
+
+                                    {
+                                        label: 'Pieces',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/pieces']
+                                    },
+                                    {
+                                        label: 'Articles',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/articles']
+                                    },
+                                    {
+                                        label: 'Corps',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/corps']
+                                    },
 
                                 ]
                             },

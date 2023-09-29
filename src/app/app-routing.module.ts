@@ -67,6 +67,8 @@ const routes: Routes = [
         ]
     },
     { path: 'auth/login', data: { breadcrumb: 'Auth' }, loadChildren: () => import('./account/login/login.module').then(m => m.LoginModule) },
+    { path: 'detachements', data: { breadcrumb: 'Detachement' }, component: AppLayoutComponent, loadChildren: () => import('./detachement/detachement.module').then(m => m.DetachementModule) },
+    { path: 'disponibilites', data: { breadcrumb: 'disponibilite' },component: AppLayoutComponent, loadChildren: () => import('./disponibilite/disponibilite.module').then(m => m.DisponibiliteModule) },
     { path: 'notfound', loadChildren: () => import('./shared/notfound/notfound.module').then(m => m.NotfoundModule) },
     
     { path: '**', redirectTo: '/notfound' }

@@ -13,14 +13,19 @@ import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { CrudToolbarComponent } from '../shared/comon/crud-toolbar/crud-toolbar.component';
 import {ArchwizardModule} from "angular-archwizard";
-import { MinistereComponent } from './parametre/ministere/ministere.component';
+import { CircuitComponent } from './parametre/circuit/circuit.component';
+import { CardModule } from 'primeng/card';
+
 import { AmpliationComponent } from './parametre/ampliation/ampliation.component';
+import {
+    CreerModifierAmpliationComponent
+} from "./parametre/ampliation/creer-modifier-ampliation/creer-modifier-ampliation.component";
 
 @NgModule({
   declarations: [
     DashboardAdministrationComponent,
     ActionsToolbarIudComponent,
-    CrudToolbarComponent
+    CrudToolbarComponent,
   ],
   imports: [
   CommonModule,
@@ -32,6 +37,8 @@ import { AmpliationComponent } from './parametre/ampliation/ampliation.component
     KnobModule,
     ChartModule,
     TableModule, 
+    CardModule,
+    TableModule,
     ArchwizardModule.forRoot()
   ],
   exports: [
