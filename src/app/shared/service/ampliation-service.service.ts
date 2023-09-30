@@ -15,7 +15,7 @@ const ampliationUrl = environment.ampliationUrl;
 @Injectable({
   providedIn: 'root'
 })
-export class AmpliationServiceService {
+export class AmpliationService {
 
   constructor(private http:HttpClient) { }
 
