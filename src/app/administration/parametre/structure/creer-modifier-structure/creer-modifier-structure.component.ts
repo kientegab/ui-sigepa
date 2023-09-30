@@ -31,6 +31,8 @@ export class CreerModifierStructureComponent {
     timeoutHandle: any;
     isOpInProgress!: boolean;
 
+    structureParent: IStructure = new Structure();
+
     constructor(
         private structureService: StructureService,
         private typeStructureService: TypeStructureService,
@@ -90,6 +92,7 @@ export class CreerModifierStructureComponent {
         this.dialogErrorMessage = null;
     }
     // Errors
+
     handleError(error: HttpErrorResponse) {
         console.error(`Processing Error: ${JSON.stringify(error)}`);
         this.isDialogOpInProgress = false;
@@ -105,7 +108,8 @@ export class CreerModifierStructureComponent {
     saveEntity(): void {
         this.clearDialogMessages();
         this.isDialogOpInProgress = true;
-        console.warn("STRUCTURE",this.structure);
+        console.warn("STRUCTURE RECUP",this.structure);
+        console.warn("STRUCTURE RECUP",this.structureParent);
         if (this.structure) {
             if (this.structure.id) {
                 this.structureService.update(this.structure).subscribe(
@@ -114,7 +118,6 @@ export class CreerModifierStructureComponent {
                             this.dialogRef.close(response);
                             this.dialogRef.destroy();
                             this.showMessage({ severity: 'success', summary: 'structure modifié avec succès' });
-
                         },
                         error: (error) => {
                             console.error("error" + JSON.stringify(error));
