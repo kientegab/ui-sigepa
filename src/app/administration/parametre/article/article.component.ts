@@ -160,7 +160,7 @@ export class ArticleComponent {
       openModalCreate(): void {
         this.dialogService.open(CreerModifierArticleComponent,
           {
-            header: 'Ajouter une article',
+            header: 'Ajouter un article',
             width: '60%',
             contentStyle: { overflow: 'auto', },
             baseZIndex: 10000,
@@ -171,7 +171,7 @@ export class ArticleComponent {
           if(result) {
           this.articles.push(result);
           this.isDialogOpInProgress = false;
-          this.showMessage({ severity: 'success', summary: 'Article créée avec succès' });
+          this.showMessage({ severity: 'success', summary: 'Article créé avec succès' });
           }
         });
       }
@@ -191,7 +191,7 @@ export class ArticleComponent {
             if(result){
               this.isDialogOpInProgress = false;
               this.loadAll();
-              this.showMessage({ severity: 'success', summary: 'Article modifiée avec succès' });
+              this.showMessage({ severity: 'success', summary: 'Article modifié avec succès' });
             }
 
           });
@@ -202,7 +202,7 @@ export class ArticleComponent {
       openModalDetail(article:IArticle): void {
         this.dialogService.open(DetailsArticleComponent,
           {
-            header: 'Details de article',
+            header: 'Détails de l\'article',
             width: '60%',
             contentStyle: { overflow: 'auto' },
             baseZIndex: 10000,
@@ -215,7 +215,7 @@ export class ArticleComponent {
       // Deletion
       onDelete(article: IArticle) {
         this.confirmationService.confirm({
-          message: 'Etes-vous sur de vouloir supprimer ce article?',
+          message: 'Etes-vous sur de vouloir supprimer cet article?',
           accept: () => {
             this.delete(article);
           }
@@ -231,7 +231,7 @@ export class ArticleComponent {
           this.totalRecords--;
           this.showMessage({
             severity: 'success',
-            summary: 'Article supprimée avec succès',
+            summary: 'Article supprimé avec succès',
           });
         }, (error) => {
           console.error("article " + JSON.stringify(error));

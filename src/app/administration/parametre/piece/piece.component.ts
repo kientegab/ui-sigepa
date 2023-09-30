@@ -180,7 +180,7 @@ export class PieceComponent {
       openModalEdit(piece: IPiece): void {
         this.dialogService.open(CreerModifierPieceComponent,
           {
-            header: 'Modifier un piece',
+            header: 'Modifier une piece',
             width: '60%',
             contentStyle: { overflow: 'auto' },
             baseZIndex: 10000,
@@ -202,7 +202,7 @@ export class PieceComponent {
       openModalDetail(piece:IPiece): void {
         this.dialogService.open(DetailsPieceComponent,
           {
-            header: 'Details de piece',
+            header: 'Details de la piece',
             width: '60%',
             contentStyle: { overflow: 'auto' },
             baseZIndex: 10000,
@@ -215,7 +215,7 @@ export class PieceComponent {
       // Deletion
       onDelete(piece: IPiece) {
         this.confirmationService.confirm({
-          message: 'Etes-vous sur de vouloir supprimer ce piece?',
+          message: 'Etes-vous sur de vouloir supprimer cette piece?',
           accept: () => {
             this.delete(piece);
           }
