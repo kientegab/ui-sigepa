@@ -20,9 +20,11 @@ import { AmpliationComponent } from './parametre/ampliation/ampliation.component
 import {
     CreerModifierAmpliationComponent
 } from "./parametre/ampliation/creer-modifier-ampliation/creer-modifier-ampliation.component";
+import { MotifComponent } from './parametre/motif/motif.component';
 
 @NgModule({
   declarations: [
+   
     DashboardAdministrationComponent,
     ActionsToolbarIudComponent,
     CrudToolbarComponent
