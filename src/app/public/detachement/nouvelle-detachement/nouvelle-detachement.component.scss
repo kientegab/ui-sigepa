@@ -1,4 +1,4 @@
-@import "../../../../node_modules/primeflex/primeflex.css";
+@import "../../../../../node_modules/primeflex/primeflex.css";
 .flex-item {
     flex: 100%;
     width: 100%;
@@ -15,10 +15,8 @@
     padding: 20px;
     font-size: large;
     font-style: italic;
-    color: black;
-    
+    color: black;  
     background-size: cover;
-    background: url("/assets/img/image2.png") no-repeat ;
     border-bottom: black 5px;
 }
   
@@ -31,9 +29,5 @@
     font-style: italic;
     color: black;
     background-size: cover;
-    background: url("/assets/img/actee.png");
   }
-
-  .ontop{
-    font-size: 12px;
-  }
+ 

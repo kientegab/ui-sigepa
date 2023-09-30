@@ -11,6 +11,9 @@ import { PublicMenuComponent } from './public-menu/public-menu.component';
 import { PublicFooterComponent } from './public-footer/public-footer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MenubarModule } from 'primeng/menubar';
+import { LoginComponent } from '../account/login/login.component';
+import { AccountRoutingModule } from '../account/account-routing.module';
+import { NouvelleDetachementComponent } from './detachement/nouvelle-detachement/nouvelle-detachement.component';
 
 
 @NgModule({
@@ -20,6 +23,9 @@ import { MenubarModule } from 'primeng/menubar';
     PublicMenuComponent,
     PublicFooterComponent,
     HomePageComponent,
+    NouvelleDetachementComponent,
+    
+    
   ],
   imports: [
     CommonModule,
@@ -27,7 +33,8 @@ import { MenubarModule } from 'primeng/menubar';
     RouterModule,
     StyleClassModule,
     PublicRoutingModule,
-    MenubarModule
+    MenubarModule,
+    AccountRoutingModule
   ]
 })
 export class PublicModule { }

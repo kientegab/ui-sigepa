@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardPublicComponent } from './dashboard-public.component';
+import { LoginComponent } from '../account/login/login.component';
+import { NouvelleDetachementComponent } from './detachement/nouvelle-detachement/nouvelle-detachement.component';
 
 const routes: Routes = [
   { path: '', component: DashboardPublicComponent },
-  { path: '**', redirectTo: '/notfound' }
+  { path: '**', redirectTo: '/notfound' },
+  
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+
+exports: [RouterModule]
 })
 export class PublicRoutingModule { }

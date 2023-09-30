@@ -90,7 +90,7 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
           items: [
             {
               label: 'Nouvelle disponibilité',
-              routerLink: ['/public/congeAnnuel'],
+              routerLink: ['/N_detachement'],
               routerLinkActiveOptions: {
                 exact: true
               }
@@ -157,7 +157,7 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
        window.location.reload();
      }
      login() {
-       this.router.navigate(['/login']);
+       this.router.navigate(['/auth/login']);
      }
 
 }
