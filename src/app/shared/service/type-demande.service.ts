@@ -10,7 +10,7 @@ type EntityResponseType = HttpResponse<ITypeDemande>;
 type EntityArrayResponseType = HttpResponse<ITypeDemande[]>;
 
 
-const typeDemandeUrl = environment.communeUrl+'type-demandes';
+const typeDemandeUrl = "assets/data/typeDemandes.json";
 
 @Injectable({
   providedIn: 'root'

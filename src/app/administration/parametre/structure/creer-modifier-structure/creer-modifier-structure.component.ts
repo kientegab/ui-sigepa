@@ -43,16 +43,16 @@ export class CreerModifierStructureComponent {
     ngOnInit(): void {
         this.loadTypeStructure();
         this.loadMinistere();
+        this.loadStructure();
         if (this.dynamicDialog.data) {
             this.structure = cloneDeep(this.dynamicDialog.data);
         }
     }
 
 
-    loadTypeStructure(event?: LazyLoadEvent) {
+    loadTypeStructure() {
         this.typeStructureService.findListe().subscribe(response => {
             this.typeStructures = response.body!;
-            console.error("ppp", this.typeStructures)
         }, error => {
             this.message = { severity: 'error', summary: error.error };
             console.error(JSON.stringify(error));
@@ -63,6 +63,15 @@ export class CreerModifierStructureComponent {
         this.ministereService.findListe().subscribe(response => {
             this.ministeres = response.body!;
             console.warn("MIN",this.ministeres);
+        }, error => {
+            this.message = { severity: 'error', summary: error.error };
+            console.error(JSON.stringify(error));
+        });
+    }
+    loadStructure() {
+        this.structureService.findListe().subscribe(response => {
+            this.structures = response.body!;
+            console.warn("STR",this.structures);
         }, error => {
             this.message = { severity: 'error', summary: error.error };
             console.error(JSON.stringify(error));

@@ -25,10 +25,18 @@
             <label for="libelle">Libelle :</label>
             <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="structure.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
         </div>
+        <div class="field col-12 md:col-12">
+            <label for="libelle">Sigle :</label>
+            <input type="text" id="sigle" name="sigle" #sigle="ngModel" [(ngModel)]="structure.sigle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+        <div class="field col-12 md:col-12">
+            <label for="libelle">Responsable :</label>
+            <input type="text" id="responsable" name="responsable" #responsable="ngModel" [(ngModel)]="structure.responsable" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
         <div class="col-12 md:col-12">
             <label for="ministere">Ministère :</label>
             <div>
-                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="ministeres"  [(ngModel)]="structure.ministere" optionLabel="libelle" inputId="libelle"
+                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="ministeres"  [(ngModel)]="structure.ministereDTO" optionLabel="libelle" inputId="libelle"
                             name="ministere" placeholder="Selectionner le ministère..." [filter]="true" appendTo="body" [showClear]="true">
                 </p-dropdown>
             </div>
@@ -44,8 +52,8 @@
         <div class="col-12 md:col-12">
             <label for="structureParent">Structure parent :</label>
             <div>
-                <p-dropdown autoWidth="false"  id="structureParent" styleClass="mb-3" [style]="{'width':'100%'}" [options]="structures"  [(ngModel)]="structure.parent" optionLabel="libelle" inputId="province"
-                            name="province" placeholder="Selectionner le structure parent..." [filter]="true" appendTo="body" [showClear]="true">
+                <p-dropdown autoWidth="false"  id="structureParent" styleClass="mb-3" [style]="{'width':'100%'}" [options]="structures"  [(ngModel)]="structure.parent" optionLabel="structure.libelle"
+                            name="strParent" placeholder="Selectionner le structure parent..." [filter]="true" appendTo="body" [showClear]="true">
                 </p-dropdown>
             </div>
         </div>

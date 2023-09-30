@@ -5,9 +5,11 @@ export interface IStructure {
     id?: number;
     code?: number;
     libelle?: string;
+    sigle?: string;
+    responsable?: string;
     type?: TypeStructure;
     parent?: Structure;
-    ministere?: Ministere
+    ministereDTO?: Ministere
 }
 
 export class Structure implements IStructure {
@@ -15,9 +17,11 @@ export class Structure implements IStructure {
         public id?: number,
         public code?: number,
         public libelle?: string,
-        type?: TypeStructure,
-        parent?: Structure,
-        ministere?: Ministere,
+        public sigle?: string,
+        public responsable?: string,
+        public type?: TypeStructure,
+        public parent?: Structure,
+        public ministereDTO?: Ministere,
 
     ){}
 }
