@@ -15,7 +15,7 @@ const demandeUrl = environment.demandeUrl;
 @Injectable({
   providedIn: 'root'
 })
-export class DemandeServiceService {
+export class DemandeService {
 
   constructor(private http:HttpClient) { }
 

@@ -25,7 +25,7 @@ import {
   declarations: [
     DashboardAdministrationComponent,
     ActionsToolbarIudComponent,
-    CrudToolbarComponent,
+    CrudToolbarComponent
   ],
   imports: [
   CommonModule,
