@@ -26,14 +26,6 @@
             <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="structure.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
         </div>
         <div class="col-12 md:col-12">
-            <label for="ministere">Ministère :</label>
-            <div>
-                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="ministeres"  [(ngModel)]="structure.ministere" optionLabel="libelle" inputId="libelle"
-                            name="ministere" placeholder="Selectionner le ministère..." [filter]="true" appendTo="body" [showClear]="true">
-                </p-dropdown>
-            </div>
-        </div>
-        <div class="col-12 md:col-12">
             <label for="TypeStructure">Type structure :</label>
             <div>
                 <p-dropdown autoWidth="false"  id="TypeStructure" styleClass="mb-3" [style]="{'width':'100%'}" [options]="typeStructures"  [(ngModel)]="structure.type" optionLabel="libelle" inputId="province"
