@@ -48,6 +48,7 @@ export class CreerModifierStructureComponent {
         }
     }
 
+
     loadTypeStructure(event?: LazyLoadEvent) {
         this.typeStructureService.findListe().subscribe(response => {
             this.typeStructures = response.body!;
@@ -58,10 +59,10 @@ export class CreerModifierStructureComponent {
         });
     }
 
-    loadMinistere(event?: LazyLoadEvent) {
+    loadMinistere() {
         this.ministereService.findListe().subscribe(response => {
             this.ministeres = response.body!;
-            console.error("ppp", this.typeStructures)
+            console.warn("MIN",this.ministeres);
         }, error => {
             this.message = { severity: 'error', summary: error.error };
             console.error(JSON.stringify(error));
@@ -95,6 +96,7 @@ export class CreerModifierStructureComponent {
     saveEntity(): void {
         this.clearDialogMessages();
         this.isDialogOpInProgress = true;
+        console.warn("STRUCTURE",this.structure);
         if (this.structure) {
             if (this.structure.id) {
                 this.structureService.update(this.structure).subscribe(

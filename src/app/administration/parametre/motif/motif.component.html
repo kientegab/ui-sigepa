@@ -1,5 +1,14 @@
 
 <p-card>
+    <!-- <ng-template pTemplate="header">
+      <div class="card-header bg-header-cnamu">
+        <h4 class="text-white text-center text-bold">Gestion des Motifs</h4>
+      </div>
+    </ng-template> -->
+  
+    <!-- <p-divider></p-divider> -->
+    <!-- <h6 class="text-bold">Filtre</h6> -->
+    <!-- <hr /> -->
     <div class="_m-t-15">
      
       <div class="p-d-flex">
@@ -15,8 +24,8 @@
             <div class="form-group col-md-8 m-b-3">
               <span class="p-input-icon-left w-full">
                 <i class="pi pi-search"></i>
-                <input type="text" pInputText [(ngModel)]="filtreNumero" class="form-control filter-item-design" name="filterText"
-                    id="filterText" placeholder="Filtrer par numero" required/>
+                <input type="text" pInputText [(ngModel)]="filtreLibelle" class="form-control filter-item-design" name="filterText"
+                    id="filterText" placeholder="Filtrer par libelle" required/>
               </span>
             </div>
         
@@ -26,7 +35,7 @@
                </button>
             </div>
             <div class="form-group col-md-2 m-b-3">
-                <button pButton type="button" icon="pi pi-trash"  class="btn p-button-info p-button-filter filter-item-design" style="width: 100%" [disabled]="!filtreNumero" (click)="resetFilter()"
+                <button pButton type="button" icon="pi pi-trash"  class="btn p-button-info p-button-filter filter-item-design" style="width: 100%" [disabled]="!filtreLibelle" (click)="resetFilter()"
                     ngbTooltip="Annuler le filtre">
                      Rénitialiser
                 </button>
@@ -39,39 +48,44 @@
       </div>
       <div class="col-md-4">
         <app-crud-toolbar [enableCreate]="enableCreate" (create)="openModalCreate()" [enableEdit]="enableBtnEdit"
-    (edit)="openModalEdit(demande)">
+    (edit)="openModalEdit(Motif)">
   </app-crud-toolbar>
       </div>
   </div>
-    <p-table #dtf [value]="demandes" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)" 
+    <p-table #dtf [value]="Motifs" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)" 
       [totalRecords]="totalRecords"  (onLazyLoad)="loadAll()" [lazy]="true"
-      [globalFilterFields]="['numero','libelle']"
+      [globalFilterFields]="['code','libelle','Motif.libelle']"
       currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements" 
       [showCurrentPageReport]=true
       [rowsPerPageOptions]="[20, 50, 100, 500]" styleClass="p-datatable-gridlines">
-
+  
+      <!-- <ng-template pTemplate="caption">
+        <div class="row">
+          <div class="col text-right">
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="dtf.filterGlobal($any($event.target)!.value, 'contains')"
+                placeholder="Recherche..." />
+            </span>
+          </div>
+        </div>
+      </ng-template> -->
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th pSortableColumn="numero">Numero<p-sortIcon field="numero"></p-sortIcon></th>
-          <th pSortableColumn="dateDemande">Date<p-sortIcon field="dateDemande"></p-sortIcon></th>
-          <th pSortableColumn="structDestination">Structure de disponibilité<p-sortIcon field="structDestination"></p-sortIcon></th>
-          <th pSortableColumn="dateEffet">Date d'effet<p-sortIcon field="dateEffet"></p-sortIcon></th>
-          <th pSortableColumn="status">Statut<p-sortIcon field="status"></p-sortIcon></th>
+          <!-- <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon></th>-->
+          
+          <th pSortableColumn="libelle">Motif<p-sortIcon field="libelle"></p-sortIcon></th>
           <th class="actionsStyle">Action</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-article>   
+      <ng-template pTemplate="body" let-Motif>   
         <tr>
-          <td>{{ demande.numero }}</td>
-          <td>{{ demande.dateDemande }}</td>
-          <td>{{ demande.structDestination }}</td>
-          <td>{{ demande.dateEffet }}</td>
-          <td>{{ demande.status }}</td>
-  
+        
+          <td>{{ Motif.libelle }}</td>  
           <td class="actionsStyle">
-            <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(demande)"
-              [enableBtnInfo]="enableBtnInfo" (edit)="openModalEdit(demande)" [enableBtnEdit]="enableBtnEdit"
-              (delete)="onDelete(demande)" [enableBtnDelete]="enableBtnDelete">
+            <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(Motif)"
+              [enableBtnInfo]="enableBtnInfo" (edit)="openModalEdit(Motif)" [enableBtnEdit]="enableBtnEdit"
+              (delete)="onDelete(Motif)" [enableBtnDelete]="enableBtnDelete">
             </app-actions-toolbar-iud>
           </td>
         </tr>
