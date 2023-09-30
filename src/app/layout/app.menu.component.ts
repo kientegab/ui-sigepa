@@ -73,11 +73,6 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Demandes agents',
                                 icon: 'pi pi-fw pi-eye-slash',
                                 routerLink: ['/disponibilites/agents']
-                            },
-                            {
-                                label: 'Creation demande',
-                                icon: 'pi pi-fw pi-eye-slash',
-                                routerLink: ['/disponibilites/creation']
                             }
                         ]
                     },
