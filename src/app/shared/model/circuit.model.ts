@@ -2,7 +2,8 @@
 export class ICircuit{
     id?: number;
     libelle ?: string;
-    statut ?: boolean;
+    statu ?: boolean;
+    delais ?: string;
     parent ?: ICircuit
 }
 
@@ -10,7 +11,8 @@ export class Circuit implements ICircuit{
     constructor(
         public id?: number, 
         public libelle ?: string,
-        public statut ?: boolean,
+        public statu ?: boolean,
+        public delais ?: string,
         public parent ?: ICircuit
         
         ){}

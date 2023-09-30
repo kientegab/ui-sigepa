@@ -12,96 +12,152 @@ import { MenuItem } from 'primeng/api';
 ]
 })
 export class PublicMenuComponent implements OnDestroy, OnInit {
-  items: MenuItem[] = [];
+    loggedIn = false;
 
-  subscription: Subscription;
-
-  darkMode: boolean = false;
-  hidden: boolean = false
-
-  constructor(public router: Router, private layoutService: LayoutService) {
-      this.subscription = this.layoutService.configUpdate$.subscribe(config => {
-          this.darkMode = config.colorScheme === 'dark' || config.colorScheme === 'dim' ? true : false;
-      });
-  }
-
-  ngOnInit() {
-    this.items = [
+  
+    constructor(private router: Router) { }
+    ngOnDestroy(): void {
+        throw new Error('Method not implemented.');
+    }
+    
+    items: MenuItem[]=[];
+  
+  
+   
+    ngOnInit() {
+     
+      this.items = [
         {
-            label: 'Accueil',
-            routerLink: ['/'],
+          label: 'Accueil',
+          icon: 'pi pi-home',
+          routerLink: ['/public'] 
+        },
+        { 
+          label: 'Détachement',
+          items: [
+            {
+              label: 'Nouvelle détachement',
+              routerLink: ['/public/congeAnnuel'],
+              routerLinkActiveOptions: {
+                exact: true
+              }
+            },
+            {
+              separator: true
+            },
+            {
+              label: 'Renouvellement détachement',
+              routerLink: ['/public/congeMaternite'],
+              routerLinkActiveOptions: {
+                exact: true
+              } 
+            },
+            {
+              separator: true
+            },
+            {
+              label: 'Fin détachement',
+              routerLink: ['/public/congeMaladie'],
+              routerLinkActiveOptions: {
+                exact: true
+              } 
+            },
+            {
+              separator: true
+            },
+            {
+                label: 'Rectification détachement',
+                routerLink: ['/public/congeMaladie'],
+                routerLinkActiveOptions: {
+                  exact: true
+                } 
+              },
+              {
+                separator: true
+              },
+            {
+              label: 'Annulation détachement',
+              routerLink: ['/public/congeFinservice'],
+              routerLinkActiveOptions: {
+                exact: true
+              } 
+            },
+            
+          ]
         },
         {
-            label: 'Expace membre',
-            routerLink: ['/'],
+          label: 'Disponibilité',
+          items: [
+            {
+              label: 'Nouvelle disponibilité',
+              routerLink: ['/public/congeAnnuel'],
+              routerLinkActiveOptions: {
+                exact: true
+              }
+            },
+            {
+              separator: true
+            },
+            {
+              label: 'Renouvellement disponibilité',
+              routerLink: ['/public/congeMaternite'],
+              routerLinkActiveOptions: {
+                exact: true
+              } 
+            },
+            {
+              separator: true
+            },
+            {
+              label: 'Fin disponibilité',
+              routerLink: ['/public/congeMaladie'],
+              routerLinkActiveOptions: {
+                exact: true
+              } 
+            },
+            {
+              separator: true
+            },
+            {
+                label: 'Rectification disponibilité',
+                routerLink: ['/public/congeMaladie'],
+                routerLinkActiveOptions: {
+                  exact: true
+                } 
+              },
+              {
+                separator: true
+              },
+            {
+              label: 'Annulation disponibilité',
+              routerLink: ['/public/congeFinservice'],
+              routerLinkActiveOptions: {
+                exact: true
+              } 
+            },
+            
+          ]
+        },
+        
+        {
+          label: 'Manuel Utilisateur',
+          routerLink: ['/public/contact'] 
         },
         {
-            label: 'Bibliothèque',
-            items: [
-                {
-                    label: 'Loi',
-                    routerLink: ['/loi'],
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'Circulaire',
-                    routerLink: ['/circulaire'],
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'Décret',
-                    routerLink: ['/decret'],
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'Arrête',
-                    routerLink: ['/arrete'],
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'Note',
-                    routerLink: ['/note'],
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'Convention',
-                    routerLink: ['/convention'],
-                },
-                // {
-                //     separator: true
-                // },
-                // {
-                //     label: 'Formulaires',
-                //     routerLink: ['/bibliotheque'],
-                // }
-            ]
-        },
-        {
-            label: 'FAQ',
-            routerLink: ['/faq'],
-        },
-    ];
-}
+            label: 'Nous contacter',
+            routerLink: ['/public/contact'] 
+          },
+      ];
+    }
+  
+  
+    logout(): void {
+      // this.tokenStorageService.signOut();
+       this.router.navigate(['/']);
+       window.location.reload();
+     }
+     login() {
+       this.router.navigate(['/login']);
+     }
 
-showHideMenu(){
-    console.log(this.hidden);
-    if(this.hidden)
-        this.hidden = false;
-    else
-        this.hidden = true;
-}
-
-  ngOnDestroy() {
-      this.subscription.unsubscribe();
-  }
 }
