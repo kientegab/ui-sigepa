@@ -2,6 +2,7 @@ import {Article} from "./article.model";
 import {Visa} from "./visa.model";
 import {Piece} from "./piece.model";
 import {Ampliation} from "./ampliation.model";
+import {Motif} from "./motif.model";
 
 export interface ITypeDemande {
     id?: number;
@@ -9,6 +10,7 @@ export interface ITypeDemande {
     libelle?: string;
     plafondAnnee?: number;
     articleDTOs?: Article;
+    motifDTOs?: Motif;
     visaDTOs?: Visa;
     ampliationDTOs?: Ampliation;
     pieceDTOs?: Piece;
@@ -21,6 +23,8 @@ export class TypeDemande implements ITypeDemande {
         public libelle?: string,
         public plafondAnnee?: number,
         public articleDTOs?: Article,
+        public motifDTOs?: Motif,
+        public visaDTOs?: Visa,
         public ampliationDTOs?: Ampliation,
         public pieceDTOs?: Piece,
     ){}
