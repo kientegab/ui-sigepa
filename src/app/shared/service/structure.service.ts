@@ -9,6 +9,7 @@ import {IStructureMinistere} from "../model/structure-ministere.model";
 
 type EntityResponseType = HttpResponse<IStructure>;
 type EntityArrayResponseType = HttpResponse<IStructure[]>;
+const baseUri = environment.detachementUrl;
 
 
 const structureUrl = environment.detachementUrl+'/ministere-structures/list-page';
@@ -46,7 +47,7 @@ export class StructureService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<IStructure[]>(structureUrl, { observe: 'response' });
+    return this.http.get<IStructure[]>(`${baseUri}/structures/list`, { observe: 'response' });
   }
 
   getAll(event?: LazyLoadEvent): Observable<any> {

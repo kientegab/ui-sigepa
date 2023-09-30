@@ -23,6 +23,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule } from 'primeng/table';
 import { AppCommonModule } from '../shared/common/app-common.module';
+import {FileUploadModule} from "primeng/fileupload";
 
 
 @NgModule({
@@ -33,26 +34,27 @@ import { AppCommonModule } from '../shared/common/app-common.module';
     AviserDetachementComponent,
     DetachementAgentsComponent
   ],
-  imports: [
-    CommonModule,
-    DetachementRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    ButtonModule,
-    DynamicDialogModule,
-    TableModule,
-    CardModule,
-    InputTextModule,
-    DialogModule,
-    DividerModule,
-    ProgressBarModule,
-    MessageModule,
-    DropdownModule,
-    AppCommonModule,
-    ConfirmDialogModule,
-    ProgressSpinnerModule,
-    PaginatorModule,
-    CalendarModule
-  ]
+    imports: [
+        CommonModule,
+        DetachementRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        ButtonModule,
+        DynamicDialogModule,
+        TableModule,
+        CardModule,
+        InputTextModule,
+        DialogModule,
+        DividerModule,
+        ProgressBarModule,
+        MessageModule,
+        DropdownModule,
+        AppCommonModule,
+        ConfirmDialogModule,
+        ProgressSpinnerModule,
+        PaginatorModule,
+        CalendarModule,
+        FileUploadModule
+    ]
 })
 export class DetachementModule { }
