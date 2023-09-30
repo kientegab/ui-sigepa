@@ -5,7 +5,7 @@ import {Ampliation} from "./ampliation.model";
 
 export interface ITypeDemande {
     id?: number;
-    code?: number;
+    code?: string;
     libelle?: string;
     plafondAnnee?: number;
     articleDTOs?: Article;
@@ -17,7 +17,7 @@ export interface ITypeDemande {
 export class TypeDemande implements ITypeDemande {
     constructor(
         public id?: number,
-        public code?: number,
+        public code?: string,
         public libelle?: string,
         public plafondAnnee?: number,
         public articleDTOs?: Article,

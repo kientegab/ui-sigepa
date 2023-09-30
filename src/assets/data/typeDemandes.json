@@ -1,0 +1,38 @@
+[{
+    "id": 1,
+    "code": "DISP_N",
+    "libelle": "Nouvelle disponibilité"
+  },
+  {
+    "id": 2,
+    "code": "DISP_R",
+    "libelle": "Renouvellement disponibilité"
+  },
+  {
+    "id": 3,
+    "code": "DISP_F",
+    "libelle": "Fin disponibilité"
+  },
+  {
+    "id": 4,
+    "code": "DISP_A",
+    "libelle": "Annulation disponibilité"
+  },
+  {
+    "id": 5,
+    "code": "DISP_RE",
+    "libelle": "Rectification disponibilité"
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+

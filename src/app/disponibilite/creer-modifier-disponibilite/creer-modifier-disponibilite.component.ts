@@ -6,8 +6,11 @@ import { cloneDeep } from 'lodash';
 import { ConfirmationService, Message, SelectItem } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Demande, IDemande, TypeDemandeur } from 'src/app/shared/model/demande.model';
+import { IPiece } from 'src/app/shared/model/piece.model';
+import { IPieceJointe } from 'src/app/shared/model/pieceJointe.model';
 import { ITypeDemande } from 'src/app/shared/model/typeDemande.model';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
+import { TypeDemandeService } from 'src/app/shared/service/type-demande.service';
 
 @Component({
   selector: 'app-creer-modifier-disponibilite',
@@ -27,13 +30,52 @@ export class CreerModifierDisponibiliteComponent {
   dialogErrorMessage: any;
   timeoutHandle: any;
   isOpInProgress!: boolean;
-  typeDemande: ITypeDemande[]=[];
+  typeDemandes: ITypeDemande[]=[];
+  pieces: IPiece[] = [];
+  file: Blob | string = '';
+  selectedFile: File | null = null;
 
-  
+  // piece1: IPiece = { id: 1, libelle: 'Pièce 1'};
+  // piece2: IPiece = { id: 2, libelle: 'Pièce 2'};
+
+  // typeDemandeOptions: ITypeDemande[] = [
+  //   { code: 'DISP_N', libelle: 'Nouvelle disponibilité' },
+  //   { code: 'DISP_R', libelle: 'Renouvellement disponibilité' },
+  //   { code: 'DISP_F', libelle: 'Fin disponibilité' },
+  //   { code: 'DISP_A', libelle: 'Annulation disponibilité' },
+  //   { code: 'DISP_RE', libelle: 'Rectification disponibilité' }
+  // ];
+
+  // typesDemande: string[] = ['Nouvelle disponibilité', 'Renouvellement disponibilité', 'Fin disponibilité', 'Annulation disponibilité', 'Rectification disponibilité'];
+
+  onTypeDemandeChange() {
+    // Réinitialisez la liste des pièces jointes en fonction du type de demande sélectionné
+    // this.pieces = [];
+    // if (demande.typeDemande === 'Nouvelle disponibilité') {
+    //   this.pieces.push(this.piece1);
+    //   this.pieces.push(this.piece2);
+    // }
+  }
+
+  onFileChange(event: any, pieceJointe: string) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      // Vous pouvez stocker le fichier sélectionné dans le modèle
+      // this[pieceJointe].fichier = fileList[0];
+    }
+  }
+
+
+  onSelectFile(event: any): void {
+    console.log(event.target.files[0]);
+    this.file = event.target.files[0];
+  }
+
 
   constructor(
     private demandeService: DemandeService,
     private dialogRef: DynamicDialogRef,
+    private typeDemandeService: TypeDemandeService,
     // private dynamicDialog: DynamicDialogConfig,
     private confirmationService: ConfirmationService,
     private router: Router,
@@ -45,6 +87,7 @@ export class CreerModifierDisponibiliteComponent {
     // if (this.dynamicDialog.data) {
     //   this.demande = cloneDeep(this.dynamicDialog.data);
     // }
+    this.loadTypeDemande();
   }
 
   typeDemandeur: SelectItem[] = [
@@ -57,6 +100,17 @@ export class CreerModifierDisponibiliteComponent {
   openCalendar() {
     this.displayCalendar = true;
   }
+
+  loadTypeDemande() {
+    this.typeDemandeService.findAll().subscribe(response => {
+
+      this.typeDemandes = response.body!;
+    }, error => {
+      this.message = { severity: 'error', summary: error.error };
+      console.error(JSON.stringify(error));
+    });
+  }
+
 
  
   clear(): void {
