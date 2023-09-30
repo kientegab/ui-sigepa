@@ -39,9 +39,24 @@
                 [options]="typeDemandes"
                 [(ngModel)]="demande.typeDemande" optionLabel="libelle" inputId="typeDemande"
                 name="typeDemande" placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body"
+                onchange="loadMotif(demande.typeDemande.libelle)"
                 [showClear]="true">
     </p-dropdown>
   </div>
+
+
+
+  <div class="field col-12 md:col-12">
+    <label for="motif">Motif :</label>
+    <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
+                [options]="motifs"
+                [(ngModel)]="demande.typeDemande.motifDTOs" optionLabel="libelle" inputId="motifDTOs"
+                name="motifDTOs" placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body"
+                [showClear]="true">
+    </p-dropdown>
+  </div>
+
+
 
 
 <div class="field col-12 md:col-12">
@@ -84,10 +99,7 @@
 </div> -->
 
 
-<!-- <div class="field col-12 md:col-12">
-    <label for="Motif">Motif :</label>
-    <input type="text" id="Motif" name="Motif" #libelle="ngModel" [(ngModel)]="demande.motif" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div> -->
+
 
 <div class="field col-6 md:col-6">
 <div class="p-field p-fluid">

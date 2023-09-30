@@ -6,10 +6,12 @@ import { cloneDeep } from 'lodash';
 import { ConfirmationService, Message, SelectItem } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Demande, IDemande, TypeDemandeur } from 'src/app/shared/model/demande.model';
+import { IMotif } from 'src/app/shared/model/motif.model';
 import { IPiece } from 'src/app/shared/model/piece.model';
 import { IPieceJointe } from 'src/app/shared/model/pieceJointe.model';
 import { ITypeDemande } from 'src/app/shared/model/typeDemande.model';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
+import { MotifService } from 'src/app/shared/service/motif.service';
 import { TypeDemandeService } from 'src/app/shared/service/type-demande.service';
 
 @Component({
@@ -34,6 +36,7 @@ export class CreerModifierDisponibiliteComponent {
   pieces: IPiece[] = [];
   file: Blob | string = '';
   selectedFile: File | null = null;
+  motifs: IMotif[] = [];
 
   // piece1: IPiece = { id: 1, libelle: 'Pièce 1'};
   // piece2: IPiece = { id: 2, libelle: 'Pièce 2'};
@@ -76,6 +79,7 @@ export class CreerModifierDisponibiliteComponent {
     private demandeService: DemandeService,
     private dialogRef: DynamicDialogRef,
     private typeDemandeService: TypeDemandeService,
+    private motifService: MotifService,
     // private dynamicDialog: DynamicDialogConfig,
     private confirmationService: ConfirmationService,
     private router: Router,
@@ -88,6 +92,7 @@ export class CreerModifierDisponibiliteComponent {
     //   this.demande = cloneDeep(this.dynamicDialog.data);
     // }
     this.loadTypeDemande();
+   this.loadMotif('');
   }
 
   typeDemandeur: SelectItem[] = [
@@ -105,12 +110,25 @@ export class CreerModifierDisponibiliteComponent {
     this.typeDemandeService.findAll().subscribe(response => {
 
       this.typeDemandes = response.body!;
+      console.warn("================",this.typeDemandes)
     }, error => {
       this.message = { severity: 'error', summary: error.error };
       console.error(JSON.stringify(error));
     });
   }
 
+
+  loadMotif(typeDemande:string) {
+    this.motifService.findAll().subscribe(response => {
+
+      this.motifs = response.body!;
+    }, error => {
+      this.message = { severity: 'error', summary: error.error };
+      console.error(JSON.stringify(error));
+    });
+  }
+
+  
 
  
   clear(): void {

@@ -1,18 +1,23 @@
 [
     {
       "id" : 1,
-      "code" : "01",
-      "libelle": "BURKINA FASO 1"
+      "libelle": "disponibilité pour accident ou maladie"
     },
     {
         "id" : 2,
-        "code" : "02",
-        "libelle": "MALI"
+        "libelle": "disponibilité pour exercer une activité dans une entreprise privée"
       },
       {
         "id" : 3,
-        "code" : "03",
-        "libelle": "TOGO"
+        "libelle": "disponibilité pour élever un enfant de moins de cinq ans"
+      },
+      {
+        "id" : 4,
+        "libelle": "disponibilité pour suivre son conjoint"
+      },
+      {
+        "id" : 5,
+        "libelle": "disponibilité pour exercer un mandat syndical"
       }
   ]
 
@@ -20,9 +25,4 @@
 
 
 
-// disponibilité pour accident ou maladie
-// disponibilité pour convenances personnelles
-// disponibilité pour exercer une activité dans une entreprise privée
-// disponibilité pour élever un enfant de moins de cinq ans
-// disponibilité pour suivre son conjoint
-// disponibilité pour exercer un mandat syndical
+
