@@ -5,12 +5,13 @@ import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { createRequestOption } from '../util/request-util';
 import {GetAllStructureResponse, IStructure} from "../model/structure.model";
+import {IStructureMinistere} from "../model/structure-ministere.model";
 
 type EntityResponseType = HttpResponse<IStructure>;
 type EntityArrayResponseType = HttpResponse<IStructure[]>;
 
 
-const structureUrl = environment.communeUrl+'structures';
+const structureUrl = environment.detachementUrl+'/ministere-structures/list-page';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +37,8 @@ export class StructureService {
     return this.http.get<IStructure[]>(structureUrl, { params: options, observe: 'response' });
   }
 
-   findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<IStructure[]>(structureUrl, { observe: 'response' });
+   findAll(): Observable<HttpResponse<IStructureMinistere[]>> {
+    return this.http.get<IStructureMinistere[]>(structureUrl, { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

@@ -73,6 +73,11 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Demandes agents',
                                 icon: 'pi pi-fw pi-eye-slash',
                                 routerLink: ['/disponibilites/agents']
+                            },
+                            {
+                                label: 'Creation demande',
+                                icon: 'pi pi-fw pi-eye-slash',
+                                routerLink: ['/disponibilites/creation']
                             }
                         ]
                     },
@@ -109,6 +114,11 @@ export class AppMenuComponent implements OnInit {
                                         label: 'ministere',
                                         icon: 'pi pi-fw pi-eye-slash',
                                         routerLink: ['/admin/ministeres']
+                                    },
+                                    {
+                                        label: 'ampliations',
+                                        icon: 'pi pi-fw pi-eye-slash',
+                                        routerLink: ['/admin/ampliations']
                                     },
 
                                     {

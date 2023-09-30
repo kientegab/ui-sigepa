@@ -10,6 +10,9 @@ import {IStructure, Structure} from "../../../shared/model/structure.model";
 import {StructureService} from "../../../shared/service/structure.service";
 import {CreerModifierStructureComponent} from "./creer-modifier-structure/creer-modifier-structure.component";
 import {DetailStructureComponent} from "./detail-structure/detail-structure.component";
+import {IStructureMinistere} from "../../../shared/model/structure-ministere.model";
+import {MinistereService} from "../../../shared/service/ministere-service";
+import {IMinistere} from "../../../shared/model/ministere.model";
 
 @Component({
   selector: 'app-structures',
@@ -19,7 +22,7 @@ import {DetailStructureComponent} from "./detail-structure/detail-structure.comp
 export class StructuresComponent {
     routeData: Subscription | undefined;
     structureListSubscription: Subscription | undefined;
-    structures: IStructure[] = [];
+    structuresMinistere: IStructureMinistere[] = [];
     structure: IStructure = new Structure();
     timeoutHandle: any;
     totalRecords: number = 0;
@@ -45,6 +48,7 @@ export class StructuresComponent {
 
     filtreLibelle: string | undefined;
     items: MenuItem[] = [];
+    ministeres: IMinistere[] = [];
 
 
 
@@ -54,11 +58,13 @@ export class StructuresComponent {
         private dialogRef: DynamicDialogRef,
         private router: Router,
         private confirmationService: ConfirmationService,
-        private structureService: StructureService
+        private structureService: StructureService,
+        private ministereService: MinistereService
     ){}
 
 
     ngOnInit(): void {
+
         this.activatedRoute.data.subscribe(
             () => {
                 this.loadAll();
@@ -104,12 +110,23 @@ export class StructuresComponent {
         this.loadAll();
     }
 
+    loadMinistere() {
+        this.ministereService.findListe().subscribe(response => {
+            this.ministeres = response.body!;
+        }, error => {
+            this.message = { severity: 'error', summary: error.error };
+            console.error(JSON.stringify(error));
+        });
+    }
+
     loadAll(): void {
-        const req = this.buildReq();
-        this.structureService.query(req).subscribe(result => {
+        console.warn("hdhdh")
+        //const req = this.buildReq();
+        this.structureService.findAll().subscribe(result => {
             if (result && result.body) {
+                console.warn("STR",result.body);
                 this.totalRecords = Number(result.headers.get('X-Total-Count'));
-                this.structures = result.body || [];
+                this.structuresMinistere = result.body || [];
             }
         });
     }
@@ -149,7 +166,7 @@ export class StructuresComponent {
             }
         ).onClose.subscribe(result => {
             if(result) {
-                this.structures.push(result);
+                this.structuresMinistere.push(result);
                 this.isDialogOpInProgress = false;
                 this.showMessage({ severity: 'success', summary: 'Structure créée avec succès' });
             }
@@ -205,7 +222,7 @@ export class StructuresComponent {
     delete(selection: any) {
         this.isOpInProgress = true;
         this.structureService.delete(selection.id).subscribe(() => {
-            this.structures = this.structures.filter(structure => structure.id !== selection.id);
+            this.structuresMinistere = this.structuresMinistere.filter(structure => structure.id !== selection.id);
             selection = null;
             this.isOpInProgress = false;
             this.totalRecords--;

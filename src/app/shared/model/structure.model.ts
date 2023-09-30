@@ -5,8 +5,8 @@ export interface IStructure {
     id?: number;
     code?: number;
     libelle?: string;
-    typeStructure?: TypeStructure;
-    structureParent?: Structure;
+    type?: TypeStructure;
+    parent?: Structure;
     ministere?: Ministere
 }
 
@@ -15,8 +15,8 @@ export class Structure implements IStructure {
         public id?: number,
         public code?: number,
         public libelle?: string,
-        typeStructure?: TypeStructure,
-        structureParent?: Structure,
+        type?: TypeStructure,
+        parent?: Structure,
         ministere?: Ministere,
 
     ){}
