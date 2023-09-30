@@ -1,5 +1,4 @@
 import {TypeStructure} from "./typeStructure.model";
-import {Ministere} from "./ministere.model";
 
 export interface IStructure {
     id?: number;
@@ -7,7 +6,6 @@ export interface IStructure {
     libelle?: string;
     type?: TypeStructure;
     parent?: Structure;
-    ministere?: Ministere
 }
 
 export class Structure implements IStructure {
@@ -15,10 +13,8 @@ export class Structure implements IStructure {
         public id?: number,
         public code?: number,
         public libelle?: string,
-        type?: TypeStructure,
-        parent?: Structure,
-        ministere?: Ministere,
-
+        public type?: TypeStructure,
+        public parent?: Structure,
     ){}
 }
 export interface GetAllStructureResponse {
