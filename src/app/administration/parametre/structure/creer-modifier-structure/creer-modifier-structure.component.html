@@ -28,7 +28,7 @@
         <div class="col-12 md:col-12">
             <label for="ministere">Ministère :</label>
             <div>
-                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="ministeres"  [(ngModel)]="structure.ministere" optionLabel="libelle" inputId="province"
+                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="ministeres"  [(ngModel)]="structure.ministere" optionLabel="libelle" inputId="libelle"
                             name="ministere" placeholder="Selectionner le ministère..." [filter]="true" appendTo="body" [showClear]="true">
                 </p-dropdown>
             </div>
@@ -36,7 +36,7 @@
         <div class="col-12 md:col-12">
             <label for="TypeStructure">Type structure :</label>
             <div>
-                <p-dropdown autoWidth="false"  id="TypeStructure" styleClass="mb-3" [style]="{'width':'100%'}" [options]="typeStructures"  [(ngModel)]="structure.typeStructure" optionLabel="libelle" inputId="province"
+                <p-dropdown autoWidth="false"  id="TypeStructure" styleClass="mb-3" [style]="{'width':'100%'}" [options]="typeStructures"  [(ngModel)]="structure.type" optionLabel="libelle" inputId="province"
                             name="TypeStructure" placeholder="Selectionner le type structure..." [filter]="true" appendTo="body" [showClear]="true">
                 </p-dropdown>
             </div>
@@ -44,7 +44,7 @@
         <div class="col-12 md:col-12">
             <label for="structureParent">Structure parent :</label>
             <div>
-                <p-dropdown autoWidth="false"  id="structureParent" styleClass="mb-3" [style]="{'width':'100%'}" [options]="structures"  [(ngModel)]="structure.structureParent" optionLabel="libelle" inputId="province"
+                <p-dropdown autoWidth="false"  id="structureParent" styleClass="mb-3" [style]="{'width':'100%'}" [options]="structures"  [(ngModel)]="structure.parent" optionLabel="libelle" inputId="province"
                             name="province" placeholder="Selectionner le structure parent..." [filter]="true" appendTo="body" [showClear]="true">
                 </p-dropdown>
             </div>

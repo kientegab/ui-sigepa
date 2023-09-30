@@ -43,9 +43,9 @@
             </app-crud-toolbar>
         </div>
     </div>
-    <p-table #dtf [value]="structures" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)"
+    <p-table #dtf [value]="structuresMinistere" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)"
              [totalRecords]="totalRecords"  (onLazyLoad)="loadAll()" [lazy]="true"
-             [globalFilterFields]="['code','libelle','structure.typeStructure','structure.ministere','structure.structureParent']"
+             [globalFilterFields]="['code','libelle','structure.libelle','ministere.libelle','structure.parent.libelle','structure.type.libelle']"
              currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements"
              [showCurrentPageReport]=true
              [rowsPerPageOptions]="[20, 50, 100, 500]" styleClass="p-datatable-gridlines">
@@ -63,11 +63,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-structure>
             <tr>
-                <td>{{ structure.code }}</td>
-                <td>{{ structure.libelle }}</td>
-                <td>{{ structure.ministere.libelle }}</td>
-                <td>{{ structure.structureParent.libelle }}</td>
-                <td>{{ structure?.typeStructure?.libelle }}</td>
+                <td>{{ structure.structure.code }}</td>
+                <td>{{ structure.structure?.libelle }}</td>
+                <td>{{ structure.ministere?.libelle }}</td>
+                <td>{{ structure.structure.parent?.libelle }}</td>
+                <td>{{ structure.structure.type?.libelle }}</td>
 
                 <td class="actionsStyle">
                     <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(structure)"
