@@ -36,12 +36,14 @@
 <div class="field col-12 md:col-12">
     <label for="typeDemande">Type Demande :</label>
     <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
-          [options]="typeDemande"
-          [(ngModel)]="demande.typeDemande" optionLabel="label" inputId="typeDemande"
-          name="typeDemande" placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body"
-          [showClear]="true">
-        </p-dropdown>
-</div>
+                [options]="typeDemandes"
+                [(ngModel)]="demande.typeDemande" optionLabel="libelle" inputId="typeDemande"
+                name="typeDemande" placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body"
+                [showClear]="true">
+    </p-dropdown>
+  </div>
+
+
 <div class="field col-12 md:col-12">
     <label for="Nom">Nom :</label>
     <input type="text" id="nom" name="nom" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -93,21 +95,33 @@
     <p-calendar [(ngModel)]="demande.dateEffet" id="dateEffet" name="dateEffet"></p-calendar>
 </div>
 </div>
-
-
-
-
+<br>
 
 <div class="field col-12 md:col-12">
-    <label for="pieceJointe">Charger pièce jointe 1 :</label>
-    <input type="text" id="pieceJointe" name="pieceJointe" #libelle="ngModel" [(ngModel)]="demande.pieceJointe" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+<div class="row">
+
+
+    <label for="description">PieceJointe1</label>
+    <input type="file" id="file1" (change)="onSelectFile($event)">
+    <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+ 
+
+    <label for="description">PieceJointe2</label>
+    <input type="file" id="file2" (change)="onSelectFile($event)">
+    <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+
+</div>
+</div>
+<!-- <div class="field col-12 md:12" *ngIf="demande.typeDemande === 'Nouvelle disponibilité'">
+    <label for="pieceJointe1">Importer pièce 1 :</label>
+    <input type="file" id="pieceJointe1" name="pieceJointe1" (change)="onFileChange($event, 'piece1')" class="form-control">
 </div>
 
 
-<div class="field col-12 md:col-12">
-    <label for="pieceJointe">Charger pièce jointe 2 :</label>
-    <input type="text" id="pieceJointe" name="pieceJointe" #libelle="ngModel" [(ngModel)]="demande.pieceJointe" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
+<div class="field col-12 md:12" *ngIf="demande.typeDemande === 'Nouvelle disponibilité'">
+    <label for="pieceJointe2">Importer pièce 2 :</label>
+    <input type="file" id="pieceJointe2" name="pieceJointe2" (change)="onFileChange($event, 'piece2')" class="form-control">
+</div> -->
 
 </div>
 
