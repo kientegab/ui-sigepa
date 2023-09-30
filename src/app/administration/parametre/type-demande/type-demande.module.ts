@@ -16,6 +16,8 @@ import {SharedModule} from "primeng/api";
 import {TableModule} from "primeng/table";
 import {DropdownModule} from "primeng/dropdown";
 import {ProgressBarModule} from "primeng/progressbar";
+import {MultiSelectModule} from "primeng/multiselect";
+import {FieldsetModule} from "primeng/fieldset";
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import {ProgressBarModule} from "primeng/progressbar";
         SharedModule,
         TableModule,
         DropdownModule,
-        ProgressBarModule
+        ProgressBarModule,
+        MultiSelectModule,
+        FieldsetModule
     ]
 })
 export class TypeDemandeModule { }

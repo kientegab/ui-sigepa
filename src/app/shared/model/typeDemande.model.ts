@@ -9,11 +9,11 @@ export interface ITypeDemande {
     code?: string;
     libelle?: string;
     plafondAnnee?: number;
-    articleDTOs?: Article;
-    motifDTOs?: Motif;
-    visaDTOs?: Visa;
-    ampliationDTOs?: Ampliation;
-    pieceDTOs?: Piece;
+    articleDTOs?: Article[];
+    motifDTOs?: Motif[];
+    visaDTOs?: Visa[];
+    ampliationDTOs?: Ampliation[];
+    pieceDTOs?: Piece[];
 }
 
 export class TypeDemande implements ITypeDemande {
@@ -22,11 +22,11 @@ export class TypeDemande implements ITypeDemande {
         public code?: string,
         public libelle?: string,
         public plafondAnnee?: number,
-        public articleDTOs?: Article,
-        public motifDTOs?: Motif,
-        public visaDTOs?: Visa,
-        public ampliationDTOs?: Ampliation,
-        public pieceDTOs?: Piece,
+        public articleDTOs?: Article[],
+        public motifDTOs?: Motif[],
+        public visaDTOs?: Visa[],
+        public ampliationDTOs?: Ampliation[],
+        public pieceDTOs?: Piece[],
     ){}
 }
 export interface GetAllTypeDemandeResponse {

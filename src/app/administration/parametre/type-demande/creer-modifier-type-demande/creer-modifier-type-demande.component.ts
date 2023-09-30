@@ -6,6 +6,11 @@ import {cloneDeep} from "lodash";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ITypeDemande, TypeDemande} from "../../../../shared/model/typeDemande.model";
 import {TypeDemandeService} from "../../../../shared/service/type-demande.service";
+import {Motif} from "../../../../shared/model/motif.model";
+import {Article} from "../../../../shared/model/article.model";
+import {Visa} from "../../../../shared/model/visa.model";
+import {Piece} from "../../../../shared/model/piece.model";
+import {Ampliation} from "../../../../shared/model/ampliation.model";
 
 @Component({
   selector: 'app-creer-modifier-type-demande',
@@ -23,6 +28,17 @@ export class CreerModifierTypeDemandeComponent {
     dialogErrorMessage: any;
     timeoutHandle: any;
     isOpInProgress!: boolean;
+
+    motifs: Motif[] = [];
+    articles: Article[] = [];
+    visas: Visa[] = [];
+    pieces: Piece[] = [];
+    ampliations: Ampliation[] = [];
+    ampliationsSelected: Ampliation[] = [];
+    piecesSelected: Piece[] = [];
+    visasSelected: Visa[] = [];
+    articlesSelected: Article[] = [];
+    motifsSelected: Motif[] = [];
 
     constructor(
         private typeStructureService: TypeDemandeService,
