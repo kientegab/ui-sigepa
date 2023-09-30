@@ -1,1 +1,55 @@
-<p>detail-type-demande works!</p>
+<p-fieldset legend="Informations générales" [toggleable]="true">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-sm no-border">
+                    <tbody>
+                    <tr>
+                        <th>Code</th>
+                        <td>: {{ typedemande.code}}</td>
+                        <th>Libelle</th>
+                        <td>: {{ typedemande.libelle}}</td>
+                        <th>Plafond année</th>
+                        <td>: {{ typedemande.plafondAnnee}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+<p-fieldset legend="Liste des avis" [toggleable]="true">
+    <p-table [value]="visas" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="'p-datatable-sm'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Code</th>
+                <th>Libelle</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-fieldset>
+<p-fieldset legend="Liste des articles" [toggleable]="true">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+</p-fieldset>
+<p-fieldset legend="Liste des ampliations" [toggleable]="true">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+</p-fieldset>
+<p-fieldset legend="Liste des pièces" [toggleable]="true">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+</p-fieldset>

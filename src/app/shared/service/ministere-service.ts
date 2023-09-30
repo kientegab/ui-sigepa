@@ -11,7 +11,7 @@ type EntityResponseType = HttpResponse<IMinistere>;
 type EntityArrayResponseType = HttpResponse<IMinistere[]>;
 
 
-const ministereUrl = environment.ministereUrl;
+const ministereUrl = environment.detachementUrl+'/ministeres/list';
 
 @Injectable({
   providedIn: 'root'

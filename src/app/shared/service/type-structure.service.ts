@@ -10,7 +10,7 @@ type EntityResponseType = HttpResponse<ITypeStructure>;
 type EntityArrayResponseType = HttpResponse<ITypeStructure[]>;
 
 
-const typeStructureUrl = environment.communeUrl+'type-typeStructures';
+const typeStructureUrl = environment.detachementUrl+'/type-structures/list';
 
 @Injectable({
   providedIn: 'root'

@@ -43,9 +43,9 @@
             </app-crud-toolbar>
         </div>
     </div>
-    <p-table #dtf [value]="structures" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)"
+    <p-table #dtf [value]="structuresMinistere" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)"
              [totalRecords]="totalRecords"  (onLazyLoad)="loadAll()" [lazy]="true"
-             [globalFilterFields]="['code','libelle','structure.typeStructure']"
+             [globalFilterFields]="['code','libelle','structure.libelle','ministere.libelle','structure.parent.libelle','structure.type.libelle']"
              currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements"
              [showCurrentPageReport]=true
              [rowsPerPageOptions]="[20, 50, 100, 500]" styleClass="p-datatable-gridlines">
@@ -55,15 +55,19 @@
                 <!-- <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon></th>-->
                 <th pSortableColumn="code">Code<p-sortIcon field="code"></p-sortIcon></th>
                 <th pSortableColumn="libelle">Libelle<p-sortIcon field="libelle"></p-sortIcon></th>
-                <th pSortableColumn="structure.typeStructure">Type structure<p-sortIcon field="province.libelle"></p-sortIcon></th>
+                <th pSortableColumn="libelle">Ministere<p-sortIcon field="ministere"></p-sortIcon></th>
+                <th pSortableColumn="libelle">Structure parent<p-sortIcon field="structureParent"></p-sortIcon></th>
+                <th pSortableColumn="structure.typeStructure">Type structure<p-sortIcon field="structure.libelle"></p-sortIcon></th>
                 <th class="actionsStyle">Action</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-structure>
             <tr>
-                <td>{{ structure.code }}</td>
-                <td>{{ structure.libelle }}</td>
-                <td>{{ structure?.typeStructure?.libelle }}</td>
+                <td>{{ structure.structure.code }}</td>
+                <td>{{ structure.structure?.libelle }}</td>
+                <td>{{ structure.ministere?.libelle }}</td>
+                <td>{{ structure.structure.parent?.libelle }}</td>
+                <td>{{ structure.structure.type?.libelle }}</td>
 
                 <td class="actionsStyle">
                     <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(structure)"
