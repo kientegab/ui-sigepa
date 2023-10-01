@@ -14,6 +14,10 @@ import { MenubarModule } from 'primeng/menubar';
 import { LoginComponent } from '../account/login/login.component';
 import { AccountRoutingModule } from '../account/account-routing.module';
 import { NouvelleDetachementComponent } from './detachement/nouvelle-detachement/nouvelle-detachement.component';
+import { RenouvelleDetachementComponent } from './detachement/renouvelle-detachement/renouvelle-detachement.component';
+import { FinDetachementComponent } from './detachement/fin-detachement/fin-detachement.component';
+import { RectificationDetachementComponent } from './detachement/rectification-detachement/rectification-detachement.component';
+import { AnnulationDetachementComponent } from './detachement/annulation-detachement/annulation-detachement.component';
 
 
 @NgModule({
@@ -24,6 +28,10 @@ import { NouvelleDetachementComponent } from './detachement/nouvelle-detachement
     PublicFooterComponent,
     HomePageComponent,
     NouvelleDetachementComponent,
+    RenouvelleDetachementComponent,
+    FinDetachementComponent,
+    RectificationDetachementComponent,
+    AnnulationDetachementComponent,
     
     
   ],

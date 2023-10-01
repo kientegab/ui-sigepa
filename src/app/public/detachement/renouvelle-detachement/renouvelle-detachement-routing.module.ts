@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardPublicComponent } from './dashboard-public.component';
+import { RenouvelleDetachementComponent } from './renouvelle-detachement.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardPublicComponent },
-  { path: '**', redirectTo: '/notfound' }
+  { path: '', component: RenouvelleDetachementComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PublicRoutingModule { }
+export class RenouvelleDetachementRoutingModule { }

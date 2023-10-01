@@ -30,14 +30,14 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
         {
           label: 'Accueil',
           icon: 'pi pi-home',
-          routerLink: ['/public'] 
+          routerLink: [''] 
         },
         { 
           label: 'Détachement',
           items: [
             {
               label: 'Nouvelle détachement',
-              routerLink: ['/public/congeAnnuel'],
+              routerLink: ['/public/N_detachement'],
               routerLinkActiveOptions: {
                 exact: true
               }
@@ -47,7 +47,7 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
             },
             {
               label: 'Renouvellement détachement',
-              routerLink: ['/public/congeMaternite'],
+              routerLink: ['/public/R_detachement'],
               routerLinkActiveOptions: {
                 exact: true
               } 
@@ -57,7 +57,7 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
             },
             {
               label: 'Fin détachement',
-              routerLink: ['/public/congeMaladie'],
+              routerLink: ['/public/F_detachement'],
               routerLinkActiveOptions: {
                 exact: true
               } 
@@ -67,7 +67,7 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
             },
             {
                 label: 'Rectification détachement',
-                routerLink: ['/public/congeMaladie'],
+                routerLink: ['/public/RE_detachement'],
                 routerLinkActiveOptions: {
                   exact: true
                 } 
@@ -77,7 +77,7 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
               },
             {
               label: 'Annulation détachement',
-              routerLink: ['/public/congeFinservice'],
+              routerLink: ['/public/A_detachement'],
               routerLinkActiveOptions: {
                 exact: true
               } 
@@ -90,7 +90,7 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
           items: [
             {
               label: 'Nouvelle disponibilité',
-              routerLink: ['/N_detachement'],
+              routerLink: ['/public/N_detachement'],
               routerLinkActiveOptions: {
                 exact: true
               }

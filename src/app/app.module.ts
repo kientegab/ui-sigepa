@@ -36,6 +36,7 @@ import { AuthInterceptorProviders } from './shared/_helpers/auth.interceptor';
     imports: [
         AppRoutingModule,
         PublicModule,
+        AccountModule,
         AppLayoutModule,
         ComonModule,
         DividerModule,

@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardPublicComponent } from './dashboard-public.component';
+import { RectificationDetachementComponent } from './rectification-detachement.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardPublicComponent },
-  { path: '**', redirectTo: '/notfound' }
+  { path: '', component: RectificationDetachementComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PublicRoutingModule { }
+export class RectificationDetachementRoutingModule { }

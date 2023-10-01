@@ -1,4 +1,4 @@
-@import "../../../../node_modules/primeflex/primeflex.css";
+@import "../../../../../node_modules/primeflex/primeflex.css";
 .flex-item {
     flex: 100%;
     width: 100%;
@@ -11,28 +11,31 @@
  .bg-white-actif {
     position: relative;
     width: 100%;
+    height: 100%;
     margin: 0px;
     padding: 20px;
     font-size: large;
     font-style: italic;
     color: black;  
     background-size: cover;
-    background: url("/assets/img/image2.png") no-repeat ;
-    border: red 5px;
+    border: solid 2px;
+    border-color: black;
 }
   
 .bg-white-plus-individuel {
     position: relative;
     width: 100%;
+    height: 100%;
     margin: 0px; 
     padding: 20px;
     font-size: large;
     font-style: italic;
     color: black;
     background-size: cover;
-    background: url("/assets/img/actee.png");
+    border: solid 2px;
+    border-color: black;
   }
-
+ 
   .ontop{
     font-size: 16px;
   }
