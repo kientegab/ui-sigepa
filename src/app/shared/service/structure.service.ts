@@ -9,9 +9,11 @@ import {IStructureMinistere} from "../model/structure-ministere.model";
 
 type EntityResponseType = HttpResponse<IStructure>;
 type EntityArrayResponseType = HttpResponse<IStructure[]>;
+const baseUri = environment.detachementUrl;
 
 
 const structureUrl = environment.detachementUrl+'/ministere-structures/list-page';
+const structurePostUrl = environment.detachementUrl+'/structures';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +23,11 @@ export class StructureService {
   constructor(private http:HttpClient) { }
 
   create(structure: IStructure): Observable<EntityResponseType> {
-    return this.http.post<IStructure>(structureUrl, structure, { observe: 'response' });
+    return this.http.post<IStructure>(structurePostUrl, structure, { observe: 'response' });
   }
 
   update(structure: IStructure): Observable<EntityResponseType> {
-    return this.http.put<IStructure>(structureUrl, structure, { observe: 'response' });
+    return this.http.put<IStructure>(`${baseUri}/structures`, structure, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
@@ -42,11 +44,11 @@ export class StructureService {
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${structureUrl}/${id}`, { observe: 'response' });
+    return this.http.delete(`${baseUri}/structures/${id}`, { observe: 'response' });
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<IStructure[]>(structureUrl, { observe: 'response' });
+    return this.http.get<IStructure[]>(`${baseUri}/structures/list`, { observe: 'response' });
   }
 
   getAll(event?: LazyLoadEvent): Observable<any> {
