@@ -7,6 +7,8 @@ import { IUser } from '../model/user';
 import { LazyLoadEvent } from 'primeng/api';
 import { IValidationCompte } from '../model/validationCompte';
 import { IChangePasswordDTO } from '../model/change-password-dto';
+import { CanActivateRequest } from '../model/can-activate-request';
+import { ILoginVM } from '../model/login-vm';
 
 type EntityResponseType = HttpResponse<IUser>;
 type EntityArrayResponseType = HttpResponse<IUser[]>;
@@ -28,6 +30,11 @@ export class UserService {
 
   create(user: IUser): Observable<EntityResponseType> {
     return this.http.post<IUser>(resourceUrl, user, { observe: 'response' });
+  }
+
+  canActivate(request: CanActivateRequest): Observable<any> {
+    //let params = this.formatParams(request);
+    return this.http.post(resourceUrl, request, { observe: 'response'});
   }
 
   validationCompte(validationCompte: IValidationCompte): Observable<ValidationCompteResponseType> {
@@ -53,6 +60,11 @@ export class UserService {
 
   delete(login: any): Observable<HttpResponse<{}>> {
     return this.http.delete(`${resourceUrl}/${login}`, { observe: 'response' });
+  }
+
+  
+  login(): void {
+    // return this.http.post(resourceUrl, request);
   }
 
   findListe(): Observable<EntityArrayResponseType> {

@@ -24,13 +24,21 @@
     <label for="circuit">Parent :</label>
     <div>
       <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" [options]="circuits"  [(ngModel)]="circuit.parent" optionLabel="libelle" inputId="circuit"
-      name="circuit" placeholder="Selectionner la province..." [filter]="true" appendTo="body" [showClear]="true">
+      name="circuit" placeholder="Selectionner la position précédente..." [filter]="true" appendTo="body" [showClear]="true">
       </p-dropdown>
     </div>
 </div>
 <div class="field col-12 md:col-12">
     <label for="libelle">Libelle :</label>
     <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="circuit.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+</div>
+<div class="field col-12 md:col-12">
+    <label for="libelle">Délais :</label>
+    <input type="text" id="delais" name="delais" #delais="ngModel" [(ngModel)]="circuit.delais" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+</div>
+<div class="field col-12 md:col-12">
+    <label for="forfait">Est actif <span class="text-danger">*</span></label>
+    <p-checkbox [(ngModel)]="circuit.statu" [binary]="true" inputId="statut" id="statut" name="statut" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></p-checkbox>
 </div>
 </div>
 
