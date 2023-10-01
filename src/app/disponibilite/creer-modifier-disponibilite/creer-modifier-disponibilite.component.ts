@@ -56,13 +56,13 @@ motifWithPieces: { motif: string, pieces: IPiece[] }[] = [];
 
 
 onTypeDemandeChange() {
-  // Réinitialisez la liste des motifs en fonction du type de demande sélectionné
+ 
   if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
     this.motifs = this.demande.typeDemande.motifDTOs;
-    this.selectedMotif = undefined; // Réinitialisez la sélection du motif
+    this.selectedMotif = undefined; 
   } else {
-    this.motifs = []; // Si le type de demande n'a pas de motifs, réinitialisez la liste
-    this.selectedMotif = undefined; // Réinitialisez la sélection du motif
+    this.motifs = []; 
+    this.selectedMotif = undefined; 
   }
 }
 
@@ -70,18 +70,9 @@ onUpload($event: any) {
 
 }
 
-getUploadUrl(pieceId: | undefined): string {
-  if (pieceId !== undefined) {
-    // Ici, vous pouvez générer l'URL d'envoi de fichiers en utilisant pieceId
-    return `votre-url-d-envoi-de-fichiers/${pieceId}`;
-  } else {
-    // Gérer le cas où pieceId est undefined, par exemple, en renvoyant une URL par défaut ou une chaîne vide
-    return 'votre-url-d-envoi-de-fichiers-par-defaut';
-  }
-}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Assurez-vous que selectedMotif est défini lorsqu'il est sélectionné
 onMotifChange() {
   if (this.selectedMotif) {
     if (this.demande.typeDemande) {
@@ -168,10 +159,9 @@ onMotifChange() {
     this.motifService.findAll().subscribe(response => {
       this.motifs = response.body!;
       
-      // Ici, vous associez les pièces à chaque motif dans motifWithPieces
       this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
         motif: motif.libelle!,
-        pieces: [] // Vous pouvez charger les pièces associées au motif depuis le service ici
+        pieces: [] 
       }));
     }, error => {
       this.message = { severity: 'error', summary: error.error };

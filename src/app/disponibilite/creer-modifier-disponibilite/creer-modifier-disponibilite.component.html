@@ -100,7 +100,7 @@
                                 <td>{{ piece.libelle }}</td>
                                 <td>
                                   <p-fileUpload name="demo{{i}}[]"  (onUpload)="onUpload($event)"
-                                                [multiple]="false" accept="image/*" [maxFileSize]="1000000">
+                                                [multiple]="false" accept=".pdf" [maxFileSize]="10000000">
                                     <ng-template pTemplate="content">
                                       <ul *ngIf="uploadedFiles.length">
                                         <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
