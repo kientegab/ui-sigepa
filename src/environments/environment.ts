@@ -3,9 +3,9 @@ const commonAuth: string = 'http://localhost:8089/api/auth/';
 
 
 export const environment = {
-    production: false,
-    recordsPerPage: 20,
-    detachementUrl: 'http://localhost:8080/api',
+  production: false,
+  recordsPerPage: 20,
+  detachementUrl: 'http://localhost:8080/api',
 
   communeUrl: commonAppURI +'communes',
   pieceUrl: commonAppURI +'pieces',
@@ -32,8 +32,10 @@ export const environment = {
   demandeUrl:commonAuth + 'demandes',
    // typeEmployeurUrl: commonAppURI +'typeEmployeur',
 
+
   //typesCotisationUrl:commonAppCOT+'type-cotisations',
   arrondissementUrl: commonAppURI +'arrondissements',
+
 
   //tauxCotisationUrl: commonAppURI +'taux-cotisations',
   // regionUrl: commonAppURI +'regions ',
@@ -55,7 +57,9 @@ export const environment = {
   regionUrl: commonAppURI +'regions',
   province: commonAppURI +'province',
   banqueUrl: commonAppURI +'banques',
-  //caisseUrl: commonAppCOT +'caisses',
+
+  // caisseUrl: commonAppCOT +'caisses',
+
   paysUrl: commonAppURI +'pays',
   roleUrl: commonAppURI +'role',
 
@@ -87,7 +91,7 @@ export const environment = {
   region: commonAppURI +'regions',
   //resourceUrl: commonAppURI +'taux-forfait-cotisations',
   //sectionUrl: commonAppURI +'sections',
- // cotisationUrl: commonAppCOT +'cotisations',
+
   assureUrl: commonAppURI +'assures',
   dashbordUrl : commonAppURI+'reports',
 

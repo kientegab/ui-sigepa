@@ -22,13 +22,24 @@
             </div>
             <div class="field col-6 md:col-6">
                 <label for="typeDemande">Type Demande :</label>
-                <p-dropdown autoWidth="false" id="typeDemande" styleClass="mb-3" [style]="{'width':'100%'}"
-                            [options]="typeDemandes"
-                            [(ngModel)]="demande.typeDemande" optionLabel="libelle" inputId="typeDemande"
-                            name="typeDemande" placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body"
-                            [showClear]="true">
+    <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
+                [options]="typeDemandes"
+                [(ngModel)]="demande.typeDemande" optionLabel="libelle" inputId="typeDemande"
+                name="typeDemande" placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body"
+                (onChange)="onTypeDemandeChange()" [showClear]="true">
+    </p-dropdown>
+            </div>
+
+            <div class="field col-6 md:col-6">
+                <label for="motif">Motif :</label>
+                <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
+                            [options]="motifs"
+                            [(ngModel)]="selectedMotif" optionLabel="libelle" inputId="motifDTOs"
+                            name="motifDTOs" placeholder="Sélectionner le motif..." [filter]="true" appendTo="body"
+                            [showClear]="true" (ngModelChange)="onMotifChange()">
                 </p-dropdown>
             </div>
+            
 
 
             <div class="field col-4 md:col-4">
@@ -73,42 +84,38 @@
             </div>
             <br>
 
+          
             <div class="field col-12 md:col-12">
                 <div class="card">
                     <table class="table table-sm border-none">
                         <thead>
-                        <tr>
-                            <th scope="col">Libelle</th>
-                            <th scope="col">Fichier</th>
-                        </tr>
+                            <tr>
+                                <th scope="col">Libelle</th>
+                                <th scope="col">Fichier</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Acte de naissance</td>
-                            <td><p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
-                                              [multiple]="true" accept="image/*" [maxFileSize]="1000000">
-                                <ng-template pTemplate="content">
-                                    <ul *ngIf="uploadedFiles.length">
-                                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                                    </ul>
-                                </ng-template>
-                            </p-fileUpload></td>
-                        </tr>
-                        <tr>
-                            <td>Certificat de nationalite</td>
-                            <td><p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
-                                              [multiple]="true" accept="image/*" [maxFileSize]="1000000">
-                                <ng-template pTemplate="content">
-                                    <ul *ngIf="uploadedFiles.length">
-                                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                                    </ul>
-                                </ng-template>
-                            </p-fileUpload></td>
-                        </tr>
-                        </tbody>
+                            <ng-container *ngFor="let piece of selectedPieces; let i=index">
+                              <tr>
+                                <td>{{ piece.libelle }}</td>
+                                <td>
+                                  <p-fileUpload name="demo{{i}}[]"  (onUpload)="onUpload($event)"
+                                                [multiple]="false" accept=".pdf" [maxFileSize]="10000000">
+                                    <ng-template pTemplate="content">
+                                      <ul *ngIf="uploadedFiles.length">
+                                        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                                      </ul>
+                                    </ng-template>
+                                  </p-fileUpload>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                          
                     </table>
                 </div>
             </div>
+            
 
         </div>
 

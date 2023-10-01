@@ -11,6 +11,7 @@ export interface ITypeDemande {
     plafondAnnee?: number;
     articleDTOs?: Article[];
     visaDTOs?: Visa[];
+    motifDTOs?: Motif[];
     ampliationDTOs?: Ampliation[];
 }
 
@@ -21,6 +22,7 @@ export class TypeDemande implements ITypeDemande {
         public libelle?: string,
         public plafondAnnee?: number,
         public articleDTOs?: Article[],
+        public motifDTOs?: Motif[],
         public visaDTOs?: Visa[],
         public ampliationDTOs?: Ampliation[],
     ){}
@@ -28,3 +30,8 @@ export class TypeDemande implements ITypeDemande {
 export interface GetAllTypeDemandeResponse {
     typeDemandes: ITypeDemande[];
 }
+
+export enum TypeDemandeur {
+    Agent = 'agent',
+    Structure = 'structure',
+  }
