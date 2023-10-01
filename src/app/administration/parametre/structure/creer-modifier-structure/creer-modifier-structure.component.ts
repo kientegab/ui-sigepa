@@ -47,7 +47,15 @@ export class CreerModifierStructureComponent {
         this.loadMinistere();
         this.loadStructure();
         if (this.dynamicDialog.data) {
-            this.structure = cloneDeep(this.dynamicDialog.data);
+            console.warn("this.dynamicDialog.data",this.dynamicDialog.data);
+            this.structure.id = this.dynamicDialog.data.structure.id;
+            this.structure.parent = this.dynamicDialog.data.structure.parent;
+            this.structure.code = this.dynamicDialog.data.structure.code;
+            this.structure.libelle = this.dynamicDialog.data.structure.libelle;
+            this.structure.ministereDTO = this.dynamicDialog.data.ministere;
+            this.structure.type = this.dynamicDialog.data.structure.type
+            this.structure.sigle = this.dynamicDialog.data.structure.sigle
+            this.structure.responsable = this.dynamicDialog.data.structure.responsable
         }
     }
 
