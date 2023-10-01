@@ -17,20 +17,26 @@
 <form (ngSubmit)="saveEntity()" #dtf="ngForm" style="margin-top:20px;">
     <div class="formgrid grid">
         <div class="field col-6 md:col-6">
-            <label for="avis">Avis :</label>
-            <input type="text" id="avis" name="avis" #libelle="ngModel" [(ngModel)]="historique.avis" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-        </div>
+            <label for="avis">Type demandeur</label>
+            <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}"
+              [options]="avis"
+              [(ngModel)]="historique.avis" optionLabel="label" inputId="avis"
+              name="avis" placeholder="Sélectionner l'avis..." [filter]="true" appendTo="body"
+              [showClear]="true">
+            </p-dropdown>
+            </div>
         <div class="field col-12 md:col-12">
             <label for="commentaire">Commentaire :</label>
-            <input type="paragraph" id="commentaire" name="commentaire" #sigle="ngModel" [(ngModel)]="historique.commentaire" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            <input type="text" [style]="{'width':'20%'}"  id="commentaire" name="commentaire" #sigle="ngModel" [(ngModel)]="historique.commentaire" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
         </div>
+        
     </div>
     <!-- <p-divider></p-divider> -->
     <div class="p-ml-auto text-right ">
         <div class="p-ml-auto text-right">
             <button type="reset" label="Effacer" class="p-button-filter mr-3 float-left" pButton icon="pi pi-trash"></button>
             <button label="Annuler" (click)="clear()" class="p-button-filter mr-3" pButton icon="pi pi-times"></button>
-            <button type="submit" [disabled]="!dtf.form.valid" label="{{ demande.id ? 'Enregistrer' : 'Ajouter' }}" icon="pi {{ demande.id ? 'pi-save' : 'pi-plus' }}" class="{{ demande.id ? 'p-button-primary' : 'p-button-success' }}" pButton>
+            <button type="submit" [disabled]="!dtf.form.valid" label="{{ demande.id ? 'Enregistrer' : 'Enregistrer' }}" icon="pi {{ demande.id ? 'pi-save' : 'pi-plus' }}" class="{{ demande.id ? 'p-button-primary' : 'p-button-success' }}" pButton>
             </button>
         </div>
     </div>

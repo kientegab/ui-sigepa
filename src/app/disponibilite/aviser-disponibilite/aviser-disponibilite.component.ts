@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { cloneDeep } from 'lodash';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, SelectItem } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
 import { IDemande, Demande } from 'src/app/shared/model/demande.model';
-import { Historique, IHistorique } from 'src/app/shared/model/historique.model';
+import { Historique, IHistorique, avis } from 'src/app/shared/model/historique.model';
 
 @Component({
   selector: 'app-aviser-disponibilite',
@@ -24,10 +24,11 @@ export class AviserDisponibiliteComponent {
   typeDemandeService: any;
   typeDemandes: any;
   message: { severity: string; summary: any; } | undefined;
-  avis: string | undefined;
+  // avis: string | undefined;
   commentaire: string | undefined;
   historique:IHistorique = new Historique();
   historiques: IHistorique[] = []; 
+  
  
 
   constructor(
@@ -48,7 +49,10 @@ export class AviserDisponibiliteComponent {
       this.dialogRef.close();
       this.dialogRef.destroy();
   }
-  
+  avis: SelectItem[] = [
+    { label: 'Avis favorable ', value: avis.avis1 },
+    { label: 'Avis defavorable', value: avis.avis2 },
+  ];
  
   // Errors
   handleError(error: HttpErrorResponse) {
@@ -114,4 +118,5 @@ showMessage(arg0: { severity: string; summary: string; }) {
       console.error(JSON.stringify(error));
     });
   }
+  
 }

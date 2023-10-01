@@ -5,7 +5,7 @@ export interface IHistorique {
     id?: number;
     date?: Date;
     commentaire?: string;
-    avis?: string;
+    avis?: avis;
     circuit?: Circuit;
     
 }
@@ -15,10 +15,15 @@ export class Historique implements IHistorique {
         public id?: number,
         public date?: Date,
         public commentaire?: string,
-        public avis?: string,
+        public avis?: avis,
         public circuit?: Circuit,
        
     ) {
     }
-}
+  
 
+}
+export enum avis {
+    avis1 = 'Avis favorable',
+avis2 = 'Avis defavorable',
+  }
