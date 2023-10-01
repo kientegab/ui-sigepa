@@ -9,15 +9,15 @@ import { MenuItem } from 'primeng/api';
     './public-menu.component.scss'
 ]
 })
-export class PublicMenuComponent implements OnDestroy, OnInit {
+export class PublicMenuComponent implements  OnInit {
     loggedIn = false;
 
   
     constructor(private router: Router) { }
 
-    ngOnDestroy(): void {
-        throw new Error('Method not implemented.');
-    }
+    // ngOnDestroy(): void {
+    //     throw new Error('Method not implemented.');
+    // }
     
     items: MenuItem[]=[];
   
@@ -155,8 +155,9 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
        this.router.navigate(['/']);
        window.location.reload();
      }
+
      login() {
-       this.router.navigate(['/auth/login']);
+       this.router.navigate(['auth/login']);
      }
 
 }
