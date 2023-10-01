@@ -21,6 +21,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CircuitComponent } from './circuit.component';
 import { DetailsCircuitComponent } from './details-circuit/details-circuit.component';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DetailsCircuitComponent } from './details-circuit/details-circuit.compo
         AppCommonModule,
         ConfirmDialogModule,
         ProgressSpinnerModule,
-        PaginatorModule
+        PaginatorModule,
+        CheckboxModule
   ],
   providers: [ConfirmationService,MessageService],
 })

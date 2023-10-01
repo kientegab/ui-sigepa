@@ -41,6 +41,7 @@ import { MessageModule } from 'primeng/message';
     imports: [
         AppRoutingModule,
         PublicModule,
+        AccountModule,
         AppLayoutModule,
         ComonModule,
         DividerModule,

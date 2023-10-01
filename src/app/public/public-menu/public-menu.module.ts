@@ -6,7 +6,7 @@ import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
   declarations: [
-    // PublicMenuComponent
+  //  PublicMenuComponent
   ],
   imports: [
     CommonModule,

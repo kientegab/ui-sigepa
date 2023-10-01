@@ -11,31 +11,42 @@ import { PublicMenuComponent } from './public-menu/public-menu.component';
 import { PublicFooterComponent } from './public-footer/public-footer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MenubarModule } from 'primeng/menubar';
-import { AccountComponent } from './account/account.component';
+import { AccountRoutingModule } from '../account/account-routing.module';
+import { NouvelleDetachementComponent } from './detachement/nouvelle-detachement/nouvelle-detachement.component';
+import { RenouvelleDetachementComponent } from './detachement/renouvelle-detachement/renouvelle-detachement.component';
+import { FinDetachementComponent } from './detachement/fin-detachement/fin-detachement.component';
+import { RectificationDetachementComponent } from './detachement/rectification-detachement/rectification-detachement.component';
+import { AnnulationDetachementComponent } from './detachement/annulation-detachement/annulation-detachement.component';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
-import { MessageModule } from 'primeng/message';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
-import { DialogModule } from 'primeng/dialog';
 import { FieldsetModule } from 'primeng/fieldset';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { TooltipModule } from 'primeng/tooltip';
 import { AppCommonModule } from '../shared/common/app-common.module';
 import { StepsModule } from 'primeng/steps';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
+    AccountComponent,
     AnimateEnterDirective,
     DashboardPublicComponent,
     PublicMenuComponent,
     PublicFooterComponent,
     HomePageComponent,
-    AccountComponent
+    NouvelleDetachementComponent,
+    RenouvelleDetachementComponent,
+    FinDetachementComponent,
+    RectificationDetachementComponent,
+    AnnulationDetachementComponent,
   ],
   imports: [
     CommonModule,
@@ -60,7 +71,8 @@ import { StepsModule } from 'primeng/steps';
     DropdownModule,
     CalendarModule,
     PublicRoutingModule,
-    MenubarModule
+    MenubarModule,
+    AccountRoutingModule
   ]
 })
 export class PublicModule { }
