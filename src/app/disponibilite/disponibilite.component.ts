@@ -185,7 +185,7 @@ export class DisponibiliteComponent {
       openModalDetail(demande:IDemande): void {
         this.dialogService.open(DetailsDisponibiliteComponent,
           {
-            header: 'Details de demande',
+            header: 'Details de la demande',
             width: '60%',
             contentStyle: { overflow: 'auto' },
             baseZIndex: 10000,

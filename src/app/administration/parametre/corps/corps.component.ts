@@ -141,7 +141,7 @@ export class CorpsComponent {
       openModalCreate(): void {
         this.dialogService.open(CreerModifierCorpsComponent,
           {
-            header: 'Ajouter une corps',
+            header: 'Ajouter un corps',
             width: '60%',
             contentStyle: { overflow: 'auto', },
             baseZIndex: 10000,
@@ -152,7 +152,7 @@ export class CorpsComponent {
           if(result) {
           this.corpsList.push(result);
           this.isDialogOpInProgress = false;
-          this.showMessage({ severity: 'success', summary: 'Corps créée avec succès' });
+          this.showMessage({ severity: 'success', summary: 'Corps créé avec succès' });
           }
         });
       }
@@ -172,7 +172,7 @@ export class CorpsComponent {
             if(result){
               this.isDialogOpInProgress = false;
               this.loadAll();
-              this.showMessage({ severity: 'success', summary: 'Corps modifiée avec succès' });
+              this.showMessage({ severity: 'success', summary: 'Corps modifié avec succès' });
             }
 
           });
@@ -183,7 +183,7 @@ export class CorpsComponent {
       openModalDetail(corps:ICorps): void {
         this.dialogService.open(DetailsCorpsComponent,
           {
-            header: 'Details de corps',
+            header: 'Details du corps',
             width: '60%',
             contentStyle: { overflow: 'auto' },
             baseZIndex: 10000,
@@ -212,7 +212,7 @@ export class CorpsComponent {
           this.totalRecords--;
           this.showMessage({
             severity: 'success',
-            summary: 'Corps supprimée avec succès',
+            summary: 'Corps supprimé avec succès',
           });
         }, (error) => {
           console.error("corps " + JSON.stringify(error));

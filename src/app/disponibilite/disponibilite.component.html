@@ -38,14 +38,14 @@
         <p class="float-left">Résultats trouvés : <span class="text-danger">{{totalRecords}}</span></p>
       </div>
       <div class="col-md-4">
-        <app-crud-toolbar [enableCreate]="enableCreate" (create)="openModalCreate()" [enableEdit]="enableBtnEdit"
+        <app-crud-toolbar [enableCreate]="enableCreate" (create)="openModalDetail(demande)" [enableEdit]="enableBtnEdit"
     (edit)="openModalEdit(demande)">
   </app-crud-toolbar>
       </div>
   </div>
     <p-table #dtf [value]="demandes" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)" 
       [totalRecords]="totalRecords"  (onLazyLoad)="loadAll()" [lazy]="true"
-      [globalFilterFields]="['numero','libelle']"
+      [globalFilterFields]="['numero','dateDemande','structDestination']"
       currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements" 
       [showCurrentPageReport]=true
       [rowsPerPageOptions]="[20, 50, 100, 500]" styleClass="p-datatable-gridlines">
