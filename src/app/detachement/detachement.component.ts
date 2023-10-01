@@ -10,6 +10,7 @@ import { DetailsDisponibiliteComponent } from '../disponibilite/details-disponib
 import { CURRENT_PAGE, MAX_SIZE_PAGE } from '../shared/constants/pagination.constants';
 import { IDemande, Demande } from '../shared/model/demande.model';
 import { DemandeService } from '../shared/service/demande-service.service';
+import { DetailsDetachementComponent } from './details-detachement/details-detachement.component';
 
 @Component({
   selector: 'app-detachement',
@@ -36,7 +37,7 @@ export class DetachementComponent {
   message: any;
   dialogErrorMessage: any;
   enableCreate = true;
-
+enableInfo = true;
   page = CURRENT_PAGE;
   previousPage?: number;
   maxSize = MAX_SIZE_PAGE;
@@ -168,7 +169,7 @@ export class DetachementComponent {
 
       /** Permet d'afficher un modal pour voir les détails */
       openModalDetail(demande:IDemande): void {
-        this.dialogService.open(DetailsDisponibiliteComponent,
+        this.dialogService.open(DetailsDetachementComponent,
           {
             header: 'Details de demande',
             width: '60%',

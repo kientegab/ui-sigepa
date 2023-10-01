@@ -40,7 +40,12 @@
         <app-crud-toolbar [enableCreate]="enableCreate" (create)="openModalCreate()" [enableEdit]="enableBtnEdit"
     (edit)="openModalEdit(demande)">
   </app-crud-toolbar>
+  <app-crud-toolbar [enableCreate]="enableCreate" (create)="openModalDetail(demande)" [enableEdit]="enableBtnEdit"
+  (edit)="openModalEdit(demande)">
+</app-crud-toolbar>
+  
       </div>
+      
   </div>
     <p-table #dtf [value]="demandes" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)" 
       [totalRecords]="totalRecords"  (onLazyLoad)="loadAll()" [lazy]="true"
