@@ -110,21 +110,12 @@ export class StructuresComponent {
         this.loadAll();
     }
 
-    loadMinistere() {
-        this.ministereService.findListe().subscribe(response => {
-            this.ministeres = response.body!;
-        }, error => {
-            this.message = { severity: 'error', summary: error.error };
-            console.error(JSON.stringify(error));
-        });
-    }
 
     loadAll(): void {
         console.warn("hdhdh")
         //const req = this.buildReq();
         this.structureService.findAll().subscribe(result => {
             if (result && result.body) {
-                console.warn("STR",result.body);
                 this.totalRecords = Number(result.headers.get('X-Total-Count'));
                 this.structuresMinistere = result.body || [];
             }
