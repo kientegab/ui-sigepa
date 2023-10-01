@@ -27,7 +27,7 @@ export class StructureService {
   }
 
   update(structure: IStructure): Observable<EntityResponseType> {
-    return this.http.put<IStructure>(`${baseUri}`, structure, { observe: 'response' });
+    return this.http.put<IStructure>(`${baseUri}/structures`, structure, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
