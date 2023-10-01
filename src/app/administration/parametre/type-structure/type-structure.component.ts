@@ -163,7 +163,7 @@ export class TypeStructureComponent {
     openModalEdit(typeStructure: IStructure): void {
         this.dialogService.open(CreerModifierTypeStructureComponent,
             {
-                header: 'Modifier un typeStructure',
+                header: 'Modifier un type Structure',
                 width: '60%',
                 contentStyle: { overflow: 'auto' },
                 baseZIndex: 10000,
@@ -198,7 +198,7 @@ export class TypeStructureComponent {
     // Deletion
     onDelete(typeStructure: IStructure) {
         this.confirmationService.confirm({
-            message: 'Etes-vous sur de vouloir supprimer ce typeStructure?',
+            message: 'Etes-vous sur de vouloir supprimer ce type Structure?',
             accept: () => {
                 this.delete(typeStructure);
             }
