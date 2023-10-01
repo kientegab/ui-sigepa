@@ -1,161 +1,112 @@
 <p-card>
-<!-- Confirmation -->
-<app-confirmation></app-confirmation>
-<!-- <p-divider></p-divider> -->
-<ng-template pTemplate="header" style="
-    background-color:#1e88e0;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;">
-    <!-- <i class="{{isEditing() ? 'pi-pencil' : 'pi-plus'}} pi p-mr-1 mr-2"></i> -->
-    <h3 class="mr-auto">
-      {{demande.id ? 'Formulaire de modification' : 'Formulaire d\'ajout de'}} demande
-    </h3>
-  </ng-template>
-  <p-progressBar *ngIf="isDialogOpInProgress" mode="indeterminate" color="#1e88e0"></p-progressBar>
-  <p-message *ngIf="message" [severity]="message.severity" [text]="message.summary"></p-message>
-  <!-- <p-message severity="info" text="Message Content"></p-message> -->
-<!-- Form -->
-<form (ngSubmit)="saveEntity()" #dtf="ngForm" style="margin-top:20px;">
+    <ng-template pTemplate="header">
+        <div class="card-header">
+            <h4 class="text-green text-center text-bold">{{demande.id ? 'Formulaire de modification' : 'Formulaire d\'ajout de'}} demande</h4>
+        </div>
+    </ng-template>
+    <form (ngSubmit)="saveEntity()" #dtf="ngForm" style="margin-top:20px;">
 
-<!--  -->
+        <!--  -->
 
-<div class="formgrid grid">
-<div class="field col-12 md:col-12">
-    <label for="typeDemandeur">Type demandeur</label>
-        <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}"
-          [options]="typeDemandeur"
-          [(ngModel)]="demande.typeDemandeur" optionLabel="label" inputId="typeDemandeur"
-          name="typeDemandeur" placeholder="Sélectionner le typeDemandeur..." [filter]="true" appendTo="body"
-          [showClear]="true">
-        </p-dropdown>
+        <div class="formgrid grid">
+            <div class="field col-6 md:col-6">
+                <label for="typeDemandeur">Type demandeur</label>
+                <p-dropdown autoWidth="false" id="typeDemandeur" styleClass="mb-3" [style]="{'width':'100%'}"
+                            [options]="typeDemandeur"
+                            [(ngModel)]="demande.typeDemandeur" optionLabel="label" inputId="typeDemandeur"
+                            name="typeDemandeur" placeholder="Sélectionner le typeDemandeur..." [filter]="true" appendTo="body"
+                            [showClear]="true">
+                </p-dropdown>
 
 
-</div>
-<div class="field col-12 md:col-12">
-    <label for="typeDemande">Type Demande :</label>
+            </div>
+            <div class="field col-6 md:col-6">
+                <label for="typeDemande">Type Demande :</label>
     <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
                 [options]="typeDemandes"
                 [(ngModel)]="demande.typeDemande" optionLabel="libelle" inputId="typeDemande"
                 name="typeDemande" placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body"
                 (onChange)="onTypeDemandeChange()" [showClear]="true">
     </p-dropdown>
-  </div>
-  
-  <div class="field col-12 md:12">
-    <label for="motif">Motif :</label>
-    <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
-                [options]="motifs"
-                [(ngModel)]="selectedMotif" optionLabel="libelle" inputId="motifDTOs"
-                name="motifDTOs" placeholder="Sélectionner le motif..." [filter]="true" appendTo="body"
-                [showClear]="true">
-    </p-dropdown>
-  </div>
-  
-  
-  
+            </div>
+
+            <div class="field col-6 md:col-6">
+                <label for="motif">Motif :</label>
+                <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
+                            [options]="motifs"
+                            [(ngModel)]="selectedMotif" optionLabel="libelle" inputId="motifDTOs"
+                            name="motifDTOs" placeholder="Sélectionner le motif..." [filter]="true" appendTo="body"
+                            [showClear]="true">
+                </p-dropdown>
+              </div>
 
 
+            <div class="field col-4 md:col-4">
+                <label for="Nom">Nom :</label>
+                <input type="text" id="nom" name="nom" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-4 md:col-4">
+                <label for="Prenom">Prenom :</label>
+                <input type="text" id="Prenom" name="Prenom" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
 
+            <div class="field col-4 md:col-4">
+                <label for="matricule">Matricule :</label>
+                <input type="text" id="Matricule" name="Matricule" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
 
-<div class="field col-12 md:col-12">
-    <label for="Nom">Nom :</label>
-    <input type="text" id="nom" name="nom" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
-<div class="field col-12 md:col-12">
-    <label for="Prenom">Prenom :</label>
-    <input type="text" id="Prenom" name="Prenom" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
+            <div class="field col-4 md:col-4">
+                <label for="Emploi">Emploi :</label>
+                <input type="text" id="Emploi" name="Emploi" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
 
-<div class="field col-12 md:col-12">
-    <label for="matricule">Matricule :</label>
-    <input type="text" id="Matricule" name="Matricule" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
+            <div class="field col-4 md:col-4">
+                <label for="Contact">Contact :</label>
+                <input type="text" id="contact" name="contact" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
 
-<div class="field col-12 md:col-12">
-    <label for="Emploi">Emploi :</label>
-    <input type="text" id="Emploi" name="Emploi" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
+            <div class="field col-4 md:col-4">
+                <label for="Email">Email :</label>
+                <input type="text" id="Email" name="Email" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
 
-<div class="field col-12 md:col-12">
-    <label for="Contact">Contact :</label>
-    <input type="text" id="contact" name="contact" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
+            <div class="field col-4 md:col-4">
+                <label for="structDestination">En service à :</label>
+                <input type="text" id="structDestination" name="structDestination" #libelle="ngModel" [(ngModel)]="demande.structDestination" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
 
-<div class="field col-12 md:col-12">
-    <label for="Email">Email :</label>
-    <input type="text" id="Email" name="Email" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
+            <div class="field col-4 md:col-4">
+                <div class="p-field p-fluid">
+                    <label for="dateEffet">Date d'effet</label>
+                    <p-calendar [(ngModel)]="demande.dateEffet" id="dateEffet" name="dateEffet"></p-calendar>
+                </div>
+            </div>
+            <br>
 
-<div class="field col-12 md:col-12">
-    <label for="structDestination">En service à :</label>
-    <input type="text" id="structDestination" name="structDestination" #libelle="ngModel" [(ngModel)]="demande.structDestination" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
+            <div class="field col-12 md:col-12">
+                <div class="card">
+                    <h5>Importation des pièces</h5>
+                    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+                                  [multiple]="true" accept="image/*" [maxFileSize]="1000000">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+            </div>
 
-<!-- <div class="field col-12 md:col-12">
-    <label for="libelle">Supérieur Hiérarchique :</label>
-    <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="demande.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div> -->
+        </div>
 
-
-
-
-<div class="field col-6 md:col-6">
-<div class="p-field p-fluid">
-    <label for="dateEffet">Date d'effet</label>
-    <p-calendar [(ngModel)]="demande.dateEffet" id="dateEffet" name="dateEffet"></p-calendar>
-</div>
-</div>
-<br>
-
-<div class="field col-12 md:col-12">
-    <label for="piece">Pièces :</label>
-    <p-multiSelect autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
-                  [options]="selectedPieces"
-                  [(ngModel)]="demande.pieceJointe" optionLabel="libelle" inputId="pieceJointe"
-                  name="pieceJointe" placeholder="Sélectionner les pièces..." [filter]="true" appendTo="body"
-                  [showClear]="true">
-    </p-multiSelect>
-  </div>
-
-<!-- <div class="field col-12 md:col-12">
-<div class="row">
-
-
-    <label for="description">PieceJointe1</label>
-    <input type="file" id="file1" (change)="onSelectFile($event)">
-    <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
- 
-
-    <label for="description">PieceJointe2</label>
-    <input type="file" id="file2" (change)="onSelectFile($event)">
-    <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
-
-</div>
-</div> -->
-<!-- <div class="field col-12 md:12" *ngIf="demande.typeDemande === 'Nouvelle disponibilité'">
-    <label for="pieceJointe1">Importer pièce 1 :</label>
-    <input type="file" id="pieceJointe1" name="pieceJointe1" (change)="onFileChange($event, 'piece1')" class="form-control">
-</div>
-
-
-<div class="field col-12 md:12" *ngIf="demande.typeDemande === 'Nouvelle disponibilité'">
-    <label for="pieceJointe2">Importer pièce 2 :</label>
-    <input type="file" id="pieceJointe2" name="pieceJointe2" (change)="onFileChange($event, 'piece2')" class="form-control">
-</div> -->
-
-</div>
-
-  <!-- <p-divider></p-divider> -->
-  <div class="p-ml-auto text-right ">
-    <div class="p-ml-auto text-right">
-        <button type="reset" label="Effacer" class="p-button-filter mr-3 float-left" pButton icon="pi pi-trash"></button>
-        <button label="Annuler" (click)="clear()" class="p-button-filter mr-3" pButton icon="pi pi-times"></button>
-        <button type="submit" [disabled]="!dtf.form.valid" label="{{isEditing() ? 'Enregistrer' : 'Ajouter'}}" icon="pi {{isEditing() ? 'pi-save' : 'pi-plus'}}" class="  {{isEditing() ? 'p-button-primary' : 'p-button-success'}}" pButton>
-        </button>
-    </div>
-  </div>
-</form>
-
+        <!-- <p-divider></p-divider> -->
+        <div class="p-ml-auto text-right ">
+            <div class="p-ml-auto text-right">
+                <button type="reset" label="Effacer" class="p-button-filter mr-3 float-left" pButton icon="pi pi-trash"></button>
+                <button label="Annuler" (click)="clear()" class="p-button-filter mr-3" pButton icon="pi pi-times"></button>
+                <button type="submit" [disabled]="!dtf.form.valid" label="{{isEditing() ? 'Enregistrer' : 'Ajouter'}}" icon="pi {{isEditing() ? 'pi-save' : 'pi-plus'}}" class="  {{isEditing() ? 'p-button-primary' : 'p-button-success'}}" pButton>
+                </button>
+            </div>
+        </div>
+    </form>
 </p-card>

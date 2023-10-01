@@ -24,6 +24,7 @@ import { TableModule } from 'primeng/table';
 import { AppCommonModule } from '../shared/common/app-common.module';
 import { CalendarModule } from 'primeng/calendar';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     ProgressSpinnerModule,
     PaginatorModule,
     CalendarModule,
-    MultiSelectModule
+    MultiSelectModule,
+    FileUploadModule
   ]
 })
 export class DisponibiliteModule { }

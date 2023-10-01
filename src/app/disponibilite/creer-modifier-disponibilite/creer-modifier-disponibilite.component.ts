@@ -41,6 +41,12 @@ export class CreerModifierDisponibiliteComponent {
 selectedMotif: IMotif | undefined;
 selectedPieces: IPiece[] = [];
 
+multiple=true;
+
+uploadedFiles: any[] = [];
+
+
+
 
 
 onTypeDemandeChange() {
@@ -54,6 +60,9 @@ onTypeDemandeChange() {
   }
 }
 
+onUpload($event: any) {
+
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
