@@ -13,6 +13,7 @@ export interface ITypeDemande {
     visaDTOs?: Visa[];
     motifDTOs?: Motif[];
     ampliationDTOs?: Ampliation[];
+    categorie?: ECategorie;
 }
 
 export class TypeDemande implements ITypeDemande {
@@ -25,6 +26,7 @@ export class TypeDemande implements ITypeDemande {
         public motifDTOs?: Motif[],
         public visaDTOs?: Visa[],
         public ampliationDTOs?: Ampliation[],
+        public categorie?: ECategorie
     ){}
 }
 export interface GetAllTypeDemandeResponse {
@@ -34,4 +36,9 @@ export interface GetAllTypeDemandeResponse {
 export enum TypeDemandeur {
     Agent = 'agent',
     Structure = 'structure',
+  }
+
+  export enum ECategorie {
+    DETACHEMENT = 'DETACHEMENT',
+    DISPONIBILITE = 'DISPONIBILITE',
   }
