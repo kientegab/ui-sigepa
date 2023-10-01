@@ -2,7 +2,7 @@
     "id": 1,
     "code": "DISP_N",
     "libelle": "Nouvelle disponibilité",
-    "motifsDTO": [
+    "motifDTOs": [
     {
         "id" : 1,
         "libelle": "disponibilité pour accident ou maladie"

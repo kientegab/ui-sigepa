@@ -39,22 +39,22 @@
                 [options]="typeDemandes"
                 [(ngModel)]="demande.typeDemande" optionLabel="libelle" inputId="typeDemande"
                 name="typeDemande" placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body"
-                onchange="loadMotif(demande.typeDemande.libelle)"
-                [showClear]="true">
+                (onChange)="onTypeDemandeChange()" [showClear]="true">
     </p-dropdown>
   </div>
-
-
-
-  <div class="field col-12 md:col-12">
+  
+  <div class="field col-12 md:12">
     <label for="motif">Motif :</label>
     <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
                 [options]="motifs"
-                [(ngModel)]="demande.typeDemande.motifDTOs" optionLabel="libelle" inputId="motifDTOs"
-                name="motifDTOs" placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body"
+                [(ngModel)]="selectedMotif" optionLabel="libelle" inputId="motifDTOs"
+                name="motifDTOs" placeholder="Sélectionner le motif..." [filter]="true" appendTo="body"
                 [showClear]="true">
     </p-dropdown>
   </div>
+  
+  
+  
 
 
 
@@ -110,6 +110,16 @@
 <br>
 
 <div class="field col-12 md:col-12">
+    <label for="piece">Pièces :</label>
+    <p-multiSelect autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
+                  [options]="selectedPieces"
+                  [(ngModel)]="demande.pieceJointe" optionLabel="libelle" inputId="pieceJointe"
+                  name="pieceJointe" placeholder="Sélectionner les pièces..." [filter]="true" appendTo="body"
+                  [showClear]="true">
+    </p-multiSelect>
+  </div>
+
+<!-- <div class="field col-12 md:col-12">
 <div class="row">
 
 
@@ -123,7 +133,7 @@
     <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
 
 </div>
-</div>
+</div> -->
 <!-- <div class="field col-12 md:12" *ngIf="demande.typeDemande === 'Nouvelle disponibilité'">
     <label for="pieceJointe1">Importer pièce 1 :</label>
     <input type="file" id="pieceJointe1" name="pieceJointe1" (change)="onFileChange($event, 'piece1')" class="form-control">

@@ -37,7 +37,44 @@ export class CreerModifierDisponibiliteComponent {
   file: Blob | string = '';
   selectedFile: File | null = null;
   motifs: IMotif[] = [];
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+selectedMotif: IMotif | undefined;
+selectedPieces: IPiece[] = [];
 
+
+
+onTypeDemandeChange() {
+  // Réinitialisez la liste des motifs en fonction du type de demande sélectionné
+  if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
+    this.motifs = this.demande.typeDemande.motifDTOs;
+    this.selectedMotif = undefined; // Réinitialisez la sélection du motif
+  } else {
+    this.motifs = []; // Si le type de demande n'a pas de motifs, réinitialisez la liste
+    this.selectedMotif = undefined; // Réinitialisez la sélection du motif
+  }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+onMotifChange() {
+  // Réinitialisez la liste des pièces sélectionnées
+  this.selectedPieces = [];
+
+  // Vérifiez si des motifs sont sélectionnés
+  if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
+    // Parcourez les motifs sélectionnés
+    for (const motif of this.demande.typeDemande.motifDTOs) {
+      // Ajoutez les pièces du motif à la liste des pièces sélectionnées
+      if (motif.piece) {
+        this.selectedPieces.push(...motif.piece);
+      }
+    }
+  }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // piece1: IPiece = { id: 1, libelle: 'Pièce 1'};
   // piece2: IPiece = { id: 2, libelle: 'Pièce 2'};
 
@@ -51,14 +88,7 @@ export class CreerModifierDisponibiliteComponent {
 
   // typesDemande: string[] = ['Nouvelle disponibilité', 'Renouvellement disponibilité', 'Fin disponibilité', 'Annulation disponibilité', 'Rectification disponibilité'];
 
-  onTypeDemandeChange() {
-    // Réinitialisez la liste des pièces jointes en fonction du type de demande sélectionné
-    // this.pieces = [];
-    // if (demande.typeDemande === 'Nouvelle disponibilité') {
-    //   this.pieces.push(this.piece1);
-    //   this.pieces.push(this.piece2);
-    // }
-  }
+
 
   onFileChange(event: any, pieceJointe: string) {
     const fileList: FileList = event.target.files;
