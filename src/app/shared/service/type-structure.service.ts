@@ -10,7 +10,7 @@ type EntityResponseType = HttpResponse<ITypeStructure>;
 type EntityArrayResponseType = HttpResponse<ITypeStructure[]>;
 
 
-const typeStructureUrl = environment.detachementUrl+'/type-structures/list';
+const typeStructureUrl = environment.detachementUrl+'/type-structures';
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +33,11 @@ export class TypeStructureService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ITypeStructure[]>(typeStructureUrl, { params: options, observe: 'response' });
+    return this.http.get<ITypeStructure[]>(`${typeStructureUrl}/list-page`, { params: options, observe: 'response' });
   }
 
    findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<ITypeStructure[]>(typeStructureUrl, { observe: 'response' });
+    return this.http.get<ITypeStructure[]>(`${typeStructureUrl}/list-page`, { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -45,7 +45,7 @@ export class TypeStructureService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<ITypeStructure[]>(typeStructureUrl, { observe: 'response' });
+    return this.http.get<ITypeStructure[]>(`${typeStructureUrl}/list`, { observe: 'response' });
   }
 
   getAll(event?: LazyLoadEvent): Observable<any> {

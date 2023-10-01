@@ -4,6 +4,7 @@ import { AppLayoutComponent } from './layout/app.layout.component';
 import { DashboardPublicComponent } from './public/dashboard-public.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { Authority } from './shared/constants/authority.constants';
+import { AccountComponent } from './public/account/account.component';
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
@@ -15,9 +16,18 @@ const routes: Routes = [
         path: '', component: DashboardPublicComponent,
         children: [
             { path: '', loadChildren: () => import('./public/home-page/home-page.module').then(m => m.HomePageModule) },
+            { path: 'account', component: AccountComponent },
             { path: 'accueil', loadChildren: () => import('./public/home-page/home-page.module').then(m => m.HomePageModule) },
+            // { path: 'auth/login', data: { breadcrumb: 'Auth' }, loadChildren: () => import('./account/login/login.module').then(m => m.LoginModule) },
+            { path: 'public/N_detachement', data: { breadcrumb: 'nouvelle detachement' }, loadChildren: () => import('./public/detachement/nouvelle-detachement/nouvelle-detachement.module').then(m => m.NouvelleDetachementModule) },
+            { path: 'public/R_detachement', data: { breadcrumb: 'renouvellement detachement' }, loadChildren: () => import('./public/detachement/renouvelle-detachement/renouvelle-detachement.module').then(m => m.RenouvelleDetachementModule) },
+            { path: 'public/F_detachement', data: { breadcrumb: 'fin detachement' }, loadChildren: () => import('./public/detachement/fin-detachement/fin-detachement.module').then(m => m.FinDetachementModule) },
+            { path: 'public/RE_detachement', data: { breadcrumb: 'rectification detachement' }, loadChildren: () => import('./public/detachement/rectification-detachement/rectification-detachement.module').then(m => m.RectificationDetachementModule) },
+            { path: 'public/A_detachement', data: { breadcrumb: 'annulation detachement' }, loadChildren: () => import('./public/detachement/annulation-detachement/annulation-detachement.module').then(m => m.AnnulationDetachementModule) },
+            
         ]
     },
+
     {
        // path: 'admin', component: AppLayoutComponent, canActivate: [AuthGuard],
         path: 'admin', component: AppLayoutComponent, 

@@ -1,4 +1,5 @@
 import { IAgent } from "./agent.model";
+import { IHistorique } from "./historique.model";
 import { IPieceJointe } from "./pieceJointe.model";
 import { IStructure } from "./structure.model";
 import { ITypeDemande } from "./typeDemande.model";
@@ -13,7 +14,8 @@ export interface IDemande {
     structDestination?: IStructure;
     status?: String;
     pieceJointe?: IPieceJointe[];
-    agent?: IAgent
+    agent?: IAgent;
+    historiques?: IHistorique[];
 }
 
 export class Demande implements IDemande {
@@ -27,7 +29,8 @@ export class Demande implements IDemande {
         public structDestination?: IStructure,
         public status?: String,
         public pieceJointe?: IPieceJointe[],
-        public agent?: IAgent
+        public agent?: IAgent,
+        public historiques?: IHistorique[],
 
     ){
     }

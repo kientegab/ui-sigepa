@@ -1,126 +1,95 @@
+<style>
+    * {
+      box-sizing: border-box;
+    }
+  
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 30px;
+    }
+  
+    .sub-title {
+      color: #7F7F7F;
+      font-size: 20px;
+    }
+  
+    .flex-item-left {
+      flex: 60%;
+    }
+  
+    .flex-item-right {
+      flex: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* background-color: black; */
+      background-color:  #9C27B0;
+      background-image: linear-gradient(120deg, #FF4081, #81fa8b)
+    }
+  
+    .flex-item-right h6{
+      color: white;
+    }
+  
+    .aitem {
+      color:#000000e1;
+      font-size: 50%;
+    }
+  
+    .flex-item-center {
+      /* flex: 10%; */
+      text-align: left;
+    }
+  
+    /* Responsive layout - makes a one column-layout instead of a two-column layout */
+    @media (max-width: 800px) {
+      .flex-item-right,
+      .flex-item-left {
+        flex: 100%;
+      }
+    }
+  </style>
+  
+  
+  <div> 
+    <div class="flex-container mb-2">
+      <div class="flex-item-center">
+        <a class="navbar-brand" href="/">
+          <img src="assets/img/icons/armoiries-bon-2gg.png" width="150px" height="150px" alt="BURKINA FASO">
+        </a>
+      </div>
+  
+      <div class="flex-item-left w-150"> 
+        <!-- <h5 class="mt-1" >Ministère de la Fonction Publique, du Travail et de la Protection Sociale</h5>  -->
+        <!-- <h4 class="mt-1"><b>Ministère de la Fonction Publique, du Travail et de la Protection Sociale</b></h4> -->
+        <h4 class="mt-7"><b>Système Intégré de gestion des positions administratives (SIGEPA)</b></h4>
+        <!-- <span class="sub-title">Système Intégré de gestion des congés et des autorisations d'absence (SICAA)</span> -->
+      </div> 
 
-
-<nav class="navbar navbar-expand-lg navbar-light white-light">
-    <a class="cursor-pointer" (click)="router.navigate(['/'])">
-        <img src="assets/img/icons/armoiries-bon-2gg.png" alt="" width="50%" style="margin-top:0px;">
-    </a>
-    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-    <button class="navbar-toggler" (click)="showHideMenu()" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
-      <!-- <span class="navbar-toggler-icon"><i class="pi pi-bars"></i></span> -->
-      <i class="pi pi-bars"></i>
-    </button>
-    <div [ngClass]="hidden===true? 'collapse navbar-collapse show' : 'collapse navbar-collapse'" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/">Accueil <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/">Espace membre</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-            Bibliothèque
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" routerLink="/loi">Loi</a>
-            <a class="dropdown-item" routerLink="/circulaire">Circulaire</a>
-            <a class="dropdown-item" routerLink="/decret">Décret</a>
-            <a class="dropdown-item" routerLink="/arrete">Arrête</a>
-            <a class="dropdown-item" routerLink="/note">Note</a>
-            <a class="dropdown-item" routerLink="/convention">Convention</a>
-          </div>
-        </li>
-      </ul>
-      <!-- <ul class="nav navbar-nav navbar-right">
-        <li style="margin-top:0px;">
-        </li>
-      </ul> -->
-    </div>
-    <a (click)="router.navigate(['/auth/login'], {fragment: 'login'})" pRipple pStyleClass="@grandparent"
-        enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden"
-        class="flex m-0 text-white txt-900 font-medium line-height-3 cursor-pointer btn-connexion" pButton pRipple style="background-color: #1e88e0; border-color: #1e88e0;margin-left:50px;">
-        <span>Connexion</span>
-    </a>
-</nav>
-<!-- <div class="flex align-items-center justify-content-between relative lg:static py-6 px-4 mx-0 md:px-7 lg:px-8 lg:py-2 lg:mx-12" style="background-color: white;"> -->
-
-<!-- <a pRipple class="cursor-pointer block md:hidden text-700 text-primary" pStyleClass="@next"
-    enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden"
-    leaveActiveClass="px-fadeout" [hideOnOutsideClick]="true">
-    <i class="pi pi-bars text-4xl"></i>
-</a> -->
-<!-- <ul #menu  style="top:80px; right: 0%;"
-    class="list-none  p-3 md:p-0  justify-content-end ng-hidden md:flex absolute md:static w-full md:px-0 z-3 shadow-2 md:shadow-none" style="background-color: transparent; margin-top:30px;">
-    <a pRipple class="cursor-pointer block md:hidden text-700 text-primary absolute z-5" style="top:1.5rem;
-    right: 1.5rem;" pRipple pStyleClass="@parent"
-            enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden" leaveActiveClass="px-fadeout">
-        <i class="pi pi-times text-3xl"></i>
-    </a> -->
-    <!-- <p-menubar style="margin-top:-30px;"></p-menubar> -->
-    <!-- <div class="bg-dark">Test</div> -->
-    <!-- <ul class="layout-menu"> -->
-    <!-- <ng-container *ngFor="let item of items; let i = index;">
-        <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
-        <li *ngIf="item.separator" class="menu-separator"></li>
-    </ng-container> -->
-    <!-- <app-menu></app-menu> -->
-    <!-- </ul> -->
-<!-- 
-    <li class=" md:mt-0">
-        <a (click)="router.navigate(['/'], {fragment: 'home'})" pRipple pStyleClass="@grandparent"
-            enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden"
-            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3 cursor-pointer">
-            <span>Accueil</span>
+      <div >
+        <a class="navbar-brand" href="/">
+          <img src="assets/img/drapeau.PNG" width="100px" height="100px" alt="BURKINA FASO">
         </a>
-    </li>
-    <li>
-        <a (click)="router.navigate(['/politique'], {fragment: 'apps'})" pRipple pStyleClass="@grandparent"
-            enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden"
-            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3 cursor-pointer">
-            <span>Politique</span>
-        </a>
-    </li>
-    <li>
-        <a (click)="router.navigate(['/landing'], {fragment: 'features'})" pRipple pStyleClass="@grandparent"
-            enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden"
-            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3 cursor-pointer">
-            <span>Text</span>
-        </a>
-    </li>
-    <li>
-        <a (click)="router.navigate(['/landing'], {fragment: 'features'})" pRipple pStyleClass="@grandparent"
-            enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden"
-            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3 cursor-pointer">
-            <span>Expace membre</span>
-        </a>
-    </li>
-    <li>
-        <a (click)="router.navigate(['/bibliotheque'], {fragment: 'features'})" pRipple pStyleClass="@grandparent"
-            enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden"
-            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3 cursor-pointer">
-            <span>Bibliothèque</span>
-        </a>
-    </li>
-    <li>
-        <a (click)="router.navigate(['/faq'], {fragment: 'features'})" pRipple pStyleClass="@grandparent"
-            enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden"
-            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3 cursor-pointer">
-            <span>FAQ</span>
-        </a>
-    </li> -->
-    <!-- <li style="margin-top:-30px;">
-        <a (click)="router.navigate(['/auth/login'], {fragment: 'login'})" pRipple pStyleClass="@grandparent"
-            enterClass="ng-hidden" enterActiveClass="px-fadein" leaveToClass="ng-hidden"
-            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3 cursor-pointer btn-connexion" pButton pRipple class="" style="background-color: #1e88e0; border-color: #1e88e0;margin-left:50px;">
-            <span>Connexion</span>
-        </a>
-    </li> -->
-<!--                 
-    <li class="flex align-items-center">
-        <button pButton pRipple type="button" pStyleClass="@grandparent" enterClass="ng-hidden"
-            enterActiveClass="px-fadein" leaveToClass="ng-hidden" label="Buy Now"
-            class="m-0 mt-3 md:mt-0 md:ml-5 white-space-nowrap"></button>
-    </li> -->
-<!-- </ul> -->
-
-<!-- </div> -->
+      </div>
+  
+      </div>
+  
+    <p-menubar class="link-secondary" [model]="items" [autoDisplay]='true'>
+      <ng-template pTemplate="end">
+        <div >
+            <button pButton type="button" icon="pi pi-sign-in"
+                class="p-button-secondary p-button-raised p-button-text p-button-rounded p-mr-3 app-brown p-mr-2"
+                style="background-color: #f8f9fa; color: #756254;" pTooltip="Se connecter"
+                tooltipPosition="bottom" (click)="login()">
+            </button>
+            <button pButton type="button" icon="pi pi-user-plus"
+                class="p-button-secondary p-button-raised p-button-text p-button-rounded p-mr-3 app-brown p-mr-2"
+                style="background-color: #f8f9fa; color: #756254;" pTooltip="Creer Un Compte"
+                tooltipPosition="bottom" routerLink="/account">
+            </button>
+        </div>
+    </ng-template>
+  </p-menubar>
+  </div>
+  

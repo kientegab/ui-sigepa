@@ -8,6 +8,8 @@ import {TypeDemandeService} from "../../shared/service/type-demande.service";
 import {ConfirmationService, Message, SelectItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
+import { IMotif } from 'src/app/shared/model/motif.model';
+import { MotifService } from 'src/app/shared/service/motif.service';
 
 @Component({
   selector: 'app-creer-modifier-detachement',
@@ -29,7 +31,10 @@ export class CreerModifierDetachementComponent {
     pieces: IPiece[] = [];
     file: Blob | string = '';
     selectedFile: File | null = null;
+    selectedMotif: IMotif | undefined;
+    selectedPieces: IPiece[] = [];
     multiple=true;
+    motifs: IMotif[] = [];
 
     uploadedFiles: any[] = [];
 
@@ -41,7 +46,51 @@ export class CreerModifierDetachementComponent {
         }
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+motifWithPieces: { motif: string, pieces: IPiece[] }[] = [];
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+onTypeDemandeChange() {
+ 
+  if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
+    this.motifs = this.demande.typeDemande.motifDTOs;
+    this.selectedMotif = undefined; 
+  } else {
+    this.motifs = []; 
+    this.selectedMotif = undefined; 
+  }
+}
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+onMotifChange() {
+  if (this.selectedMotif) {
+    if (this.demande.typeDemande) {
+      const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
+
+      if (motif) {
+        this.selectedPieces = motif.piece || [];
+      } else {
+        this.selectedPieces = [];
+      }
+    }
+  } else {
+    this.selectedPieces = [];
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     onSelectFile(event: any): void {
         console.log(event.target.files[0]);
         this.file = event.target.files[0];
@@ -52,6 +101,7 @@ export class CreerModifierDetachementComponent {
         private demandeService: DemandeService,
         private dialogRef: DynamicDialogRef,
         private typeDemandeService: TypeDemandeService,
+        private motifService: MotifService,
         // private dynamicDialog: DynamicDialogConfig,
         private confirmationService: ConfirmationService,
         private router: Router,
@@ -63,6 +113,7 @@ export class CreerModifierDetachementComponent {
         // if (this.dynamicDialog.data) {
         //   this.demande = cloneDeep(this.dynamicDialog.data);
         // }
+        
         this.loadTypeDemande();
     }
 
@@ -87,6 +138,19 @@ export class CreerModifierDetachementComponent {
         });
     }
 
+    loadMotif(typeDemande: string) {
+        this.motifService.findAll().subscribe(response => {
+          this.motifs = response.body!;
+          
+          this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
+            motif: motif.libelle!,
+            pieces: [] 
+          }));
+        }, error => {
+          this.message = { severity: 'error', summary: error.error };
+          console.error(JSON.stringify(error));
+        });
+      }
 
 
     clear(): void {

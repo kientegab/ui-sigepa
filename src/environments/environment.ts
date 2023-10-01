@@ -1,21 +1,6 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-//10.170.24.118   ********
-//const commonAppURI: string = 'http://192.168.1.122:64642/api/affiliation-immatriculation/';
-//const commonAppURI: string = 'http://192.168.1.216:8089/api/affiliation-immatriculation/';
 const commonAppURI: string = 'http://localhost:8090/api/';
-
-//const commonAppURI: string = 'http://192.168.1.150:8089/api/affiliation-immatriculation/';
-//const commonAppCOT: string = 'http://localhost:8090/api/';
-const commonAppCOT: string = 'http://localhost:8089/api/cotisations/';
-//const commonAppCOT: string = 'http://192.168.1.216:8089/api/cotisations/';
-//const commonAppCOT1: string = 'http://10.170.24.118:8090/api/affiliation-immatriculation/';
-
 const commonAuth: string = 'http://localhost:8089/api/auth/';
-//const commonAuth: string = 'http://192.168.1.216:8089/api/auth/';
-//const commonAppCOT: string = 'http://192.168.1.72:8089/api/cotisations/';
-//const commonAppCOT1: string = 'http://192.168.1.72:8090/api/affiliation-immatriculation/'**;
+
 
 export const environment = {
   production: false,
@@ -47,8 +32,10 @@ export const environment = {
   demandeUrl:commonAuth + 'demandes',
    // typeEmployeurUrl: commonAppURI +'typeEmployeur',
 
-  typesCotisationUrl:commonAppCOT+'type-cotisations',
+
+  //typesCotisationUrl:commonAppCOT+'type-cotisations',
   arrondissementUrl: commonAppURI +'arrondissements',
+
 
   //tauxCotisationUrl: commonAppURI +'taux-cotisations',
   // regionUrl: commonAppURI +'regions ',
@@ -70,7 +57,9 @@ export const environment = {
   regionUrl: commonAppURI +'regions',
   province: commonAppURI +'province',
   banqueUrl: commonAppURI +'banques',
-  caisseUrl: commonAppCOT +'caisses',
+
+  // caisseUrl: commonAppCOT +'caisses',
+
   paysUrl: commonAppURI +'pays',
   roleUrl: commonAppURI +'role',
 
@@ -102,7 +91,7 @@ export const environment = {
   region: commonAppURI +'regions',
   //resourceUrl: commonAppURI +'taux-forfait-cotisations',
   //sectionUrl: commonAppURI +'sections',
-  cotisationUrl: commonAppCOT +'cotisations',
+
   assureUrl: commonAppURI +'assures',
   dashbordUrl : commonAppURI+'reports',
 
@@ -123,11 +112,3 @@ export const environment = {
 
 };
 /****** */
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

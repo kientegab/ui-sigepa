@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { cloneDeep } from 'lodash';
 import { Message } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
+import { AviserDetachementComponent } from '../aviser-detachement/aviser-detachement.component';
 import { AviserDisponibiliteComponent } from 'src/app/disponibilite/aviser-disponibilite/aviser-disponibilite.component';
 import { IDemande, Demande } from 'src/app/shared/model/demande.model';
 
@@ -19,12 +20,14 @@ export class DetailsDetachementComponent {
   showDialog = false;
   message: any;
   timeoutHandle: any;
+  demandes: any;
 
   constructor(
     private dialogRef: DynamicDialogRef,
     private dynamicDialog:  DynamicDialogConfig,
-    private dialogService: DialogService
+    private dialogService: DialogService,
 ) {}
+
 
   ngOnInit(): void {
     if (this.dynamicDialog.data) {
@@ -65,4 +68,23 @@ export class DetailsDetachementComponent {
       this.dialogRef.destroy();
   }
 
+  /** Permet d'afficher un modal pour l'ajout */
+  openModalCreate(): void {
+    this.dialogService.open(AviserDetachementComponent,
+      {
+        header: 'Aviser une demande',
+        width: '60%',
+        contentStyle: { overflow: 'auto', },
+        baseZIndex: 10000,
+        maximizable: true,
+        closable: true,
+      }
+    ).onClose.subscribe(result => {
+      if(result) {
+      this.demandes.push(result);
+      this.isDialogOpInProgress = false;
+      this.showMessage({ severity: 'success', summary: 'Demande créée avec succès' });
+      }
+    });
+  }
 }

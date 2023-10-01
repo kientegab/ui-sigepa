@@ -38,7 +38,7 @@ export class DetachementComponent {
   message: any;
   dialogErrorMessage: any;
   enableCreate = true;
-
+enableInfo = true;
   page = CURRENT_PAGE;
   previousPage?: number;
   maxSize = MAX_SIZE_PAGE;

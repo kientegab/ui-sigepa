@@ -6,10 +6,13 @@ import { cloneDeep } from 'lodash';
 import { ConfirmationService, Message, SelectItem } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Demande, IDemande, TypeDemandeur } from 'src/app/shared/model/demande.model';
+import { IMotif } from 'src/app/shared/model/motif.model';
 import { IPiece } from 'src/app/shared/model/piece.model';
+
 import { IPieceJointe } from 'src/app/shared/model/pieceJointe.model';
 import { ITypeDemande } from 'src/app/shared/model/typeDemande.model';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
+import { MotifService } from 'src/app/shared/service/motif.service';
 import { TypeDemandeService } from 'src/app/shared/service/type-demande.service';
 
 @Component({
@@ -19,7 +22,7 @@ import { TypeDemandeService } from 'src/app/shared/service/type-demande.service'
 })
 export class CreerModifierDisponibiliteComponent {
   
-  // @ViewChild('dtf') form!: NgForm;
+  //////////////////////////////////////////// @ViewChild('dtf') form!: NgForm;
   demande: IDemande = new Demande();
   @Input() data: IDemande = new Demande();
   demandes: IDemande[]=[];
@@ -34,28 +37,65 @@ export class CreerModifierDisponibiliteComponent {
   pieces: IPiece[] = [];
   file: Blob | string = '';
   selectedFile: File | null = null;
+  motifs: IMotif[] = [];
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+selectedMotif: IMotif | undefined;
+selectedPieces: IPiece[] = [];
 
-  // piece1: IPiece = { id: 1, libelle: 'Pièce 1'};
-  // piece2: IPiece = { id: 2, libelle: 'Pièce 2'};
+multiple=true;
 
-  // typeDemandeOptions: ITypeDemande[] = [
-  //   { code: 'DISP_N', libelle: 'Nouvelle disponibilité' },
-  //   { code: 'DISP_R', libelle: 'Renouvellement disponibilité' },
-  //   { code: 'DISP_F', libelle: 'Fin disponibilité' },
-  //   { code: 'DISP_A', libelle: 'Annulation disponibilité' },
-  //   { code: 'DISP_RE', libelle: 'Rectification disponibilité' }
-  // ];
+uploadedFiles: any[] = [];
+motifWithPieces: { motif: string, pieces: IPiece[] }[] = [];
 
-  // typesDemande: string[] = ['Nouvelle disponibilité', 'Renouvellement disponibilité', 'Fin disponibilité', 'Annulation disponibilité', 'Rectification disponibilité'];
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  onTypeDemandeChange() {
-    // Réinitialisez la liste des pièces jointes en fonction du type de demande sélectionné
-    // this.pieces = [];
-    // if (demande.typeDemande === 'Nouvelle disponibilité') {
-    //   this.pieces.push(this.piece1);
-    //   this.pieces.push(this.piece2);
-    // }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+onTypeDemandeChange() {
+ 
+  if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
+    this.motifs = this.demande.typeDemande.motifDTOs;
+    this.selectedMotif = undefined; 
+  } else {
+    this.motifs = []; 
+    this.selectedMotif = undefined; 
   }
+}
+
+onUpload($event: any) {
+
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+onMotifChange() {
+  if (this.selectedMotif) {
+    if (this.demande.typeDemande) {
+      const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
+
+      if (motif) {
+        this.selectedPieces = motif.piece || [];
+      } else {
+        this.selectedPieces = [];
+      }
+    }
+  } else {
+    this.selectedPieces = [];
+  }
+}
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
   onFileChange(event: any, pieceJointe: string) {
     const fileList: FileList = event.target.files;
@@ -76,6 +116,7 @@ export class CreerModifierDisponibiliteComponent {
     private demandeService: DemandeService,
     private dialogRef: DynamicDialogRef,
     private typeDemandeService: TypeDemandeService,
+    private motifService: MotifService,
     // private dynamicDialog: DynamicDialogConfig,
     private confirmationService: ConfirmationService,
     private router: Router,
@@ -88,6 +129,7 @@ export class CreerModifierDisponibiliteComponent {
     //   this.demande = cloneDeep(this.dynamicDialog.data);
     // }
     this.loadTypeDemande();
+   this.loadMotif('');
   }
 
   typeDemandeur: SelectItem[] = [
@@ -105,12 +147,30 @@ export class CreerModifierDisponibiliteComponent {
     this.typeDemandeService.findAll().subscribe(response => {
 
       this.typeDemandes = response.body!;
+      console.warn("================",this.typeDemandes)
     }, error => {
       this.message = { severity: 'error', summary: error.error };
       console.error(JSON.stringify(error));
     });
   }
 
+
+  loadMotif(typeDemande: string) {
+    this.motifService.findAll().subscribe(response => {
+      this.motifs = response.body!;
+      
+      this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
+        motif: motif.libelle!,
+        pieces: [] 
+      }));
+    }, error => {
+      this.message = { severity: 'error', summary: error.error };
+      console.error(JSON.stringify(error));
+    });
+  }
+  
+
+  
 
  
   clear(): void {
