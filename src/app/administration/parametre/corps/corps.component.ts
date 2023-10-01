@@ -151,6 +151,7 @@ export class CorpsComponent {
         ).onClose.subscribe(result => {
           if(result) {
           this.corpsList.push(result);
+          this.loadAll();
           this.isDialogOpInProgress = false;
           this.showMessage({ severity: 'success', summary: 'Corps créé avec succès' });
           }

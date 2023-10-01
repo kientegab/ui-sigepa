@@ -9,7 +9,7 @@ import { createRequestOption } from '../util/request-util';
 type EntityResponseType = HttpResponse<ICorps>;
 type EntityArrayResponseType = HttpResponse<ICorps[]>;
 
-const corpsUrl = environment.corpsUrl;
+const corpsUrl = environment.detachementUrl+'/corps';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,11 @@ export class CorpsService {
 
   constructor(private http:HttpClient) { }
   create(corps: ICorps): Observable<EntityResponseType> {
-    return this.http.post<ICorps>(corpsUrl, corps, { observe: 'response' });
+    return this.http.post<ICorps>(corpsUrl+'/new', corps, { observe: 'response' });
   }
 
   update(corps: ICorps): Observable<EntityResponseType> {
-    return this.http.put<ICorps>(corpsUrl, corps, { observe: 'response' });
-  }
-
-  findCorpsByIdProvince(id: number): Observable<EntityArrayResponseType> {
-    return this.http.get<ICorps[]>(`${corpsUrl}/liste/${id}`, { observe: 'response' });
+    return this.http.put<ICorps>(corpsUrl+'/update', corps, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
@@ -36,11 +32,11 @@ export class CorpsService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
    // return this.http.get<ICorps[]>("assets/data/corpss.json", { params: options, observe: 'response' });
-     return this.http.get<ICorps[]>(corpsUrl, { params: options, observe: 'response' });
+     return this.http.get<ICorps[]>(corpsUrl+'/list-page', { params: options, observe: 'response' });
   }
 
   findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<ICorps[]>(corpsUrl+'/liste', { observe: 'response' });
+    return this.http.get<ICorps[]>(corpsUrl+'/list', { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -48,6 +44,6 @@ export class CorpsService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<ICorps[]>(corpsUrl, { observe: 'response' });
+    return this.http.get<ICorps[]>(corpsUrl+'/list', { observe: 'response' });
   }
 }

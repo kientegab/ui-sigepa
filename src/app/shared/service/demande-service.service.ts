@@ -36,7 +36,12 @@ export class DemandeService {
     return this.http.get<IDemande[]>(demandeUrl, { params: options, observe: 'response' });
   }
 
-   findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
+  findDemandesAgents(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IDemande[]>(demandeUrl+'/demandesAgents', { params: options, observe: 'response' });
+  }
+
+  findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
     return this.http.get<IDemande[]>(demandeUrl, { observe: 'response' });
   }
 
@@ -47,6 +52,4 @@ export class DemandeService {
   findListe(): Observable<EntityArrayResponseType> {
     return this.http.get<IDemande[]>(demandeUrl, { observe: 'response' });
   }
-
-
 }

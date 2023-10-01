@@ -170,6 +170,7 @@ export class PieceComponent {
         ).onClose.subscribe(result => {
           if(result) {
           this.pieces.push(result);
+          this.loadAll();
           this.isDialogOpInProgress = false;
           this.showMessage({ severity: 'success', summary: 'Piece créée avec succès' });
           }

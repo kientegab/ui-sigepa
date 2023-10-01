@@ -116,7 +116,6 @@ export class DisponibiliteComponent {
         });
       }
 
-
       sortMethod(): string[] {
         this.predicate = 'id';
         this.reverse = true;

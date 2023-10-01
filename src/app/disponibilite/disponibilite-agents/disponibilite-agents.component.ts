@@ -10,6 +10,7 @@ import { DemandeService } from 'src/app/shared/service/demande-service.service';
 import { environment } from 'src/environments/environment';
 import { CreerModifierDisponibiliteComponent } from '../creer-modifier-disponibilite/creer-modifier-disponibilite.component';
 import { DetailsDisponibiliteComponent } from '../details-disponibilite/details-disponibilite.component';
+import { AviserDisponibiliteComponent } from '../aviser-disponibilite/aviser-disponibilite.component';
 
 @Component({
   selector: 'app-disponibilite-agents',
@@ -26,8 +27,6 @@ export class DisponibiliteAgentsComponent {
   totalRecords: number = 0;
   recordsPerPage = environment.recordsPerPage;
   enableBtnInfo = true;
-  // enableBtnEdit = true;
-  // enableBtnDelete=true;
   isLoading!: boolean;
   isOpInProgress!: boolean;
   isDialogOpInProgress!: boolean;
@@ -35,20 +34,14 @@ export class DisponibiliteAgentsComponent {
   regionDetail: boolean=false;
   message: any;
   dialogErrorMessage: any;
-  // enableCreate = true;
-
   page = CURRENT_PAGE;
   previousPage?: number;
   maxSize = MAX_SIZE_PAGE;
-  //itemsPerPage = ITEMS_PER_PAGE2;
   predicate!: string;
   ascending!: boolean;
   reverse: any;
-
   filtreNumero: string | undefined;
   items: MenuItem[] = [];
-
-
 
   constructor(
     private demandeService: DemandeService,
@@ -56,7 +49,6 @@ export class DisponibiliteAgentsComponent {
     private dialogService: DialogService,
     private router: Router
     ){}
-
 
    ngOnInit(): void {
         this.activatedRoute.data.subscribe(
@@ -106,14 +98,13 @@ export class DisponibiliteAgentsComponent {
 
       loadAll(): void {
         const req = this.buildReq();
-        this.demandeService.query(req).subscribe(result => {
+        this.demandeService.findDemandesAgents(req).subscribe(result => {
           if (result && result.body) {
             this.totalRecords = Number(result.headers.get('X-Total-Count'));
             this.demandes = result.body || [];
           }
         });
       }
-
 
       sortMethod(): string[] {
         this.predicate = 'id';
@@ -135,28 +126,6 @@ export class DisponibiliteAgentsComponent {
           req = Object.assign({}, req, obj);
         }
         return req;
-      }
-
-      /** Permet d'afficher un modal pour la modification */
-      openModalEdit(demande: IDemande): void {
-        this.dialogService.open(CreerModifierDisponibiliteComponent,
-          {
-            header: 'Modifier un demande',
-            width: '60%',
-            contentStyle: { overflow: 'auto' },
-            baseZIndex: 10000,
-            maximizable: true,
-            closable: true,
-            data: demande
-          }).onClose.subscribe(result => {
-            if(result){
-              this.isDialogOpInProgress = false;
-              this.loadAll();
-              this.showMessage({ severity: 'success', summary: 'Demande modifiée avec succès' });
-            }
-
-          });
-
       }
 
       /** Permet d'afficher un modal pour voir les détails */
