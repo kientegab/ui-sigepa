@@ -17,10 +17,6 @@
 <form (ngSubmit)="saveEntity()" #dtf="ngForm" style="margin-top:20px;">
     <div class="formgrid grid">
         <div class="field col-12 md:col-12">
-            <label for="code">Code :</label>
-            <input type="number" id="code" name="code" #code="ngModel" [(ngModel)]="typeStructure.code" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-        </div>
-        <div class="field col-12 md:col-12">
             <label for="libelle">Libelle :</label>
             <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="typeStructure.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
         </div>
