@@ -78,3 +78,9 @@ export const STATUS_IMMATRICULATION = [
   { code: 'ATTENTE', lib: 'EN ATTENTE' },
   { code: 'REJETE', lib: 'REJETE' }
 ];
+
+
+export const LISTE_TYPE_AGENT = [
+  { code: 'INTERNE', libelle: 'INTERNE' },
+  { code: 'EXTERNE', libelle: 'EXTERNE' },
+];

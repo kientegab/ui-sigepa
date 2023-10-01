@@ -4,6 +4,7 @@ import { AppLayoutComponent } from './layout/app.layout.component';
 import { DashboardPublicComponent } from './public/dashboard-public.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { Authority } from './shared/constants/authority.constants';
+import { AccountComponent } from './public/account/account.component';
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
@@ -15,6 +16,7 @@ const routes: Routes = [
         path: '', component: DashboardPublicComponent,
         children: [
             { path: '', loadChildren: () => import('./public/home-page/home-page.module').then(m => m.HomePageModule) },
+            { path: 'account', component: AccountComponent },
             { path: 'accueil', loadChildren: () => import('./public/home-page/home-page.module').then(m => m.HomePageModule) },
         ]
     },

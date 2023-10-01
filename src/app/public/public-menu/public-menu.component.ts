@@ -36,6 +36,10 @@ export class PublicMenuComponent implements OnDestroy, OnInit {
             routerLink: ['/'],
         },
         {
+            label: 'Création compte',
+            routerLink: ['/account'],
+        },
+        {
             label: 'Bibliothèque',
             items: [
                 {

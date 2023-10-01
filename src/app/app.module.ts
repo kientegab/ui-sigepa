@@ -24,6 +24,11 @@ import { CdkStepper, CdkStepperModule } from '@angular/cdk/stepper';
 import { AccountModule } from './account/account.module';
 import { ArchwizardModule } from 'angular-archwizard';
 import { AuthInterceptorProviders } from './shared/_helpers/auth.interceptor';
+import { CalendarModule } from 'primeng/calendar';
+import { CardModule } from 'primeng/card';
+import { DropdownModule } from 'primeng/dropdown';
+import { MenubarModule } from 'primeng/menubar';
+import { MessageModule } from 'primeng/message';
 
 
 
@@ -40,6 +45,11 @@ import { AuthInterceptorProviders } from './shared/_helpers/auth.interceptor';
         ComonModule,
         DividerModule,
         FormsModule ,
+        MenubarModule,
+        CardModule,
+        MessageModule,
+        DropdownModule,
+        CalendarModule,
         CdkStepperModule,
         ArchwizardModule.forRoot(),
     ],
