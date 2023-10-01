@@ -26,7 +26,6 @@ export class TypeDemande implements ITypeDemande {
         public motifDTOs?: Motif[],
         public visaDTOs?: Visa[],
         public ampliationDTOs?: Ampliation[],
-        public pieceDTOs?: Piece[],
     ){}
 }
 export interface GetAllTypeDemandeResponse {

@@ -95,22 +95,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let piece of selectedPieces">
-                                <tr>
-                                    <td>{{piece.libelle}}</td>
-                                    <td>
-                                        <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"
-                                                      [multiple]="true" accept="image/*" [maxFileSize]="1000000">
-                                            <ng-template pTemplate="content">
-                                                <ul *ngIf="uploadedFiles.length">
-                                                    <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-                                                </ul>
-                                            </ng-template>
-                                        </p-fileUpload>
-                                    </td>
-                                </tr>
+                            <ng-container *ngFor="let piece of selectedPieces; let i=index">
+                              <tr>
+                                <td>{{ piece.libelle }}</td>
+                                <td>
+                                  <p-fileUpload name="demo{{i}}[]"  (onUpload)="onUpload($event)"
+                                                [multiple]="false" accept="image/*" [maxFileSize]="1000000">
+                                    <ng-template pTemplate="content">
+                                      <ul *ngIf="uploadedFiles.length">
+                                        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                                      </ul>
+                                    </ng-template>
+                                  </p-fileUpload>
+                                </td>
+                              </tr>
                             </ng-container>
-                        </tbody>
+                          </tbody>
+                          
                     </table>
                 </div>
             </div>

@@ -45,10 +45,14 @@ selectedPieces: IPiece[] = [];
 multiple=true;
 
 uploadedFiles: any[] = [];
-  motifWithPieces: any;
+motifWithPieces: { motif: string, pieces: IPiece[] }[] = [];
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 onTypeDemandeChange() {
@@ -77,25 +81,25 @@ getUploadUrl(pieceId: | undefined): string {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Assurez-vous que selectedMotif est défini lorsqu'il est sélectionné
 onMotifChange() {
-  // Vous pouvez obtenir le motif sélectionné à partir de this.selectedMotif
-  // Recherchez le motif dans motifsWithPieces et mettez à jour selectedPieces en conséquence
-  const selectedMotif = this.selectedMotif?.libelle; // Assurez-vous que selectedMotif correspond à ce que vous stockez dans motifsWithPieces
+  if (this.selectedMotif) {
+    if (this.demande.typeDemande) {
+      const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
 
-  // Assurez-vous que selectedMotif est défini avant de l'utiliser
-  if (selectedMotif) {
-    // Recherchez le motif dans motifsWithPieces
-    const motifWithPieces = this.motifWithPieces.find((m: { motif: string; }) => m.motif === selectedMotif);
-
-    if (motifWithPieces) {
-      this.selectedPieces = motifWithPieces.pieces;
-    } else {
-      this.selectedPieces = []; // Aucun motif sélectionné ou motif non trouvé, réinitialisez la liste des pièces
+      if (motif) {
+        this.selectedPieces = motif.piece || [];
+      } else {
+        this.selectedPieces = [];
+      }
     }
   } else {
-    this.selectedPieces = []; // Si selectedMotif n'est pas défini, réinitialisez la liste des pièces
+    this.selectedPieces = [];
   }
 }
+
+
+
 
 
 
@@ -160,15 +164,21 @@ onMotifChange() {
   }
 
 
-  loadMotif(typeDemande:string) {
+  loadMotif(typeDemande: string) {
     this.motifService.findAll().subscribe(response => {
-
       this.motifs = response.body!;
+      
+      // Ici, vous associez les pièces à chaque motif dans motifWithPieces
+      this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
+        motif: motif.libelle!,
+        pieces: [] // Vous pouvez charger les pièces associées au motif depuis le service ici
+      }));
     }, error => {
       this.message = { severity: 'error', summary: error.error };
       console.error(JSON.stringify(error));
     });
   }
+  
 
   
 
