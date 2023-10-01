@@ -823,3 +823,16 @@ table.blueTable tfoot .links a{
   border-radius: 5px;
   text-align: center;
 }
+
+.p-menubar {
+  padding: 0.5rem;
+  background: #006699;
+  color: #ffffff;
+  width: 100%;
+  border:0px;
+  border-bottom: 05px solid yellow;
+  border-radius: 0px;
+}
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+  color: white;
+  }

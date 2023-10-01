@@ -11,6 +11,9 @@ import {Article} from "../../../../shared/model/article.model";
 import {Visa} from "../../../../shared/model/visa.model";
 import {Piece} from "../../../../shared/model/piece.model";
 import {Ampliation} from "../../../../shared/model/ampliation.model";
+import {AmpliationService} from "../../../../shared/service/ampliation-service.service";
+import {ArticleService} from "../../../../shared/service/article.service";
+import {VisaService} from "../../../../shared/service/visa-service";
 
 @Component({
   selector: 'app-creer-modifier-type-demande',
@@ -44,7 +47,10 @@ export class CreerModifierTypeDemandeComponent {
         private typeStructureService: TypeDemandeService,
         private dialogRef: DynamicDialogRef,
         private dynamicDialog: DynamicDialogConfig,
-        private confirmationService: ConfirmationService
+        private confirmationService: ConfirmationService,
+        private ampliationService:AmpliationService,
+        private articleService:ArticleService,
+        private visaService:VisaService,
     ) { }
 
     ngOnInit(): void {
@@ -76,6 +82,32 @@ export class CreerModifierTypeDemandeComponent {
         this.timeoutHandle = setTimeout(() => {
             this.message = null;
         }, 5000);
+    }
+
+    loadAmpliations() {
+        this.ampliationService.findListe().subscribe(response => {
+            this.ampliations = response.body!;
+        }, error => {
+            this.message = { severity: 'error', summary: error.error };
+            console.error(JSON.stringify(error));
+        });
+    }
+    loadAricles() {
+        this.articleService.findListe().subscribe(response => {
+            this.articles = response.body!;
+        }, error => {
+            this.message = { severity: 'error', summary: error.error };
+            console.error(JSON.stringify(error));
+        });
+    }
+
+    loadVisas() {
+        this.visaService.findListe().subscribe(response => {
+            this.visas = response.body!;
+        }, error => {
+            this.message = { severity: 'error', summary: error.error };
+            console.error(JSON.stringify(error));
+        });
     }
     saveEntity(): void {
         this.clearDialogMessages();
