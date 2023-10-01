@@ -5,7 +5,19 @@
     "motifDTOs": [
     {
         "id" : 1,
-        "libelle": "disponibilité pour accident ou maladie"
+        "libelle": "disponibilité pour accident ou maladie",
+        "piece": [
+          {
+            "id" : 1,
+            "libelle": "La dernière situation administrative",
+            "categorie":"Disponibilite"
+          },
+          {
+            "id" : 8,
+            "libelle": "Le certificat médical",
+            "categorie":"Disponibilite"
+          }
+        ]
       },
       {
           "id" : 2,

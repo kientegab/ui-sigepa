@@ -36,9 +36,10 @@
                             [options]="motifs"
                             [(ngModel)]="selectedMotif" optionLabel="libelle" inputId="motifDTOs"
                             name="motifDTOs" placeholder="Sélectionner le motif..." [filter]="true" appendTo="body"
-                            [showClear]="true">
+                            [showClear]="true" (ngModelChange)="onMotifChange()">
                 </p-dropdown>
-              </div>
+            </div>
+            
 
 
             <div class="field col-4 md:col-4">
@@ -83,19 +84,37 @@
             </div>
             <br>
 
+          
             <div class="field col-12 md:col-12">
                 <div class="card">
-                    <h5>Importation des pièces</h5>
-                    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
-                                  [multiple]="true" accept="image/*" [maxFileSize]="1000000">
-                        <ng-template pTemplate="content">
-                            <ul *ngIf="uploadedFiles.length">
-                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                            </ul>
-                        </ng-template>
-                    </p-fileUpload>
+                    <table class="table table-sm border-none">
+                        <thead>
+                            <tr>
+                                <th scope="col">Libelle</th>
+                                <th scope="col">Fichier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let piece of selectedPieces">
+                                <tr>
+                                    <td>{{piece.libelle}}</td>
+                                    <td>
+                                        <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"
+                                                      [multiple]="true" accept="image/*" [maxFileSize]="1000000">
+                                            <ng-template pTemplate="content">
+                                                <ul *ngIf="uploadedFiles.length">
+                                                    <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                                                </ul>
+                                            </ng-template>
+                                        </p-fileUpload>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            
 
         </div>
 

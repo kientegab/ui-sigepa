@@ -8,6 +8,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Demande, IDemande, TypeDemandeur } from 'src/app/shared/model/demande.model';
 import { IMotif } from 'src/app/shared/model/motif.model';
 import { IPiece } from 'src/app/shared/model/piece.model';
+
 import { IPieceJointe } from 'src/app/shared/model/pieceJointe.model';
 import { ITypeDemande } from 'src/app/shared/model/typeDemande.model';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
@@ -21,7 +22,7 @@ import { TypeDemandeService } from 'src/app/shared/service/type-demande.service'
 })
 export class CreerModifierDisponibiliteComponent {
   
-  // @ViewChild('dtf') form!: NgForm;
+  //////////////////////////////////////////// @ViewChild('dtf') form!: NgForm;
   demande: IDemande = new Demande();
   @Input() data: IDemande = new Demande();
   demandes: IDemande[]=[];
@@ -44,6 +45,7 @@ selectedPieces: IPiece[] = [];
 multiple=true;
 
 uploadedFiles: any[] = [];
+  motifWithPieces: any;
 
 
 
@@ -64,39 +66,40 @@ onUpload($event: any) {
 
 }
 
+getUploadUrl(pieceId: | undefined): string {
+  if (pieceId !== undefined) {
+    // Ici, vous pouvez générer l'URL d'envoi de fichiers en utilisant pieceId
+    return `votre-url-d-envoi-de-fichiers/${pieceId}`;
+  } else {
+    // Gérer le cas où pieceId est undefined, par exemple, en renvoyant une URL par défaut ou une chaîne vide
+    return 'votre-url-d-envoi-de-fichiers-par-defaut';
+  }
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 onMotifChange() {
-  // Réinitialisez la liste des pièces sélectionnées
-  this.selectedPieces = [];
+  // Vous pouvez obtenir le motif sélectionné à partir de this.selectedMotif
+  // Recherchez le motif dans motifsWithPieces et mettez à jour selectedPieces en conséquence
+  const selectedMotif = this.selectedMotif?.libelle; // Assurez-vous que selectedMotif correspond à ce que vous stockez dans motifsWithPieces
 
-  // Vérifiez si des motifs sont sélectionnés
-  if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
-    // Parcourez les motifs sélectionnés
-    for (const motif of this.demande.typeDemande.motifDTOs) {
-      // Ajoutez les pièces du motif à la liste des pièces sélectionnées
-      if (motif.piece) {
-        this.selectedPieces.push(...motif.piece);
-      }
+  // Assurez-vous que selectedMotif est défini avant de l'utiliser
+  if (selectedMotif) {
+    // Recherchez le motif dans motifsWithPieces
+    const motifWithPieces = this.motifWithPieces.find((m: { motif: string; }) => m.motif === selectedMotif);
+
+    if (motifWithPieces) {
+      this.selectedPieces = motifWithPieces.pieces;
+    } else {
+      this.selectedPieces = []; // Aucun motif sélectionné ou motif non trouvé, réinitialisez la liste des pièces
     }
+  } else {
+    this.selectedPieces = []; // Si selectedMotif n'est pas défini, réinitialisez la liste des pièces
   }
 }
 
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // piece1: IPiece = { id: 1, libelle: 'Pièce 1'};
-  // piece2: IPiece = { id: 2, libelle: 'Pièce 2'};
-
-  // typeDemandeOptions: ITypeDemande[] = [
-  //   { code: 'DISP_N', libelle: 'Nouvelle disponibilité' },
-  //   { code: 'DISP_R', libelle: 'Renouvellement disponibilité' },
-  //   { code: 'DISP_F', libelle: 'Fin disponibilité' },
-  //   { code: 'DISP_A', libelle: 'Annulation disponibilité' },
-  //   { code: 'DISP_RE', libelle: 'Rectification disponibilité' }
-  // ];
-
-  // typesDemande: string[] = ['Nouvelle disponibilité', 'Renouvellement disponibilité', 'Fin disponibilité', 'Annulation disponibilité', 'Rectification disponibilité'];
-
 
 
   onFileChange(event: any, pieceJointe: string) {

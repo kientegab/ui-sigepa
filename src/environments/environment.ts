@@ -16,11 +16,12 @@ const commonAuth: string = 'http://localhost:8089/api/auth/';
 //const commonAuth: string = 'http://192.168.1.216:8089/api/auth/';
 //const commonAppCOT: string = 'http://192.168.1.72:8089/api/cotisations/';
 //const commonAppCOT1: string = 'http://192.168.1.72:8090/api/affiliation-immatriculation/'**;
+const  detachementUrl: string = 'http://192.168.0.185:8080/api/';
 
 export const environment = {
   production: false,
   recordsPerPage: 20,
-  detachementUrl: 'http://localhost:8080/api',
+  detachementUrl: 'http://192.168.0.185:8080/api/',
 
   communeUrl: commonAppURI +'communes',
   pieceUrl: commonAppURI +'pieces',
@@ -43,7 +44,7 @@ export const environment = {
   visaUrl: commonAuth + 'visas',
   motifUrl: commonAuth + 'motifs',
   ministereUrl: commonAuth + 'ministeres',
-  ampliationUrl:commonAuth + 'ampliations',
+  ampliationUrl:detachementUrl + 'ampliations',
   demandeUrl:commonAuth + 'demandes',
    // typeEmployeurUrl: commonAppURI +'typeEmployeur',
 

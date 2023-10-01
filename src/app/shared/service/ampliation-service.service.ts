@@ -20,11 +20,11 @@ export class AmpliationService {
   constructor(private http:HttpClient) { }
 
   create(ampliation: IAmpliation): Observable<EntityResponseType> {
-    return this.http.post<IAmpliation>(ampliationUrl, ampliation, { observe: 'response' });
+    return this.http.post<IAmpliation>(ampliationUrl +'/new', ampliation, { observe: 'response' });
   }
 
   update(groupe: IAmpliation): Observable<EntityResponseType> {
-    return this.http.put<IAmpliation>(ampliationUrl, groupe, { observe: 'response' });
+    return this.http.put<IAmpliation>(ampliationUrl +'/update', groupe, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
@@ -37,7 +37,7 @@ export class AmpliationService {
   }
 
    findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<IAmpliation[]>(ampliationUrl, { observe: 'response' });
+    return this.http.get<IAmpliation[]>(ampliationUrl+'/list-page', { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -45,7 +45,7 @@ export class AmpliationService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<IAmpliation[]>(ampliationUrl, { observe: 'response' });
+    return this.http.get<IAmpliation[]>(ampliationUrl+'/list-page', { observe: 'response' });
   }
 
 }
