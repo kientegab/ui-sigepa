@@ -153,6 +153,7 @@ export class TypeStructureComponent {
         ).onClose.subscribe(result => {
             if(result) {
                 this.typeStructures.push(result);
+                this.loadAll();
                 this.isDialogOpInProgress = false;
                 this.showMessage({ severity: 'success', summary: 'Structure créée avec succès' });
             }

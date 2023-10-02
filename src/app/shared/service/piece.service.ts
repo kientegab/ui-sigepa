@@ -9,8 +9,8 @@ import {IPiece} from "../model/piece.model";
 type EntityResponseType = HttpResponse<IPiece>;
 type EntityArrayResponseType = HttpResponse<IPiece[]>;
 
-const pieceUrl = "assets/data/piece.json";
-// const pieceUrl = environment.detachementUrl+'/pieces';
+// const pieceUrl = "assets/data/piece.json";
+const pieceUrl = environment.detachementUrl+'/pieces';
 
 @Injectable({
   providedIn: 'root'
