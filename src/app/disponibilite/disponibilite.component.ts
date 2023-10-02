@@ -112,6 +112,7 @@ export class DisponibiliteComponent {
           if (result && result.body) {
             this.totalRecords = Number(result.headers.get('X-Total-Count'));
             this.demandes = result.body || [];
+            console.log("=============", this.demandes);
           }
         });
       }

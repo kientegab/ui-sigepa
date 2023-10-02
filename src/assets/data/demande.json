@@ -4,7 +4,6 @@
     {
       "id" : 1,
       "dateEffet" : "30/10/2023",
-      "typeDemandeur": "Agent",
       "typeDemande": "Nouvelle demande",
       "numero": "54223358",
       "dateDemande":"02/10/2023",
@@ -15,7 +14,6 @@
     {
         "id" : 2,
         "dateEffet" : "30/10/2023",
-        "typeDemandeur": "Agent",
         "typeDemande": "Renouvellement de demande",
         "numero": "54223358",
         "dateDemande":"02/10/2023",
