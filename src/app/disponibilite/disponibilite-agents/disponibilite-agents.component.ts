@@ -40,6 +40,7 @@ export class DisponibiliteAgentsComponent {
   predicate!: string;
   ascending!: boolean;
   reverse: any;
+  enableCreate = true;
   filtreNumero: string | undefined;
   items: MenuItem[] = [];
 

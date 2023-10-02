@@ -26,8 +26,8 @@ export class DetachementAgentsComponent {
   totalRecords: number = 0;
   recordsPerPage = environment.recordsPerPage;
   enableBtnInfo = true;
-  // enableBtnEdit = true;
-  // enableBtnDelete=true;
+  enableBtnEdit = true;
+  enableBtnDelete=true;
   isLoading!: boolean;
   isOpInProgress!: boolean;
   isDialogOpInProgress!: boolean;
@@ -35,7 +35,7 @@ export class DetachementAgentsComponent {
   regionDetail: boolean=false;
   message: any;
   dialogErrorMessage: any;
-  // enableCreate = true;
+  enableCreate = true;
 
   page = CURRENT_PAGE;
   previousPage?: number;
