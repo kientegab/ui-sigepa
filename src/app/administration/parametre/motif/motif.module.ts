@@ -21,6 +21,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule } from 'primeng/table';
 import { AppCommonModule } from 'src/app/shared/common/app-common.module';
 import { MotifComponent } from './motif.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { MotifComponent } from './motif.component';
     AppCommonModule,
     ConfirmDialogModule,
     ProgressSpinnerModule,
-    PaginatorModule
+    PaginatorModule,
+    MultiSelectModule
   ],
   providers: [ConfirmationService,MessageService],
 })
