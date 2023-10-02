@@ -27,6 +27,9 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { FileUploadModule } from 'primeng/fileupload';
 
 
+
+
+
 @NgModule({
   declarations: [
     DisponibiliteComponent,
@@ -55,8 +58,12 @@ import { FileUploadModule } from 'primeng/fileupload';
     ProgressSpinnerModule,
     PaginatorModule,
     CalendarModule,
+
     MultiSelectModule,
+
+ 
     FileUploadModule
+
   ]
 })
 export class DisponibiliteModule { }

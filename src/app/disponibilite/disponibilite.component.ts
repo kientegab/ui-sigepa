@@ -116,7 +116,6 @@ export class DisponibiliteComponent {
         });
       }
 
-
       sortMethod(): string[] {
         this.predicate = 'id';
         this.reverse = true;
@@ -141,22 +140,7 @@ export class DisponibiliteComponent {
 
       /** Permet d'afficher un modal pour l'ajout */
       openModalCreate(): void {
-        this.dialogService.open(CreerModifierDisponibiliteComponent,
-          {
-            header: 'Ajouter une demande',
-            width: '60%',
-            contentStyle: { overflow: 'auto', },
-            baseZIndex: 10000,
-            maximizable: true,
-            closable: true,
-          }
-        ).onClose.subscribe(result => {
-          if(result) {
-          this.demandes.push(result);
-          this.isDialogOpInProgress = false;
-          this.showMessage({ severity: 'success', summary: 'Demande créée avec succès' });
-          }
-        });
+        this.router.navigate(['disponibilites','nouveau']);
       }
 
       /** Permet d'afficher un modal pour la modification */

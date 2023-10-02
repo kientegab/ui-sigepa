@@ -9,7 +9,7 @@ import { createRequestOption } from '../util/request-util';
 type EntityResponseType = HttpResponse<IArticle>;
 type EntityArrayResponseType = HttpResponse<IArticle[]>;
 
-const articleUrl = environment.articleUrl;
+const articleUrl = environment.detachementUrl+'/articles';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +18,16 @@ export class ArticleService {
 
   constructor(private http:HttpClient) { }
   create(article: IArticle): Observable<EntityResponseType> {
-    return this.http.post<IArticle>(articleUrl, article, { observe: 'response' });
+    return this.http.post<IArticle>(articleUrl+'/new', article, { observe: 'response' });
   }
 
   update(article: IArticle): Observable<EntityResponseType> {
-    return this.http.put<IArticle>(articleUrl, article, { observe: 'response' });
+    return this.http.put<IArticle>(articleUrl+'/update', article, { observe: 'response' });
   }
 
-  findArticleByIdProvince(id: number): Observable<EntityArrayResponseType> {
-    return this.http.get<IArticle[]>(`${articleUrl}/liste/${id}`, { observe: 'response' });
-  }
+  // findArticleByIdProvince(id: number): Observable<EntityArrayResponseType> {
+  //   return this.http.get<IArticle[]>(`${articleUrl}/liste/${id}`, { observe: 'response' });
+  // }
 
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IArticle>(`${articleUrl}/${id}`, { observe: 'response' });
@@ -36,11 +36,11 @@ export class ArticleService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
    // return this.http.get<IArticle[]>("assets/data/articles.json", { params: options, observe: 'response' });
-     return this.http.get<IArticle[]>(articleUrl, { params: options, observe: 'response' });
+     return this.http.get<IArticle[]>(articleUrl+'/list-page', { params: options, observe: 'response' });
   }
 
   findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<IArticle[]>(articleUrl+'/liste', { observe: 'response' });
+    return this.http.get<IArticle[]>(articleUrl+'/list', { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -48,6 +48,6 @@ export class ArticleService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<IArticle[]>(articleUrl, { observe: 'response' });
+    return this.http.get<IArticle[]>(articleUrl+'/list', { observe: 'response' });
   }
 }
