@@ -2,10 +2,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { cloneDeep } from 'lodash';
-import { ConfirmationService, Message } from 'primeng/api';
+import { ConfirmationService, Message, SelectItem } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { IMotif, Motif } from 'src/app/shared/model/motif.model';
+import { ECategorie, IMotif, Motif } from 'src/app/shared/model/motif.model';
+import { IPiece, Piece } from 'src/app/shared/model/piece.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
+import { PieceService } from 'src/app/shared/service/piece.service';
 
 @Component({
   selector: 'app-creer-modifier-motif',
@@ -25,9 +27,13 @@ export class CreerModifierMotifComponent {
   dialogErrorMessage: any;
   timeoutHandle: any;
   isOpInProgress!: boolean;
+  pieces: IPiece[] = [];
+  pieceSelected: Piece[] = []; 
+
 
   constructor(
     private motifService: MotifService,
+    private pieceService: PieceService,
     private dialogRef: DynamicDialogRef,
     private dynamicDialog: DynamicDialogConfig,
     private confirmationService: ConfirmationService
@@ -53,6 +59,18 @@ export class CreerModifierMotifComponent {
   clearDialogMessages() {
     this.dialogErrorMessage = null;
   }
+  categorie: SelectItem[] = [
+    { label: 'DETACHEMENT ', value: ECategorie.DETACHEMENT },
+    { label: 'DISPONIBILITE', value: ECategorie.DISPONIBILITE },
+  ];
+  loadPieces() {
+    this.pieceService.findListe().subscribe(response => {
+        this.pieces = response.body!;
+    }, error => {
+        this.message = { severity: 'error', summary: error.error };
+        console.error(JSON.stringify(error));
+    });
+}
   // Errors
   handleError(error: HttpErrorResponse) {
     console.error(`Processing Error: ${JSON.stringify(error)}`);
