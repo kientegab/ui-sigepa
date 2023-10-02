@@ -73,15 +73,8 @@
             </div>
 
             <div class="field col-4 md:col-4">
-                <label for="structDestination">En service à :</label>
-                <input type="text" id="structDestination" name="structDestination" #libelle="ngModel" [(ngModel)]="demande.structDestination" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
-
-            <div class="field col-4 md:col-4">
-                <div class="p-field p-fluid">
-                    <label for="dateEffet">Date d'effet</label>
-                    <p-calendar [(ngModel)]="demande.dateEffet" id="dateEffet" name="dateEffet"></p-calendar>
-                </div>
+                <label for="structure">En service à :</label>
+                <input type="text" id="structure" name="structure" #libelle="ngModel" [(ngModel)]="demande.agent" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
 
             <div class="field col-4 md:col-4">
@@ -91,17 +84,27 @@
                 </div>
             </div>
 
+            
             <div class="field col-4 md:col-4">
                 <div class="p-field p-fluid">
-                    <label for="structure">structure</label>
-                    <input [(ngModel)]="demande.agent" id="agent" [readonly]="true" name="agent" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <label for="dateEffet">Date d'effet</label>
+                    <p-calendar [(ngModel)]="demande.dateEffet" id="dateEffet" name="dateEffet"></p-calendar>
+                </div>
+            </div>
+
+          
+
+            <div class="field col-4 md:col-4">
+                <div class="p-field p-fluid">
+                    <label for="structDestination">structure de destination</label>
+                    <input [(ngModel)]="demande.structDestination" id="structDestination"  name="structDestination" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
 
             <div class="field col-4 md:col-4">
                 <div class="p-field p-fluid">
                     <label for="superieur">Supérieur hiérarchique</label>
-                    <input [(ngModel)]="demande.agent" id="superieur" [readonly]="true" name="superieur" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <input [(ngModel)]="demande.agent" id="superieur" [readonly]="false" name="superieur" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
             <br>
