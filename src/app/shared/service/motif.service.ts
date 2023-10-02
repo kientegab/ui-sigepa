@@ -11,6 +11,7 @@ type EntityArrayResponseType = HttpResponse<IMotif[]>;
 
 
 const motifUrl = "assets/data/motif.json";
+// const visaUrl = environment.detachementUrl+'/motifs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,11 @@ export class MotifService {
   constructor(private http:HttpClient) { }
 
   create(motif: IMotif): Observable<EntityResponseType> {
-    return this.http.post<IMotif>(motifUrl, motif, { observe: 'response' });
+    return this.http.post<IMotif>(motifUrl+'/new', motif, { observe: 'response' });
   }
 
   update(groupe: IMotif): Observable<EntityResponseType> {
-    return this.http.put<IMotif>(motifUrl, groupe, { observe: 'response' });
+    return this.http.put<IMotif>(motifUrl+'/update', groupe, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
@@ -32,11 +33,12 @@ export class MotifService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
+    // return this.http.get<IMotif[]>(motifUrl+'/list-page', { params: options, observe: 'response' });
     return this.http.get<IMotif[]>(motifUrl, { params: options, observe: 'response' });
   }
 
    findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<IMotif[]>(motifUrl, { observe: 'response' });
+    return this.http.get<IMotif[]>(motifUrl+'/list', { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -44,7 +46,7 @@ export class MotifService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<IMotif[]>(motifUrl, { observe: 'response' });
+    return this.http.get<IMotif[]>(motifUrl+'/list', { observe: 'response' });
   }
 
 

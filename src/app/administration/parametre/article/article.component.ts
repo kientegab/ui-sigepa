@@ -170,6 +170,7 @@ export class ArticleComponent {
         ).onClose.subscribe(result => {
           if(result) {
           this.articles.push(result);
+          this.loadAll();
           this.isDialogOpInProgress = false;
           this.showMessage({ severity: 'success', summary: 'Article créé avec succès' });
           }

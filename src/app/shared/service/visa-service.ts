@@ -11,7 +11,7 @@ type EntityResponseType = HttpResponse<IVisa>;
 type EntityArrayResponseType = HttpResponse<IVisa[]>;
 
 
-const visaUrl = environment.visaUrl;
+const visaUrl = environment.detachementUrl+'/visas';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,11 @@ export class VisaService {
   constructor(private http:HttpClient) { }
 
   create(visa: IVisa): Observable<EntityResponseType> {
-    return this.http.post<IVisa>(visaUrl, visa, { observe: 'response' });
+    return this.http.post<IVisa>(visaUrl+'/new', visa, { observe: 'response' });
   }
 
   update(groupe: IVisa): Observable<EntityResponseType> {
-    return this.http.put<IVisa>(visaUrl, groupe, { observe: 'response' });
+    return this.http.put<IVisa>(visaUrl+'/update', groupe, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
@@ -33,11 +33,11 @@ export class VisaService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IVisa[]>(visaUrl, { params: options, observe: 'response' });
+    return this.http.get<IVisa[]>(visaUrl+'/list-page', { params: options, observe: 'response' });
   }
 
    findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<IVisa[]>(visaUrl, { observe: 'response' });
+    return this.http.get<IVisa[]>(visaUrl+'/list', { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -45,7 +45,7 @@ export class VisaService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<IVisa[]>(visaUrl, { observe: 'response' });
+    return this.http.get<IVisa[]>(visaUrl+'/list', { observe: 'response' });
   }
 
 
