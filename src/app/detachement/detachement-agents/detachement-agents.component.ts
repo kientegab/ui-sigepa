@@ -191,4 +191,5 @@ export class DetachementAgentsComponent {
         }, 5000);
       }
 
+      
 }
