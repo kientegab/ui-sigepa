@@ -45,17 +45,21 @@
                         </div>
                         <div class="field col-6 md:col-6">
                             <label for="dob">Date de Naissance</label>
-                            <p-calendar id="dob" name="dob" appendTo="body" [(ngModel)]="request.dateNaissance"
-                                [readonlyInput]="true" [monthNavigator]="true" [yearNavigator]="true" 
-                                [maxDate]="maxDocumentDate" [yearRange]="yearRange" [showIcon]="true" [required]="true">
-                            </p-calendar>
-                        </div>
-                        <div class="field col-6 md:col-6">
-                            <label for="dr">Date de Recrutement</label>
-                            <p-calendar id="dr" name="dr" appendTo="body" [(ngModel)]="request.dateRecrutement"
+                            <div>
+                            <p-calendar [style]="{'minWidth':'100%'}" id="dob" name="dob" appendTo="body" [(ngModel)]="request.dateNaissance"
                                 [readonlyInput]="true" [monthNavigator]="true" [yearNavigator]="true"
                                 [maxDate]="maxDocumentDate" [yearRange]="yearRange" [showIcon]="true" [required]="true">
                             </p-calendar>
+                            </div>
+                        </div>
+                        <div class="field col-6 md:col-6">
+                            <label for="dr">Date de Recrutement</label>
+                            <div>
+                            <p-calendar [style]="{'minWidth':'100%'}" id="dr" name="dr" appendTo="body" [(ngModel)]="request.dateRecrutement"
+                                [readonlyInput]="true" [monthNavigator]="true" [yearNavigator]="true"
+                                [maxDate]="maxDocumentDate" [yearRange]="yearRange" [showIcon]="true" [required]="true">
+                            </p-calendar>
+                            </div>
                         </div>
                         <div class="field col-6 md:col-6">
                             <label for="ministere">Ministère</label>
