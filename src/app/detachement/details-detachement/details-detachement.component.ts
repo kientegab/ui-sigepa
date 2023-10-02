@@ -55,6 +55,27 @@ export class DetailsDetachementComponent {
       });
 
   }
+ /** Permet d'afficher un modal pour la reception */
+ openModalAviser(demande: IDemande): void {
+  this.dialogService.open(AviserDisponibiliteComponent,
+    {
+      header: 'Aviser une demande',
+      width: '60%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      closable: true,
+      data: demande
+    }).onClose.subscribe(result => {
+      if(result){
+        this.isDialogOpInProgress = false;
+        this.showMessage({ severity: 'success', summary: 'Demande avisée avec succès' });
+      }
+
+    });
+
+}
+
 
   showMessage(message: Message) {
     this.message = message;
