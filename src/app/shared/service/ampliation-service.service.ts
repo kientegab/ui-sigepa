@@ -11,7 +11,7 @@ type EntityResponseType = HttpResponse<IAmpliation>;
 type EntityArrayResponseType = HttpResponse<IAmpliation[]>;
 
 
-const ampliationUrl = environment.ampliationUrl;
+const ampliationUrl = environment.detachementUrl+'/ampliations';
 @Injectable({
   providedIn: 'root'
 })
@@ -33,11 +33,11 @@ export class AmpliationService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IAmpliation[]>(ampliationUrl, { params: options, observe: 'response' });
+    return this.http.get<IAmpliation[]>(ampliationUrl+'/list-page', { params: options, observe: 'response' });
   }
 
    findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<IAmpliation[]>(ampliationUrl+'/list-page', { observe: 'response' });
+    return this.http.get<IAmpliation[]>(ampliationUrl+'/list', { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -45,7 +45,7 @@ export class AmpliationService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<IAmpliation[]>(ampliationUrl+'/list-page', { observe: 'response' });
+    return this.http.get<IAmpliation[]>(ampliationUrl+'/list', { observe: 'response' });
   }
 
 }

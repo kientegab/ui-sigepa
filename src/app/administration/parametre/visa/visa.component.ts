@@ -25,7 +25,7 @@ export class VisaComponent {
   timeoutHandle: any;
   totalRecords: number = 0;
   recordsPerPage = environment.recordsPerPage;
-  enableBtnInfo = true;
+  enableBtnInfo = false;
   enableBtnEdit = true;
   enableBtnDelete=true;
   isLoading!: boolean;
@@ -170,6 +170,7 @@ export class VisaComponent {
         ).onClose.subscribe(result => {
           if(result) {
           this.Visas.push(result);
+          this.loadAll();
           this.isDialogOpInProgress = false;
           this.showMessage({ severity: 'success', summary: 'Visa créée avec succès' });
           }

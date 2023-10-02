@@ -75,6 +75,7 @@
         <!-- <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon></th>-->
         <th pSortableColumn="code">Code<p-sortIcon field="code"></p-sortIcon></th>
         <th pSortableColumn="libelle">ministere<p-sortIcon field="libelle"></p-sortIcon></th>
+        <th pSortableColumn="sigle">Sigle<p-sortIcon field="sigle"></p-sortIcon></th>
         <th class="actionsStyle">Action</th>
       </tr>
     </ng-template>
@@ -82,6 +83,7 @@
       <tr>
         <td>{{ ministere.code }}</td>
         <td>{{ ministere.libelle }}</td>  
+        <td>{{ ministere.sigle }}</td>  
         <td class="actionsStyle">
           <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(ministere)"
             [enableBtnInfo]="enableBtnInfo" (edit)="openModalEdit(ministere)" [enableBtnEdit]="enableBtnEdit"
