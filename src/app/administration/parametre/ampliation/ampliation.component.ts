@@ -169,6 +169,7 @@ export class AmpliationComponent {
         ).onClose.subscribe(result => {
           if(result) {
           this.ampliations.push(result);
+          this.loadAll();
           this.isDialogOpInProgress = false;
           this.showMessage({ severity: 'success', summary: 'ampliation créée avec succès' });
           }

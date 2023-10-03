@@ -170,6 +170,7 @@ export class MotifComponent {
         ).onClose.subscribe(result => {
           if(result) {
           this.Motifs.push(result);
+          this.loadAll();
           this.isDialogOpInProgress = false;
           this.showMessage({ severity: 'success', summary: 'Motif créée avec succès' });
           }

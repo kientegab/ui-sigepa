@@ -24,9 +24,13 @@
             <label for="libelle">Libelle :</label>
             <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="typeDemande.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
         </div>
-        <div class="field col-4 md:col-4">
-            <label for="libelle">Plafond année :</label>
-            <input type="number" id="plafondAnnee" name="plafondAnnee" #libelle="ngModel" [(ngModel)]="typeDemande.plafondAnnee" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        <div class="col-4 md:col-4">
+            <label for="ministere">Categorie :</label>
+            <div>
+                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="categopries"  [(ngModel)]="categorie" optionLabel="libelle" inputId="libelle"
+                            name="ministere" placeholder="Selectionner la categorie..." [filter]="true" appendTo="body" [showClear]="true">
+                </p-dropdown>
+            </div>
         </div>
         <div class="field col-4 md:col-4">
             <label for="libelle">Visa :</label>

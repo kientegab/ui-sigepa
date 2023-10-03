@@ -26,6 +26,21 @@
     <label for="libelle">Libelle :</label>
     <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="motif.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
 </div>
+<div class="field col-12 md:col-12">
+  <label for="libelle">piece :</label>
+  <div>
+      <p-multiSelect name="pieces" appendTo="body" [style]="{'minWidth':'100%'}" [options]="pieces" [(ngModel)]="pieceSelected" defaultLabel="Selectionner la piece" optionLabel="libelle" display="chip"></p-multiSelect>
+  </div>
+</div>
+<div class="field col-12 md:col-12">
+  <label for="categorie">Categorie</label>
+  <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}"
+    [options]="categorie"
+    [(ngModel)]="motif.categorie" optionLabel="label" inputId="categorie"
+    name="categorie" placeholder="Sélectionner la categorie..." [filter]="true" appendTo="body"
+    [showClear]="true">
+  </p-dropdown>
+  </div>
 </div>
 
   <!-- <p-divider></p-divider> -->
