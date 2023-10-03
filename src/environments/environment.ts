@@ -5,7 +5,7 @@ const commonAuth: string = 'http://localhost:8089/api/auth/';
 export const environment = {
   production: false,
   recordsPerPage: 20,
-  detachementUrl: 'http://localhost:8080/api',
+  detachementUrl: 'http://192.168.0.137:8080/api',
 
   communeUrl: commonAppURI +'communes',
   pieceUrl: commonAppURI +'pieces',
