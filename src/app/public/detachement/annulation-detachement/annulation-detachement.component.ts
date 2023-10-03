@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-annulation-detachement',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./annulation-detachement.component.scss']
 })
 export class AnnulationDetachementComponent {
-
+  constructor(
+    private router: Router
+  ) { }
+  soumettre(){
+    this.router.navigate(['/auth/login']);
+  }
 }

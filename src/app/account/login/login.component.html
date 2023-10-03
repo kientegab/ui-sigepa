@@ -28,8 +28,8 @@
                     <div class="flex flex-column">
                         <span class="p-input-icon-left w-full mb-4">
                             <i class="pi pi-envelope"></i>
-                            <input autofocus id="email" type="email" name="username" [(ngModel)]="account.username"
-                                #username="ngModel" required pInputText class="w-full md:w-25rem" placeholder="Email">
+                            <input autofocus id="matricule" type="matricule" name="username" [(ngModel)]="account.username"
+                                #username="ngModel" required pInputText class="w-full md:w-25rem" placeholder="matricule">
                         </span>
                         <span class="p-input-icon-left w-full mb-4">
                             <i class="pi pi-lock"></i>
@@ -43,13 +43,21 @@
                                     [(ngModel)]="account.rememberMe" styleClass="mr-2" [binary]="true">
                                 </p-checkbox>
                                 <!-- <label for="checkbox" class="text-900 font-medium mr-8">Se souvenir</label> -->
-                            </div>
+                            </div>                             
+                        </div>
+                        <div>
                             <a [routerLink]="['/mot-de-passe-oublier']"
-                                class="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300 text-dark">Mot
-                                de passe oublié?</a>
+                            class="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300 text-dark">Mot
+                            de passe oublié?
+                            </a>
+                            <br>
+                            <a [routerLink]="['/mot-de-passe-oublier']"
+                            class="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300 text-dark">
+                            S'inscrire ici
+                            </a>
                         </div>
                         <button pButton pRipple type="submit" [disabled]="!dtf.form.valid" label="Connexion"  
-                            class="w-full btn-primary" pButton>
+                        style="background-color:#006699;">
                         </button>
                         <!-- <button pButton pRipple label="Connexion" class="w-full btn-primary" [routerLink]="['/admin']"></button> -->
                     </div>
