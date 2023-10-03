@@ -25,10 +25,6 @@ export class ArticleService {
     return this.http.put<IArticle>(articleUrl+'/update', article, { observe: 'response' });
   }
 
-  // findArticleByIdProvince(id: number): Observable<EntityArrayResponseType> {
-  //   return this.http.get<IArticle[]>(`${articleUrl}/liste/${id}`, { observe: 'response' });
-  // }
-
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IArticle>(`${articleUrl}/${id}`, { observe: 'response' });
   }

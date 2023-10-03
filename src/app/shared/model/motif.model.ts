@@ -4,7 +4,7 @@ export interface IMotif {
     id?: number,
     libelle?: string;
     categorie?: ECategorie;
-    piece?: IPiece[]
+    piece?: IPiece[] 
 
 }
 

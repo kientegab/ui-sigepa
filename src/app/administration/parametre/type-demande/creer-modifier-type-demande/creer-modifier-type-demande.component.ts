@@ -42,6 +42,8 @@ export class CreerModifierTypeDemandeComponent {
     visasSelected: Visa[] = [];
     articlesSelected: Article[] = [];
     motifsSelected: Motif[] = [];
+    categopries = [{libelle:'DETACHEMENT'},{libelle:'DISPONIBILTE'}];
+    categorie?: string;
 
     constructor(
         private typeStructureService: TypeDemandeService,
@@ -54,6 +56,9 @@ export class CreerModifierTypeDemandeComponent {
     ) { }
 
     ngOnInit(): void {
+        this.loadVisas();
+        this.loadAricles();
+        this.loadAmpliations();
         if (this.dynamicDialog.data) {
             this.typeDemande = cloneDeep(this.dynamicDialog.data);
         }
@@ -71,6 +76,7 @@ export class CreerModifierTypeDemandeComponent {
         this.dialogErrorMessage = null;
     }
     // Errors
+
     handleError(error: HttpErrorResponse) {
         console.error(`Processing Error: ${JSON.stringify(error)}`);
         this.isDialogOpInProgress = false;
