@@ -10,8 +10,8 @@ type EntityResponseType = HttpResponse<IMotif>;
 type EntityArrayResponseType = HttpResponse<IMotif[]>;
 
 
-const motifUrl = "assets/data/motif.json";
-// const visaUrl = environment.detachementUrl+'/motifs';
+//const motifUrl = "assets/data/motif.json";
+const motifUrl = environment.detachementUrl+'/motifs';
 
 @Injectable({
   providedIn: 'root'

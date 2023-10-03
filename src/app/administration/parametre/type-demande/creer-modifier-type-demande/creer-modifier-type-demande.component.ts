@@ -14,6 +14,7 @@ import {Ampliation} from "../../../../shared/model/ampliation.model";
 import {AmpliationService} from "../../../../shared/service/ampliation-service.service";
 import {ArticleService} from "../../../../shared/service/article.service";
 import {VisaService} from "../../../../shared/service/visa-service";
+import {MotifService} from "../../../../shared/service/motif.service";
 
 @Component({
   selector: 'app-creer-modifier-type-demande',
@@ -53,12 +54,14 @@ export class CreerModifierTypeDemandeComponent {
         private ampliationService:AmpliationService,
         private articleService:ArticleService,
         private visaService:VisaService,
+        private motifService:MotifService
     ) { }
 
     ngOnInit(): void {
         this.loadVisas();
         this.loadAricles();
         this.loadAmpliations();
+        this.loadMotifs();
         if (this.dynamicDialog.data) {
             this.typeDemande = cloneDeep(this.dynamicDialog.data);
         }
@@ -110,6 +113,15 @@ export class CreerModifierTypeDemandeComponent {
     loadVisas() {
         this.visaService.findListe().subscribe(response => {
             this.visas = response.body!;
+        }, error => {
+            this.message = { severity: 'error', summary: error.error };
+            console.error(JSON.stringify(error));
+        });
+    }
+
+    loadMotifs() {
+        this.motifService.findListe().subscribe(response => {
+            this.motifs = response.body!;
         }, error => {
             this.message = { severity: 'error', summary: error.error };
             console.error(JSON.stringify(error));
