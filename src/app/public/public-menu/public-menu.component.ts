@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-public-menu',
@@ -89,7 +90,7 @@ export class PublicMenuComponent implements  OnInit {
           items: [
             {
               label: 'Nouvelle disponibilité',
-              routerLink: ['/public/N_detachement'],
+              routerLink: ['/public/N_disponibilite'],
               routerLinkActiveOptions: {
                 exact: true
               }
@@ -99,7 +100,7 @@ export class PublicMenuComponent implements  OnInit {
             },
             {
               label: 'Renouvellement disponibilité',
-              routerLink: ['/public/congeMaternite'],
+              routerLink: ['/public/R_disponibilite'],
               routerLinkActiveOptions: {
                 exact: true
               } 
@@ -109,7 +110,7 @@ export class PublicMenuComponent implements  OnInit {
             },
             {
               label: 'Fin disponibilité',
-              routerLink: ['/public/congeMaladie'],
+              routerLink: ['/public/F_disponibilite'],
               routerLinkActiveOptions: {
                 exact: true
               } 
@@ -119,7 +120,7 @@ export class PublicMenuComponent implements  OnInit {
             },
             {
                 label: 'Rectification disponibilité',
-                routerLink: ['/public/congeMaladie'],
+                routerLink: ['/public/RE_disponibilite'],
                 routerLinkActiveOptions: {
                   exact: true
                 } 
@@ -129,7 +130,7 @@ export class PublicMenuComponent implements  OnInit {
               },
             {
               label: 'Annulation disponibilité',
-              routerLink: ['/public/congeFinservice'],
+              routerLink: ['/public/A_disponibilite'],
               routerLinkActiveOptions: {
                 exact: true
               } 
@@ -140,11 +141,11 @@ export class PublicMenuComponent implements  OnInit {
         
         {
           label: 'Manuel Utilisateur',
-          routerLink: ['/public/contact'] 
+          command: () => this.download(),
         },
         {
             label: 'Nous contacter',
-            routerLink: ['/public/contact'] 
+            routerLink: ['public/contact'] 
           },
       ];
     }
@@ -159,5 +160,10 @@ export class PublicMenuComponent implements  OnInit {
      login() {
        this.router.navigate(['auth/login']);
      }
+   
+     download(){
+        window.open(environment.domaine+'/assets/img/manuel.pdf','_blank');
+      }
+
 
 }

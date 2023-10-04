@@ -1,9 +1,10 @@
 const commonAppURI: string = 'http://localhost:8080/api/';
 const commonAuth: string = 'http://localhost:8089/api/auth/';
-
+const domaineUrl: string='localhost:4200'
 
 export const environment = {
   production: false,
+  domaine:`${domaineUrl}`,
   recordsPerPage: 20,
   detachementUrl: 'http://localhost:8080/api',
   circuitUrl:commonAppURI + 'circuit',
