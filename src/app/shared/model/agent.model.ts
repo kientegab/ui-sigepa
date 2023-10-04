@@ -22,6 +22,7 @@ export interface IAgent {
     structure?: IStructure;
     fonction?: string;
     position?: string;
+    superieur?: IAgent;
     // actif?: boolean;
 }
 export class Agent implements IAgent {
@@ -46,6 +47,7 @@ export class Agent implements IAgent {
         public structure?: IStructure,
         public fonction?: string,
         public position?: string,
+        public superieur?: IAgent
         // public actif?: boolean
     ) { }
 

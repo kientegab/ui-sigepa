@@ -52,7 +52,7 @@ export class CreerModifierStructureComponent {
             this.structure.parent = this.dynamicDialog.data.structure.parent;
             this.structure.code = this.dynamicDialog.data.structure.code;
             this.structure.libelle = this.dynamicDialog.data.structure.libelle;
-            this.structure.ministereDTO = this.dynamicDialog.data.ministere;
+            this.structure.ministere= this.dynamicDialog.data.ministere;
             this.structure.type = this.dynamicDialog.data.structure.type
             this.structure.sigle = this.dynamicDialog.data.structure.sigle
             this.structure.responsable = this.dynamicDialog.data.structure.responsable

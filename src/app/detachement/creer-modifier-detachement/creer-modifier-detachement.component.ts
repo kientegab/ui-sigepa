@@ -8,13 +8,14 @@ import {TypeDemandeService} from "../../shared/service/type-demande.service";
 import {ConfirmationService, Message, SelectItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
-import { IMotif, Motif, TypeDemandeur } from 'src/app/shared/model/motif.model';
+import { IMotif, Motif, TypeDemandeur} from 'src/app/shared/model/motif.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
 import { StructureService } from 'src/app/shared/service/structure.service';
 import { AgentService } from 'src/app/shared/service/agent.service';
 import { cloneDeep } from 'lodash';
 import { ITypeDemandeur } from 'src/app/shared/model/typeDemandeur.model';
+import { PieceService } from 'src/app/shared/service/piece.service';
 
 @Component({
   selector: 'app-creer-modifier-detachement',
@@ -36,9 +37,12 @@ export class CreerModifierDetachementComponent {
     pieces: IPiece[] = [];
     file: Blob | string = '';
     selectedFile: File | null = null;
+    selectedTypeMotif?:IMotif;
     selectedMotif: IMotif | undefined;
+    selectedPiece: IPiece | undefined;
     selectedPieces: IPiece[] = [];
     multiple=true;
+    motifs: IMotif[] = [];
     selectedTypeDemandeur?: ITypeDemandeur;
     typeDemandeurs: ITypeDemandeur[]=[{
         code:'AGENT',
@@ -55,7 +59,7 @@ export class CreerModifierDetachementComponent {
 
    // motifs: IMotif[] = [];
 
-   motifs: IMotif[] = [];
+ 
  
     agent: IAgent  = new Agent ();
     numeroMatricule: string = '';
@@ -121,21 +125,33 @@ piecesFilters: IPiece[] = [];
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // onMotifChange() {
-//   if (this.selectedMotif) {
-//     if (this.demande.typeDemande) {
-//       const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
-
-//       if (motif) {
-//         this.selectedPieces = motif.piece || [];
-//       } else {
-//         this.selectedPieces = [];
+//     if (this.selectedMotif) {
+//       if (this.demande.typeDemande) {
+//         const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
+  
+//         if (motif) {
+//           this.selectedPieces = motif.piece || [];
+//         } else {
+//           this.selectedPieces = [];
+//         }
 //       }
+//     } else {
+//       this.selectedPieces = [];
 //     }
-//   } else {
-//     this.selectedPieces = [];
 //   }
-// }
+loadPieces() {
 
+    this.pieceService.findAll().subscribe(response => {
+        this.pieces= cloneDeep(response.body!)
+        // this.pieces = response.body!;
+    }, error => {
+        this.message = { severity: 'error', summary: error.error };
+        console.error(JSON.stringify(error));
+    });
+
+
+
+}
   
   
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,6 +212,7 @@ onChangeMatricule() {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private structureService: StructureService,
+        private pieceService: PieceService,
         private agentService: AgentService,
         
      
@@ -210,12 +227,24 @@ onChangeMatricule() {
             this.agent.structure = { libelle: '' };
           }
         
+          if (!this.agent.superieur) {
+            this.agent.superieur = { nom: '' };
+          }
+        
+
+          if (!this.agent.structure.ministere) {
+            this.agent.structure.ministere = { libelle: '' };
+          }
           // Assurez-vous que libelle est défini
           if (!this.agent.structure.libelle) {
             this.agent.structure.libelle = '';
           }
       
-          
+         
+       
+
+
+          this.loadPieces();
           
           this.loadTypeDemande();
           // this.loadAgent();
@@ -232,8 +261,11 @@ onChangeMatricule() {
           // Filtrer les motifs en fonction du typeDemandeur sélectionné
 
           console.warn("==============================================",this.selectedTypeDemandeur)
+         
           this.motifsFiltres = this.motifs.filter((motif) => motif.typeDemandeur === this.selectedTypeDemandeur?.libelle);
-          console.warn("==============================================",this.motifsFiltres)
+
+
+          console.warn("Motifs filtrés==============================================",this.motifs)
           // Réinitialiser le motif sélectionné lorsque le type de demandeur change
           this.selectedMotif = undefined;
         } else {
@@ -244,18 +276,39 @@ onChangeMatricule() {
           this.selectedMotif = undefined;
         }
       }
-      
+
       onMotifChange(): void {
-        // if (this.selectedMotif) {
-        // //   const motif = this.motifsFiltres.find((m) => m.libelle === this.selectedMotif!.libelle);
-        // this.piecesFilters = this.pieces.filter((piece) => piece. === this.selectedTypeDemandeur?.libelle);
-        //   if (motif) {
-        //     console.log('Libellé du motif sélectionné : ' + motif.libelle);
-        //   }
-        // } else {
-        //   console.log('Aucun motif sélectionné');
-        // }
+        if (this.selectedMotif) {
+            // const motif = this.demande.motifDTOs?.libelle === this.selectedMotif?.libelle;
+            // console.warn("==============================================",this.selectedTypeMotif)
+            console.warn("==============================================",this.pieces);
+
+            this.piecesFilters = this.pieces.filter((piece) => piece.motif?.libelle === this.selectedMotif?.libelle);
+
+            console.warn("pieces==============================================",this.piecesFilters);
+      
+            this.selectedPiece= undefined
+        
+        } else {
+            
+          this.piecesFilters = [];
+          this.selectedPiece = undefined;
+        }
+        
       }
+      
+      
+    //   onMotifChange(): void {
+    //     // if (this.selectedMotif) {
+    //     // //   const motif = this.motifsFiltres.find((m) => m.libelle === this.selectedMotif!.libelle);
+    //     // this.piecesFilters = this.pieces.filter((piece) => piece. === this.selectedTypeDemandeur?.libelle);
+    //     //   if (motif) {
+    //     //     console.log('Libellé du motif sélectionné : ' + motif.libelle);
+    //     //   }
+    //     // } else {
+    //     //   console.log('Aucun motif sélectionné');
+    //     // }
+    //   }
 
 
     // onTypeDemandeurChange(): void {
@@ -372,6 +425,9 @@ onChangeMatricule() {
         this.clearDialogMessages();
         this.isDialogOpInProgress = true;
         if (this.demande) {
+            this.demande.agent= this.agent;
+            console.warn("==============================================",this.selectedMotif);
+            this.demande.motif = this.selectedMotif;
             if (this.demande.id) {
                 this.demandeService.update(this.demande).subscribe(
                     {
@@ -380,10 +436,12 @@ onChangeMatricule() {
                             this.dialogRef.destroy();
                             this.showMessage({ severity: 'success', summary: 'demande modifié avec succès' });
 
+                            this.isDialogOpInProgress = false;
                         },
                         error: (error) => {
                             console.error("error" + JSON.stringify(error));
                             this.isOpInProgress = false;
+                            this.isDialogOpInProgress = false;
                             this.showMessage({ severity: 'error', summary: error.error.message });
 
                         }
@@ -393,14 +451,18 @@ onChangeMatricule() {
                     next: (response) => {
                         this.dialogRef.close(response);
                         this.dialogRef.destroy();
+                        this.router.navigate(['detachements']);
                         this.showMessage({
                             severity: 'success',
                             summary: 'demande creer avec succès',
+                            
                         });
+                        this.isDialogOpInProgress = false;
                     },
                     error: (error) => {
                         console.error("error" + JSON.stringify(error));
                         this.isOpInProgress = false;
+                        this.isDialogOpInProgress = false;
                         this.showMessage({ severity: 'error', summary: error.error.message });
 
                     }

@@ -1,10 +1,26 @@
 <p-card>
-    <ng-template pTemplate="header">
+    <app-confirmation></app-confirmation>
+<!-- <p-divider></p-divider> -->
+<ng-template pTemplate="header" style="
+    background-color:#1e88e0;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;">
+    <!-- <i class="{{isEditing() ? 'pi-pencil' : 'pi-plus'}} pi p-mr-1 mr-2"></i> -->
+    <h3 class="mr-auto">
+        {{demande.id ? 'Formulaire de modification' : 'Formulaire
+                d\'ajout de'}} demande
+    </h3>
+</ng-template>
+<p-progressBar *ngIf="isOpInProgress" mode="indeterminate" color="#1e88e0"></p-progressBar>
+<p-message *ngIf="message" [severity]="message.severity" [text]="message.summary"></p-message>
+    <!-- <ng-template pTemplate="header">
         <div class="card-header">
             <h4 class="text-green text-center text-bold">{{demande.id ? 'Formulaire de modification' : 'Formulaire
                 d\'ajout de'}} demande</h4>
         </div>
-    </ng-template>
+    </ng-template> -->
     <form (ngSubmit)="saveEntity()" #dtf="ngForm" style="margin-top:20px;">
 
         <!--  -->
@@ -29,7 +45,7 @@
             <div class="field col-6 md:col-6">
                 <label for="motif">Motif :</label>
                 <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{ 'width': '100%' }" [options]="motifsFiltres"
-                    [(ngModel)]="selectedMotif" optionLabel="libelle" inputId="motifDTOs" name="motifDTOs"
+                    [(ngModel)]="selectedMotif" optionLabel="libelle" inputId="motif" name="motif"
                     placeholder="Sélectionner le motif..." [filter]="true" appendTo="body" [showClear]="true"
                     (ngModelChange)="onMotifChange()"></p-dropdown>
             </div>
@@ -88,8 +104,8 @@
             <div class="field col-4 md:col-4">
                 <div class="p-field p-fluid">
                     <label for="Ministère">Ministère</label>
-                    <input type="text" id="ministère" name="ministère" #libelle="ngModel"
-                        [(ngModel)]="agent.structure!.ministereDTO" [readonly]="true" required
+                    <input type="text" id="ministere" name="ministere" #libelle="ngModel" optionLabel="libelle"
+                        [(ngModel)]="agent.structure!.ministere!.libelle" [readonly]="true" 
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
@@ -115,7 +131,7 @@
             <div class="field col-4 md:col-4">
                 <div class="p-field p-fluid">
                     <label for="superieur">Supérieur hiérarchique</label>
-                    <input [(ngModel)]="demande.agent" id="superieur" [readonly]="false" name="superieur"
+                    <input [(ngModel)]="agent.superieur!.nom" id="superieur" [readonly]="false" name="superieur"
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
@@ -132,7 +148,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let piece of selectedPieces; let i=index">
+                            <ng-container *ngFor="let piece of piecesFilters; let i=index">
                                 <tr>
                                     <td>{{ piece.libelle }}</td>
                                     <td>

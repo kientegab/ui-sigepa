@@ -8,7 +8,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { takeUntil } from 'rxjs';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
 import { Demande, IDemande } from 'src/app/shared/model/demande.model';
-import { IMotif, TypeDemandeur } from 'src/app/shared/model/motif.model';
+import { IMotif } from 'src/app/shared/model/motif.model';
 import { IPiece } from 'src/app/shared/model/piece.model';
 
 import { IPieceJointe } from 'src/app/shared/model/pieceJointe.model';
@@ -92,7 +92,7 @@ onMotifChange() {
       const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
 
       if (motif) {
-        this.selectedPieces = motif.piece || [];
+        // this.selectedPieces = motif.piece || [];
       } else {
         this.selectedPieces = [];
       }
@@ -157,10 +157,10 @@ onMotifChange() {
   
   }
 
-  typeDemandeur: SelectItem[] = [
-    { label: 'Agent', value: TypeDemandeur.AGENT },
-    { label: 'Structure', value: TypeDemandeur.STRUCTURE },
-  ];
+  // typeDemandeur: SelectItem[] = [
+  //   { label: 'Agent', value: TypeDemandeur.AGENT },
+  //   { label: 'Structure', value: TypeDemandeur.STRUCTURE },
+  // ];
   
   displayCalendar = false;
 

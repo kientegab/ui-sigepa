@@ -7,9 +7,9 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { IMotif, Motif } from 'src/app/shared/model/motif.model';
 // import { ECategorie, IMotif, Motif } from 'src/app/shared/model/motif.model';
 import { IPiece, Piece } from 'src/app/shared/model/piece.model';
+import { ITypeDemandeur } from 'src/app/shared/model/typeDemandeur.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
 import { PieceService } from 'src/app/shared/service/piece.service';
-import {TypeDemandeur} from "../../../../shared/model/demande.model";
 
 @Component({
   selector: 'app-creer-modifier-motif',
@@ -32,10 +32,14 @@ export class CreerModifierMotifComponent {
   pieces: IPiece[] = [];
   pieceSelected: Piece[] = [];
     categSelected: any;
-    typeDemandeur: SelectItem[] = [
-        { label: 'Agent', value: TypeDemandeur.Agent },
-        { label: 'Structure', value: TypeDemandeur.Structure },
-    ];
+    typeDemandeurs: ITypeDemandeur[]=[{
+      code:'AGENT',
+      libelle: 'AGENT'
+  },
+  {
+      code:'STRUCTURE',
+      libelle: 'STRUCTURE'
+  }];
 
 
   constructor(

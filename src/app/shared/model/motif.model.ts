@@ -4,7 +4,7 @@ export interface IMotif {
     id?: number,
     libelle?: string;
     plafondAnnee?: number;
-
+    typeDemandeur?: TypeDemandeur
 
 }
 
@@ -13,7 +13,7 @@ export class Motif implements IMotif {
         public id?: number,
         public libelle?: string,
         public plafondAnnee?: number,
-  
+        public typeDemandeur?: TypeDemandeur
     ) { }
 
 
