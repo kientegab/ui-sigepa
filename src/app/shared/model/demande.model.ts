@@ -15,7 +15,7 @@ export interface IDemande {
     statut?: String;
     pieceJointe?: IPieceJointe[];
     agent?: IAgent;
-    historiques?: IHistorique[];
+    historique?: IHistorique;
 }
 
 export class Demande implements IDemande {
@@ -30,10 +30,9 @@ export class Demande implements IDemande {
         public statut?: String,
         public pieceJointe?: IPieceJointe[],
         public agent?: IAgent,
-        public historiques?: IHistorique[],
+        public historique?: IHistorique,
 
-    ){
-    }
+    ){}
 
 }
 

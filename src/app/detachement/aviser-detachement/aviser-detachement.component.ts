@@ -23,8 +23,6 @@ export class AviserDetachementComponent {
   typeDemandeService: any;
   typeDemandes: any;
   message: { severity: string; summary: any; } | undefined;
-  // avis: string | undefined;
-  commentaire: string | undefined;
   historique:IHistorique = new Historique();
   historiques: IHistorique[] = []; 
   
@@ -65,8 +63,7 @@ export class AviserDetachementComponent {
     this.isDialogOpInProgress = true;
     if (this.demande) {
       if (this.demande.id) {
-        this.historiques.push(this.historique);
-        this.demande.historiques=this.historiques;
+        this.demande.historique=this.historique;
         this.demandeService.update(this.demande).subscribe(
           {
             next: (response: any) => {

@@ -24,7 +24,6 @@ export class ReceptionDetachementComponent {
   typeDemandes: any;
   message: { severity: string; summary: any; } | undefined;
   historique:IHistorique = new Historique();
-  historiques: IHistorique[] = []; 
   
  
 
@@ -61,8 +60,7 @@ export class ReceptionDetachementComponent {
     this.isDialogOpInProgress = true;
     if (this.demande) {
       if (this.demande.id) {
-        this.historiques.push(this.historique);
-        this.demande.historiques=this.historiques;
+        this.demande.historique=this.historique;
         this.demandeService.update(this.demande).subscribe(
           {
             next: (response: any) => {

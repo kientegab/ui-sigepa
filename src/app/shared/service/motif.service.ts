@@ -11,7 +11,7 @@ type EntityArrayResponseType = HttpResponse<IMotif[]>;
 
 
 const motifUrl = "assets/data/motif.json";
-// const visaUrl = environment.detachementUrl+'/motifs';
+// const motifUrl = environment.detachementUrl+'/motifs';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +46,7 @@ export class MotifService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<IMotif[]>(motifUrl+'/list', { observe: 'response' });
+    return this.http.get<IMotif[]>(motifUrl, { observe: 'response' });
   }
 
 

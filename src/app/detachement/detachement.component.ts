@@ -2,16 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, ConfirmationService, Message } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CreerModifierDisponibiliteComponent } from '../disponibilite/creer-modifier-disponibilite/creer-modifier-disponibilite.component';
-import { DetailsDisponibiliteComponent } from '../disponibilite/details-disponibilite/details-disponibilite.component';
 import { CURRENT_PAGE, MAX_SIZE_PAGE } from '../shared/constants/pagination.constants';
 import { IDemande, Demande } from '../shared/model/demande.model';
 import { DemandeService } from '../shared/service/demande-service.service';
 import { CreerModifierDetachementComponent } from './creer-modifier-detachement/creer-modifier-detachement.component';
-import { DetailsDetachementComponent } from './details-detachement/details-detachement.component';
 
 @Component({
   selector: 'app-detachement',
@@ -113,7 +110,7 @@ enableInfo = true;
           if (result && result.body) {
             this.totalRecords = Number(result.headers.get('X-Total-Count'));
             this.demandes = result.body || [];
-            console.log("=============", this.demandes);
+            console.log("====== demandes =======", this.demandes);
           }
         });
       }

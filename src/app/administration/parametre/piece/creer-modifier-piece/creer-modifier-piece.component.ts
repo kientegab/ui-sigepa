@@ -4,7 +4,9 @@ import { NgForm } from '@angular/forms';
 import { cloneDeep } from 'lodash';
 import { Message } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { IMotif } from 'src/app/shared/model/motif.model';
 import { IPiece, Piece } from 'src/app/shared/model/piece.model';
+import { MotifService } from 'src/app/shared/service/motif.service';
 import { PieceService } from 'src/app/shared/service/piece.service';
 
 @Component({
@@ -17,6 +19,7 @@ export class CreerModifierPieceComponent {
   @ViewChild('dtf') form!: NgForm;
   piece: IPiece = new Piece();
   @Input() data: IPiece = new Piece();
+  motifs: IMotif[] = [];
   error: string | undefined;
   showDialog = false;
   isDialogOpInProgress!: boolean;
@@ -27,6 +30,7 @@ export class CreerModifierPieceComponent {
 
   constructor(
     private pieceService: PieceService,
+    private motifService: MotifService,
     private dialogRef: DynamicDialogRef,
     private dynamicDialog: DynamicDialogConfig
   ) { }
@@ -35,8 +39,17 @@ export class CreerModifierPieceComponent {
     if (this.dynamicDialog.data) {
       this.piece = cloneDeep(this.dynamicDialog.data);
     }
+    this.loadMotifs();
   }
 
+  loadMotifs() {
+    this.motifService.findListe().subscribe(response => {
+        this.motifs = response.body!;
+    }, error => {
+        this.message = { severity: 'error', summary: error.error };
+        console.error(JSON.stringify(error));
+    });
+}
 
   clear(): void {
     this.form.resetForm();
@@ -67,6 +80,7 @@ export class CreerModifierPieceComponent {
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
     if (this.piece) {
+      console.log("piece to save ==========", this.piece);
       if (this.piece.id) {
         this.pieceService.update(this.piece).subscribe(
           {

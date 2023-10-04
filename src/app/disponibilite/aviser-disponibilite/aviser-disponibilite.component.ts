@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash';
 import { ConfirmationService, SelectItem } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
 import { IDemande, Demande } from 'src/app/shared/model/demande.model';
-import { Historique, IHistorique, avis } from 'src/app/shared/model/historique.model';
+import { Historique, IHistorique, avis, receptions } from 'src/app/shared/model/historique.model';
 
 @Component({
   selector: 'app-aviser-disponibilite',
@@ -26,10 +26,7 @@ export class AviserDisponibiliteComponent {
   typeDemandeService: any;
   typeDemandes: any;
   message: { severity: string; summary: any; } | undefined;
-  // avis: string | undefined;
-  commentaire: string | undefined;
   historique:IHistorique = new Historique();
-  historiques: IHistorique[] = []; 
   
  
 
@@ -57,8 +54,8 @@ export class AviserDisponibiliteComponent {
   ];
  
   receptions: SelectItem[] = [
-    { label: 'Conforme ', value: avis.avis1 },
-    { label: 'Non conforme', value: avis.avis2 },
+    { label: 'Conforme ', value:  receptions.reception1},
+    { label: 'Non conforme', value: receptions.reception2 },
   ];
 
   // Errors
@@ -73,8 +70,7 @@ export class AviserDisponibiliteComponent {
     this.isDialogOpInProgress = true;
     if (this.demande) {
       if (this.demande.id) {
-        this.historiques.push(this.historique);
-        this.demande.historiques=this.historiques;
+        this.demande.historique=this.historique;
         this.demandeService.update(this.demande).subscribe(
           {
             next: (response: any) => {
