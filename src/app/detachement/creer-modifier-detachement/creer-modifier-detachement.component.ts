@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Demande, IDemande, TypeDemandeur} from "../../shared/model/demande.model";
+import {Demande, IDemande} from "../../shared/model/demande.model";
 import {ITypeDemande} from "../../shared/model/typeDemande.model";
 import {IPiece} from "../../shared/model/piece.model";
 import {DemandeService} from "../../shared/service/demande-service.service";
@@ -8,7 +8,7 @@ import {TypeDemandeService} from "../../shared/service/type-demande.service";
 import {ConfirmationService, Message, SelectItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
-import { IMotif } from 'src/app/shared/model/motif.model';
+import { IMotif, Motif, TypeDemandeur } from 'src/app/shared/model/motif.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
 import { StructureService } from 'src/app/shared/service/structure.service';
@@ -37,7 +37,12 @@ export class CreerModifierDetachementComponent {
     selectedMotif: IMotif | undefined;
     selectedPieces: IPiece[] = [];
     multiple=true;
-    motifs: IMotif[] = [];
+    selectedTypeDemandeur: TypeDemandeur | undefined;
+
+
+   // motifs: IMotif[] = [];
+
+   motifs: IMotif[] = [];
     agent: IAgent  = new Agent ();
     numeroMatricule: string = '';
 
@@ -59,44 +64,74 @@ motifWithPieces: { motif: string, pieces: IPiece[] }[] = [];
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+typeDemandeur: SelectItem[] = [
+    { label: 'AGENT', value: TypeDemandeur.AGENT },
+    { label: 'STRUCTURE', value: TypeDemandeur.STRUCTURE },
+  ];
 
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-onTypeDemandeChange() {
+// onTypeDemandeChange() {
  
-  if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
-    this.motifs = this.demande.typeDemande.motifDTOs;
-    this.selectedMotif = undefined; 
-  } else {
-    this.motifs = []; 
-    this.selectedMotif = undefined; 
-  }
-}
+//   if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
+//     this.motifs = this.demande.typeDemande.motifDTOs;
+//     this.selectedMotif = undefined; 
+//   } else {
+//     this.motifs = []; 
+//     this.selectedMotif = undefined; 
+//   }
+// }
+
+// onTypeDemandeurChange() {
+ 
+//     if (this.demande.typeDemandeur ) {
+//       this.demande.motifDTOs = this.demande.typeDemande.motifDTOs;
+//       this.selectedMotif = undefined; 
+//     } else {
+//       this.motifs = []; 
+//       this.selectedMotif = undefined; 
+//     }
+//   }
+
+motifsFiltres: IMotif[] = [];
 
 
 
-
+  
+  
+  
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-onMotifChange() {
-  if (this.selectedMotif) {
-    if (this.demande.typeDemande) {
-      const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
+// onMotifChange() {
+//   if (this.selectedMotif) {
+//     if (this.demande.typeDemande) {
+//       const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
 
+//       if (motif) {
+//         this.selectedPieces = motif.piece || [];
+//       } else {
+//         this.selectedPieces = [];
+//       }
+//     }
+//   } else {
+//     this.selectedPieces = [];
+//   }
+// }
+onMotifChange(): void {
+    if (this.selectedMotif) {
+      const motif = this.motifsFiltres.find((m) => m.libelle === this.selectedMotif!.libelle);
       if (motif) {
-        this.selectedPieces = motif.piece || [];
-      } else {
-        this.selectedPieces = [];
+        console.log('Libellé du motif sélectionné : ' + motif.libelle);
       }
+    } else {
+      console.log('Aucun motif sélectionné');
     }
-  } else {
-    this.selectedPieces = [];
   }
-}
-
+  
+  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 onChangeMatricule() {
@@ -156,6 +191,7 @@ onChangeMatricule() {
         private activatedRoute: ActivatedRoute,
         private structureService: StructureService,
         private agentService: AgentService,
+     
     ) { }
 
     ngOnInit(): void {
@@ -176,14 +212,47 @@ onChangeMatricule() {
           
           this.loadTypeDemande();
           // this.loadAgent();
-         this.loadMotif('');
+        //  this.loadMotif('');
         this.loadTypeDemande();
+
+
+        
     }
 
-    typeDemandeur: SelectItem[] = [
-        { label: 'Agent', value: TypeDemandeur.Agent },
-        { label: 'Structure', value: TypeDemandeur.Structure },
-    ];
+
+   
+
+    onTypeDemandeurChange(): void {
+        if (this.selectedTypeDemandeur) {
+          // Filtrer les motifs en fonction du typeDemandeur sélectionné
+
+          console.warn("==============================================",this.motifs)
+          this.motifsFiltres = this.motifs.filter((motif) => motif.typeDemandeur === "AGENT");
+          console.warn("==============================================",this.motifsFiltres)
+          // Réinitialiser le motif sélectionné lorsque le type de demandeur change
+          this.selectedMotif = undefined;
+        } else {
+          // Effacer la liste des motifs filtrés si aucun type de demandeur n'est sélectionné
+          this.motifsFiltres = [];
+      
+          // Réinitialiser le motif sélectionné
+          this.selectedMotif = undefined;
+        }
+      }
+      
+      
+
+
+    // onTypeDemandeurChange(): void {
+    //     if (this.demande.typeDemandeur) {
+    //       this.motifsFiltres = this.motifs.filter(
+    //         (motif) => motif.typeDemandeur === this.demande.typeDemandeur
+    //       );
+    //     } else {
+    //       this.motifsFiltres = [];
+    //     }
+    //   }
+      
 
     displayCalendar = false;
 
@@ -201,19 +270,23 @@ onChangeMatricule() {
         });
     }
 
-    loadMotif(typeDemande: string) {
-        this.motifService.findAll().subscribe(response => {
-          this.motifs = response.body!;
+
+
+
+
+    // loadMotif(typeDemande: string) {
+    //     this.motifService.findAll().subscribe(response => {
+    //       this.motifs = response.body!;
           
-          this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
-            motif: motif.libelle!,
-            pieces: [] 
-          }));
-        }, error => {
-          this.message = { severity: 'error', summary: error.error };
-          console.error(JSON.stringify(error));
-        });
-      }
+    //       this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
+    //         motif: motif.libelle!,
+    //         pieces: [] 
+    //       }));
+    //     }, error => {
+    //       this.message = { severity: 'error', summary: error.error };
+    //       console.error(JSON.stringify(error));
+    //     });
+    //   }
 
 
     clear(): void {

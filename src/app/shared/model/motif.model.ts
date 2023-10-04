@@ -5,7 +5,9 @@ export interface IMotif {
     libelle?: string;
     categorie?: string;
     plafondAnnee?: number;
-    piece?: IPiece[]
+    piece?: IPiece[];
+    typeDemandeur?: string
+    
 
 }
 
@@ -15,13 +17,14 @@ export class Motif implements IMotif {
         public libelle?: string,
         public categorie?: string,
         public plafondAnnee?: number,
-        public piece?: IPiece[]
+        public piece?: IPiece[],
+        public typeDemandeur?: string
     ) { }
 
 
 }
 
-export enum ECategorie {
-    DETACHEMENT = 'DETACHEMENT',
-    DISPONIBILITE = 'DISPONIBILITE',
+export enum TypeDemandeur {
+    AGENT = 'AGENT',
+    STRUCTURE = 'STRUCTURE',
   }

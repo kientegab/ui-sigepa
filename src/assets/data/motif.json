@@ -2,6 +2,7 @@
     {
       "id" : 1,
       "libelle": "disponibilité pour accident ou maladie",
+      "typeDemandeur":"AGENT",
       "piece": [
         {
           "id" : 1,
@@ -13,6 +14,7 @@
     {
         "id" : 2,
         "libelle": "disponibilité pour exercer une activité dans une entreprise privée",
+        "typeDemandeur":"AGENT",
         "piece": [
           {
             "id" : 2,
@@ -25,6 +27,7 @@
       {
         "id" : 3,
         "libelle": "disponibilité pour élever un enfant de moins de cinq ans",
+        "typeDemandeur":"AGENT",
         "piece": [
           {
             "id" : 4,
@@ -36,6 +39,7 @@
       {
         "id" : 4,
         "libelle": "disponibilité pour suivre son conjoint",
+        "typeDemandeur":"STRUCTURE",
         "piece": [
           {
             "id" : 5,
@@ -47,6 +51,7 @@
       {
         "id" : 5,
         "libelle": "disponibilité pour exercer un mandat syndical",
+        "typeDemandeur":"STRUCTURE",
           "piece": [
             {
               "id" : 7,

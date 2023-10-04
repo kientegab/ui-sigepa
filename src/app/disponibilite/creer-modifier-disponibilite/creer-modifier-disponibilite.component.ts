@@ -7,8 +7,8 @@ import { ConfirmationService, Message, SelectItem } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { takeUntil } from 'rxjs';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
-import { Demande, IDemande, TypeDemandeur } from 'src/app/shared/model/demande.model';
-import { IMotif } from 'src/app/shared/model/motif.model';
+import { Demande, IDemande } from 'src/app/shared/model/demande.model';
+import { IMotif, TypeDemandeur } from 'src/app/shared/model/motif.model';
 import { IPiece } from 'src/app/shared/model/piece.model';
 
 import { IPieceJointe } from 'src/app/shared/model/pieceJointe.model';
@@ -158,8 +158,8 @@ onMotifChange() {
   }
 
   typeDemandeur: SelectItem[] = [
-    { label: 'Agent', value: TypeDemandeur.Agent },
-    { label: 'Structure', value: TypeDemandeur.Structure },
+    { label: 'Agent', value: TypeDemandeur.AGENT },
+    { label: 'Structure', value: TypeDemandeur.STRUCTURE },
   ];
   
   displayCalendar = false;
