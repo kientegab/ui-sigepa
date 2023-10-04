@@ -9,8 +9,8 @@
     padding-bottom: 5px;">
     <i class="{{ demande.id ? 'pi-pencil' : 'pi-plus' }} pi p-mr-1 mr-2"></i>
     <h3 class="mr-auto">
-        Formulaire d'avis sur une demande
-        <!-- {{ demande.id ? 'Formulaire de modification' : 'Formulaire d\'ajout de' }} Avis -->
+        Formulaire de reception d'une demande
+        <!-- {{ demande.id ? 'Formulaire de reception' : 'Formulaire d\'ajout de' }} Avis -->
     </h3>
 </ng-template>
 <p-progressBar *ngIf="isDialogOpInProgress" mode="indeterminate" color="#1e88e0"></p-progressBar>
@@ -20,7 +20,7 @@
         <div class="field col-6 md:col-6">
             <label for="avis">Avis</label>
             <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}"
-              [options]="avis"
+              [options]="receptions"
               [(ngModel)]="historique.avis" optionLabel="label" inputId="avis"
               name="avis" placeholder="Sélectionner l'avis..." [filter]="true" appendTo="body"
               [showClear]="true">

@@ -168,6 +168,7 @@ export class DisponibiliteComponent {
 
       /** Permet d'afficher un modal pour voir les détails */
       openModalDetail(demande:IDemande): void {
+        // this.router.navigate(['disponibilites','details']);
         this.dialogService.open(DetailsDisponibiliteComponent,
           {
             header: 'Details de la demande',

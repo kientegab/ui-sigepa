@@ -35,19 +35,19 @@ export class AviserDetachementComponent {
     private dynamicDialog:  DynamicDialogConfig,
     private dialogService: DialogService,
     private confirmationService: ConfirmationService
-) {}
+  ) {}
 
   ngOnInit(): void {
     if (this.dynamicDialog.data) {
       this.demande = cloneDeep(this.dynamicDialog.data);
     }
-    }
-    
-
-    clear(): void {
-      this.dialogRef.close();
-      this.dialogRef.destroy();
   }
+    
+  clear(): void {
+    this.dialogRef.close();
+    this.dialogRef.destroy();
+  }
+
   avis: SelectItem[] = [
     { label: 'Avis favorable ', value: avis.avis1 },
     { label: 'Avis defavorable', value: avis.avis2 },
@@ -101,10 +101,13 @@ export class AviserDetachementComponent {
         });
       }
     }
-  }clearDialogMessages() {
+  }
+  
+  clearDialogMessages() {
     throw new Error('Method not implemented.');
   }
-showMessage(arg0: { severity: string; summary: string; }) {
+
+  showMessage(arg0: { severity: string; summary: string; }) {
     throw new Error('Method not implemented.');
   }
   

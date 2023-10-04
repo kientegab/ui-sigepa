@@ -24,6 +24,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule } from 'primeng/table';
 import { AppCommonModule } from '../shared/common/app-common.module';
 import {FileUploadModule} from "primeng/fileupload";
+import { ReceptionDetachementComponent } from './reception-detachement/reception-detachement.component';
+import { ConfirmationService } from 'primeng/api';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import {FileUploadModule} from "primeng/fileupload";
     CreerModifierDetachementComponent,
     DetailsDetachementComponent,
     AviserDetachementComponent,
-    DetachementAgentsComponent
+    DetachementAgentsComponent,
+    ReceptionDetachementComponent
   ],
     imports: [
         CommonModule,
@@ -55,6 +58,7 @@ import {FileUploadModule} from "primeng/fileupload";
         PaginatorModule,
         CalendarModule,
         FileUploadModule
-    ]
+    ],
+    providers: [ConfirmationService],
 })
 export class DetachementModule { }
