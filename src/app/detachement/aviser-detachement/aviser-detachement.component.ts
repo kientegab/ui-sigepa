@@ -35,19 +35,19 @@ export class AviserDetachementComponent {
     private dynamicDialog:  DynamicDialogConfig,
     private dialogService: DialogService,
     private confirmationService: ConfirmationService
-) {}
+  ) {}
 
   ngOnInit(): void {
     if (this.dynamicDialog.data) {
       this.demande = cloneDeep(this.dynamicDialog.data);
     }
-    }
-    
-
-    clear(): void {
-      this.dialogRef.close();
-      this.dialogRef.destroy();
   }
+    
+  clear(): void {
+    this.dialogRef.close();
+    this.dialogRef.destroy();
+  }
+
   avis: SelectItem[] = [
     { label: 'Avis favorable ', value: avis.avis1 },
     { label: 'Avis defavorable', value: avis.avis2 },
@@ -60,11 +60,10 @@ export class AviserDetachementComponent {
     this.dialogErrorMessage = error.error.title;
   }
   
-  saveEntity(): void {
+  saveAviser(): void {
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
     if (this.demande) {
-      if (this.demande.id) {
         this.historiques.push(this.historique);
         this.demande.historiques=this.historiques;
         this.demandeService.update(this.demande).subscribe(
@@ -72,7 +71,7 @@ export class AviserDetachementComponent {
             next: (response: any) => {
               this.dialogRef.close(response);
               this.dialogRef.destroy();
-              this.showMessage({ severity: 'success', summary: 'demande modifié avec succès' });
+              this.showMessage({ severity: 'success', summary: 'demande avisée avec succès' });
              
             },
             error: (error: { error: { message: any; }; }) => {
@@ -82,29 +81,16 @@ export class AviserDetachementComponent {
 
             }
           });
-      } else {
-        this.demandeService.create(this.demande).subscribe({
-          next: (response: any) => {
-            this.dialogRef.close(response);
-            this.dialogRef.destroy();
-            this.showMessage({
-              severity: 'success',
-              summary: 'demande creer avec succès',
-            });
-          },
-          error: (error: { error: { message: any; }; }) => {
-            console.error("error" + JSON.stringify(error));
-            this.isOpInProgress = false;
-            this.showMessage({ severity: 'error', summary: error.error.message });
-
-          }
-        });
-      }
+     
     }
-  }clearDialogMessages() {
+  }
+  
+  
+  clearDialogMessages() {
     throw new Error('Method not implemented.');
   }
-showMessage(arg0: { severity: string; summary: string; }) {
+
+  showMessage(arg0: { severity: string; summary: string; }) {
     throw new Error('Method not implemented.');
   }
   

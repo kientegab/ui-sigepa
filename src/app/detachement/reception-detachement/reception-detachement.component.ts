@@ -1,33 +1,28 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { cloneDeep } from 'lodash';
-import { ConfirmationService, SelectItem } from 'primeng/api';
-import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
+import { SelectItem } from 'primeng/api';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { IDemande, Demande } from 'src/app/shared/model/demande.model';
-import { Historique, IHistorique, avis } from 'src/app/shared/model/historique.model';
+import { IHistorique, Historique, avis } from 'src/app/shared/model/historique.model';
 
 @Component({
-  selector: 'app-aviser-disponibilite',
-  templateUrl: './aviser-disponibilite.component.html',
-  styleUrls: ['./aviser-disponibilite.component.scss']
+  selector: 'app-reception-detachement',
+  templateUrl: './reception-detachement.component.html',
+  styleUrls: ['./reception-detachement.component.scss']
 })
-export class AviserDisponibiliteComponent {
-
+export class ReceptionDetachementComponent {
 
   demande: IDemande = new Demande();
   @Input() data: IDemande = new Demande();
-  demandes: any;
+  // demandes: any;
   isDialogOpInProgress: boolean | undefined;
   demandeService: any;
   isOpInProgress: boolean | undefined;
-  aviser!: boolean;
-  receptionner!: boolean;
   dialogErrorMessage: any;
   typeDemandeService: any;
   typeDemandes: any;
   message: { severity: string; summary: any; } | undefined;
-  // avis: string | undefined;
-  commentaire: string | undefined;
   historique:IHistorique = new Historique();
   historiques: IHistorique[] = []; 
   
@@ -36,31 +31,24 @@ export class AviserDisponibiliteComponent {
   constructor(
     private dialogRef: DynamicDialogRef,
     private dynamicDialog:  DynamicDialogConfig,
-    private dialogService: DialogService,
-    private confirmationService: ConfirmationService
-) {}
+  ) {}
 
   ngOnInit(): void {
     if (this.dynamicDialog.data) {
       this.demande = cloneDeep(this.dynamicDialog.data);
     }
-    }
-    
-
-    clear(): void {
-      this.dialogRef.close();
-      this.dialogRef.destroy();
   }
-  avis: SelectItem[] = [
-    { label: 'Avis favorable ', value: avis.avis1 },
-    { label: 'Avis defavorable', value: avis.avis2 },
-  ];
- 
+    
+  clear(): void {
+    this.dialogRef.close();
+    this.dialogRef.destroy();
+  }
+
   receptions: SelectItem[] = [
     { label: 'Conforme ', value: avis.avis1 },
-    { label: 'Non conforme', value: avis.avis2 },
+    { label: 'Non conforme', value: avis.avis2 }
   ];
-
+ 
   // Errors
   handleError(error: HttpErrorResponse) {
     console.error(`Processing Error: ${JSON.stringify(error)}`);
@@ -68,19 +56,19 @@ export class AviserDisponibiliteComponent {
     this.dialogErrorMessage = error.error.title;
   }
   
-  saveEntity(): void {
+  saveReceptionner(): void {
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
     if (this.demande) {
-      if (this.demande.id) {
         this.historiques.push(this.historique);
+        console.log("histo ===========", this.historique);
         this.demande.historiques=this.historiques;
         this.demandeService.update(this.demande).subscribe(
           {
             next: (response: any) => {
               this.dialogRef.close(response);
               this.dialogRef.destroy();
-              this.showMessage({ severity: 'success', summary: 'demande modifié avec succès' });
+              this.showMessage({ severity: 'success', summary: 'demande receptionnée avec succès' });
              
             },
             error: (error: { error: { message: any; }; }) => {
@@ -90,29 +78,15 @@ export class AviserDisponibiliteComponent {
 
             }
           });
-      } else {
-        this.demandeService.create(this.demande).subscribe({
-          next: (response: any) => {
-            this.dialogRef.close(response);
-            this.dialogRef.destroy();
-            this.showMessage({
-              severity: 'success',
-              summary: 'demande creer avec succès',
-            });
-          },
-          error: (error: { error: { message: any; }; }) => {
-            console.error("error" + JSON.stringify(error));
-            this.isOpInProgress = false;
-            this.showMessage({ severity: 'error', summary: error.error.message });
-
-          }
-        });
-      }
+     
     }
-  }clearDialogMessages() {
-    throw new Error('Method not implemented.');
   }
-showMessage(arg0: { severity: string; summary: string; }) {
+  
+  clearDialogMessages() {
+    this.dialogErrorMessage = null;
+  }
+
+  showMessage(arg0: { severity: string; summary: string; }) {
     throw new Error('Method not implemented.');
   }
   
@@ -125,5 +99,5 @@ showMessage(arg0: { severity: string; summary: string; }) {
       console.error(JSON.stringify(error));
     });
   }
-  
+
 }

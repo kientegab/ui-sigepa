@@ -87,6 +87,18 @@ export class CreerModifierStructureComponent {
             console.error(JSON.stringify(error));
         });
     }
+
+    loadStructureByMinistere(id:number) {
+this.structureService.findStructureByMinistere(id).subscribe(
+    response => {
+        this.structures = response.body!;
+    }, error => {
+        this.message = { severity: 'error', summary: error.error };
+        console.error(JSON.stringify(error));
+    });
+    }
+
+
     clear(): void {
         this.form.resetForm();
         this.dialogRef.close();

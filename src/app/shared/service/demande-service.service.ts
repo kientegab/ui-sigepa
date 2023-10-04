@@ -10,7 +10,8 @@ type EntityResponseType = HttpResponse<IDemande>;
 type EntityArrayResponseType = HttpResponse<IDemande[]>;
 
 
-const demandeUrl = "assets/data/demande.json";
+// const demandeUrl = "assets/data/demande.json";
+const demandeUrl = environment.detachementUrl+'/demandes';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,11 @@ export class DemandeService {
   constructor(private http:HttpClient) { }
 
   create(visa: IDemande): Observable<EntityResponseType> {
-    return this.http.post<IDemande>(demandeUrl, visa, { observe: 'response' });
+    return this.http.post<IDemande>(demandeUrl+'/new', visa, { observe: 'response' });
   }
 
   update(groupe: IDemande): Observable<EntityResponseType> {
-    return this.http.put<IDemande>(demandeUrl, groupe, { observe: 'response' });
+    return this.http.put<IDemande>(demandeUrl+'/update', groupe, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
@@ -33,7 +34,7 @@ export class DemandeService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IDemande[]>(demandeUrl, { params: options, observe: 'response' });
+    return this.http.get<IDemande[]>(demandeUrl+'/list-page', { params: options, observe: 'response' });
   }
 
   findDemandesAgents(req?: any): Observable<EntityArrayResponseType> {
@@ -42,7 +43,7 @@ export class DemandeService {
   }
 
   findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<IDemande[]>(demandeUrl, { observe: 'response' });
+    return this.http.get<IDemande[]>(demandeUrl+'/list', { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -50,6 +51,6 @@ export class DemandeService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<IDemande[]>(demandeUrl, { observe: 'response' });
+    return this.http.get<IDemande[]>(demandeUrl+'/list', { observe: 'response' });
   }
 }

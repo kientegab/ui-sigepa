@@ -40,46 +40,80 @@
                 </p-dropdown>
             </div>
             
+            <div class="form-group col-md-4">
+                <label for="numeroMatricule">Numéro Matricule</label>
+                <input type="text" pInputText [(ngModel)]="numeroMatricule" class="form-control" name="numeroMatricule" id="numeroMatricule" (ngModelChange)="onChangeMatricule()">
+              </div>
+              
 
+           
+              <div class="field col-4 md-4">
+                <label for="Prenom">Prénom :</label>
+                <input type="text" id="Prenom" name="Prenom" [(ngModel)]="agent.prenom" [readonly]="true" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
 
             <div class="field col-4 md:col-4">
                 <label for="Nom">Nom :</label>
-                <input type="text" id="nom" name="nom" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input type="text" id="nom" name="nom" #libelle="ngModel" [(ngModel)]="agent.nom" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
-            <div class="field col-4 md:col-4">
-                <label for="Prenom">Prenom :</label>
-                <input type="text" id="Prenom" name="Prenom" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
+          
 
-            <div class="field col-4 md:col-4">
-                <label for="matricule">Matricule :</label>
-                <input type="text" id="Matricule" name="Matricule" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
-
-            <div class="field col-4 md:col-4">
+            <!-- <div class="field col-4 md:col-4">
                 <label for="Emploi">Emploi :</label>
-                <input type="text" id="Emploi" name="Emploi" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
+                <input type="text" id="Emploi" name="Emploi" #libelle="ngModel" [(ngModel)]="agent.fonction" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div> -->
 
             <div class="field col-4 md:col-4">
                 <label for="Contact">Contact :</label>
-                <input type="text" id="contact" name="contact" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input type="text" id="contact" name="contact" #libelle="ngModel" [(ngModel)]="agent.telephone" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
 
-            <div class="field col-4 md:col-4">
+            <!-- <div class="field col-4 md:col-4">
                 <label for="Email">Email :</label>
-                <input type="text" id="Email" name="Email" #libelle="ngModel" [(ngModel)]="demande.agent" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
+                <input type="text" id="Email" name="Email" #libelle="ngModel" [(ngModel)]="agent.email" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div> -->
 
             <div class="field col-4 md:col-4">
-                <label for="structDestination">En service à :</label>
-                <input type="text" id="structDestination" name="structDestination" #libelle="ngModel" [(ngModel)]="demande.structDestination" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <label for="structure">Structure :</label>
+                <input type="text" id="structure" name="structure" #libelle="ngModel"
+                       [(ngModel)]="agent.structure!.libelle" [readonly]="true" required
+                       class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
+            
+            
+            
+            
+
+            <div class="field col-4 md:col-4">
+                <label for="strucDestination">En service à :</label>
+                <input type="text" id="strucDestination" name="strucDestination" #libelle="ngModel" [(ngModel)]="demande.strucDestination" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <div class="p-field p-fluid">
+                    <label for="Ministère">Ministère</label>
+                    <input type="text" id="ministère" name="ministère" #libelle="ngModel" [(ngModel)]="agent.structure!.ministereDTO" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+            </div>
+
 
             <div class="field col-4 md:col-4">
                 <div class="p-field p-fluid">
                     <label for="dateEffet">Date d'effet</label>
                     <p-calendar [(ngModel)]="demande.dateEffet" id="dateEffet" name="dateEffet"></p-calendar>
+                </div>
+            </div>
+
+          
+
+            <div class="field col-4 md:col-4">
+                <div class="p-field p-fluid">
+                    <label for="structDestination">structure de destination</label>
+                    <input [(ngModel)]="demande.strucDestination" id="strucDestination"  name="strucDestination" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+            </div>
+
+            <div class="field col-4 md:col-4">
+                <div class="p-field p-fluid">
+                    <label for="superieur">Supérieur hiérarchique</label>
+                    <input [(ngModel)]="demande.agent" id="superieur" [readonly]="false" name="superieur" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
             <br>
