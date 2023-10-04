@@ -28,7 +28,9 @@ export class CreerModifierMotifComponent {
   timeoutHandle: any;
   isOpInProgress!: boolean;
   pieces: IPiece[] = [];
-  pieceSelected: Piece[] = []; 
+  pieceSelected: Piece[] = [];
+    categories = [{libelle:'DETACHEMENT'},{libelle:'DISPONIBILTE'}];
+    categSelected: any;
 
 
   constructor(
@@ -40,9 +42,11 @@ export class CreerModifierMotifComponent {
   ) { }
 
   ngOnInit(): void {
-   
+   this.loadPieces();
     if (this.dynamicDialog.data) {
       this.motif = cloneDeep(this.dynamicDialog.data);
+      console.warn("MMM",this.motif);
+      this.pieceSelected = this.motif.piece!;
     }
   }
 
@@ -59,10 +63,7 @@ export class CreerModifierMotifComponent {
   clearDialogMessages() {
     this.dialogErrorMessage = null;
   }
-  categorie: SelectItem[] = [
-    { label: 'DETACHEMENT ', value: ECategorie.DETACHEMENT },
-    { label: 'DISPONIBILITE', value: ECategorie.DISPONIBILITE },
-  ];
+
   loadPieces() {
     this.pieceService.findListe().subscribe(response => {
         this.pieces = response.body!;
@@ -85,6 +86,9 @@ export class CreerModifierMotifComponent {
     }, 5000);
   }
   saveEntity(): void {
+      this.motif.categorie = this.categSelected.libelle;
+      this.motif.piece = this.pieceSelected;
+      console.log("MOTIF : ", this.motif);
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
     if (this.motif) {
@@ -95,7 +99,7 @@ export class CreerModifierMotifComponent {
               this.dialogRef.close(response);
               this.dialogRef.destroy();
               this.showMessage({ severity: 'success', summary: 'motif modifié avec succès' });
-             
+
             },
             error: (error) => {
               console.error("error" + JSON.stringify(error));
