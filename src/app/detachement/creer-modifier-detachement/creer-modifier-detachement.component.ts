@@ -13,6 +13,8 @@ import { MotifService } from 'src/app/shared/service/motif.service';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
 import { StructureService } from 'src/app/shared/service/structure.service';
 import { AgentService } from 'src/app/shared/service/agent.service';
+import { cloneDeep } from 'lodash';
+import { ITypeDemandeur } from 'src/app/shared/model/typeDemandeur.model';
 
 @Component({
   selector: 'app-creer-modifier-detachement',
@@ -37,12 +39,24 @@ export class CreerModifierDetachementComponent {
     selectedMotif: IMotif | undefined;
     selectedPieces: IPiece[] = [];
     multiple=true;
-    selectedTypeDemandeur: TypeDemandeur | undefined;
+    selectedTypeDemandeur?: ITypeDemandeur;
+    typeDemandeurs: ITypeDemandeur[]=[{
+        code:'AGENT',
+        libelle: 'AGENT'
+    },
+    {
+        code:'STRUCTURE',
+        libelle: 'STRUCTURE'
+    }];
+
+
+
 
 
    // motifs: IMotif[] = [];
 
    motifs: IMotif[] = [];
+ 
     agent: IAgent  = new Agent ();
     numeroMatricule: string = '';
 
@@ -64,10 +78,10 @@ motifWithPieces: { motif: string, pieces: IPiece[] }[] = [];
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-typeDemandeur: SelectItem[] = [
-    { label: 'AGENT', value: TypeDemandeur.AGENT },
-    { label: 'STRUCTURE', value: TypeDemandeur.STRUCTURE },
-  ];
+// typeDemandeur: SelectItem[] = [
+//     { label: 'AGENT', value: TypeDemandeur.AGENT },
+//     { label: 'STRUCTURE', value: TypeDemandeur.STRUCTURE },
+//   ];
 
 
 
@@ -97,6 +111,7 @@ typeDemandeur: SelectItem[] = [
 //   }
 
 motifsFiltres: IMotif[] = [];
+piecesFilters: IPiece[] = [];
 
 
 
@@ -120,16 +135,7 @@ motifsFiltres: IMotif[] = [];
 //     this.selectedPieces = [];
 //   }
 // }
-onMotifChange(): void {
-    if (this.selectedMotif) {
-      const motif = this.motifsFiltres.find((m) => m.libelle === this.selectedMotif!.libelle);
-      if (motif) {
-        console.log('Libellé du motif sélectionné : ' + motif.libelle);
-      }
-    } else {
-      console.log('Aucun motif sélectionné');
-    }
-  }
+
   
   
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -191,6 +197,7 @@ onChangeMatricule() {
         private activatedRoute: ActivatedRoute,
         private structureService: StructureService,
         private agentService: AgentService,
+        
      
     ) { }
 
@@ -212,22 +219,20 @@ onChangeMatricule() {
           
           this.loadTypeDemande();
           // this.loadAgent();
-        //  this.loadMotif('');
+         this.loadMotif();
         this.loadTypeDemande();
 
-
+        
         
     }
 
-
-   
-
     onTypeDemandeurChange(): void {
+        // this.loadMotif();
         if (this.selectedTypeDemandeur) {
           // Filtrer les motifs en fonction du typeDemandeur sélectionné
 
-          console.warn("==============================================",this.motifs)
-          this.motifsFiltres = this.motifs.filter((motif) => motif.typeDemandeur === "AGENT");
+          console.warn("==============================================",this.selectedTypeDemandeur)
+          this.motifsFiltres = this.motifs.filter((motif) => motif.typeDemandeur === this.selectedTypeDemandeur?.libelle);
           console.warn("==============================================",this.motifsFiltres)
           // Réinitialiser le motif sélectionné lorsque le type de demandeur change
           this.selectedMotif = undefined;
@@ -240,7 +245,17 @@ onChangeMatricule() {
         }
       }
       
-      
+      onMotifChange(): void {
+        // if (this.selectedMotif) {
+        // //   const motif = this.motifsFiltres.find((m) => m.libelle === this.selectedMotif!.libelle);
+        // this.piecesFilters = this.pieces.filter((piece) => piece. === this.selectedTypeDemandeur?.libelle);
+        //   if (motif) {
+        //     console.log('Libellé du motif sélectionné : ' + motif.libelle);
+        //   }
+        // } else {
+        //   console.log('Aucun motif sélectionné');
+        // }
+      }
 
 
     // onTypeDemandeurChange(): void {
@@ -269,6 +284,45 @@ onChangeMatricule() {
             console.error(JSON.stringify(error));
         });
     }
+
+    // loadMotif() {
+    //     this.motifService.findAll().subscribe(response => {
+
+    //         this.motifService = response.body!;
+    //     }, error => {
+    //         this.message = { severity: 'error', summary: error.error };
+    //         console.error(JSON.stringify(error));
+    //     });
+    // }
+
+    
+  loadMotif() {
+
+    this.motifService.findAll().subscribe(response => {
+      this.motifsFiltres = response.body!;
+      this.motifs = cloneDeep(this.motifsFiltres)
+      this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
+        motif: motif.libelle!,
+        pieces: [] 
+      }));
+    }, error => {
+      this.message = { severity: 'error', summary: error.error };
+      console.error(JSON.stringify(error));
+    });
+
+    // const motif1 = new Motif();
+    // motif1.libelle = "test1"
+    // motif1.typeDemandeur= "AGENT"
+
+
+    // const motif2 = new Motif();
+    // motif2.libelle = "TEST2"
+    // motif2.typeDemandeur= "STRUCTURE"
+
+    // this.motifsFiltres.push(motif1);
+    // this.motifsFiltres.push(motif2);
+    // this.motifs = cloneDeep(this.motifsFiltres)
+  }
 
 
 

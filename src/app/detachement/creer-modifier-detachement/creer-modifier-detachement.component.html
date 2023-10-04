@@ -13,8 +13,8 @@
             <div class="field col-6 md:col-6">
                 <label for="typeDemandeur">Type demandeur</label>
                 <p-dropdown autoWidth="false" id="typeDemandeur" styleClass="mb-3" [style]="{ 'width': '100%' }"
-                    [(ngModel)]="selectedTypeDemandeur" optionLabel="label" inputId="typeDemandeur" name="typeDemandeur"
-                    placeholder="Sélectionner le typeDemandeur..." [options]="typeDemandeur" [filter]="true"
+                    [(ngModel)]="selectedTypeDemandeur" optionLabel="libelle" inputId="typeDemandeur" name="typeDemandeur"
+                    placeholder="Sélectionner le typeDemandeur..." [options]="typeDemandeurs" [filter]="true"
                     appendTo="body" [showClear]="true" (ngModelChange)="onTypeDemandeurChange()"></p-dropdown>
             </div>
 
@@ -28,11 +28,10 @@
 
             <div class="field col-6 md:col-6">
                 <label for="motif">Motif :</label>
-                <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" [options]="motifsFiltres"
+                <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{ 'width': '100%' }" [options]="motifsFiltres"
                     [(ngModel)]="selectedMotif" optionLabel="libelle" inputId="motifDTOs" name="motifDTOs"
                     placeholder="Sélectionner le motif..." [filter]="true" appendTo="body" [showClear]="true"
-                    (ngModelChange)="onMotifChange()">
-                </p-dropdown>
+                    (ngModelChange)="onMotifChange()"></p-dropdown>
             </div>
 
 
