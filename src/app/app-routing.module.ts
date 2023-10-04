@@ -24,7 +24,14 @@ const routes: Routes = [
             { path: 'public/F_detachement', data: { breadcrumb: 'fin detachement' }, loadChildren: () => import('./public/detachement/fin-detachement/fin-detachement.module').then(m => m.FinDetachementModule) },
             { path: 'public/RE_detachement', data: { breadcrumb: 'rectification detachement' }, loadChildren: () => import('./public/detachement/rectification-detachement/rectification-detachement.module').then(m => m.RectificationDetachementModule) },
             { path: 'public/A_detachement', data: { breadcrumb: 'annulation detachement' }, loadChildren: () => import('./public/detachement/annulation-detachement/annulation-detachement.module').then(m => m.AnnulationDetachementModule) },
-            
+           // disponibilité
+            { path: 'public/N_disponibilite', data: { breadcrumb: 'nouvelle disponibilite' }, loadChildren: () => import('./public/disponibilite/nouvelle-disponibilite/nouvelle-disponibilite.module').then(m => m.NouvelleDisponibiliteModule) },
+            { path: 'public/R_disponibilite', data: { breadcrumb: 'renouvellement disponibilite' }, loadChildren: () => import('./public/disponibilite/renouvelle-disponibilite/renouvelle-disponibilite.module').then(m => m.RenouvelleDisponibiliteModule) },
+            { path: 'public/F_disponibilite', data: { breadcrumb: 'fin disponibilite' }, loadChildren: () => import('./public/disponibilite/fin-disponibilite/fin-disponibilite.module').then(m => m.FinDisponibiliteModule) },
+            { path: 'public/RE_disponibilite', data: { breadcrumb: 'rectification disponibilite' }, loadChildren: () => import('./public/disponibilite/rectification-disponibilite/rectification-disponibilite.module').then(m => m.RectificationDisponibiliteModule) },
+            { path: 'public/A_disponibilite', data: { breadcrumb: 'annulation disponibilite' }, loadChildren: () => import('./public/disponibilite/annulation-disponibilite/annulation-disponibilite.module').then(m => m.AnnulationDisponibiliteModule) },
+            { path: 'public/contact', data: { breadcrumb: 'contactez nous' }, loadChildren: () => import('./public/contactez-nous/contactez-nous.module').then(m => m.ContactezNousModule) },
+           
         ]
     },
 

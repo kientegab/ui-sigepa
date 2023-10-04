@@ -33,6 +33,12 @@ import { TooltipModule } from 'primeng/tooltip';
 import { AppCommonModule } from '../shared/common/app-common.module';
 import { StepsModule } from 'primeng/steps';
 import { AccountComponent } from './account/account.component';
+import { NouvelleDisponibiliteComponent } from './disponibilite/nouvelle-disponibilite/nouvelle-disponibilite.component';
+import { RenouvelleDisponibiliteComponent } from './disponibilite/renouvelle-disponibilite/renouvelle-disponibilite.component';
+import { FinDisponibiliteComponent } from './disponibilite/fin-disponibilite/fin-disponibilite.component';
+import { RectificationDisponibiliteComponent } from './disponibilite/rectification-disponibilite/rectification-disponibilite.component';
+import { AnnulationDisponibiliteComponent } from './disponibilite/annulation-disponibilite/annulation-disponibilite.component';
+import { ContactezNousComponent } from './contactez-nous/contactez-nous.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +53,12 @@ import { AccountComponent } from './account/account.component';
     FinDetachementComponent,
     RectificationDetachementComponent,
     AnnulationDetachementComponent,
+    NouvelleDisponibiliteComponent,
+    RenouvelleDisponibiliteComponent,
+    FinDisponibiliteComponent,
+    RectificationDisponibiliteComponent,
+    AnnulationDisponibiliteComponent,
+    ContactezNousComponent,
   ],
   imports: [
     CommonModule,
