@@ -9,6 +9,7 @@ import { IMotif, Motif } from 'src/app/shared/model/motif.model';
 import { IPiece, Piece } from 'src/app/shared/model/piece.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
 import { PieceService } from 'src/app/shared/service/piece.service';
+import {TypeDemandeur} from "../../../../shared/model/demande.model";
 
 @Component({
   selector: 'app-creer-modifier-motif',
@@ -30,8 +31,11 @@ export class CreerModifierMotifComponent {
   isOpInProgress!: boolean;
   pieces: IPiece[] = [];
   pieceSelected: Piece[] = [];
-    categories = [{libelle:'DETACHEMENT'},{libelle:'DISPONIBILTE'}];
     categSelected: any;
+    typeDemandeur: SelectItem[] = [
+        { label: 'Agent', value: TypeDemandeur.Agent },
+        { label: 'Structure', value: TypeDemandeur.Structure },
+    ];
 
 
   constructor(
@@ -47,7 +51,6 @@ export class CreerModifierMotifComponent {
     if (this.dynamicDialog.data) {
       this.motif = cloneDeep(this.dynamicDialog.data);
       console.warn("MMM",this.motif);
-      this.pieceSelected = this.motif.piece!;
     }
   }
 
@@ -87,8 +90,6 @@ export class CreerModifierMotifComponent {
     }, 5000);
   }
   saveEntity(): void {
-      this.motif.categorie = this.categSelected.libelle;
-      this.motif.piece = this.pieceSelected;
       console.log("MOTIF : ", this.motif);
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;

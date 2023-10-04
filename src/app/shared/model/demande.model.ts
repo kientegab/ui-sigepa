@@ -33,11 +33,8 @@ export class Demande implements IDemande {
         public pieceJointe?: IPieceJointe[],
         public agent?: IAgent,
         public historiques?: IHistorique[],
-        public motifDTOs?: IMotif
-        
 
-    ){
-    }
+    ){}
 
 }
 
