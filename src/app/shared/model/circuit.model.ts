@@ -2,19 +2,21 @@
 export class ICircuit{
     id?: number;
     libelle ?: string;
-    statu ?: boolean;
+    statut ?: boolean;
     delais ?: string;
-    parent ?: ICircuit
+    suivants ?: ICircuit;
+    precedents ?: ICircuit  
+
 }
 
 export class Circuit implements ICircuit{
     constructor(
         public id?: number, 
         public libelle ?: string,
-        public statu ?: boolean,
+        public statut ?: boolean,
         public delais ?: string,
-        public parent ?: ICircuit
-        
+        public suivants ?: ICircuit,
+        public precedents ?: ICircuit
         ){}
 }
 export interface GetAllCircuitResponse {

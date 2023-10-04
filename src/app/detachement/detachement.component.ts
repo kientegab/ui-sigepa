@@ -56,7 +56,6 @@ enableInfo = true;
     private demandeService: DemandeService,
     private activatedRoute: ActivatedRoute,
     private dialogService: DialogService,
-    private dialogRef: DynamicDialogRef,
     private router: Router,
     private confirmationService: ConfirmationService
     ){}
@@ -171,15 +170,7 @@ enableInfo = true;
 
       /** Permet d'afficher un modal pour voir les détails */
       openModalDetail(demande:IDemande): void {
-        this.dialogService.open(DetailsDetachementComponent,
-          {
-            header: 'Details de demande',
-            width: '60%',
-            contentStyle: { overflow: 'auto' },
-            baseZIndex: 10000,
-            maximizable: true,
-            data: demande
-          });
+        this.router.navigate(['detachements','details', demande.id]);
       }
 
 

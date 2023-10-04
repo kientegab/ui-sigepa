@@ -4,11 +4,12 @@ import { ICircuit } from '../model/circuit.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { createRequestOption } from '../util/request-util';
+import { LazyLoadEvent } from 'primeng/api';
 
 type EntityResponseType = HttpResponse<ICircuit>;
 type EntityArrayResponseType = HttpResponse<ICircuit[]>;
-// const communeUrl = environment.communeUrl;
-const communeUrl = "";
+// const circuitUrl = environment.communeUrl;
+const circuitUrl = environment.circuitUrl;
 @Injectable({
   providedIn: 'root'
 })
@@ -16,27 +17,31 @@ export class CircuitService {
 
   constructor(private http:HttpClient) { }
   create(circuit: ICircuit): Observable<EntityResponseType> {
-    return this.http.post<ICircuit>(communeUrl, circuit, { observe: 'response' });
+    return this.http.post<ICircuit>(circuitUrl, circuit, { observe: 'response' });
   }
 
   update(circuit: ICircuit): Observable<EntityResponseType> {
-    return this.http.put<ICircuit>(communeUrl, circuit, { observe: 'response' });
+    return this.http.put<ICircuit>(circuitUrl, circuit, { observe: 'response' });
   }
 
   findCommuneByIdProvince(id: number): Observable<EntityArrayResponseType> {
-    return this.http.get<ICircuit[]>(`${communeUrl}/liste/${id}`, { observe: 'response' });
+    return this.http.get<ICircuit[]>(`${circuitUrl}/liste/${id}`, { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${communeUrl}/${id}`, { observe: 'response' });
+    return this.http.delete(`${circuitUrl}/${id}`, { observe: 'response' });
   }
   
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<ICircuit[]>(communeUrl, { observe: 'response' });
+    return this.http.get<ICircuit[]>(circuitUrl+'/liste', { observe: 'response' });
   }
-
+  
+  findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
+    return this.http.get<ICircuit[]>(`${circuitUrl}/list-page`, { observe: 'response' });
+  }
+  
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-     return this.http.get<ICircuit[]>(communeUrl, { params: options, observe: 'response' });
+     return this.http.get<ICircuit[]>(circuitUrl +'/liste', { params: options, observe: 'response' });
   }
 }

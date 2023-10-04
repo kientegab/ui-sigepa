@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-renouvelle-detachement',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./renouvelle-detachement.component.scss']
 })
 export class RenouvelleDetachementComponent {
-
+  constructor(
+    private router: Router
+  ) { }
+  soumettre(){
+    this.router.navigate(['/auth/login']);
+  }
 }
