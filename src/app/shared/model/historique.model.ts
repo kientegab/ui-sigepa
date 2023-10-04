@@ -1,6 +1,4 @@
 import { Circuit } from "./circuit.model";
-import { Structure } from "./structure.model";
-
 export interface IHistorique {
     id?: number;
     date?: Date;
@@ -26,6 +24,6 @@ export class Historique implements IHistorique {
 
 export enum avis {
     avis1 = 'Avis favorable',
-avis2 = 'Avis defavorable',
+    avis2 = 'Avis defavorable',
   }
   

@@ -39,7 +39,7 @@ export class DetailsDetachementComponent {
   openModalReceptionner(demande: IDemande): void {
     this.dialogService.open(AviserDisponibiliteComponent,
       {
-        header: 'Receptionner une demande',
+        header: 'Receptionner une demande ',
         width: '60%',
         contentStyle: { overflow: 'auto' },
         baseZIndex: 10000,
@@ -59,7 +59,7 @@ export class DetailsDetachementComponent {
  openModalAviser(demande: IDemande): void {
   this.dialogService.open(AviserDisponibiliteComponent,
     {
-      header: 'Aviser une demande',
+      header: 'Aviser une demande  ',
       width: '60%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
@@ -93,7 +93,7 @@ export class DetailsDetachementComponent {
   openModalCreate(): void {
     this.dialogService.open(AviserDetachementComponent,
       {
-        header: 'Aviser une demande',
+        header: 'Aviser une demande ',
         width: '60%',
         contentStyle: { overflow: 'auto', },
         baseZIndex: 10000,
