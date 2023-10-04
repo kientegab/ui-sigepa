@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DetachementComponent } from './detachement.component';
 import { DetachementAgentsComponent } from './detachement-agents/detachement-agents.component';
 import {CreerModifierDetachementComponent} from "./creer-modifier-detachement/creer-modifier-detachement.component";
+import { DetailsDetachementComponent } from './details-detachement/details-detachement.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,9 @@ const routes: Routes = [
     },
   {
     path:'agents', component: DetachementAgentsComponent
+  },
+  {
+    path: 'details/:id',  component: DetailsDetachementComponent
   }
 ];
 

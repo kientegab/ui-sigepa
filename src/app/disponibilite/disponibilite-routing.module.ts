@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DisponibiliteComponent } from './disponibilite.component';
 import { DisponibiliteAgentsComponent } from './disponibilite-agents/disponibilite-agents.component';
 import { CreerModifierDisponibiliteComponent } from './creer-modifier-disponibilite/creer-modifier-disponibilite.component';
+import { DetailsDisponibiliteComponent } from './details-disponibilite/details-disponibilite.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,9 @@ const routes: Routes = [
   ,
   {
     path: 'nouveau',  component: CreerModifierDisponibiliteComponent
+  },
+  {
+    path: 'details',  component: DetailsDisponibiliteComponent
   }
 ];
 

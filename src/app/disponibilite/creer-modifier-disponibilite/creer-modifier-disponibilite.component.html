@@ -84,6 +84,8 @@
             
 
             <div class="field col-4 md:col-4">
+                <label for="strucDestination">En service à :</label>
+                <input type="text" id="strucDestination" name="strucDestination" #libelle="ngModel" [(ngModel)]="demande.strucDestination" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 <div class="p-field p-fluid">
                     <label for="Ministère">Ministère</label>
                     <input type="text" id="ministère" name="ministère" #libelle="ngModel" [(ngModel)]="agent.structure!.ministereDTO" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -103,7 +105,7 @@
             <div class="field col-4 md:col-4">
                 <div class="p-field p-fluid">
                     <label for="structDestination">structure de destination</label>
-                    <input [(ngModel)]="demande.structDestination" id="structDestination"  name="structDestination" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <input [(ngModel)]="demande.strucDestination" id="strucDestination"  name="strucDestination" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
 

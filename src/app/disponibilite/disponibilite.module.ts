@@ -25,6 +25,7 @@ import { AppCommonModule } from '../shared/common/app-common.module';
 import { CalendarModule } from 'primeng/calendar';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ReceptionDisponibiliteComponent } from './reception-disponibilite/reception-disponibilite.component';
 
 
 
@@ -36,7 +37,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     CreerModifierDisponibiliteComponent,
     DetailsDisponibiliteComponent,
     AviserDisponibiliteComponent,
-    DisponibiliteAgentsComponent
+    DisponibiliteAgentsComponent,
+    ReceptionDisponibiliteComponent
   ],
   imports: [
     CommonModule,

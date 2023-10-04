@@ -24,12 +24,12 @@
               name="avis" placeholder="Sélectionner l'avis..." [filter]="true" appendTo="body"
               [showClear]="true">
             </p-dropdown>
-            </div>
+        </div>
+
         <div class="field col-12 md:col-12">
             <label for="commentaire">Commentaire :</label>
-            <input type="text" [style]="{'width':'20%'}"  id="commentaire" name="commentaire" #sigle="ngModel" [(ngModel)]="historique.commentaire" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            <input type="text" [style]="{'width':'50%'}"  id="commentaire" name="commentaire" #sigle="ngModel" [(ngModel)]="historique.commentaire" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
         </div>
-        
     </div>
     <!-- <p-divider></p-divider> -->
     <div class="p-ml-auto text-right ">
