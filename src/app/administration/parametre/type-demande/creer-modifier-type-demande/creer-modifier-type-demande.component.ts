@@ -14,6 +14,7 @@ import {Ampliation} from "../../../../shared/model/ampliation.model";
 import {AmpliationService} from "../../../../shared/service/ampliation-service.service";
 import {ArticleService} from "../../../../shared/service/article.service";
 import {VisaService} from "../../../../shared/service/visa-service";
+import {MotifService} from "../../../../shared/service/motif.service";
 
 @Component({
   selector: 'app-creer-modifier-type-demande',
@@ -42,7 +43,7 @@ export class CreerModifierTypeDemandeComponent {
     visasSelected: Visa[] = [];
     articlesSelected: Article[] = [];
     motifsSelected: Motif[] = [];
-    categopries = [{libelle:'DETACHEMENT'},{libelle:'DISPONIBILTE'}];
+    categories = [{libelle:'DETACHEMENT'},{libelle:'DISPONIBILTE'}];
     categorie?: string;
 
     constructor(
@@ -53,12 +54,14 @@ export class CreerModifierTypeDemandeComponent {
         private ampliationService:AmpliationService,
         private articleService:ArticleService,
         private visaService:VisaService,
+        private motifService:MotifService
     ) { }
 
     ngOnInit(): void {
         this.loadVisas();
         this.loadAricles();
         this.loadAmpliations();
+        this.loadMotifs();
         if (this.dynamicDialog.data) {
             this.typeDemande = cloneDeep(this.dynamicDialog.data);
         }
@@ -115,9 +118,21 @@ export class CreerModifierTypeDemandeComponent {
             console.error(JSON.stringify(error));
         });
     }
+
+    loadMotifs() {
+        this.motifService.findListe().subscribe(response => {
+            this.motifs = response.body!;
+        }, error => {
+            this.message = { severity: 'error', summary: error.error };
+            console.error(JSON.stringify(error));
+        });
+    }
     saveEntity(): void {
         this.clearDialogMessages();
         this.isDialogOpInProgress = true;
+        this.typeDemande.ampliationDTOs = this.ampliationsSelected;
+        this.typeDemande.visaDTOs = this.visasSelected;
+        this.typeDemande.articleDTOs = this.articlesSelected;
         if (this.typeDemande) {
             if (this.typeDemande.id) {
                 this.typeStructureService.update(this.typeDemande).subscribe(

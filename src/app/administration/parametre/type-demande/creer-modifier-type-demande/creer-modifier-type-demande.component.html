@@ -27,7 +27,7 @@
         <div class="col-4 md:col-4">
             <label for="ministere">Categorie :</label>
             <div>
-                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="categopries"  [(ngModel)]="categorie" optionLabel="libelle" inputId="libelle"
+                <p-dropdown autoWidth="false"  id="ministere" styleClass="mb-3" [style]="{'width':'100%'}" [options]="categories"  [(ngModel)]="categorie" optionLabel="libelle" inputId="libelle"
                             name="ministere" placeholder="Selectionner la categorie..." [filter]="true" appendTo="body" [showClear]="true">
                 </p-dropdown>
             </div>
@@ -39,9 +39,15 @@
             </div>
         </div>
         <div class="field col-4 md:col-4">
+            <label for="libelle">Motifs :</label>
+            <div>
+                <p-multiSelect name="motifs" appendTo="body" [style]="{'minWidth':'100%'}" [options]="motifs" [(ngModel)]="motifsSelected" defaultLabel="Selectionner les motifs" optionLabel="libelle" display="chip"></p-multiSelect>
+            </div>
+        </div>
+        <div class="field col-4 md:col-4">
             <label for="libelle">Ampliations :</label>
             <div>
-                <p-multiSelect name="Ampliations" appendTo="body" [style]="{'minWidth':'100%'}" [options]="motifs" [(ngModel)]="motifsSelected" defaultLabel="Selectionner les avis" optionLabel="libelle" display="chip"></p-multiSelect>
+                <p-multiSelect name="Ampliations" appendTo="body" [style]="{'minWidth':'100%'}" [options]="motifs" [(ngModel)]="ampliationsSelected" defaultLabel="Selectionner les avis" optionLabel="libelle" display="chip"></p-multiSelect>
             </div>
         </div>
         <div class="field col-4 md:col-4">

@@ -15,11 +15,14 @@ export class DetailsDisponibiliteComponent {
   demande: IDemande = new Demande();
   @Input() data: IDemande = new Demande();
   isOpInProgress!: boolean;
+  aviser!: boolean;
+  receptionner!: boolean;
   isDialogOpInProgress!: boolean;
   showDialog = false;
   message: any;
   timeoutHandle: any;
   demandes: any;
+
 
   constructor(
     private dialogRef: DynamicDialogRef,
@@ -35,6 +38,7 @@ export class DetailsDisponibiliteComponent {
 
   /** Permet d'afficher un modal pour la reception */
   openModalReceptionner(demande: IDemande): void {
+    this.receptionner = true,
     this.dialogService.open(AviserDisponibiliteComponent,
       {
         header: 'Receptionner une demande',
@@ -65,8 +69,9 @@ export class DetailsDisponibiliteComponent {
       this.dialogRef.close();
       this.dialogRef.destroy();
   }
-  /** Permet d'afficher un modal pour l'ajout */
-  openModalCreate(): void {
+  /** Permet d'afficher un modal pour l'avis */
+  openModalAviser(demande: IDemande): void {
+    this.aviser = true,
     this.dialogService.open(AviserDisponibiliteComponent,
       {
         header: 'Aviser une demande',
@@ -75,6 +80,7 @@ export class DetailsDisponibiliteComponent {
         baseZIndex: 10000,
         maximizable: true,
         closable: true,
+        data: demande
       }
     ).onClose.subscribe(result => {
       if(result) {

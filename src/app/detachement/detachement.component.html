@@ -54,9 +54,9 @@
       <tr>
         <th pSortableColumn="numero">Numero<p-sortIcon field="numero"></p-sortIcon></th>
         <th pSortableColumn="dateDemande">Date<p-sortIcon field="dateDemande"></p-sortIcon></th>
-        <th pSortableColumn="structDestination">Structure de disponibilité<p-sortIcon field="structDestination"></p-sortIcon></th>
+        <th pSortableColumn="strucDestination">Structure de disponibilité<p-sortIcon field="strucDestination"></p-sortIcon></th>
         <th pSortableColumn="dateEffet">Date d'effet<p-sortIcon field="dateEffet"></p-sortIcon></th>
-        <th pSortableColumn="status">Statut<p-sortIcon field="status"></p-sortIcon></th>
+        <th pSortableColumn="statut">Statut<p-sortIcon field="statut"></p-sortIcon></th>
         <th class="actionsStyle">Action</th>
       </tr>
     </ng-template>
@@ -64,9 +64,9 @@
       <tr>
         <td>{{ demande.numero }}</td>
         <td>{{ demande.dateDemande }}</td>
-        <td>{{ demande.structDestination }}</td>
+        <td>{{ demande.strucDestination }}</td>
         <td>{{ demande.dateEffet }}</td>
-        <td>{{ demande.status }}</td>
+        <td>{{ demande.statut }}</td>
 
         <td class="actionsStyle">
           <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(demande)"

@@ -5,6 +5,9 @@ import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dy
 import { AviserDetachementComponent } from '../aviser-detachement/aviser-detachement.component';
 import { AviserDisponibiliteComponent } from 'src/app/disponibilite/aviser-disponibilite/aviser-disponibilite.component';
 import { IDemande, Demande } from 'src/app/shared/model/demande.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DemandeService } from 'src/app/shared/service/demande-service.service';
+import { ReceptionDetachementComponent } from '../reception-detachement/reception-detachement.component';
 
 @Component({
   selector: 'app-details-detachement',
@@ -13,8 +16,9 @@ import { IDemande, Demande } from 'src/app/shared/model/demande.model';
 })
 export class DetailsDetachementComponent {
 
-  demande: IDemande = new Demande();
+  demande: IDemande = new Demande(); 
   @Input() data: IDemande = new Demande();
+  idDmd: number | undefined;
   isOpInProgress!: boolean;
   isDialogOpInProgress!: boolean;
   showDialog = false;
@@ -24,23 +28,27 @@ export class DetailsDetachementComponent {
 
   constructor(
     private dialogRef: DynamicDialogRef,
-    private dynamicDialog:  DynamicDialogConfig,
     private dialogService: DialogService,
-) {}
+    private demandeService: DemandeService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
 
   ngOnInit(): void {
-    if (this.dynamicDialog.data) {
-      this.demande = cloneDeep(this.dynamicDialog.data);
-    }
+    // if (this.dynamicDialog.data) {
+    //   this.demande = cloneDeep(this.dynamicDialog.data);
+    // }
+    this.idDmd = +this.route.snapshot.paramMap.get('id')!;
+    this.getDemande();
   }
 
   /** Permet d'afficher un modal pour la reception */
   openModalReceptionner(demande: IDemande): void {
-    this.dialogService.open(AviserDisponibiliteComponent,
+    this.dialogService.open(ReceptionDetachementComponent,
       {
         header: 'Receptionner une demande',
-        width: '60%',
+        width: '40%',
         contentStyle: { overflow: 'auto' },
         baseZIndex: 10000,
         maximizable: true,
@@ -55,12 +63,12 @@ export class DetailsDetachementComponent {
       });
 
   }
- /** Permet d'afficher un modal pour la reception */
- openModalAviser(demande: IDemande): void {
-  this.dialogService.open(AviserDisponibiliteComponent,
+  /** Permet d'afficher un modal pour aviser une demande */
+  openModalAviser(demande: IDemande): void {
+    this.dialogService.open(AviserDetachementComponent,
     {
       header: 'Aviser une demande',
-      width: '60%',
+      width: '40%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
       maximizable: true,
@@ -74,8 +82,7 @@ export class DetailsDetachementComponent {
 
     });
 
-}
-
+  }
 
   showMessage(message: Message) {
     this.message = message;
@@ -89,23 +96,16 @@ export class DetailsDetachementComponent {
       this.dialogRef.destroy();
   }
 
-  /** Permet d'afficher un modal pour l'ajout */
-  openModalCreate(): void {
-    this.dialogService.open(AviserDetachementComponent,
-      {
-        header: 'Aviser une demande',
-        width: '60%',
-        contentStyle: { overflow: 'auto', },
-        baseZIndex: 10000,
-        maximizable: true,
-        closable: true,
-      }
-    ).onClose.subscribe(result => {
-      if(result) {
-      this.demandes.push(result);
-      this.isDialogOpInProgress = false;
-      this.showMessage({ severity: 'success', summary: 'Demande créée avec succès' });
+  fermer(): void {
+    this.router.navigate(['detachements']);
+  }
+
+  getDemande(): void {
+    this.demandeService.find(this.idDmd!).subscribe(result => {
+      if (result && result.body) {
+        this.demande = result.body;
       }
     });
   }
+
 }

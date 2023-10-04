@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   domaine:`${domaineUrl}`,
   recordsPerPage: 20,
-  detachementUrl: 'http://localhost:8080/api',
+  detachementUrl: 'http://localhost:8081/api',
   circuitUrl:commonAppURI + 'circuit',
   communeUrl: commonAppURI +'communes',
   pieceUrl: commonAppURI +'pieces',
