@@ -21,24 +21,32 @@
 
 <div class="formgrid grid">
 <div class="col-12 md:col-12">
-    <label for="circuit">Parent :</label>
+    <label for="circuit">Précédent :</label>
     <div>
-      <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" [options]="circuits"  [(ngModel)]="circuit.parent" optionLabel="libelle" inputId="circuit"
+      <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" [options]="circuits"  [(ngModel)]="circuit.precedents" optionLabel="libelle" inputId="circuit"
+      name="circuit" placeholder="Selectionner la position précédente..." [filter]="true" appendTo="body" [showClear]="true">
+      </p-dropdown>
+    </div>
+</div>
+<div class="col-12 md:col-12">
+    <label for="circuit">Suivant :</label>
+    <div>
+      <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" [options]="circuits"  [(ngModel)]="circuit.suivants" optionLabel="libelle" inputId="circuit"
       name="circuit" placeholder="Selectionner la position précédente..." [filter]="true" appendTo="body" [showClear]="true">
       </p-dropdown>
     </div>
 </div>
 <div class="field col-12 md:col-12">
-    <label for="libelle">Libelle :</label>
+    <label for="libelle">Libellé :</label>
     <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="circuit.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
 </div>
-<div class="field col-12 md:col-12">
+<!-- <div class="field col-12 md:col-12">
     <label for="libelle">Délais :</label>
     <input type="text" id="delais" name="delais" #delais="ngModel" [(ngModel)]="circuit.delais" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
+</div> -->
 <div class="field col-12 md:col-12">
     <label for="forfait">Est actif <span class="text-danger">*</span></label>
-    <p-checkbox [(ngModel)]="circuit.statu" [binary]="true" inputId="statut" id="statut" name="statut" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></p-checkbox>
+    <p-checkbox [(ngModel)]="circuit.statut" [binary]="true" inputId="statut" id="statut" name="statut" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></p-checkbox>
 </div>
 </div>
 
@@ -47,7 +55,8 @@
     <div class="p-ml-auto text-right">
         <button type="reset" label="Effacer" class="p-button-filter mr-3 float-left" pButton icon="pi pi-trash"></button>
         <button label="Annuler" (click)="clear()" class="p-button-filter mr-3" pButton icon="pi pi-times"></button>
-        
+        <button type="submit" [disabled]="!dtf.form.valid" label="{{isEditing() ? 'Enregistrer' : 'Ajouter'}}" icon="pi {{isEditing() ? 'pi-save' : 'pi-plus'}}" class="  {{isEditing() ? 'p-button-primary' : 'p-button-success'}}" pButton>
+        </button>
     </div>
   </div>
 </form>

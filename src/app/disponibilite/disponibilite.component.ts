@@ -10,6 +10,7 @@ import { IDemande, Demande } from '../shared/model/demande.model';
 import { DemandeService } from '../shared/service/demande-service.service';
 import { CreerModifierDisponibiliteComponent } from './creer-modifier-disponibilite/creer-modifier-disponibilite.component';
 import { DetailsDisponibiliteComponent } from './details-disponibilite/details-disponibilite.component';
+import { IAgent } from '../shared/model/agent.model';
 
 @Component({
   selector: 'app-disponibilite',
@@ -36,7 +37,7 @@ export class DisponibiliteComponent {
   message: any;
   dialogErrorMessage: any;
   enableCreate = true;
-
+  agents: IAgent[] = [];
   page = CURRENT_PAGE;
   previousPage?: number;
   maxSize = MAX_SIZE_PAGE;

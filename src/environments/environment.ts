@@ -1,4 +1,4 @@
-const commonAppURI: string = 'http://localhost:8090/api/';
+const commonAppURI: string = 'http://localhost:8080/api/';
 const commonAuth: string = 'http://localhost:8089/api/auth/';
 
 
@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   recordsPerPage: 20,
   detachementUrl: 'http://localhost:8080/api',
-
+  circuitUrl:commonAppURI + 'circuit',
   communeUrl: commonAppURI +'communes',
   pieceUrl: commonAppURI +'pieces',
   articleUrl: commonAppURI +'articles',

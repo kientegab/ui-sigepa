@@ -23,7 +23,9 @@ export class Historique implements IHistorique {
   
 
 }
+
 export enum avis {
     avis1 = 'Avis favorable',
 avis2 = 'Avis defavorable',
   }
+  

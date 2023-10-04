@@ -20,7 +20,7 @@ export interface IAgent {
     classe?: string;
     categorie?: string;
     structure?: IStructure;
-    // fonction?: string;
+    fonction?: string;
     position?: string;
     // actif?: boolean;
 }
@@ -44,7 +44,7 @@ export class Agent implements IAgent {
         public classe?: string,
         public categorie?: string,
         public structure?: IStructure,
-        // public fonction?: string,
+        public fonction?: string,
         public position?: string,
         // public actif?: boolean
     ) { }
