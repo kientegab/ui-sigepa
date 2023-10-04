@@ -43,7 +43,7 @@ export class CreerModifierTypeDemandeComponent {
     visasSelected: Visa[] = [];
     articlesSelected: Article[] = [];
     motifsSelected: Motif[] = [];
-    categopries = [{libelle:'DETACHEMENT'},{libelle:'DISPONIBILTE'}];
+    categories = [{libelle:'DETACHEMENT'},{libelle:'DISPONIBILTE'}];
     categorie?: string;
 
     constructor(
@@ -130,6 +130,9 @@ export class CreerModifierTypeDemandeComponent {
     saveEntity(): void {
         this.clearDialogMessages();
         this.isDialogOpInProgress = true;
+        this.typeDemande.ampliationDTOs = this.ampliationsSelected;
+        this.typeDemande.visaDTOs = this.visasSelected;
+        this.typeDemande.articleDTOs = this.articlesSelected;
         if (this.typeDemande) {
             if (this.typeDemande.id) {
                 this.typeStructureService.update(this.typeDemande).subscribe(

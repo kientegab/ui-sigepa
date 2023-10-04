@@ -17,7 +17,7 @@ import { DetailsMotifComponent } from './details-motif/details-motif.component';
   styleUrls: ['./motif.component.scss']
 })
 export class MotifComponent {
-  
+
   routeData: Subscription | undefined;
   MotifListSubscription: Subscription | undefined;
   Motifs: IMotif[] = [];
@@ -48,7 +48,7 @@ export class MotifComponent {
   filtreLibelle: string | undefined;
   items: MenuItem[] = [];
 
-  
+
 
   constructor(
     private motifService: MotifService,
@@ -60,13 +60,13 @@ export class MotifComponent {
     ){}
 
 
-   ngOnInit(): void { 
+   ngOnInit(): void {
         this.activatedRoute.data.subscribe(
           () => {
             this.loadAll();
           }
         );
-        
+
       }
 
       ngOnDestroy(): void {
@@ -81,7 +81,7 @@ export class MotifComponent {
       filtrer(): void {
         this.loadAll();
       }
-    
+
       resetFilter(): void {
         this.filtreLibelle = undefined;
         this.filtrer();
@@ -89,12 +89,12 @@ export class MotifComponent {
 
       loadPage(event:any): void {
         if(event){
-          this.page = event.first/event.rows + 1; 
+          this.page = event.first/event.rows + 1;
           this.recordsPerPage = event.rows;
         }
         this.transition();
       }
-    
+
       transition(): void {
         this.router.navigate(['./'], {
           relativeTo: this.activatedRoute.parent,
@@ -112,11 +112,12 @@ export class MotifComponent {
           if (result && result.body) {
             this.totalRecords = Number(result.headers.get('X-Total-Count'));
             this.Motifs = result.body || [];
+            console.warn("X-Total-Count",this.Motifs);
           }
         });
       }
-      
-        
+
+
       sortMethod(): string[] {
         this.predicate = 'id';
         this.reverse = true;
@@ -194,7 +195,7 @@ export class MotifComponent {
               this.loadAll();
               this.showMessage({ severity: 'success', summary: 'Motif modifiée avec succès' });
             }
-           
+
           });
 
       }

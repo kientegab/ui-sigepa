@@ -34,7 +34,7 @@ export class MotifService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     // return this.http.get<IMotif[]>(motifUrl+'/list-page', { params: options, observe: 'response' });
-    return this.http.get<IMotif[]>(motifUrl, { params: options, observe: 'response' });
+    return this.http.get<IMotif[]>(motifUrl+'/list-page', { params: options, observe: 'response' });
   }
 
    findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
