@@ -10,6 +10,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import { IMotif } from 'src/app/shared/model/motif.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
+import { Agent, IAgent } from 'src/app/shared/model/agent.model';
+import { StructureService } from 'src/app/shared/service/structure.service';
+import { AgentService } from 'src/app/shared/service/agent.service';
 
 @Component({
   selector: 'app-creer-modifier-detachement',
@@ -35,6 +38,11 @@ export class CreerModifierDetachementComponent {
     selectedPieces: IPiece[] = [];
     multiple=true;
     motifs: IMotif[] = [];
+    agent: IAgent  = new Agent ();
+    numeroMatricule: string = '';
+
+    agentInfo: any; // C'est où vous stockerez les informations de l'agent
+    isFetchingAgentInfo: boolean = false; // Pour gérer l'état de chargement
 
     uploadedFiles: any[] = [];
 
@@ -89,6 +97,46 @@ onMotifChange() {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+onChangeMatricule() {
+    if (this.numeroMatricule) {
+      this.isFetchingAgentInfo = true; // Activez l'indicateur de chargement
+      console.warn("agent================================================",this.agent)
+      console.warn("agent================================================",this.agentInfo)
+      // Faites une requête au service pour obtenir les informations de l'agent en utilisant this.numeroMatricule
+      this.agentService.getAgentInfoByMatricule(this.numeroMatricule)
+        .subscribe(
+          (response) => {
+            
+          console.warn("agent================================================",this.agent)
+          console.warn("agent================================================",this.agentInfo)
+            
+            // Vérifiez que la réponse est réussie
+            if (response && response.body) {
+              this.agent = response.body;
+              this.isFetchingAgentInfo = false; // Désactivez l'indicateur de chargement une fois les données obtenues
+              console.warn("agent================================================",this.agent)
+              console.warn("agent================================================",this.agentInfo)
+            } else {
+              console.error("Erreur lors de la récupération des informations de l'agent", response);
+              this.isFetchingAgentInfo = false; // Désactivez l'indicateur de chargement en cas d'erreur
+              
+            }
+          },
+          (error: any) => {
+            console.error("Erreur lors de la récupération des informations de l'agent", error);
+            this.isFetchingAgentInfo = false; // Désactivez l'indicateur de chargement en cas d'erreur
+          }
+        );
+    } else {
+      console.warn("agent================================================",this.agent)
+      console.warn("agent================================================",this.agentInfo)
+      // Réinitialisez les informations de l'agent si le numéro matricule est vide
+      this.agent = new Agent();
+    }
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     onSelectFile(event: any): void {
@@ -106,6 +154,8 @@ onMotifChange() {
         private confirmationService: ConfirmationService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
+        private structureService: StructureService,
+        private agentService: AgentService,
     ) { }
 
     ngOnInit(): void {
@@ -113,7 +163,20 @@ onMotifChange() {
         // if (this.dynamicDialog.data) {
         //   this.demande = cloneDeep(this.dynamicDialog.data);
         // }
+        if (!this.agent.structure) {
+            this.agent.structure = { libelle: '' };
+          }
         
+          // Assurez-vous que libelle est défini
+          if (!this.agent.structure.libelle) {
+            this.agent.structure.libelle = '';
+          }
+      
+          
+          
+          this.loadTypeDemande();
+          // this.loadAgent();
+         this.loadMotif('');
         this.loadTypeDemande();
     }
 

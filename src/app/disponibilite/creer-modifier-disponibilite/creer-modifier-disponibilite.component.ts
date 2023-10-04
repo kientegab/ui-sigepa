@@ -16,6 +16,7 @@ import { ITypeDemande } from 'src/app/shared/model/typeDemande.model';
 import { AgentService } from 'src/app/shared/service/agent.service';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
 import { MotifService } from 'src/app/shared/service/motif.service';
+import { StructureService } from 'src/app/shared/service/structure.service';
 import { TypeDemandeService } from 'src/app/shared/service/type-demande.service';
 
 @Component({
@@ -46,6 +47,7 @@ export class CreerModifierDisponibiliteComponent {
   motifs: IMotif[] = [];
   agent: IAgent  = new Agent ();
   numeroMatricule: string = '';
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 selectedMotif: IMotif | undefined;
 selectedPieces: IPiece[] = [];
@@ -132,7 +134,8 @@ onMotifChange() {
     private confirmationService: ConfirmationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private agentService: AgentService
+    private agentService: AgentService,
+    private structureService: StructureService
   ) { }
 
   ngOnInit(): void {
@@ -179,6 +182,20 @@ onMotifChange() {
 
   loadMotif(typeDemande: string) {
     this.motifService.findAll().subscribe(response => {
+      this.motifs = response.body!;
+      
+      this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
+        motif: motif.libelle!,
+        pieces: [] 
+      }));
+    }, error => {
+      this.message = { severity: 'error', summary: error.error };
+      console.error(JSON.stringify(error));
+    });
+  }
+
+  loadStructure() {
+    this.structureService.findAll().subscribe(response => {
       this.motifs = response.body!;
       
       this.motifWithPieces = this.motifs.map((motif: IMotif) => ({

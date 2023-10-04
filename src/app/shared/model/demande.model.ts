@@ -16,6 +16,7 @@ export interface IDemande {
     pieceJointe?: IPieceJointe[];
     agent?: IAgent;
     historiques?: IHistorique[];
+    // motifDTOs?:
 }
 
 export class Demande implements IDemande {
@@ -31,6 +32,7 @@ export class Demande implements IDemande {
         public pieceJointe?: IPieceJointe[],
         public agent?: IAgent,
         public historiques?: IHistorique[],
+        
 
     ){
     }
