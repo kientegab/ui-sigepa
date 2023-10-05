@@ -139,23 +139,6 @@ export class PieceComponent {
         return req;
       }
 
-      // load(event?: LazyLoadEvent): void {
-      //   this.isLoading = true;
-      //   this.pieceService.findAll(event).subscribe(
-      //     {
-      //       next: (result) => {
-      //         if (result && result.body) {
-      //           this.isLoading = false;
-      //           this.pieces = result.body!;
-      //         }
-      //       },
-      //       error: (reason) => {
-      //         this.message = { severity: 'error', summary: reason.error };
-      //         console.error(JSON.stringify(reason));
-      //       }
-      //     });
-      // }
-
       /** Permet d'afficher un modal pour l'ajout */
       openModalCreate(): void {
         this.dialogService.open(CreerModifierPieceComponent,
