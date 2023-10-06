@@ -20,7 +20,7 @@ export class DemandeService {
 
   constructor(private http:HttpClient) { }
 
-  create(demande: IDemande): Observable<EntityResponseType> {
+  create(demande: any): Observable<EntityResponseType> {
     return this.http.post<IDemande>(demandeUrl+'/new', demande, { observe: 'response' });
   }
 

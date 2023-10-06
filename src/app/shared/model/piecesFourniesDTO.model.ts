@@ -1,13 +1,15 @@
 
 export interface IPiecesFourniesDTO{
 
+  libelle?: string;
   file?: File;
- libelle?: string;
+
 }
 
 export class PiecesFourniesDTO implements IPiecesFourniesDTO{
     constructor(
-        public  file?: File,
-        public libelle?: string
+       public libelle?: string,
+       public file?: File
+
     ){}
 }

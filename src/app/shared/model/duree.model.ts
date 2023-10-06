@@ -2,7 +2,7 @@ export interface IDuree{
     id?: number;
    annee?: number;
    mois?: number;
-   jour?: number
+   jours?: number
 }
 
 
@@ -11,6 +11,6 @@ export class Duree implements IDuree{
         public id?: number, 
         public annee?: number,
         public mois?: number,
-        public jour?: number
+        public jours?: number
     ){}
 }

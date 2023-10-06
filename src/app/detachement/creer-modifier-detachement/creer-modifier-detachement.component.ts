@@ -7,7 +7,7 @@ import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {TypeDemandeService} from "../../shared/service/type-demande.service";
 import {ConfirmationService, Message, SelectItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import { IMotif, Motif, TypeDemandeur} from 'src/app/shared/model/motif.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
@@ -17,6 +17,8 @@ import { cloneDeep } from 'lodash';
 import { ITypeDemandeur } from 'src/app/shared/model/typeDemandeur.model';
 import { PieceService } from 'src/app/shared/service/piece.service';
 import { IPiecesFourniesDTO, PiecesFourniesDTO } from 'src/app/shared/model/piecesFourniesDTO.model';
+import { IStructure } from 'src/app/shared/model/structure.model';
+import { Duree, IDuree } from 'src/app/shared/model/duree.model';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -43,7 +45,7 @@ export class CreerModifierDetachementComponent {
     file: Blob | string = '';
     fichier: Blob | string = '';
     listePieceFournies:  IPiecesFourniesDTO[] = [];
-
+    structures: IStructure [] = [];
     selectedFile: File | null = null;
     selectedTypeMotif?:IMotif;
     selectedMotif: IMotif | undefined;
@@ -52,6 +54,7 @@ export class CreerModifierDetachementComponent {
     multiple=true;
     motifs: IMotif[] = [];
     selectedTypeDemandeur?: ITypeDemandeur;
+    duree: IDuree = new Duree();
     typeDemandeurs: ITypeDemandeur[]=[{
         code:'AGENT',
         libelle: 'AGENT'
@@ -77,13 +80,13 @@ export class CreerModifierDetachementComponent {
 
     uploadedFiles: any[] = [];
 
-    onFileChange(event: any, pieceJointe: string) {
-        const fileList: FileList = event.target.files;
-        if (fileList.length > 0) {
-            // Vous pouvez stocker le fichier sélectionné dans le modèle
-            // this[pieceJointe].fichier = fileList[0];
-        }
-    }
+    // onFileChange(event: any, pieceJointe: string) {
+    //     const fileList: FileList = event.target.files;
+    //     if (fileList.length > 0) {
+    //         // Vous pouvez stocker le fichier sélectionné dans le modèle
+    //         // this[pieceJointe].fichier = fileList[0];
+    //     }
+    // }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 motifWithPieces: { motif: string, pieces: IPiece[] }[] = [];
@@ -224,8 +227,7 @@ onChangeMatricule() {
         private structureService: StructureService,
         private pieceService: PieceService,
         private agentService: AgentService,
-        
-     
+        private http: HttpClient
     ) { }
 
     ngOnInit(): void {
@@ -240,6 +242,12 @@ onChangeMatricule() {
             this.agent.structure = { libelle: '' };
           }
         
+          
+        if (!this.demande.structure) {
+          this.agent.structure = { libelle: '' };
+        }
+
+
           if (!this.agent.superieurHierarchique) {
             this.agent.superieurHierarchique = { nom: '' };
           }
@@ -255,7 +263,7 @@ onChangeMatricule() {
       
          
        
-
+          this.loadStructure();
 
           this.loadPieces();
           
@@ -351,6 +359,20 @@ onChangeMatricule() {
         });
     }
 
+    loadStructure() {
+      this.structureService.findListe().subscribe(response => {
+
+          this.structures = response.body!;
+
+          console.warn("Structures================",this.structures)
+      }, error => {
+          this.message = { severity: 'error', summary: error.error };
+          console.error(JSON.stringify(error));
+      });
+  }
+
+
+
     // loadMotif() {
     //     this.motifService.findAll().subscribe(response => {
 
@@ -428,12 +450,76 @@ onChangeMatricule() {
         this.dialogErrorMessage = error.error.title;
     }
 
+
     showMessage(message: Message) {
         this.message = message;
         this.timeoutHandle = setTimeout(() => {
             this.message = null;
         }, 5000);
     }
+
+    onFileChange(event: any, piece: Piece): void {
+      const fileList: FileList = event.target.files;
+      if (fileList.length > 0) {
+        const piecesFourniesDTO = new PiecesFourniesDTO();
+        piecesFourniesDTO.libelle = piece.libelle;
+  
+        // Vérifiez si fileList[0] est défini avant d'affecter à piecesFourniesDTO.file
+        if (fileList[0]) {
+          piecesFourniesDTO.file = fileList[0];
+          this.listePieceFournies.push(piecesFourniesDTO);
+        }
+      }
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+save(): void {
+  this.clearDialogMessages();
+  this.isDialogOpInProgress = true;
+
+  if (this.demande) {
+    this.demande.agent = this.agent;
+    this.demande.piecesFourniesDTO = this.listePieceFournies;
+
+    // Créez un objet FormData pour envoyer les données
+    const formData = new FormData();
+
+    // Ajoutez les données de la demande au FormData (remplacez 'this.demande' par votre propre objet de demande)
+    formData.append('demande', JSON.stringify(this.demande));
+
+    // Ajoutez chaque pièce fournie au FormData
+    for (const pieceFournie of this.listePieceFournies) {
+      if (pieceFournie.file) {
+        formData.append('files', pieceFournie.file, pieceFournie.libelle);
+      }
+    }
+
+    // Appelez le service pour envoyer les données au backend
+    this.demandeService.create(formData).subscribe({
+      next: (response) => {
+        this.dialogRef.close(response);
+        this.dialogRef.destroy();
+        this.router.navigate(['detachements']);
+        this.showMessage({
+          severity: 'success',
+          summary: 'demande créée avec succès',
+        });
+        this.isDialogOpInProgress = false;
+      },
+      error: (error) => {
+        console.error("error" + JSON.stringify(error));
+        this.isOpInProgress = false;
+        this.isDialogOpInProgress = false;
+        this.showMessage({ severity: 'error', summary: error.error.message });
+      },
+    });
+  }
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     saveEntity(): void {
 
         this.clearDialogMessages();
@@ -441,7 +527,10 @@ onChangeMatricule() {
         if (this.demande) {
             this.demande.agent= this.agent;
             this.demande.piecesFourniesDTO= this.listePieceFournies;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            this.demande.duree = this.duree
             console.warn("==============================================",this.demande);
             this.demande.motif = this.selectedMotif;
             if (this.demande.id) {
@@ -491,18 +580,20 @@ onChangeMatricule() {
 
 
    
-
-    onUpload(event: UploadEvent, piece:Piece) {
-      console.warn("============================")
-      for(let file of event.files) {
-        const piecesFourniesDTO = new PiecesFourniesDTO()
-        piecesFourniesDTO.file = file;
+    onUpload(event: UploadEvent, piece: Piece) {
+      console.warn("============================");
+      for (let file of event.files) {
+        const piecesFourniesDTO = new PiecesFourniesDTO();
         piecesFourniesDTO.libelle = piece.libelle;
-        this.listePieceFournies.push(piecesFourniesDTO)
-        this.uploadedFiles.push(file);
-   
-    }
-    console.warn("============================",this.listePieceFournies)
+  
+        // Vérifiez si file est défini avant d'affecter à piecesFourniesDTO.file
+        if (file) {
+          piecesFourniesDTO.file = file;
+          this.listePieceFournies.push(piecesFourniesDTO);
+          this.uploadedFiles.push(file);
+        }
+      }
+      console.warn("============================", this.listePieceFournies);
     }
 
 
