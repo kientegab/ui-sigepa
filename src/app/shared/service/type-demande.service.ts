@@ -10,7 +10,7 @@ type EntityResponseType = HttpResponse<ITypeDemande>;
 type EntityArrayResponseType = HttpResponse<ITypeDemande[]>;
 
 
-const typeDemandeUrl = "assets/data/typeDemandes.json";
+const typeDemandeUrl = environment.detachementUrl+"/type-demandes";
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,11 @@ export class TypeDemandeService {
   constructor(private http:HttpClient) { }
 
   create(structure: ITypeDemande): Observable<EntityResponseType> {
-    return this.http.post<ITypeDemande>(typeDemandeUrl, structure, { observe: 'response' });
+    return this.http.post<ITypeDemande>(`${typeDemandeUrl}/new`, structure, { observe: 'response' });
   }
 
   update(structure: ITypeDemande): Observable<EntityResponseType> {
-    return this.http.put<ITypeDemande>(typeDemandeUrl, structure, { observe: 'response' });
+    return this.http.put<ITypeDemande>(`${typeDemandeUrl}/update`, structure, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
@@ -33,11 +33,11 @@ export class TypeDemandeService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ITypeDemande[]>(typeDemandeUrl, { params: options, observe: 'response' });
+    return this.http.get<ITypeDemande[]>(`${typeDemandeUrl}/list-page`, { params: options, observe: 'response' });
   }
 
    findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
-    return this.http.get<ITypeDemande[]>(typeDemandeUrl, { observe: 'response' });
+    return this.http.get<ITypeDemande[]>(`${typeDemandeUrl}/list-page`, { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -45,7 +45,7 @@ export class TypeDemandeService {
   }
 
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<ITypeDemande[]>(typeDemandeUrl, { observe: 'response' });
+    return this.http.get<ITypeDemande[]>(`${typeDemandeUrl}/list`, { observe: 'response' });
   }
 
   getAll(event?: LazyLoadEvent): Observable<any> {

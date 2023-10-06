@@ -105,7 +105,7 @@
                 <div class="p-field p-fluid">
                     <label for="Ministère">Ministère</label>
                     <input type="text" id="ministere" name="ministere" #libelle="ngModel" optionLabel="libelle"
-                        [(ngModel)]="agent.structure!.ministere!.libelle" [readonly]="true" 
+                        [(ngModel)]="agent.structure!.ministere!.libelle" [readonly]="true"
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
@@ -152,7 +152,7 @@
                                 <tr>
                                     <td>{{ piece.libelle }}</td>
                                     <td>
-                                        <p-fileUpload name="demo{{i}}[]" (onUpload)="onUpload($event)"
+                                        <p-fileUpload name="demo{{i}}[]" (on)="onUpload($event)"
                                             [multiple]="false" accept=".pdf" [maxFileSize]="10000000">
                                             <ng-template pTemplate="content">
                                                 <ul *ngIf="uploadedFiles.length">
