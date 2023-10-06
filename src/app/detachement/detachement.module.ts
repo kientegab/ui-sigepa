@@ -57,7 +57,8 @@ import { ConfirmationService } from 'primeng/api';
         ProgressSpinnerModule,
         PaginatorModule,
         CalendarModule,
-        FileUploadModule
+        FileUploadModule,
+        DropdownModule
     ],
     providers: [ConfirmationService],
 })

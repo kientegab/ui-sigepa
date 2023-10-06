@@ -1,4 +1,4 @@
-const commonAppURI: string = 'http://localhost:8080/api/';
+const commonAppURI: string = 'http://localhost:8081/api/';
 const commonAuth: string = 'http://localhost:8089/api/auth/';
 const domaineUrl: string='localhost:4200'
 
@@ -30,7 +30,7 @@ export const environment = {
   motifUrl: commonAuth + 'motifs',
   ministereUrl: commonAuth + 'ministeres',
   ampliationUrl:commonAuth + 'ampliations',
-  demandeUrl:commonAuth + 'demandes',
+  demandeUrl:commonAppURI + 'demandes',
    // typeEmployeurUrl: commonAppURI +'typeEmployeur',
 
 

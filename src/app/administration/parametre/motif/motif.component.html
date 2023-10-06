@@ -54,7 +54,7 @@
   </div>
     <p-table #dtf [value]="Motifs" [paginator]="true" [rows]="recordsPerPage"  (onPage)="loadPage($event)"
       [totalRecords]="totalRecords"  (onLazyLoad)="loadAll()" [lazy]="true"
-      [globalFilterFields]="['code','libelle','Motif.libelle']"
+      [globalFilterFields]="['plafondAnnee','libelle','duree']"
       currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements"
       [showCurrentPageReport]=true
       [rowsPerPageOptions]="[20, 50, 100, 500]" styleClass="p-datatable-gridlines">
@@ -63,6 +63,7 @@
         <tr>
           <th pSortableColumn="libelle">Motif<p-sortIcon field="libelle"></p-sortIcon></th>
           <th pSortableColumn="plafondAnnee">Plafond Année<p-sortIcon field="plafondAnnee"></p-sortIcon></th>
+          <th pSortableColumn="plafondAnnee">Durée<p-sortIcon field="plafondAnnee"></p-sortIcon></th>
           <th class="actionsStyle">Action</th>
         </tr>
       </ng-template>
@@ -70,6 +71,7 @@
         <tr>
           <td>{{ Motif.libelle }}</td>
           <td>{{ Motif.plafondAnnee }}</td>
+          <td>{{ Motif.duree }}</td>
           <td class="actionsStyle">
             <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(Motif)"
               [enableBtnInfo]="enableBtnInfo" (edit)="openModalEdit(Motif)" [enableBtnEdit]="enableBtnEdit"

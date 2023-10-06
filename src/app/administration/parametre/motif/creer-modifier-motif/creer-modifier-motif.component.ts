@@ -4,8 +4,10 @@ import { NgForm } from '@angular/forms';
 import { cloneDeep } from 'lodash';
 import { ConfirmationService, Message, SelectItem } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { ECategorie, IMotif, Motif } from 'src/app/shared/model/motif.model';
+import { IMotif, Motif } from 'src/app/shared/model/motif.model';
+// import { ECategorie, IMotif, Motif } from 'src/app/shared/model/motif.model';
 import { IPiece, Piece } from 'src/app/shared/model/piece.model';
+import { ITypeDemandeur } from 'src/app/shared/model/typeDemandeur.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
 import { PieceService } from 'src/app/shared/service/piece.service';
 
@@ -29,8 +31,15 @@ export class CreerModifierMotifComponent {
   isOpInProgress!: boolean;
   pieces: IPiece[] = [];
   pieceSelected: Piece[] = [];
-    categories = [{libelle:'DETACHEMENT'},{libelle:'DISPONIBILTE'}];
     categSelected: any;
+    typeDemandeurs: ITypeDemandeur[]=[{
+      code:'AGENT',
+      libelle: 'AGENT'
+  },
+  {
+      code:'STRUCTURE',
+      libelle: 'STRUCTURE'
+  }];
 
 
   constructor(
@@ -46,7 +55,6 @@ export class CreerModifierMotifComponent {
     if (this.dynamicDialog.data) {
       this.motif = cloneDeep(this.dynamicDialog.data);
       console.warn("MMM",this.motif);
-      this.pieceSelected = this.motif.piece!;
     }
   }
 
@@ -86,8 +94,6 @@ export class CreerModifierMotifComponent {
     }, 5000);
   }
   saveEntity(): void {
-      this.motif.categorie = this.categSelected.libelle;
-      this.motif.piece = this.pieceSelected;
       console.log("MOTIF : ", this.motif);
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;

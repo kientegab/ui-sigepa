@@ -7,7 +7,7 @@ import { ConfirmationService, Message, SelectItem } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { takeUntil } from 'rxjs';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
-import { Demande, IDemande, TypeDemandeur } from 'src/app/shared/model/demande.model';
+import { Demande, IDemande } from 'src/app/shared/model/demande.model';
 import { IMotif } from 'src/app/shared/model/motif.model';
 import { IPiece } from 'src/app/shared/model/piece.model';
 
@@ -16,6 +16,7 @@ import { ITypeDemande } from 'src/app/shared/model/typeDemande.model';
 import { AgentService } from 'src/app/shared/service/agent.service';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
 import { MotifService } from 'src/app/shared/service/motif.service';
+import { StructureService } from 'src/app/shared/service/structure.service';
 import { TypeDemandeService } from 'src/app/shared/service/type-demande.service';
 
 @Component({
@@ -46,6 +47,7 @@ export class CreerModifierDisponibiliteComponent {
   motifs: IMotif[] = [];
   agent: IAgent  = new Agent ();
   numeroMatricule: string = '';
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 selectedMotif: IMotif | undefined;
 selectedPieces: IPiece[] = [];
@@ -90,7 +92,7 @@ onMotifChange() {
       const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
 
       if (motif) {
-        this.selectedPieces = motif.piece || [];
+        // this.selectedPieces = motif.piece || [];
       } else {
         this.selectedPieces = [];
       }
@@ -132,7 +134,8 @@ onMotifChange() {
     private confirmationService: ConfirmationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private agentService: AgentService
+    private agentService: AgentService,
+    private structureService: StructureService
   ) { }
 
   ngOnInit(): void {
@@ -154,10 +157,10 @@ onMotifChange() {
   
   }
 
-  typeDemandeur: SelectItem[] = [
-    { label: 'Agent', value: TypeDemandeur.Agent },
-    { label: 'Structure', value: TypeDemandeur.Structure },
-  ];
+  // typeDemandeur: SelectItem[] = [
+  //   { label: 'Agent', value: TypeDemandeur.AGENT },
+  //   { label: 'Structure', value: TypeDemandeur.STRUCTURE },
+  // ];
   
   displayCalendar = false;
 
@@ -179,6 +182,20 @@ onMotifChange() {
 
   loadMotif(typeDemande: string) {
     this.motifService.findAll().subscribe(response => {
+      this.motifs = response.body!;
+      
+      this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
+        motif: motif.libelle!,
+        pieces: [] 
+      }));
+    }, error => {
+      this.message = { severity: 'error', summary: error.error };
+      console.error(JSON.stringify(error));
+    });
+  }
+
+  loadStructure() {
+    this.structureService.findAll().subscribe(response => {
       this.motifs = response.body!;
       
       this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
