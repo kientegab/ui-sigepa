@@ -1,14 +1,16 @@
 export interface IDuree{
     id?: number;
-   annee?: string;
-   mois?: string
+   annee?: number;
+   mois?: number;
+   jour?: number
 }
 
 
 export class Duree implements IDuree{
     constructor(
         public id?: number, 
-        public annee?: string,
-        public mois?: string
+        public annee?: number,
+        public mois?: number,
+        public jour?: number
     ){}
 }
