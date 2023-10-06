@@ -45,6 +45,7 @@ export class CreerModifierDisponibiliteComponent {
   file: Blob | string = '';
   selectedFile: File | null = null;
   motifs: IMotif[] = [];
+  
   agent: IAgent  = new Agent ();
   numeroMatricule: string = '';
 

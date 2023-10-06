@@ -20,8 +20,12 @@ export class DemandeService {
 
   constructor(private http:HttpClient) { }
 
-  create(visa: IDemande): Observable<EntityResponseType> {
-    return this.http.post<IDemande>(demandeUrl+'/new', visa, { observe: 'response' });
+  create(demande: any): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(demandeUrl+'/new', demande, { observe: 'response' });
+  }
+
+  save(demande: any): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(demandeUrl+'/new', demande, { observe: 'response' });
   }
 
   update(groupe: IDemande): Observable<EntityResponseType> {
