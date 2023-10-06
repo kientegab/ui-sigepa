@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Demande, IDemande} from "../../shared/model/demande.model";
 import {ITypeDemande} from "../../shared/model/typeDemande.model";
-import {IPiece} from "../../shared/model/piece.model";
+import {IPiece, Piece} from "../../shared/model/piece.model";
 import {DemandeService} from "../../shared/service/demande-service.service";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {TypeDemandeService} from "../../shared/service/type-demande.service";
@@ -16,7 +16,12 @@ import { AgentService } from 'src/app/shared/service/agent.service';
 import { cloneDeep } from 'lodash';
 import { ITypeDemandeur } from 'src/app/shared/model/typeDemandeur.model';
 import { PieceService } from 'src/app/shared/service/piece.service';
+import { IPiecesFourniesDTO, PiecesFourniesDTO } from 'src/app/shared/model/piecesFourniesDTO.model';
 
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
+}
 @Component({
   selector: 'app-creer-modifier-detachement',
   templateUrl: './creer-modifier-detachement.component.html',
@@ -36,6 +41,9 @@ export class CreerModifierDetachementComponent {
     typeDemandes: ITypeDemande[]=[];
     pieces: IPiece[] = [];
     file: Blob | string = '';
+    fichier: Blob | string = '';
+    listePieceFournies:  IPiecesFourniesDTO[] = [];
+
     selectedFile: File | null = null;
     selectedTypeMotif?:IMotif;
     selectedMotif: IMotif | undefined;
@@ -53,7 +61,7 @@ export class CreerModifierDetachementComponent {
         libelle: 'STRUCTURE'
     }];
 
-
+   
 
 
 
@@ -196,9 +204,11 @@ onChangeMatricule() {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    onSelectFile(event: any): void {
-        console.log(event.target.files[0]);
-        this.file = event.target.files[0];
+    onSelectFile($event: any, piece: Piece): void {
+        console.log($event.target.files[0]);
+        this.file = $event.target.files[0];
+        console.warn("test event===============",$event.target.files[0])
+        console.warn("test piece===============",piece)
     }
 
 
@@ -223,12 +233,15 @@ onChangeMatricule() {
         // if (this.dynamicDialog.data) {
         //   this.demande = cloneDeep(this.dynamicDialog.data);
         // }
+
+        
+
         if (!this.agent.structure) {
             this.agent.structure = { libelle: '' };
           }
         
-          if (!this.agent.superieur) {
-            this.agent.superieur = { nom: '' };
+          if (!this.agent.superieurHierarchique) {
+            this.agent.superieurHierarchique = { nom: '' };
           }
         
 
@@ -322,7 +335,7 @@ onChangeMatricule() {
     //   }
       
 
-    displayCalendar = false;
+    displayCalendar = true;
 
     openCalendar() {
         this.displayCalendar = true;
@@ -422,11 +435,14 @@ onChangeMatricule() {
         }, 5000);
     }
     saveEntity(): void {
+
         this.clearDialogMessages();
         this.isDialogOpInProgress = true;
         if (this.demande) {
             this.demande.agent= this.agent;
-            console.warn("==============================================",this.selectedMotif);
+            this.demande.piecesFourniesDTO= this.listePieceFournies;
+
+            console.warn("==============================================",this.demande);
             this.demande.motif = this.selectedMotif;
             if (this.demande.id) {
                 this.demandeService.update(this.demande).subscribe(
@@ -471,7 +487,44 @@ onChangeMatricule() {
         }
     }
 
-    onUpload($event: any) {
+ 
 
+
+   
+
+    onUpload(event: UploadEvent, piece:Piece) {
+      console.warn("============================")
+      for(let file of event.files) {
+        const piecesFourniesDTO = new PiecesFourniesDTO()
+        piecesFourniesDTO.file = file;
+        piecesFourniesDTO.libelle = piece.libelle;
+        this.listePieceFournies.push(piecesFourniesDTO)
+        this.uploadedFiles.push(file);
+   
     }
+    console.warn("============================",this.listePieceFournies)
+    }
+
+
+
+
+    // createFile() {
+
+    //   this.demande.agent= this.agent;
+    //   this.demande.piecesFourniesDTO= this.listePieceFournies;
+    
+    //   const formData: FormData = new FormData();
+    //   const documentsPosteAsJson: Blob = new Blob([JSON.stringify(this.demande)], { type: 'application/json' });
+    //   formData.append('request', documentsPosteAsJson);
+      
+    //   this.demandeService.save(formData).subscribe(response => {
+    //     if (response.body) {
+    // // this.document = response.body
+    //     }
+        
+        
+    //   })
+      
+    
+    // }
 }

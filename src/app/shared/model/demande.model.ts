@@ -2,6 +2,7 @@ import { IAgent } from "./agent.model";
 import { IHistorique } from "./historique.model";
 import { IMotif } from "./motif.model";
 import { IPieceJointe } from "./pieceJointe.model";
+import { IPiecesFourniesDTO } from "./piecesFourniesDTO.model";
 import { IStructure } from "./structure.model";
 import { ITypeDemande } from "./typeDemande.model";
 
@@ -17,7 +18,8 @@ export interface IDemande {
     pieceJointe?: IPieceJointe[];
     agent?: IAgent;
     historique?: IHistorique;
-    motif?: IMotif
+    motif?: IMotif,
+    piecesFourniesDTO?: IPiecesFourniesDTO[]
 }
 
 export class Demande implements IDemande {
@@ -33,7 +35,8 @@ export class Demande implements IDemande {
         public pieceJointe?: IPieceJointe[],
         public agent?: IAgent,
         public historique?: IHistorique,
-        public motif?: IMotif
+        public motif?: IMotif,
+        public piecesFourniesDTO?: IPiecesFourniesDTO[]
 
     ){}
 

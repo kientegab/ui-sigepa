@@ -131,7 +131,7 @@
             <div class="field col-4 md:col-4">
                 <div class="p-field p-fluid">
                     <label for="superieur">Supérieur hiérarchique</label>
-                    <input [(ngModel)]="agent.superieur!.nom" id="superieur" [readonly]="false" name="superieur"
+                    <input [(ngModel)]="agent.superieurHierarchique!.nom" id="superieur" [readonly]="false" name="superieur"
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
@@ -152,14 +152,14 @@
                                 <tr>
                                     <td>{{ piece.libelle }}</td>
                                     <td>
-                                        <p-fileUpload name="demo{{i}}[]" (onUpload)="onUpload($event)"
+                                        <p-fileUpload name="demo{{i}}" (onSelect)="onUpload($event,piece)"
                                             [multiple]="false" accept=".pdf" [maxFileSize]="10000000">
-                                            <ng-template pTemplate="content">
+                                            <!-- <ng-template pTemplate="content">
                                                 <ul *ngIf="uploadedFiles.length">
                                                     <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{
                                                         file.size }} bytes</li>
                                                 </ul>
-                                            </ng-template>
+                                            </ng-template> -->
                                         </p-fileUpload>
                                     </td>
                                 </tr>
