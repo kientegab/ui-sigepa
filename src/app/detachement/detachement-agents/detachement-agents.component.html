@@ -65,14 +65,19 @@
         <td>{{ demande.status }}</td>
 
         <td class="actionsStyle">
-            <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(demande)">
-            </app-actions-toolbar-iud>
-          </td>
+          <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(demande)"
+            
+            
+          [enableBtnValider]="enableBtnValider" (valider)="openModalValiderProjet(demande)"
+           >
+          </app-actions-toolbar-iud>
+      </td>
+          
         </tr>
       </ng-template>
     </p-table>
   
   
-    <!-- Confirmation -->
+    <!-- Confirmation    [enableBtnValider]="enableBtnValider" (valider)="openModalValiderProjet(demande)" -->
     <app-confirmation></app-confirmation>
   </p-card>

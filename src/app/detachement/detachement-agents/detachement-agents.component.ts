@@ -10,6 +10,7 @@ import { CURRENT_PAGE, MAX_SIZE_PAGE } from 'src/app/shared/constants/pagination
 import { IDemande, Demande } from 'src/app/shared/model/demande.model';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
 import { environment } from 'src/environments/environment';
+import { ValiderProjetComponent } from '../valider-projet/valider-projet.component';
 
 @Component({
   selector: 'app-detachement-agents',
@@ -27,7 +28,8 @@ export class DetachementAgentsComponent {
   recordsPerPage = environment.recordsPerPage;
   enableBtnInfo = true;
   enableBtnEdit = true;
-  enableBtnDelete=true;
+  enableBtnDelete = true;
+  enableBtnValider=true;
   isLoading!: boolean;
   isOpInProgress!: boolean;
   isDialogOpInProgress!: boolean;
@@ -159,18 +161,11 @@ export class DetachementAgentsComponent {
 
       }
 
-      /** Permet d'afficher un modal pour voir les détails */
       openModalDetail(demande:IDemande): void {
-        this.dialogService.open(DetailsDisponibiliteComponent,
-          {
-            header: 'Details de demande',
-            width: '60%',
-            contentStyle: { overflow: 'auto' },
-            baseZIndex: 10000,
-            maximizable: true,
-            data: demande
-          });
+        this.router.navigate(['detachements','details', demande.id]);
       }
+      
+     
 
       // Errors
       handleError(error: HttpErrorResponse) {
@@ -178,7 +173,26 @@ export class DetachementAgentsComponent {
         this.isDialogOpInProgress = false;
         this.dialogErrorMessage = error.error.title;
       }
-
+      openModalValiderProjet(demande: IDemande): void {
+        this.dialogService.open(ValiderProjetComponent,
+        {
+          header: 'Valider un projet (Profil DRH) ',
+          width: '60%',
+          height: '60%',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: true,
+          closable: true,
+          data: demande
+        }).onClose.subscribe(result => {
+          if(result){
+            this.isDialogOpInProgress = false;
+            this.showMessage({ severity: 'success', summary: 'Projet validé avec succès' });
+          }
+    
+        });
+    
+      }
       // Messages
       clearDialogMessages() {
         this.dialogErrorMessage = null;

@@ -12,6 +12,7 @@ import { IDemande, Demande } from '../shared/model/demande.model';
 import { DemandeService } from '../shared/service/demande-service.service';
 import { CreerModifierDetachementComponent } from './creer-modifier-detachement/creer-modifier-detachement.component';
 import { DetailsDetachementComponent } from './details-detachement/details-detachement.component';
+import { ValiderProjetComponent } from './valider-projet/valider-projet.component';
 
 @Component({
   selector: 'app-detachement',
@@ -30,6 +31,7 @@ export class DetachementComponent {
   enableBtnInfo = true;
   enableBtnEdit = true;
   enableBtnDelete=true;
+  enableBtnValider=true;
   isLoading!: boolean;
   isOpInProgress!: boolean;
   isDialogOpInProgress!: boolean;
@@ -150,7 +152,7 @@ enableInfo = true;
       openModalEdit(demande: IDemande): void {
         this.dialogService.open(CreerModifierDetachementComponent,
           {
-            header: 'Modifier un demande',
+            header: 'Modifier un demande', 
             width: '60%',
             contentStyle: { overflow: 'auto' },
             baseZIndex: 10000,
@@ -172,6 +174,7 @@ enableInfo = true;
       openModalDetail(demande:IDemande): void {
         this.router.navigate(['detachements','details', demande.id]);
       }
+
 
 
       // Deletion
@@ -213,11 +216,33 @@ enableInfo = true;
         this.dialogErrorMessage = null;
       }
 
+      /** Permet d'afficher un modal pour aviser une demande */
+   openModalValiderProjet(demande: IDemande): void {
+    this.dialogService.open(ValiderProjetComponent,
+    {
+      header: 'Valider un projet (Profil RH) ',
+      width: '40%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      closable: true,
+      data: demande
+    }).onClose.subscribe(result => {
+      if(result){
+        this.isDialogOpInProgress = false;
+        this.showMessage({ severity: 'success', summary: 'Projet validé avec succès' });
+      }
+
+    });
+
+  }
+
       showMessage(message: Message) {
         this.message = message;
         this.timeoutHandle = setTimeout(() => {
           this.message = null;
         }, 5000);
       }
+      
 
 }

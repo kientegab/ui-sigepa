@@ -4,6 +4,8 @@ import { DetachementComponent } from './detachement.component';
 import { DetachementAgentsComponent } from './detachement-agents/detachement-agents.component';
 import {CreerModifierDetachementComponent} from "./creer-modifier-detachement/creer-modifier-detachement.component";
 import { DetailsDetachementComponent } from './details-detachement/details-detachement.component';
+import { ElaborerProjetComponent } from './elaborer-projet/elaborer-projet.component';
+import { ValiderProjetComponent } from './valider-projet/valider-projet.component';
 
 const routes: Routes = [
   {
@@ -17,6 +19,12 @@ const routes: Routes = [
   },
   {
     path: 'details/:id',  component: DetailsDetachementComponent
+  },
+  {
+    path: 'elaborer/:id',  component: ElaborerProjetComponent
+  },
+  {
+    path: 'valider/:id',  component: ValiderProjetComponent
   }
 ];
 

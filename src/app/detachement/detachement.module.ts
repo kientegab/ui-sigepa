@@ -26,6 +26,8 @@ import { AppCommonModule } from '../shared/common/app-common.module';
 import {FileUploadModule} from "primeng/fileupload";
 import { ReceptionDetachementComponent } from './reception-detachement/reception-detachement.component';
 import { ConfirmationService } from 'primeng/api';
+import { ValiderProjetComponent } from './valider-projet/valider-projet.component';
+import { ElaborerProjetComponent } from './elaborer-projet/elaborer-projet.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { ConfirmationService } from 'primeng/api';
     DetailsDetachementComponent,
     AviserDetachementComponent,
     DetachementAgentsComponent,
-    ReceptionDetachementComponent
+    ReceptionDetachementComponent,
+    ValiderProjetComponent,
+    ElaborerProjetComponent
   ],
     imports: [
         CommonModule,
