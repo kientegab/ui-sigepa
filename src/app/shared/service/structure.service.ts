@@ -40,6 +40,12 @@ export class StructureService {
     return this.http.get<IStructure[]>(`${structureUrl}/ministere-structures/${id}`, { observe: 'response' });
   }
 
+
+  findMinistereByStructure(id: number): Observable<EntityArrayResponseType> {
+    return this.http.get<IStructure[]>(`${structureUrl}/ministere/${id}`, { observe: 'response' });
+  }
+
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IStructure[]>(structureUrl, { params: options, observe: 'response' });

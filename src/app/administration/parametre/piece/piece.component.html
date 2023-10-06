@@ -1,13 +1,5 @@
 
 <p-card>
-    <!-- <ng-template pTemplate="header">
-      <div class="card-header bg-header-cnamu">
-        <h4 class="text-white text-center text-bold">Gestion des pieces</h4>
-      </div>
-    </ng-template> -->
-  
-    <!-- <p-divider></p-divider> -->
-    <!-- <h6 class="text-bold">Filtre</h6> -->
     <!-- <hr /> -->
     <div class="_m-t-15">
      
@@ -59,27 +51,18 @@
       [showCurrentPageReport]=true
       [rowsPerPageOptions]="[20, 50, 100, 500]" styleClass="p-datatable-gridlines">
   
-      <!-- <ng-template pTemplate="caption">
-        <div class="row">
-          <div class="col text-right">
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" (input)="dtf.filterGlobal($any($event.target)!.value, 'contains')"
-                placeholder="Recherche..." />
-            </span>
-          </div>
-        </div>
-      </ng-template> -->
       <ng-template pTemplate="header" let-columns>
         <tr>
           <!-- <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon></th>-->
           <th pSortableColumn="libelle">Libelle<p-sortIcon field="libelle"></p-sortIcon></th>
+          <th pSortableColumn="motif">Motif<p-sortIcon field="motif"></p-sortIcon></th>
           <th class="actionsStyle">Action</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-piece>   
         <tr>
           <td>{{ piece.libelle }}</td>
+          <td>{{ piece.motif?.libelle }}</td>
   
           <td class="actionsStyle">
             <app-actions-toolbar-iud [enableBtnInfo]="enableBtnInfo" (info)="openModalDetail(piece)"

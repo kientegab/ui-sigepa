@@ -9,7 +9,7 @@
         <!--  -->
 
         <div class="formgrid grid">
-            <div class="field col-6 md:col-6">
+            <!-- <div class="field col-6 md:col-6">
                 <label for="typeDemandeur">Type demandeur</label>
                 <p-dropdown autoWidth="false" id="typeDemandeur" styleClass="mb-3" [style]="{'width':'100%'}"
                             [options]="typeDemandeur"
@@ -17,9 +17,8 @@
                             name="typeDemandeur" placeholder="Sélectionner le typeDemandeur..." [filter]="true" appendTo="body"
                             [showClear]="true">
                 </p-dropdown>
+            </div> -->
 
-
-            </div>
             <div class="field col-6 md:col-6">
                 <label for="typeDemande">Type Demande :</label>
     <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" 
@@ -49,12 +48,12 @@
            
               <div class="field col-4 md-4">
                 <label for="Prenom">Prénom :</label>
-                <input type="text" id="Prenom" name="Prenom" [(ngModel)]="agent.prenom" [readonly]="true" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input type="text" id="Prenom" name="Prenom" [(ngModel)]="agent.prenom" [readonly]="true" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
               </div>
 
             <div class="field col-4 md:col-4">
                 <label for="Nom">Nom :</label>
-                <input type="text" id="nom" name="nom" #libelle="ngModel" [(ngModel)]="agent.nom" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input type="text" id="nom" name="nom" #libelle="ngModel" [(ngModel)]="agent.nom" [readonly]="true"    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
           
 
@@ -65,7 +64,7 @@
 
             <div class="field col-4 md:col-4">
                 <label for="Contact">Contact :</label>
-                <input type="text" id="contact" name="contact" #libelle="ngModel" [(ngModel)]="agent.telephone" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input type="text" id="contact" name="contact" #libelle="ngModel" [(ngModel)]="agent.telephone" [readonly]="true"   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
 
             <!-- <div class="field col-4 md:col-4">
@@ -76,7 +75,7 @@
             <div class="field col-4 md:col-4">
                 <label for="structure">Structure :</label>
                 <input type="text" id="structure" name="structure" #libelle="ngModel"
-                       [(ngModel)]="agent.structure!.libelle" [readonly]="true" required
+                       [(ngModel)]="agent.structure!.libelle" [readonly]="true" 
                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             
@@ -86,10 +85,11 @@
 
             <div class="field col-4 md:col-4">
                 <label for="strucDestination">En service à :</label>
-                <input type="text" id="strucDestination" name="strucDestination" #libelle="ngModel" [(ngModel)]="demande.strucDestination" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input type="text" id="strucDestination" name="strucDestination" #libelle="ngModel" [(ngModel)]="demande.strucDestination"    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 <div class="p-field p-fluid">
+                    
                     <label for="Ministère">Ministère</label>
-                    <input type="text" id="ministère" name="ministère" #libelle="ngModel" [(ngModel)]="agent.structure!.ministereDTO" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <input type="text" id="ministère" name="ministère" #libelle="ngModel" [(ngModel)]="agent.structure!.ministere!.libelle" [readonly]="true" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
 
@@ -110,12 +110,12 @@
                 </div>
             </div>
 
-            <div class="field col-4 md:col-4">
+            <!-- <div class="field col-4 md:col-4">
                 <div class="p-field p-fluid">
                     <label for="superieur">Supérieur hiérarchique</label>
                     <input [(ngModel)]="demande.agent" id="superieur" [readonly]="false" name="superieur" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
-            </div>
+            </div> -->
             <br>
 
           

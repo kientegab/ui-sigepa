@@ -9,7 +9,7 @@ export interface IStructure {
     responsable?: string;
     type?: TypeStructure;
     parent?: Structure;
-    ministereDTO?: Ministere
+    ministere?: Ministere
 }
 
 export class Structure implements IStructure {
@@ -21,7 +21,7 @@ export class Structure implements IStructure {
         public responsable?: string,
         public type?: TypeStructure,
         public parent?: Structure,
-        public ministereDTO?: Ministere,
+        public ministere?: Ministere,
 
     ){}
 }
