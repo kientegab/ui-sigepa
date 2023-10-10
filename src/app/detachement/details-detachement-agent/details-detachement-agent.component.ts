@@ -1,21 +1,19 @@
 import { Component, Input } from '@angular/core';
-import { cloneDeep } from 'lodash';
-import { Message } from 'primeng/api';
-import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
-import { AviserDetachementComponent } from '../aviser-detachement/aviser-detachement.component';
-import { AviserDisponibiliteComponent } from 'src/app/disponibilite/aviser-disponibilite/aviser-disponibilite.component';
-import { IDemande, Demande } from 'src/app/shared/model/demande.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Message } from 'primeng/api';
+import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
+import { IDemande, Demande } from 'src/app/shared/model/demande.model';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
+import { AviserDetachementComponent } from '../aviser-detachement/aviser-detachement.component';
 import { ReceptionDetachementComponent } from '../reception-detachement/reception-detachement.component';
 import { ValiderProjetComponent } from '../valider-projet/valider-projet.component';
 
 @Component({
-  selector: 'app-details-detachement',
-  templateUrl: './details-detachement.component.html',
-  styleUrls: ['./details-detachement.component.scss']
+  selector: 'app-details-detachement-agent',
+  templateUrl: './details-detachement-agent.component.html',
+  styleUrls: ['./details-detachement-agent.component.scss']
 })
-export class DetailsDetachementComponent {
+export class DetailsDetachementAgentComponent {
 
   demande: IDemande = new Demande(); 
   @Input() data: IDemande = new Demande();
@@ -121,7 +119,7 @@ export class DetailsDetachementComponent {
   }
 
   fermer(): void {
-    this.router.navigate(['detachements']);
+    this.router.navigate(['detachements','agents']);
   }
 
   getDemande(): void {

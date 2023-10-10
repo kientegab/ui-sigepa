@@ -9,6 +9,8 @@ import { CURRENT_PAGE, MAX_SIZE_PAGE } from '../shared/constants/pagination.cons
 import { IDemande, Demande } from '../shared/model/demande.model';
 import { DemandeService } from '../shared/service/demande-service.service';
 import { CreerModifierDetachementComponent } from './creer-modifier-detachement/creer-modifier-detachement.component';
+import { DetailsDetachementComponent } from './details-detachement/details-detachement.component';
+import { ValiderProjetComponent } from './valider-projet/valider-projet.component';
 
 @Component({
   selector: 'app-detachement',
@@ -27,6 +29,7 @@ export class DetachementComponent {
   enableBtnInfo = true;
   enableBtnEdit = true;
   enableBtnDelete=true;
+  enableBtnValider=true;
   isLoading!: boolean;
   isOpInProgress!: boolean;
   isDialogOpInProgress!: boolean;
@@ -35,7 +38,7 @@ export class DetachementComponent {
   message: any;
   dialogErrorMessage: any;
   enableCreate = true;
-enableInfo = true;
+  enableInfo = true;
   page = CURRENT_PAGE;
   previousPage?: number;
   maxSize = MAX_SIZE_PAGE;
@@ -55,166 +58,172 @@ enableInfo = true;
     private dialogService: DialogService,
     private router: Router,
     private confirmationService: ConfirmationService
-    ){}
+  ){}
 
 
-   ngOnInit(): void {
-        this.activatedRoute.data.subscribe(
-          () => {
-            this.loadAll();
-          }
-        );
-
-      }
-
-      ngOnDestroy(): void {
-        if (this.routeData) {
-          this.routeData.unsubscribe();
-          if (this.demandeListSubscription) {
-            this.demandeListSubscription.unsubscribe();
-          }
-        }
-      }
-
-      filtrer(): void {
+  ngOnInit(): void {
+    this.activatedRoute.data.subscribe(
+      () => {
         this.loadAll();
       }
+    );
 
-      resetFilter(): void {
-        this.filtreNumero = undefined;
-        this.filtrer();
+  }
+
+  ngOnDestroy(): void {
+    if (this.routeData) {
+      this.routeData.unsubscribe();
+      if (this.demandeListSubscription) {
+        this.demandeListSubscription.unsubscribe();
       }
+    }
+  }
 
-      loadPage(event:any): void {
-        if(event){
-          this.page = event.first/event.rows + 1;
-          this.recordsPerPage = event.rows;
-        }
-        this.transition();
+  filtrer(): void {
+    this.loadAll();
+  }
+
+  resetFilter(): void {
+    this.filtreNumero = undefined;
+    this.filtrer();
+  }
+
+  loadPage(event:any): void {
+    if(event){
+      this.page = event.first/event.rows + 1;
+      this.recordsPerPage = event.rows;
+    }
+    this.transition();
+  }
+
+  transition(): void {
+    this.router.navigate(['./'], {
+      relativeTo: this.activatedRoute.parent,
+      queryParams: {
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
+      },
+    });
+    this.loadAll();
+  }
+
+  loadAll(): void {
+    const req = this.buildReq();
+    this.demandeService.query(req).subscribe(result => {
+      if (result && result.body) {
+        this.totalRecords = Number(result.headers.get('X-Total-Count'));
+        this.demandes = result.body || [];
+        console.log("====== demandes =======", this.demandes);
       }
+    });
+  }
 
-      transition(): void {
-        this.router.navigate(['./'], {
-          relativeTo: this.activatedRoute.parent,
-          queryParams: {
-            page: this.page,
-            sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
-          },
-        });
-        this.loadAll();
+
+  sortMethod(): string[] {
+    this.predicate = 'id';
+    this.reverse = true;
+    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    return result;
+  }
+
+  buildReq(): any {
+    let req = {
+      page: this.page -1,
+      size: this.recordsPerPage,
+      sort: this.sortMethod(),
+    };
+    let obj : any;
+    if (this.filtreNumero) {
+      obj = {};
+      obj['libelle.contains'] = this.filtreNumero;
+      req = Object.assign({}, req, obj);
+    }
+    return req;
+  }
+
+  /** Permet d'afficher une page pour l'ajout */
+  openModalCreate(): void {
+      this.router.navigate(['detachements','nouveau']);
+  }
+
+  /** Permet d'afficher une page pour la modification */
+  openModalEdit(demande: IDemande): void {
+    this.router.navigate(['detachements','edit', demande.id]);
+
+  }
+
+  /** Permet d'afficher une page pour voir les détails */
+  openModalDetail(demande:IDemande): void {
+    this.router.navigate(['detachements','details', demande.id]);
+  }
+
+
+
+  // Deletion
+  onDelete(demande: IDemande) {
+    this.confirmationService.confirm({
+      message: 'Etes-vous sur de vouloir supprimer cette demande?',
+      accept: () => {
+        this.delete(demande);
       }
+    });
+  }
 
-      loadAll(): void {
-        const req = this.buildReq();
-        this.demandeService.query(req).subscribe(result => {
-          if (result && result.body) {
-            this.totalRecords = Number(result.headers.get('X-Total-Count'));
-            this.demandes = result.body || [];
-            console.log("====== demandes =======", this.demandes);
-          }
-        });
-      }
+  delete(selection: any) {
+    this.isOpInProgress = true;
+    this.demandeService.delete(selection.id).subscribe(() => {
+      this.demandes = this.demandes.filter(demande => demande.id !== selection.id);
+      selection = null;
+      this.isOpInProgress = false;
+      this.totalRecords--;
+      this.showMessage({
+        severity: 'success',
+        summary: 'Demande supprimée avec succès',
+      });
+    }, (error) => {
+      console.error("demande " + JSON.stringify(error));
+      this.isOpInProgress = false;
+      this.showMessage({ severity: 'error', summary: error.error.message });
+    });
+  }
+  // Errors
+  handleError(error: HttpErrorResponse) {
+    console.error(`Processing Error: ${JSON.stringify(error)}`);
+    this.isDialogOpInProgress = false;
+    this.dialogErrorMessage = error.error.title;
+  }
+  // Messages
 
+  clearDialogMessages() {
+    this.dialogErrorMessage = null;
+  }
 
-      sortMethod(): string[] {
-        this.predicate = 'id';
-        this.reverse = true;
-        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-        return result;
-      }
-
-      buildReq(): any {
-        let req = {
-          page: this.page -1,
-          size: this.recordsPerPage,
-          sort: this.sortMethod(),
-        };
-        let obj : any;
-        if (this.filtreNumero) {
-          obj = {};
-          obj['libelle.contains'] = this.filtreNumero;
-          req = Object.assign({}, req, obj);
-        }
-        return req;
-      }
-
-      /** Permet d'afficher un modal pour l'ajout */
-      openModalCreate(): void {
-          this.router.navigate(['detachements','nouveau']);
-      }
-
-      /** Permet d'afficher un modal pour la modification */
-      openModalEdit(demande: IDemande): void {
-        this.dialogService.open(CreerModifierDetachementComponent,
-          {
-            header: 'Modifier un demande',
-            width: '60%',
-            contentStyle: { overflow: 'auto' },
-            baseZIndex: 10000,
-            maximizable: true,
-            closable: true,
-            data: demande
-          }).onClose.subscribe(result => {
-            if(result){
-              this.isDialogOpInProgress = false;
-              this.loadAll();
-              this.showMessage({ severity: 'success', summary: 'Demande modifiée avec succès' });
-            }
-
-          });
-
-      }
-
-      /** Permet d'afficher un modal pour voir les détails */
-      openModalDetail(demande:IDemande): void {
-        this.router.navigate(['detachements','details', demande.id]);
-      }
-
-
-      // Deletion
-      onDelete(demande: IDemande) {
-        this.confirmationService.confirm({
-          message: 'Etes-vous sur de vouloir supprimer cette demande?',
-          accept: () => {
-            this.delete(demande);
-          }
-        });
-      }
-
-      delete(selection: any) {
-        this.isOpInProgress = true;
-        this.demandeService.delete(selection.id).subscribe(() => {
-          this.demandes = this.demandes.filter(demande => demande.id !== selection.id);
-          selection = null;
-          this.isOpInProgress = false;
-          this.totalRecords--;
-          this.showMessage({
-            severity: 'success',
-            summary: 'Demande supprimée avec succès',
-          });
-        }, (error) => {
-          console.error("demande " + JSON.stringify(error));
-          this.isOpInProgress = false;
-          this.showMessage({ severity: 'error', summary: error.error.message });
-        });
-      }
-      // Errors
-      handleError(error: HttpErrorResponse) {
-        console.error(`Processing Error: ${JSON.stringify(error)}`);
+      /** Permet d'afficher un modal pour aviser une demande */
+   openModalValiderProjet(demande: IDemande): void {
+    this.dialogService.open(ValiderProjetComponent,
+    {
+      header: 'Valider un projet (Profil DCMEF) ',
+      width: '40%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      closable: true,
+      data: demande
+    }).onClose.subscribe(result => {
+      if(result){
         this.isDialogOpInProgress = false;
-        this.dialogErrorMessage = error.error.title;
-      }
-      // Messages
-
-      clearDialogMessages() {
-        this.dialogErrorMessage = null;
+        this.showMessage({ severity: 'success', summary: 'Projet validé avec succès' });
       }
 
-      showMessage(message: Message) {
-        this.message = message;
-        this.timeoutHandle = setTimeout(() => {
-          this.message = null;
-        }, 5000);
-      }
+    });
 
+  }
+
+  showMessage(message: Message) {
+    this.message = message;
+    this.timeoutHandle = setTimeout(() => {
+      this.message = null;
+    }, 5000);
+  }
+      
 }

@@ -44,6 +44,7 @@ export class CreerModifierDetachementComponent {
     multiple=true;
     motifs: IMotif[] = [];
     selectedTypeDemandeur?: ITypeDemandeur;
+    idDmd: number | undefined;
     typeDemandeurs: ITypeDemandeur[]=[{
         code:'AGENT',
         libelle: 'AGENT'
@@ -220,6 +221,9 @@ onChangeMatricule() {
 
     ngOnInit(): void {
 
+      this.idDmd = +this.activatedRoute.snapshot.paramMap.get('id')!;
+      this.getDemande();
+      
         // if (this.dynamicDialog.data) {
         //   this.demande = cloneDeep(this.dynamicDialog.data);
         // }
@@ -240,8 +244,6 @@ onChangeMatricule() {
             this.agent.structure.libelle = '';
           }
       
-         
-       
 
 
           this.loadPieces();
@@ -473,5 +475,13 @@ onChangeMatricule() {
 
     onUpload($event: any) {
 
+    }
+
+    getDemande(): void {
+      this.demandeService.find(this.idDmd!).subscribe(result => {
+        if (result && result.body) {
+          this.demande = cloneDeep(result.body);
+        }
+      });
     }
 }

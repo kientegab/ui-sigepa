@@ -53,4 +53,25 @@ export class DemandeService {
   findListe(): Observable<EntityArrayResponseType> {
     return this.http.get<IDemande[]>(demandeUrl+'/list', { observe: 'response' });
   }
+
+  // reception(groupe: IDemande): Observable<EntityResponseType> {
+  //   return this.http.post<IDemande>(demandeUrl+'/receptionner', groupe, { observe: 'response' });
+  // }
+
+  reception(groupe: IDemande): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(`${demandeUrl}/receptionner/${groupe.id}`, groupe.historique, { observe: 'response' });
+  }
+
+  aviserSH(groupe: IDemande): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(`${demandeUrl}/avis-sh/${groupe.id}`, groupe.historique, { observe: 'response' });
+  }
+
+  aviserDRH(groupe: IDemande): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(`${demandeUrl}/avis-drh/${groupe.id}`, groupe.historique, { observe: 'response' });
+  }
+
+  aviserDGFP(groupe: IDemande): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(`${demandeUrl}/avis-dgfp/${groupe.id}`, groupe.historique, { observe: 'response' });
+  }
+
 }
