@@ -14,7 +14,7 @@ export interface IDemande {
     typeDemande?: ITypeDemande;
     numero?: string;
     dateDemande?: Date;
-    // strucDestination?: IStructure;
+    destination?: IStructure;
     statut?: String;
     pieceJointe?: IPieceJointe[];
     agent?: IAgent;
@@ -33,7 +33,7 @@ export class Demande implements IDemande {
         public typeDemande?: ITypeDemande,
         public numero?: string,
         public dateDemande?: Date,
-        // public strucDestination?: IStructure,
+        public destination?: IStructure,
         public statut?: String,
         public pieceJointe?: IPieceJointe[],
         public agent?: IAgent,

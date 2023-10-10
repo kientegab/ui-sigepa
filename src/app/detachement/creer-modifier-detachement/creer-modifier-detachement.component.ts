@@ -73,7 +73,7 @@ export class CreerModifierDetachementComponent {
  
  
     agent: IAgent  = new Agent ();
-    numeroMatricule: string = '';
+    matricule: string = '';
 
     agentInfo: any; // C'est où vous stockerez les informations de l'agent
     isFetchingAgentInfo: boolean = false; // Pour gérer l'état de chargement
@@ -168,12 +168,12 @@ loadPieces() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 onChangeMatricule() {
-    if (this.numeroMatricule) {
+    if (this.matricule) {
       this.isFetchingAgentInfo = true; // Activez l'indicateur de chargement
       console.warn("agent================================================",this.agent)
       console.warn("agent================================================",this.agentInfo)
-      // Faites une requête au service pour obtenir les informations de l'agent en utilisant this.numeroMatricule
-      this.agentService.getAgentInfoByMatricule(this.numeroMatricule)
+      // Faites une requête au service pour obtenir les informations de l'agent en utilisant this.matricule
+      this.agentService.getAgentInfoByMatricule(this.matricule)
         .subscribe(
           (response) => {
             
@@ -510,104 +510,104 @@ onChangeMatricule() {
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//     saveEntity(): void {
+    saveEntity(): void {
 
-//         this.clearDialogMessages();
-//         this.isDialogOpInProgress = true;
-//         if (this.demande) {
-//             this.demande.agent= this.agent;
-//             this.demande.piecesFourniesDTO= this.listePieceFournies;
-// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        this.clearDialogMessages();
+        this.isDialogOpInProgress = true;
+        if (this.demande) {
+            this.demande.agent= this.agent;
+            // this.demande.piecesFourniesDTO= this.listePieceFournies;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//             this.demande.duree = this.duree
-//             console.warn("==============================================",this.demande);
-//             this.demande.motif = this.selectedMotif;
-//             if (this.demande.id) {
-//                 this.demandeService.update(this.demande).subscribe(
-//                     {
-//                         next: (response) => {
-//                             this.dialogRef.close(response);
-//                             this.dialogRef.destroy();
-//                             this.showMessage({ severity: 'success', summary: 'demande modifié avec succès' });
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            this.demande.duree = this.duree
+            console.warn("==============================================",this.demande);
+            this.demande.motif = this.selectedMotif;
+            if (this.demande.id) {
+                this.demandeService.update(this.demande).subscribe(
+                    {
+                        next: (response) => {
+                            this.dialogRef.close(response);
+                            this.dialogRef.destroy();
+                            this.showMessage({ severity: 'success', summary: 'demande modifié avec succès' });
 
-//                             this.isDialogOpInProgress = false;
-//                         },
-//                         error: (error) => {
-//                             console.error("error" + JSON.stringify(error));
-//                             this.isOpInProgress = false;
-//                             this.isDialogOpInProgress = false;
-//                             this.showMessage({ severity: 'error', summary: error.error.message });
+                            this.isDialogOpInProgress = false;
+                        },
+                        error: (error) => {
+                            console.error("error" + JSON.stringify(error));
+                            this.isOpInProgress = false;
+                            this.isDialogOpInProgress = false;
+                            this.showMessage({ severity: 'error', summary: error.error.message });
 
-//                         }
-//                     });
-//             } else {
-//                 this.demandeService.create(this.demande).subscribe({
-//                     next: (response) => {
-//                         this.dialogRef.close(response);
-//                         this.dialogRef.destroy();
-//                         this.router.navigate(['detachements']);
-//                         this.showMessage({
-//                             severity: 'success',
-//                             summary: 'demande creer avec succès',
+                        }
+                    });
+            } else {
+                this.demandeService.create(this.demande).subscribe({
+                    next: (response) => {
+                        this.dialogRef.close(response);
+                        this.dialogRef.destroy();
+                        this.router.navigate(['detachements']);
+                        this.showMessage({
+                            severity: 'success',
+                            summary: 'demande creer avec succès',
                             
-//                         });
-//                         this.isDialogOpInProgress = false;
-//                     },
-//                     error: (error) => {
-//                         console.error("error" + JSON.stringify(error));
-//                         this.isOpInProgress = false;
-//                         this.isDialogOpInProgress = false;
-//                         this.showMessage({ severity: 'error', summary: error.error.message });
+                        });
+                        this.isDialogOpInProgress = false;
+                    },
+                    error: (error) => {
+                        console.error("error" + JSON.stringify(error));
+                        this.isOpInProgress = false;
+                        this.isDialogOpInProgress = false;
+                        this.showMessage({ severity: 'error', summary: error.error.message });
 
-//                     }
-//                 });
-//             }
-//         }
-//     }
+                    }
+                });
+            }
+        }
+    }
 
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
- saveEntity(): void {
-  this.clearDialogMessages();
-  this.isDialogOpInProgress = true;
+//  saveEntity(): void {
+//   this.clearDialogMessages();
+//   this.isDialogOpInProgress = true;
 
-  if (this.demande) {
-    this.demande.agent = this.agent;
-    this.demande.piecesFourniesDTO = this.listePieceFournies;
+//   if (this.demande) {
+//     this.demande.agent = this.agent;
+//     this.demande.piecesFourniesDTO = this.listePieceFournies;
     
-    // Créez un objet FormData pour envoyer les données
-    const formData = new FormData();
+//     // Créez un objet FormData pour envoyer les données
+//     const formData = new FormData();
     
-    // Ajoutez les données de la demande au FormData
-    formData.append('demande', JSON.stringify(this.demande));
+//     // Ajoutez les données de la demande au FormData
+//     formData.append('demande', JSON.stringify(this.demande));
 
-    // Ajoutez chaque pièce fournie au FormData
-    for (const pieceFournie of this.listePieceFournies) {
-      if (pieceFournie.file) { // Vérifiez si file est défini
-        formData.append('files', pieceFournie.file, pieceFournie.libelle);
-      }
-    }
+//     // Ajoutez chaque pièce fournie au FormData
+//     for (const pieceFournie of this.listePieceFournies) {
+//       if (pieceFournie.file) { // Vérifiez si file est défini
+//         formData.append('files', pieceFournie.file, pieceFournie.libelle);
+//       }
+//     }
 
-    // Envoyez la demande au backend avec le bon en-tête Content-Type
-    const headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data' // Vous pouvez ajouter d'autres en-têtes si nécessaire
-    });
+//     // Envoyez la demande au backend avec le bon en-tête Content-Type
+//     const headers = new HttpHeaders({
+//       'Content-Type': 'multipart/form-data' // Vous pouvez ajouter d'autres en-têtes si nécessaire
+//     });
 
-    // Utilisez HttpClient pour envoyer la demande
-    this.http.post('http://localhost:8081/api/demandes/new', formData, { headers }).subscribe({
-      next: (response) => {
-        // Traitement de la réponse
-        this.isDialogOpInProgress = false;
-      },
-      error: (error) => {
-        console.error("error" + JSON.stringify(error));
-        this.isDialogOpInProgress = false;
-        this.showMessage({ severity: 'error', summary: 'Une erreur s\'est produite lors de la demande' });
-      },
-    });
-  }
-}
+//     // Utilisez HttpClient pour envoyer la demande
+//     this.http.post('http://localhost:8081/api/demandes/new', formData, { headers }).subscribe({
+//       next: (response) => {
+//         // Traitement de la réponse
+//         this.isDialogOpInProgress = false;
+//       },
+//       error: (error) => {
+//         console.error("error" + JSON.stringify(error));
+//         this.isDialogOpInProgress = false;
+//         this.showMessage({ severity: 'error', summary: 'Une erreur s\'est produite lors de la demande' });
+//       },
+//     });
+//   }
+// }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
