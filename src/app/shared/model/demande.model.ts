@@ -33,7 +33,7 @@ export class Demande implements IDemande {
         public typeDemande?: ITypeDemande,
         public numero?: string,
         public dateDemande?: Date,
-        public destination?: IStructure,
+        public destination?: IStructure, 
         public statut?: String,
         public pieceJointe?: IPieceJointe[],
         public agent?: IAgent,

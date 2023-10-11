@@ -54,11 +54,8 @@ export class CreerModifierDetachementComponent {
     multiple=true;
     motifs: IMotif[] = [];
     selectedTypeDemandeur?: ITypeDemandeur;
-<<<<<<< HEAD
     idDmd: number | undefined;
-=======
     duree: IDuree = new Duree();
->>>>>>> 3f5aea89dc23fc2556e199e723b7fa94a5e390bf
     typeDemandeurs: ITypeDemandeur[]=[{
         code:'AGENT',
         libelle: 'AGENT'
@@ -268,13 +265,9 @@ onChangeMatricule() {
             this.agent.structure.libelle = '';
           }
       
-<<<<<<< HEAD
-
-=======
          
        
           this.loadStructure();
->>>>>>> 3f5aea89dc23fc2556e199e723b7fa94a5e390bf
 
           this.loadPieces();
           
@@ -641,7 +634,6 @@ onChangeMatricule() {
       console.warn("============================", this.listePieceFournies);
     }
 
-<<<<<<< HEAD
     getDemande(): void {
       this.demandeService.find(this.idDmd!).subscribe(result => {
         if (result && result.body) {
@@ -649,7 +641,6 @@ onChangeMatricule() {
         }
       });
     }
-=======
 
 
 
@@ -672,5 +663,4 @@ onChangeMatricule() {
       
     
     // }
->>>>>>> 3f5aea89dc23fc2556e199e723b7fa94a5e390bf
 }
