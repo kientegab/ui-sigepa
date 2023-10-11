@@ -1,7 +1,9 @@
 import { IAgent } from "./agent.model";
+import { IDuree } from "./duree.model";
 import { IHistorique } from "./historique.model";
 import { IMotif } from "./motif.model";
 import { IPieceJointe } from "./pieceJointe.model";
+import { IPiecesFourniesDTO } from "./piecesFourniesDTO.model";
 import { IStructure } from "./structure.model";
 import { ITypeDemande } from "./typeDemande.model";
 
@@ -12,12 +14,15 @@ export interface IDemande {
     typeDemande?: ITypeDemande;
     numero?: string;
     dateDemande?: Date;
-    strucDestination?: IStructure;
+    destination?: IStructure;
     statut?: String;
     pieceJointe?: IPieceJointe[];
     agent?: IAgent;
     historique?: IHistorique;
-    motif?: IMotif
+    motif?: IMotif,
+    piecesFourniesDTO?: IPiecesFourniesDTO[],
+    duree?: IDuree,
+    structure?: IStructure[]
 }
 
 export class Demande implements IDemande {
@@ -28,12 +33,15 @@ export class Demande implements IDemande {
         public typeDemande?: ITypeDemande,
         public numero?: string,
         public dateDemande?: Date,
-        public strucDestination?: IStructure,
+        public destination?: IStructure,
         public statut?: String,
         public pieceJointe?: IPieceJointe[],
         public agent?: IAgent,
         public historique?: IHistorique,
-        public motif?: IMotif
+        public motif?: IMotif,
+        public piecesFourniesDTO?: IPiecesFourniesDTO[],
+        public duree?: IDuree,
+        public structure?: IStructure[]
 
     ){}
 
