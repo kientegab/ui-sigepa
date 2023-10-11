@@ -1,12 +1,21 @@
+<<<<<<< HEAD
 const commonAppURI: string = 'http://10.53.218.135:8081/api/';
 const commonAuth: string = 'http://10.53.218.135:8081/api/auth/';
+=======
+const commonAppURI: string = 'http://192.168.0.120:8081/api/';
+const commonAuth: string = 'http://localhost:8089/api/auth/';
+>>>>>>> 9286497f89d08e4c0fb285e1502e76c043baa25d
 const domaineUrl: string='localhost:4200'
 
 export const environment = {
   production: false,
   domaine:`${domaineUrl}`,
   recordsPerPage: 20,
+<<<<<<< HEAD
   detachementUrl: 'http://192.168.0.117:8081/api',
+=======
+  detachementUrl: 'http://192.168.0.120:8081/api',
+>>>>>>> 9286497f89d08e4c0fb285e1502e76c043baa25d
   circuitUrl:commonAppURI + 'circuit',
   communeUrl: commonAppURI +'communes',
   pieceUrl: commonAppURI +'pieces',

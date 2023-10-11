@@ -9,11 +9,9 @@ export interface ITypeDemande {
     code?: string;
     libelle?: string;
     plafondAnnee?: number;
-    articleDTOs?: Article[];
-    visaDTOs?: Visa[];
-    motifDTOs?: Motif[];
-    ampliationDTOs?: Ampliation[];
-    categorie?: ECategorie;
+    articles?: Article[];
+    visas?: Visa[];
+    ampliations?: Ampliation[];
 }
 
 export class TypeDemande implements ITypeDemande {
@@ -22,11 +20,9 @@ export class TypeDemande implements ITypeDemande {
         public code?: string,
         public libelle?: string,
         public plafondAnnee?: number,
-        public articleDTOs?: Article[],
-        public motifDTOs?: Motif[],
-        public visaDTOs?: Visa[],
-        public ampliationDTOs?: Ampliation[],
-        public categorie?: ECategorie
+        public articles?: Article[],
+        public visas?: Visa[],
+        public ampliations?: Ampliation[],
     ){}
 }
 export interface GetAllTypeDemandeResponse {

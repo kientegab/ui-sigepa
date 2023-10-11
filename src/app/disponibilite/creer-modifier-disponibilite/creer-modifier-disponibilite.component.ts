@@ -25,7 +25,7 @@ import { TypeDemandeService } from 'src/app/shared/service/type-demande.service'
   styleUrls: ['./creer-modifier-disponibilite.component.scss']
 })
 export class CreerModifierDisponibiliteComponent {
-  
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   agentInfo: any; // C'est où vous stockerez les informations de l'agent
   isFetchingAgentInfo: boolean = false; // Pour gérer l'état de chargement
@@ -67,14 +67,14 @@ motifWithPieces: { motif: string, pieces: IPiece[] }[] = [];
 
 
 onTypeDemandeChange() {
- 
-  if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
-    this.motifs = this.demande.typeDemande.motifDTOs;
-    this.selectedMotif = undefined; 
+
+/*  if (this.demande.typeDemande && this.demande.typeDemande.motifDTOs) {
+ //   this.motifs = this.demande.typeDemande.motifDTOs;
+    this.selectedMotif = undefined;
   } else {
-    this.motifs = []; 
-    this.selectedMotif = undefined; 
-  }
+    this.motifs = [];
+    this.selectedMotif = undefined;
+  }*/
 }
 
 onUpload($event: any) {
@@ -88,9 +88,9 @@ onUpload($event: any) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 onMotifChange() {
-  if (this.selectedMotif) {
+  /*if (this.selectedMotif) {
     if (this.demande.typeDemande) {
-      const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
+   //   const motif = this.demande.typeDemande.motifDTOs?.find((m: IMotif) => m.libelle === this.selectedMotif?.libelle);
 
       if (motif) {
         // this.selectedPieces = motif.piece || [];
@@ -100,7 +100,7 @@ onMotifChange() {
     }
   } else {
     this.selectedPieces = [];
-  }
+  }*/
 }
 
 
@@ -140,29 +140,29 @@ onMotifChange() {
   ) { }
 
   ngOnInit(): void {
-   
+
     if (!this.agent.structure) {
       this.agent.structure = { libelle: '' };
     }
-  
+
     // Assurez-vous que libelle est défini
     if (!this.agent.structure.libelle) {
       this.agent.structure.libelle = '';
     }
 
-    
-    
+
+
     this.loadTypeDemande();
     // this.loadAgent();
    this.loadMotif('');
-  
+
   }
 
   // typeDemandeur: SelectItem[] = [
   //   { label: 'Agent', value: TypeDemandeur.AGENT },
   //   { label: 'Structure', value: TypeDemandeur.STRUCTURE },
   // ];
-  
+
   displayCalendar = false;
 
   openCalendar() {
@@ -184,10 +184,10 @@ onMotifChange() {
   loadMotif(typeDemande: string) {
     this.motifService.findAll().subscribe(response => {
       this.motifs = response.body!;
-      
+
       this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
         motif: motif.libelle!,
-        pieces: [] 
+        pieces: []
       }));
     }, error => {
       this.message = { severity: 'error', summary: error.error };
@@ -198,17 +198,17 @@ onMotifChange() {
   loadStructure() {
     this.structureService.findAll().subscribe(response => {
       this.motifs = response.body!;
-      
+
       this.motifWithPieces = this.motifs.map((motif: IMotif) => ({
         motif: motif.libelle!,
-        pieces: [] 
+        pieces: []
       }));
     }, error => {
       this.message = { severity: 'error', summary: error.error };
       console.error(JSON.stringify(error));
     });
   }
-  
+
   // loadAgent() {
   //   this.agentService.findAll().subscribe(
   //     (agents: IAgent[]) => {
@@ -227,8 +227,8 @@ onMotifChange() {
   //     }
   //   );
   // }
-  
-  
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 onChangeMatricule() {
@@ -240,10 +240,10 @@ onChangeMatricule() {
     this.agentService.getAgentInfoByMatricule(this.numeroMatricule)
       .subscribe(
         (response) => {
-          
+
         console.warn("agent================================================",this.agent)
         console.warn("agent================================================",this.agentInfo)
-          
+
           // Vérifiez que la réponse est réussie
           if (response && response.body) {
             this.agent = response.body;
@@ -253,7 +253,7 @@ onChangeMatricule() {
           } else {
             console.error("Erreur lors de la récupération des informations de l'agent", response);
             this.isFetchingAgentInfo = false; // Désactivez l'indicateur de chargement en cas d'erreur
-            
+
           }
         },
         (error: any) => {
@@ -269,7 +269,7 @@ onChangeMatricule() {
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
+
   clear(): void {
     // this.form.resetForm();
     this.dialogRef.close();
@@ -306,7 +306,7 @@ onChangeMatricule() {
               this.dialogRef.close(response);
               this.dialogRef.destroy();
               this.showMessage({ severity: 'success', summary: 'demande modifié avec succès' });
-             
+
             },
             error: (error) => {
               console.error("error" + JSON.stringify(error));
