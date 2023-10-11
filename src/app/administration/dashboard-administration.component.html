@@ -1,4 +1,6 @@
 
+<div *ngIf="message" class="alert alert-success" role="alert">{{ message }}</div>
+<div *ngIf="errorMsg" class="alert alert-danger" role="alert">{{ errorMsg }}</div>
     <div class="card">
         <h5>Statistique des demandes</h5>
         <p-chart type="bar" [data]="stackedData" [options]="stackedOptions"></p-chart>

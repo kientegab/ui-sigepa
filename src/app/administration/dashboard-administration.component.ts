@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IDemande } from '../shared/model/demande.model';
 import { DemandeService } from '../shared/service/demande-service.service';
+import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {UploadFileService} from "../shared/service/upload.service";
 
 
 @Component({
@@ -14,8 +16,17 @@ export class DashboardAdministrationComponent implements OnInit {
 
     stackedOptions: any;
 
+
+    selectedFiles?: FileList;
+    currentFile?: File;
+    message = '';
+    errorMsg = '';
+
     demandes: IDemande[]=[];
-  constructor( private demandeService: DemandeService) {
+    
+
+  constructor(private uploadService: UploadFileService,
+   private demandeService: DemandeService) {
 
   }
 
@@ -110,3 +121,5 @@ export class DashboardAdministrationComponent implements OnInit {
 }
 
 }
+
+

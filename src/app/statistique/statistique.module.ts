@@ -7,9 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessagesModule } from 'primeng/messages';
 import { ButtonModule } from 'primeng/button';
 import { AdministrationModule } from '../administration/administration.module';
+import { DemandeComponent } from './demande/demande.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    DemandeComponent
+  ],
   imports: [
     CommonModule,
     StatistiqueRoutingModule,
@@ -19,6 +23,7 @@ import { AdministrationModule } from '../administration/administration.module';
     MessagesModule,
     AdministrationModule,
     ButtonModule,
+    TableModule
   ]
 })
 export class StatistiqueModule { }
