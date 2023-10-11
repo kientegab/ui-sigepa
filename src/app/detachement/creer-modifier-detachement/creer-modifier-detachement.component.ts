@@ -8,7 +8,7 @@ import {TypeDemandeService} from "../../shared/service/type-demande.service";
 import {ConfirmationService, Message, SelectItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import { IMotif, Motif, TypeDemandeur} from 'src/app/shared/model/motif.model';
+import { IMotif, Motif} from 'src/app/shared/model/motif.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
 import { StructureService } from 'src/app/shared/service/structure.service';
