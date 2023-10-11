@@ -7,7 +7,7 @@ import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {TypeDemandeService} from "../../shared/service/type-demande.service";
 import {ConfirmationService, Message, SelectItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import { IMotif, Motif, TypeDemandeur} from 'src/app/shared/model/motif.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
@@ -54,6 +54,7 @@ export class CreerModifierDetachementComponent {
     multiple=true;
     motifs: IMotif[] = [];
     selectedTypeDemandeur?: ITypeDemandeur;
+    idDmd: number | undefined;
     duree: IDuree = new Duree();
     typeDemandeurs: ITypeDemandeur[]=[{
         code:'AGENT',
@@ -73,7 +74,7 @@ export class CreerModifierDetachementComponent {
  
  
     agent: IAgent  = new Agent ();
-    numeroMatricule: string = '';
+    matricule: string = '';
 
     agentInfo: any; // C'est où vous stockerez les informations de l'agent
     isFetchingAgentInfo: boolean = false; // Pour gérer l'état de chargement
@@ -168,12 +169,12 @@ loadPieces() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 onChangeMatricule() {
-    if (this.numeroMatricule) {
+    if (this.matricule) {
       this.isFetchingAgentInfo = true; // Activez l'indicateur de chargement
       console.warn("agent================================================",this.agent)
       console.warn("agent================================================",this.agentInfo)
-      // Faites une requête au service pour obtenir les informations de l'agent en utilisant this.numeroMatricule
-      this.agentService.getAgentInfoByMatricule(this.numeroMatricule)
+      // Faites une requête au service pour obtenir les informations de l'agent en utilisant this.matricule
+      this.agentService.getAgentInfoByMatricule(this.matricule)
         .subscribe(
           (response) => {
             
@@ -232,6 +233,9 @@ onChangeMatricule() {
 
     ngOnInit(): void {
 
+      this.idDmd = +this.activatedRoute.snapshot.paramMap.get('id')!;
+      this.getDemande();
+      
         // if (this.dynamicDialog.data) {
         //   this.demande = cloneDeep(this.dynamicDialog.data);
         // }
@@ -474,48 +478,38 @@ onChangeMatricule() {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-save(): void {
-  this.clearDialogMessages();
-  this.isDialogOpInProgress = true;
+// save(): void {
+//   this.clearDialogMessages();
+//   this.isDialogOpInProgress = true;
 
-  if (this.demande) {
-    this.demande.agent = this.agent;
-    this.demande.piecesFourniesDTO = this.listePieceFournies;
+//   if (this.demande) {
+//     this.demande.agent = this.agent;
+//     this.demande.piecesFourniesDTO = this.listePieceFournies;
+//     // Créez un objet FormData pour envoyer les données
+//     const formData = new FormData();
+//     // Ajoutez les données de la demande au FormData
+//     formData.append('demande', JSON.stringify(this.demande));
 
-    // Créez un objet FormData pour envoyer les données
-    const formData = new FormData();
+//     // Ajoutez chaque pièce fournie au FormData
+//     for (const pieceFournie of this.listePieceFournies) {
+//       if (pieceFournie.file) { // Vérifiez si file est défini
+//         formData.append('files', pieceFournie.file, pieceFournie.libelle);
+//       }
+//     }
+//     // Envoyez la demande au backend avec le bon en-tête Content-Type
+//     this.http.post('http://localhost:8081/api/demandes/new', formData, {
+//       headers: { 'Content-Type': 'multipart/form-data' }
+//     }).subscribe({
+//       next: (response) => {
+//         // Traitement de la réponse
+//       },
+//       error: (error) => {
+//         console.error("error" + JSON.stringify(error));
+//       },
+//     });
+//   }
+// }
 
-    // Ajoutez les données de la demande au FormData (remplacez 'this.demande' par votre propre objet de demande)
-    formData.append('demande', JSON.stringify(this.demande));
-
-    // Ajoutez chaque pièce fournie au FormData
-    for (const pieceFournie of this.listePieceFournies) {
-      if (pieceFournie.file) {
-        formData.append('files', pieceFournie.file, pieceFournie.libelle);
-      }
-    }
-
-    // Appelez le service pour envoyer les données au backend
-    this.demandeService.create(formData).subscribe({
-      next: (response) => {
-        this.dialogRef.close(response);
-        this.dialogRef.destroy();
-        this.router.navigate(['detachements']);
-        this.showMessage({
-          severity: 'success',
-          summary: 'demande créée avec succès',
-        });
-        this.isDialogOpInProgress = false;
-      },
-      error: (error) => {
-        console.error("error" + JSON.stringify(error));
-        this.isOpInProgress = false;
-        this.isDialogOpInProgress = false;
-        this.showMessage({ severity: 'error', summary: error.error.message });
-      },
-    });
-  }
-}
 
 
 
@@ -526,7 +520,7 @@ save(): void {
         this.isDialogOpInProgress = true;
         if (this.demande) {
             this.demande.agent= this.agent;
-            this.demande.piecesFourniesDTO= this.listePieceFournies;
+            // this.demande.piecesFourniesDTO= this.listePieceFournies;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -576,7 +570,51 @@ save(): void {
         }
     }
 
- 
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//  saveEntity(): void {
+//   this.clearDialogMessages();
+//   this.isDialogOpInProgress = true;
+
+//   if (this.demande) {
+//     this.demande.agent = this.agent;
+//     this.demande.piecesFourniesDTO = this.listePieceFournies;
+    
+//     // Créez un objet FormData pour envoyer les données
+//     const formData = new FormData();
+    
+//     // Ajoutez les données de la demande au FormData
+//     formData.append('demande', JSON.stringify(this.demande));
+
+//     // Ajoutez chaque pièce fournie au FormData
+//     for (const pieceFournie of this.listePieceFournies) {
+//       if (pieceFournie.file) { // Vérifiez si file est défini
+//         formData.append('files', pieceFournie.file, pieceFournie.libelle);
+//       }
+//     }
+
+//     // Envoyez la demande au backend avec le bon en-tête Content-Type
+//     const headers = new HttpHeaders({
+//       'Content-Type': 'multipart/form-data' // Vous pouvez ajouter d'autres en-têtes si nécessaire
+//     });
+
+//     // Utilisez HttpClient pour envoyer la demande
+//     this.http.post('http://localhost:8081/api/demandes/new', formData, { headers }).subscribe({
+//       next: (response) => {
+//         // Traitement de la réponse
+//         this.isDialogOpInProgress = false;
+//       },
+//       error: (error) => {
+//         console.error("error" + JSON.stringify(error));
+//         this.isDialogOpInProgress = false;
+//         this.showMessage({ severity: 'error', summary: 'Une erreur s\'est produite lors de la demande' });
+//       },
+//     });
+//   }
+// }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
    
@@ -596,6 +634,13 @@ save(): void {
       console.warn("============================", this.listePieceFournies);
     }
 
+    getDemande(): void {
+      this.demandeService.find(this.idDmd!).subscribe(result => {
+        if (result && result.body) {
+          this.demande = cloneDeep(result.body);
+        }
+      });
+    }
 
 
 

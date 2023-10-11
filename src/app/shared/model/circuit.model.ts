@@ -1,11 +1,11 @@
 
 export class ICircuit{
     id?: number;
-    libelle ?: string;
+    position ?: string;
     statut ?: boolean;
-    delais ?: string;
-    suivants ?: ICircuit;
-    precedents ?: ICircuit  
+    delai ?: string;
+    parent ?: ICircuit;
+   
 
 }
 
@@ -14,9 +14,9 @@ export class Circuit implements ICircuit{
         public id?: number, 
         public libelle ?: string,
         public statut ?: boolean,
-        public delais ?: string,
-        public suivants ?: ICircuit,
-        public precedents ?: ICircuit
+        public delai ?: string,
+        public parent ?: ICircuit,
+       
         ){}
 }
 export interface GetAllCircuitResponse {

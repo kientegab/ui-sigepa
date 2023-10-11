@@ -1,10 +1,10 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { IDemande } from '../model/demande.model';
 import { Observable } from 'rxjs';
 import { createRequestOption } from '../util/request-util';
 import { LazyLoadEvent } from 'primeng/api';
+import { environment } from 'src/environments/environment';
 
 type EntityResponseType = HttpResponse<IDemande>;
 type EntityArrayResponseType = HttpResponse<IDemande[]>;
@@ -57,4 +57,25 @@ export class DemandeService {
   findListe(): Observable<EntityArrayResponseType> {
     return this.http.get<IDemande[]>(demandeUrl+'/list', { observe: 'response' });
   }
+
+  // reception(groupe: IDemande): Observable<EntityResponseType> {
+  //   return this.http.post<IDemande>(demandeUrl+'/receptionner', groupe, { observe: 'response' });
+  // }
+
+  reception(groupe: IDemande): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(`${demandeUrl}/receptionner/${groupe.id}`, groupe.historique, { observe: 'response' });
+  }
+
+  aviserSH(groupe: IDemande): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(`${demandeUrl}/avis-sh/${groupe.id}`, groupe.historique, { observe: 'response' });
+  }
+
+  aviserDRH(groupe: IDemande): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(`${demandeUrl}/avis-drh/${groupe.id}`, groupe.historique, { observe: 'response' });
+  }
+
+  aviserDGFP(groupe: IDemande): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(`${demandeUrl}/avis-dgfp/${groupe.id}`, groupe.historique, { observe: 'response' });
+  }
+
 }

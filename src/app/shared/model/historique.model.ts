@@ -1,11 +1,9 @@
 import { Circuit } from "./circuit.model";
-import { Structure } from "./structure.model";
-
 export interface IHistorique {
     id?: number;
     date?: Date;
     commentaire?: string;
-    avis?: avis;
+    avis?: string;
     circuit?: Circuit;
     
 }
@@ -15,7 +13,7 @@ export class Historique implements IHistorique {
         public id?: number,
         public date?: Date,
         public commentaire?: string,
-        public avis?: avis,
+        public avis?: string,
         public circuit?: Circuit,
        
     ) {
@@ -24,12 +22,17 @@ export class Historique implements IHistorique {
 
 }
 
-export enum avis {
-    avis1 = 'Avis favorable',
-    avis2 = 'Avis defavorable'
-}
+// export enum avis {
+//     avis1 = 'Avis favorable',
+//     avis2 = 'Avis defavorable'
+// }
+
+export const AVIS = [
+    { code: 'FAVORABLE', lib: 'FAVORABLE' },
+    { code: 'DEFAVORABLE', lib: 'DEFAVORABLE' },
+];
   
-export enum receptions {
-    reception1 = 'Conforme',
-    reception2 = 'Non conforme'
-}
+export const RECEPTIONS = [
+    { code: 'CONFORME', lib: 'CONFORME' },
+    { code: 'NON_CONFORME', lib: 'NON CONFORME' },
+];

@@ -53,9 +53,9 @@
 
 
             <div class="form-group col-md-4">
-                <label for="numeroMatricule">Numéro Matricule</label>
-                <input type="text" pInputText [(ngModel)]="numeroMatricule" class="form-control" name="numeroMatricule"
-                    id="numeroMatricule" (ngModelChange)="onChangeMatricule()">
+                <label for="matricule">Numéro Matricule</label>
+                <input type="text" pInputText [(ngModel)]="matricule" class="form-control" name="matricule"
+                    id="matricule" (ngModelChange)="onChangeMatricule()">
             </div>
 
 
@@ -148,7 +148,7 @@
             <div class="field col-6 md:col-6">
                 <label for="structDestination">Structure de destination :</label>
                 <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{ 'width': '100%' }" [options]="structures"
-                    [(ngModel)]="demande.structure" optionLabel="libelle" inputId="structDestination"
+                    [(ngModel)]="demande.destination" optionLabel="libelle" inputId="structDestination"
                     name="structDestination" placeholder="Sélectionner la structure de destination..." [filter]="true"
                     appendTo="body" [showClear]="true"></p-dropdown>
 

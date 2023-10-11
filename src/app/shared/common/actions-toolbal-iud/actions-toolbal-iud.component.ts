@@ -9,12 +9,14 @@ export class ActionsToolbalIudComponent implements OnInit {
   @Input() enableBtnInfo!: boolean;
   @Input() enableBtnEdit!: boolean;
   @Input() enableBtnDelete!: boolean;
+  @Input() enableBtnValider!: boolean;
   @Input() enableBtnPrivilege?: boolean=false ;
   @Input() enableBtnClose: boolean=false;
   @Input() enableBtnEmail: boolean=false;
   @Input() enableBtnTreat: boolean=false;
   @Input() enableBtnEval: boolean=false;
   @Input() enableBtnChanger: boolean=false;
+
 
   @Output() info: EventEmitter<any> = new EventEmitter();
   @Output() edit: EventEmitter<any> = new EventEmitter();
@@ -25,6 +27,7 @@ export class ActionsToolbalIudComponent implements OnInit {
   @Output() treat: EventEmitter<any> = new EventEmitter();
   @Output() evaluer: EventEmitter<any> = new EventEmitter();
   @Output() changer: EventEmitter<any> = new EventEmitter();
+  @Output() valider: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -61,5 +64,8 @@ export class ActionsToolbalIudComponent implements OnInit {
   fireChanger(){
   this.changer.emit();
   }
+  fireValider(){
+    this.valider.emit();
+    }
 
 }
