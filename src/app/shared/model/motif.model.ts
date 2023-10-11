@@ -1,12 +1,14 @@
 import { IPiece } from "./piece.model";
+import {Duree} from "./duree.model";
+import {ITypeDemandeur} from "./typeDemandeur.model";
 
 export interface IMotif {
     id?: number,
     libelle?: string;
     plafondAnnee?: number;
-    duree?:number;
+    dureeMax?:Duree;
     typeDemandeur?:string;
-    typeDemandeurDto?: TypeDemandeur
+    typeDemandeurDto?: ITypeDemandeur
 
 }
 
@@ -15,9 +17,9 @@ export class Motif implements IMotif {
         public id?: number,
         public libelle?: string,
         public plafondAnnee?: number,
-        public duree?: number,
+        public dureeMax?: Duree,
         public typeDemandeur?: string,
-        public typeDemandeurDto?: TypeDemandeur
+        public typeDemandeurDto?: ITypeDemandeur
     ) { }
 
 
