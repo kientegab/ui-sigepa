@@ -107,7 +107,7 @@ export class CircuitComponent {
 
       loadAll(): void {
         const req = this.buildReq();
-        this.circuitService.query(req).subscribe(result => {
+        this.circuitService.findAll().subscribe(result => {
           if (result && result.body) {
             this.totalRecords = Number(result.headers.get('X-Total-Count'));
             this.circuits = result.body || [];
@@ -142,7 +142,7 @@ export class CircuitComponent {
     openModalCreate(): void {
       this.dialogService.open(CreerModifierCircuitComponent,
         {
-          header: 'Ajouter une circuit',
+          header: 'Ajouter un circuit',
           width: '60%',
           contentStyle: { overflow: 'auto', },
           baseZIndex: 10000,
@@ -153,7 +153,7 @@ export class CircuitComponent {
         if(result) {
         this.circuits.push(result);
         this.isDialogOpInProgress = false;
-        this.showMessage({ severity: 'success', summary: 'Commune créée avec succès' });
+        this.showMessage({ severity: 'success', summary: 'Circuit créée avec succès' });
         }
       });
     }
@@ -173,7 +173,7 @@ export class CircuitComponent {
           if(result){
             this.isDialogOpInProgress = false;
             this.loadAll();
-            this.showMessage({ severity: 'success', summary: 'Commune modifiée avec succès' });
+            this.showMessage({ severity: 'success', summary: 'Circuit modifiée avec succès' });
           }
          
         });
@@ -213,7 +213,7 @@ export class CircuitComponent {
         this.totalRecords--;
         this.showMessage({
           severity: 'success',
-          summary: 'Commune supprimée avec succès',
+          summary: 'Circuit supprimée avec succès',
         });
       }, (error) => {
         console.error("circuit " + JSON.stringify(error));
