@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {UploadFileService} from "../shared/service/upload.service";
 
 
 @Component({
@@ -12,7 +14,13 @@ export class DashboardAdministrationComponent implements OnInit {
 
     stackedOptions: any;
 
-  constructor() {
+
+    selectedFiles?: FileList;
+    currentFile?: File;
+    message = '';
+    errorMsg = '';
+
+  constructor(private uploadService: UploadFileService) {
 
   }
 
@@ -94,4 +102,64 @@ export class DashboardAdministrationComponent implements OnInit {
 
   }
 
+    selectFile(event: any): void {
+        this.selectedFiles = event.target.files;
+    }
+
+    /*upload(): void {
+        this.errorMsg = '';
+
+        if (this.selectedFiles) {
+            const file: File | null = this.selectedFiles.item(0);
+
+            if (file) {
+                this.currentFile = file;
+
+                this.uploadService.upload(this.currentFile).subscribe(
+                    (event: any) => {
+                        console.warn("rep",event);
+                        if (event.type === HttpEventType.UploadProgress) {
+                            console.log(Math.round(100 * event.loaded / event.total));
+
+                        } else if (event instanceof HttpResponse) {
+                            this.message = event.body.responseMessage;
+                        }
+                    },
+                    (err: any) => {
+                        console.log(err);
+
+                        if (err.error && err.error.responseMessage) {
+                            this.errorMsg = err.error.responseMessage;
+                        } else {
+                            this.errorMsg = 'Error occurred while uploading a file!';
+                        }
+
+                        this.currentFile = undefined;
+                    });
+            }
+
+            this.selectedFiles = undefined;
+        }
+    }*/
+
+    upload()
+    {
+        if (this.selectedFiles) {
+            const file: File | null = this.selectedFiles.item(0);
+
+            if (file) {this.currentFile = file;
+        this.uploadService.create(this.currentFile).subscribe({
+            next: (response) => {
+               console.warn("RESP",response.body)
+
+            },
+            error: (error) => {
+                console.error("error" + JSON.stringify(error));
+
+            }
+        });
+    }
 }
+}
+}
+

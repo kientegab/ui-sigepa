@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash';
 import { ConfirmationService, SelectItem } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
 import { IDemande, Demande } from 'src/app/shared/model/demande.model';
-import { Historique, IHistorique, avis, receptions } from 'src/app/shared/model/historique.model';
+import { Historique, IHistorique, AVIS } from 'src/app/shared/model/historique.model';
 
 @Component({
   selector: 'app-aviser-disponibilite',
@@ -27,6 +27,7 @@ export class AviserDisponibiliteComponent {
   typeDemandes: any;
   message: { severity: string; summary: any; } | undefined;
   historique:IHistorique = new Historique();
+  avis = AVIS;
   
  
 
@@ -35,28 +36,24 @@ export class AviserDisponibiliteComponent {
     private dynamicDialog:  DynamicDialogConfig,
     private dialogService: DialogService,
     private confirmationService: ConfirmationService
-) {}
+  ) {}
 
   ngOnInit(): void {
     if (this.dynamicDialog.data) {
       this.demande = cloneDeep(this.dynamicDialog.data);
     }
-    }
+  }
     
 
-    clear(): void {
+  clear(): void {
       this.dialogRef.close();
       this.dialogRef.destroy();
   }
-  avis: SelectItem[] = [
-    { label: 'Avis favorable ', value: avis.avis1 },
-    { label: 'Avis defavorable', value: avis.avis2 },
-  ];
+  // avis: SelectItem[] = [
+  //   { label: 'Avis favorable ', value: avis.avis1 },
+  //   { label: 'Avis defavorable', value: avis.avis2 },
+  // ];
  
-  receptions: SelectItem[] = [
-    { label: 'Conforme ', value:  receptions.reception1},
-    { label: 'Non conforme', value: receptions.reception2 },
-  ];
 
   // Errors
   handleError(error: HttpErrorResponse) {

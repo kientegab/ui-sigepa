@@ -16,11 +16,11 @@ export interface IDemande {
     dateDemande?: Date;
     destination?: IStructure;
     statut?: String;
-    pieceJointe?: IPieceJointe[];
+    pieceJointes?: IPieceJointe[];
     agent?: IAgent;
     historique?: IHistorique;
     motif?: IMotif,
-    piecesFourniesDTO?: IPiecesFourniesDTO[],
+    // piecesFourniesDTO?: IPiecesFourniesDTO[],
     duree?: IDuree,
     structure?: IStructure[]
 }
@@ -33,13 +33,13 @@ export class Demande implements IDemande {
         public typeDemande?: ITypeDemande,
         public numero?: string,
         public dateDemande?: Date,
-        public destination?: IStructure,
+        public destination?: IStructure, 
         public statut?: String,
-        public pieceJointe?: IPieceJointe[],
+        public pieceJointes?: IPieceJointe[],
         public agent?: IAgent,
         public historique?: IHistorique,
         public motif?: IMotif,
-        public piecesFourniesDTO?: IPiecesFourniesDTO[],
+        // public piecesFourniesDTO?: IPiecesFourniesDTO[],
         public duree?: IDuree,
         public structure?: IStructure[]
 

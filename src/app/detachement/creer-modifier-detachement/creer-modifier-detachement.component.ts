@@ -19,6 +19,8 @@ import { PieceService } from 'src/app/shared/service/piece.service';
 import { IPiecesFourniesDTO, PiecesFourniesDTO } from 'src/app/shared/model/piecesFourniesDTO.model';
 import { IStructure } from 'src/app/shared/model/structure.model';
 import { Duree, IDuree } from 'src/app/shared/model/duree.model';
+import { UploadFileService } from 'src/app/shared/service/upload.service';
+import { IPieceJointe } from 'src/app/shared/model/pieceJointe.model';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -43,6 +45,7 @@ export class CreerModifierDetachementComponent {
     typeDemandes: ITypeDemande[]=[];
     pieces: IPiece[] = [];
     file: Blob | string = '';
+    piecesJointes: IPieceJointe [] = [];
     fichier: Blob | string = '';
     listePieceFournies:  IPiecesFourniesDTO[] = [];
     structures: IStructure [] = [];
@@ -54,6 +57,7 @@ export class CreerModifierDetachementComponent {
     multiple=true;
     motifs: IMotif[] = [];
     selectedTypeDemandeur?: ITypeDemandeur;
+    idDmd: number | undefined;
     duree: IDuree = new Duree();
     typeDemandeurs: ITypeDemandeur[]=[{
         code:'AGENT',
@@ -221,6 +225,7 @@ onChangeMatricule() {
         private typeDemandeService: TypeDemandeService,
         private motifService: MotifService,
         // private dynamicDialog: DynamicDialogConfig,
+        private uploadService: UploadFileService,
         private confirmationService: ConfirmationService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -232,6 +237,9 @@ onChangeMatricule() {
 
     ngOnInit(): void {
 
+      this.idDmd = +this.activatedRoute.snapshot.paramMap.get('id')!;
+      this.getDemande();
+      
         // if (this.dynamicDialog.data) {
         //   this.demande = cloneDeep(this.dynamicDialog.data);
         // }
@@ -520,8 +528,10 @@ onChangeMatricule() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            this.demande.duree = this.duree
-            console.warn("==============================================",this.demande);
+            this.demande.duree = this.duree;
+
+            this.demande.pieceJointes = this.piecesJointes;
+            console.warn("=================TEST=============================",this.demande.pieceJointes);
             this.demande.motif = this.selectedMotif;
             if (this.demande.id) {
                 this.demandeService.update(this.demande).subscribe(
@@ -616,20 +626,76 @@ onChangeMatricule() {
    
     onUpload(event: UploadEvent, piece: Piece) {
       console.warn("============================");
+
       for (let file of event.files) {
-        const piecesFourniesDTO = new PiecesFourniesDTO();
-        piecesFourniesDTO.libelle = piece.libelle;
+        // const piecesFourniesDTO = new PiecesFourniesDTO();
+        // piecesFourniesDTO.libelle = piece.libelle;
   
         // Vérifiez si file est défini avant d'affecter à piecesFourniesDTO.file
         if (file) {
-          piecesFourniesDTO.file = file;
-          this.listePieceFournies.push(piecesFourniesDTO);
-          this.uploadedFiles.push(file);
+          // piecesFourniesDTO.file = file;
+          // this.listePieceFournies.push(piecesFourniesDTO);
+          // this.uploadedFiles.push(file);
+
+         
+          this.uploadService.create(file).subscribe({
+              next: (response) => {
+                 console.warn("RESP",response.body)
+
+                 response.body!.libelle = piece.libelle
+
+                 
+
+
+                 this.piecesJointes.push(response.body!)
+
+                 console.warn("liste",this.piecesJointes)
+  
+              },
+              error: (error) => {
+                  console.error("error" + JSON.stringify(error));
+
+                  this.showMessage({ severity: 'error', summary: error.error.message });
+  
+              }
+          });
         }
       }
       console.warn("============================", this.listePieceFournies);
     }
 
+
+//     upload()
+//     {
+//         if (this.selectedFiles) {
+//             const file: File | null = this.selectedFiles.item(0);
+
+//             if (file) {
+//           this.currentFile = file;
+//         this.uploadService.create(this.currentFile).subscribe({
+//             next: (response) => {
+//                console.warn("RESP",response.body)
+
+//             },
+//             error: (error) => {
+//                 console.error("error" + JSON.stringify(error));
+
+//             }
+//         });
+//     }
+// }
+// }
+
+
+
+
+    getDemande(): void {
+      this.demandeService.find(this.idDmd!).subscribe(result => {
+        if (result && result.body) {
+          this.demande = cloneDeep(result.body);
+        }
+      });
+    }
 
 
 

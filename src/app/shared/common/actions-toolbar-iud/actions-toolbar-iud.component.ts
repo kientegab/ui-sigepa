@@ -12,6 +12,7 @@ export class ActionsToolbarIudComponent implements OnInit {
   @Input() enableBtnEdit!: boolean;
   @Input() enableBtnDelete!: boolean;
   @Input() enableBtnDownload!: boolean;
+  @Input() enableBtnValider!: boolean;
   @Input() enableBtnPrivilege?: boolean=false ;
   @Input() enableBtnClose: boolean=false;
   @Input() enableBtnEmail: boolean=false;
@@ -33,6 +34,7 @@ export class ActionsToolbarIudComponent implements OnInit {
   @Output() editProfil: EventEmitter<any> = new EventEmitter();
   @Output() download: EventEmitter<any> = new EventEmitter();
   @Output() validation: EventEmitter<any> = new EventEmitter();
+  @Output() valider: EventEmitter<any> = new EventEmitter();
 
   // items: MenuItem[] = [];
   
@@ -101,5 +103,8 @@ export class ActionsToolbarIudComponent implements OnInit {
   }
   fireValidation() {
     this.validation.emit();
+  }
+  fireValider() {
+    this.valider.emit();
   }
 }
