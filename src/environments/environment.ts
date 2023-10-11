@@ -6,7 +6,11 @@ export const environment = {
   production: false,
   domaine:`${domaineUrl}`,
   recordsPerPage: 20,
+<<<<<<<<< Temporary merge branch 1
   detachementUrl: 'http://localhost:8081/api',
+=========
+  detachementUrl: 'http://192.168.0.120:8081/api',
+>>>>>>>>> Temporary merge branch 2
   circuitUrl:commonAppURI + 'circuit',
   communeUrl: commonAppURI +'communes',
   pieceUrl: commonAppURI +'pieces',

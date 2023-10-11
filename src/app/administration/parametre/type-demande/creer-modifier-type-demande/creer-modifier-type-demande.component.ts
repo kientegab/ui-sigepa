@@ -128,11 +128,12 @@ export class CreerModifierTypeDemandeComponent {
         });
     }
     saveEntity(): void {
+        console.warn("typeDemande",this.typeDemande)
         this.clearDialogMessages();
         this.isDialogOpInProgress = true;
-        this.typeDemande.ampliationDTOs = this.ampliationsSelected;
-        this.typeDemande.visaDTOs = this.visasSelected;
-        this.typeDemande.articleDTOs = this.articlesSelected;
+        this.typeDemande.ampliations = this.ampliationsSelected;
+        this.typeDemande.visas = this.visasSelected;
+        this.typeDemande.articles = this.articlesSelected;
         if (this.typeDemande) {
             if (this.typeDemande.id) {
                 this.typeStructureService.update(this.typeDemande).subscribe(
