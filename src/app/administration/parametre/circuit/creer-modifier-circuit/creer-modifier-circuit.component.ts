@@ -40,6 +40,8 @@ export class CreerModifierCircuitComponent {
     }
   }
 
+  
+
   loadCircuit(event?: LazyLoadEvent) {
     this.circuitService.findAll().subscribe(response => {
       this.circuits = response.body!;
@@ -49,6 +51,7 @@ export class CreerModifierCircuitComponent {
       console.error(JSON.stringify(error));
     });
   }
+  
   clear(): void {
     this.form.resetForm();
     this.dialogRef.close();

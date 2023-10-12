@@ -6,7 +6,13 @@
   <hr>
   <div class="row">
     <div class="col-md-12 details-item">
-      <span class="va-m"><span class="font-bold">Libelle:</span> {{circuit.position}}</span>
+      <span class="va-m"><span class="font-bold">Parent:</span> {{circuit.parent? circuit.parent.position : '-'}}</span>
+    </div>
+    <div class="col-md-12 details-item">
+      <span class="va-m"><span class="font-bold">Position:</span> {{circuit.position}}</span>
+    </div>
+    <div class="col-md-12 details-item">
+      <span class="va-m"><span class="font-bold">Délais:</span> {{circuit.delai}}</span>
     </div>
     <div class="col-md-12 details-item">
       <span class="va-m"><span class="font-bold">Statut:</span> {{circuit.statut}}</span>
