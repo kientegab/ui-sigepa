@@ -201,7 +201,7 @@
                                 <tr>
                                     <td>{{ piece.libelle }}</td>
                                     <td>
-                                        <p-fileUpload name="demo{{i}}" (onSelect)="onUpload($event,piece)"
+                                        <p-fileUpload name="demo{{i}}" (onSelect)="onUpload($event,piece,i)"
                                             [multiple]="false" accept=".pdf" [maxFileSize]="10000000">
                                             <!-- <ng-template pTemplate="content">
                                                 <ul *ngIf="uploadedFiles.length">
