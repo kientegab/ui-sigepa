@@ -243,7 +243,7 @@ onChangeMatricule() {
         // if (this.dynamicDialog.data) {
         //   this.demande = cloneDeep(this.dynamicDialog.data);
         // }
-
+        this.openCalendar();
         
 
         if (!this.agent.structure) {
