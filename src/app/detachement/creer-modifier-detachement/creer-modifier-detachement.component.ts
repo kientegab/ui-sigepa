@@ -269,7 +269,29 @@ onChangeMatricule() {
             this.agent.structure.libelle = '';
           }
       
-         
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      if (!this.demande.duree) {
+        this.demande.duree = { annee: 0 };
+      }
+      
+
+      if (!this.demande.duree) {
+        this.demande.duree = { mois: 0 };
+      }
+      
+      if (!this.demande.duree) {
+        this.demande.duree = { jours: 0 };
+      }
+      
+
+
+
+
+
+
+
+
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
        
           this.loadStructure();
 
@@ -650,7 +672,7 @@ onChangeMatricule() {
 
                  //this.piecesJointes.push(response.body!)
                   this.piecesJointes[index] = response.body!
-                  console.warn("==INDEX==========================",index);
+                     console.warn("==INDEX==========================",index);
                  console.warn("liste",this.piecesJointes)
   
               },
