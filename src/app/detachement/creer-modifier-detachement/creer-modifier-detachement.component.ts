@@ -624,8 +624,8 @@ onChangeMatricule() {
 
 
    
-    onUpload(event: UploadEvent, piece: Piece) {
-      console.warn("============================");
+    onUpload(event: UploadEvent, piece: Piece, index:number) {
+   
 
       for (let file of event.files) {
         // const piecesFourniesDTO = new PiecesFourniesDTO();
@@ -640,6 +640,7 @@ onChangeMatricule() {
          
           this.uploadService.create(file).subscribe({
               next: (response) => {
+
                  console.warn("RESP",response.body)
 
                  response.body!.libelle = piece.libelle
@@ -647,8 +648,9 @@ onChangeMatricule() {
                  
 
 
-                 this.piecesJointes.push(response.body!)
-
+                 //this.piecesJointes.push(response.body!)
+                  this.piecesJointes[index] = response.body!
+                  console.warn("==INDEX==========================",index);
                  console.warn("liste",this.piecesJointes)
   
               },
