@@ -42,6 +42,7 @@ export class DetailsDetachementComponent {
     // }
     this.idDmd = +this.route.snapshot.paramMap.get('id')!;
     this.getDemande();
+    console.log("DEMANDE ========", this.demande);
   }
 
   /** Permet d'afficher un modal pour la reception */
