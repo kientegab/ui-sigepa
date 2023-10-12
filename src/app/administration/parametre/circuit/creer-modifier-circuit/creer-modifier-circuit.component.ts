@@ -40,15 +40,18 @@ export class CreerModifierCircuitComponent {
     }
   }
 
+  
+
   loadCircuit(event?: LazyLoadEvent) {
     this.circuitService.findAll().subscribe(response => {
       this.circuits = response.body!;
-      console.error("ppp", this.circuits)
+      console.log("ppp", this.circuits)
     }, error => {
       this.message = { severity: 'error', summary: error.error };
       console.error(JSON.stringify(error));
     });
   }
+  
   clear(): void {
     this.form.resetForm();
     this.dialogRef.close();
@@ -75,8 +78,7 @@ export class CreerModifierCircuitComponent {
     }, 5000);
   }
   saveEntity(): void {
-    this.circuit.precedents={};
-    this.circuit.suivants={};
+  
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
     if (this.circuit) {
@@ -97,7 +99,6 @@ export class CreerModifierCircuitComponent {
             }
           });
       } else {
-        console.log("le circuit", this.circuit);
         this.circuitService.create(this.circuit).subscribe({
           next: (response) => {
             this.dialogRef.close(response);
@@ -106,7 +107,7 @@ export class CreerModifierCircuitComponent {
               severity: 'success',
               summary: 'circuit creer avec succès',
             });
-
+            console.log("le circuit", this.circuit);
           },
           error: (error) => {
             console.error("error" + JSON.stringify(error));

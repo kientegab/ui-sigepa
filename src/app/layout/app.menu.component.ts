@@ -32,7 +32,16 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-chart-line',
                        // visible: this.authService.checkPermission([Authority.ADMIN], AuthenticationService.privileges),
                         items: [
-
+                            {
+                                label: 'detachement',
+                                icon: 'pi pi-fw pi-eye-slash',
+                                routerLink: ['/stat-demandes']
+                            },
+                            {
+                                label: 'disponibilité',
+                                icon: 'pi pi-fw pi-eye-slash',
+                                routerLink: ['/stat-demandes']
+                            },
                         ]
                     },
                     {
@@ -47,16 +56,19 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-lock',
                         //visible: this.authService.checkPermission([Authority.ADMIN, Authority.VIEW_USER], AuthenticationService.privileges),
                         items: [
+                            
                             {
                                 label: 'Mes demandes',
                                 icon: 'pi pi-fw pi-eye-slash',
                                 routerLink: ['/detachements']
                             },
+                            
                             {
                                 label: 'Demandes agents',
                                 icon: 'pi pi-fw pi-eye-slash',
                                 routerLink: ['/detachements/agents']
-                            }
+                            },
+                            
                         ]
                     },
                     {
@@ -64,16 +76,18 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-lock',
                         //visible: this.authService.checkPermission([Authority.ADMIN, Authority.VIEW_USER], AuthenticationService.privileges),
                         items: [
+                        
                             {
                                 label: 'Mes demandes',
                                 icon: 'pi pi-fw pi-eye-slash',
                                 routerLink: ['/disponibilites']
                             },
+                            
                             {
                                 label: 'Demandes agents',
                                 icon: 'pi pi-fw pi-eye-slash',
                                 routerLink: ['/disponibilites/agents']
-                            }
+                            },
                             // {
                             //     label: 'Creation demande',
                             //     icon: 'pi pi-fw pi-eye-slash',

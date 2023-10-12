@@ -1,7 +1,7 @@
 [{
     "id": 1,
     "code": "DISP_N",
-    "libelle": "Nouvelle disponibilité",
+    "libelle": "Nouvelle demande",
     "motifDTOs": [
     {
         "id" : 1,
@@ -95,22 +95,22 @@
   {
     "id": 2,
     "code": "DISP_R",
-    "libelle": "Renouvellement disponibilité"
+    "libelle": "Renouvellement détachement"
   },
   {
     "id": 3,
     "code": "DISP_F",
-    "libelle": "Fin disponibilité"
+    "libelle": "Fin détachement"
   },
   {
     "id": 4,
     "code": "DISP_A",
-    "libelle": "Annulation disponibilité"
+    "libelle": "Annulation détachement"
   },
   {
     "id": 5,
     "code": "DISP_RE",
-    "libelle": "Rectification disponibilité"
+    "libelle": "Rectification détachement"
   }
 ]
 

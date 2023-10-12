@@ -1,12 +1,14 @@
 const commonAppURI: string = 'http://localhost:8081/api/';
-const commonAuth: string = 'http://localhost:8089/api/auth/';
+const commonAuth: string = 'http://localhost:8081/api/auth/';
 const domaineUrl: string='localhost:4200'
 
 export const environment = {
   production: false,
   domaine:`${domaineUrl}`,
   recordsPerPage: 20,
+
   detachementUrl: 'http://localhost:8081/api',
+
   circuitUrl:commonAppURI + 'circuit',
   communeUrl: commonAppURI +'communes',
   pieceUrl: commonAppURI +'pieces',
@@ -27,7 +29,7 @@ export const environment = {
   authResource: commonAuth +'utilisateurs/signin',
   accountResource: commonAuth +'utilisateurs/validate',
   visaUrl: commonAuth + 'visas',
-  motifUrl: commonAuth + 'motifs',
+  motifUrl: commonAppURI + 'motifs',
   ministereUrl: commonAuth + 'ministeres',
   ampliationUrl:commonAuth + 'ampliations',
   demandeUrl:commonAppURI + 'demandes',

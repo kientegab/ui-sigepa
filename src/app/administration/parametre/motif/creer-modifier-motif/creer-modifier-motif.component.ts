@@ -10,6 +10,7 @@ import { IPiece, Piece } from 'src/app/shared/model/piece.model';
 import { ITypeDemandeur } from 'src/app/shared/model/typeDemandeur.model';
 import { MotifService } from 'src/app/shared/service/motif.service';
 import { PieceService } from 'src/app/shared/service/piece.service';
+import {Duree, IDuree} from "../../../../shared/model/duree.model";
 
 @Component({
   selector: 'app-creer-modifier-motif',
@@ -20,6 +21,7 @@ export class CreerModifierMotifComponent {
 
   @ViewChild('dtf') form!: NgForm;
   motif: IMotif = new Motif();
+  dure: IDuree = new Duree();
   @Input() data: IMotif = new Motif();
   motifs: IMotif[]=[];
   error: string | undefined;
@@ -94,7 +96,9 @@ export class CreerModifierMotifComponent {
     }, 5000);
   }
   saveEntity(): void {
-      console.log("MOTIF : ", this.motif);
+      this.motif.dureeMax = this.dure;
+      this.motif.typeDemandeur = this.motif.typeDemandeurDto?.libelle;
+      console.warn("MOTIF",this.motif);
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
     if (this.motif) {

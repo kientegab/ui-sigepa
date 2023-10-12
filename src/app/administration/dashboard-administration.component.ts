@@ -1,4 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { IDemande } from '../shared/model/demande.model';
+import { DemandeService } from '../shared/service/demande-service.service';
+import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {UploadFileService} from "../shared/service/upload.service";
 
 
 @Component({
@@ -12,11 +16,22 @@ export class DashboardAdministrationComponent implements OnInit {
 
     stackedOptions: any;
 
-  constructor() {
+
+    selectedFiles?: FileList;
+    currentFile?: File;
+    message = '';
+    errorMsg = '';
+
+    demandes: IDemande[]=[];
+    
+
+  constructor(private uploadService: UploadFileService,
+   private demandeService: DemandeService) {
 
   }
 
   ngOnInit(): void {
+    this.statGlobale()
       this.stackedData = {
           labels: ['Janvier', 'Febrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
           datasets: [{
@@ -94,4 +109,17 @@ export class DashboardAdministrationComponent implements OnInit {
 
   }
 
+  statGlobale(): void{
+    this.demandeService.statDemande().subscribe(result => {
+        if (result && result.body) {
+            
+            this.demandes = result.body || [];
+
+            console.log("les données", this.demandes);
+        }
+    });   
 }
+
+}
+
+

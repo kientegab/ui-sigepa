@@ -17,11 +17,11 @@ export class CircuitService {
 
   constructor(private http:HttpClient) { }
   create(circuit: ICircuit): Observable<EntityResponseType> {
-    return this.http.post<ICircuit>(circuitUrl, circuit, { observe: 'response' });
+    return this.http.post<ICircuit>(circuitUrl+ '/new', circuit, { observe: 'response' });
   }
 
   update(circuit: ICircuit): Observable<EntityResponseType> {
-    return this.http.put<ICircuit>(circuitUrl, circuit, { observe: 'response' });
+    return this.http.put<ICircuit>(circuitUrl+ '/update', circuit, { observe: 'response' });
   }
 
   findCommuneByIdProvince(id: number): Observable<EntityArrayResponseType> {
@@ -33,7 +33,7 @@ export class CircuitService {
   }
   
   findListe(): Observable<EntityArrayResponseType> {
-    return this.http.get<ICircuit[]>(circuitUrl+'/liste', { observe: 'response' });
+    return this.http.get<ICircuit[]>(circuitUrl+'/list', { observe: 'response' });
   }
   
   findAll(event?: LazyLoadEvent): Observable<EntityArrayResponseType> {
