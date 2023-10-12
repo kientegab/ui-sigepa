@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { IDemande } from '../shared/model/demande.model';
+import { DemandeService } from '../shared/service/demande-service.service';
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {UploadFileService} from "../shared/service/upload.service";
 
@@ -20,11 +22,16 @@ export class DashboardAdministrationComponent implements OnInit {
     message = '';
     errorMsg = '';
 
-  constructor(private uploadService: UploadFileService) {
+    demandes: IDemande[]=[];
+    
+
+  constructor(private uploadService: UploadFileService,
+   private demandeService: DemandeService) {
 
   }
 
   ngOnInit(): void {
+    this.statGlobale()
       this.stackedData = {
           labels: ['Janvier', 'Febrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
           datasets: [{
@@ -102,64 +109,17 @@ export class DashboardAdministrationComponent implements OnInit {
 
   }
 
-    selectFile(event: any): void {
-        this.selectedFiles = event.target.files;
-    }
+  statGlobale(): void{
+    this.demandeService.statDemande().subscribe(result => {
+        if (result && result.body) {
+            
+            this.demandes = result.body || [];
 
-    /*upload(): void {
-        this.errorMsg = '';
-
-        if (this.selectedFiles) {
-            const file: File | null = this.selectedFiles.item(0);
-
-            if (file) {
-                this.currentFile = file;
-
-                this.uploadService.upload(this.currentFile).subscribe(
-                    (event: any) => {
-                        console.warn("rep",event);
-                        if (event.type === HttpEventType.UploadProgress) {
-                            console.log(Math.round(100 * event.loaded / event.total));
-
-                        } else if (event instanceof HttpResponse) {
-                            this.message = event.body.responseMessage;
-                        }
-                    },
-                    (err: any) => {
-                        console.log(err);
-
-                        if (err.error && err.error.responseMessage) {
-                            this.errorMsg = err.error.responseMessage;
-                        } else {
-                            this.errorMsg = 'Error occurred while uploading a file!';
-                        }
-
-                        this.currentFile = undefined;
-                    });
-            }
-
-            this.selectedFiles = undefined;
+            console.log("les données", this.demandes);
         }
-    }*/
-
-    upload()
-    {
-        if (this.selectedFiles) {
-            const file: File | null = this.selectedFiles.item(0);
-
-            if (file) {this.currentFile = file;
-        this.uploadService.create(this.currentFile).subscribe({
-            next: (response) => {
-               console.warn("RESP",response.body)
-
-            },
-            error: (error) => {
-                console.error("error" + JSON.stringify(error));
-
-            }
-        });
-    }
+    });   
 }
+
 }
-}
+
 
