@@ -64,7 +64,7 @@ import { DetailsDetachementAgentComponent } from './details-detachement-agent/de
         PaginatorModule,
         CalendarModule,
         FileUploadModule,
-        DropdownModule
+        DropdownModule,
     ],
     providers: [ConfirmationService],
 })

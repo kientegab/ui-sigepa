@@ -52,6 +52,7 @@ import { MessageModule } from 'primeng/message';
         DropdownModule,
         CalendarModule,
         CdkStepperModule,
+        BrowserModule,
         ArchwizardModule.forRoot(),
     ],
     providers: [

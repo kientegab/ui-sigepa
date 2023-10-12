@@ -1,1 +1,26 @@
-<p>elaborer-projet works!</p>
+<header>
+    <div class="p-ml-auto text-right">
+        <button description="elaborer" icon="pi pi-pencil" label="Elaborer" (click)="openModal()" class="p-button-success mr-2"
+        pButton></button>
+    </div>
+  </header>
+  
+  
+  <div #outsideElement>
+    <div class="modal-view-container">
+      <div #modalView class="modal view">
+        <div class="modal-view-details">
+          <p style="text-align: center;margin-top: 0; margin-bottom: 0">
+            <object
+              [data]="srclink"
+              type="application/pdf"
+              width="100%"
+              height="592px"
+            ></object>
+          </p>
+          <!-- <button (click)="closeModal()">Close</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
