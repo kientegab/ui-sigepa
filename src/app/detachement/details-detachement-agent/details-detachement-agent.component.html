@@ -61,7 +61,7 @@
             <tr *ngFor="let item of pieceJointes;let i = index">
                 <th scope="row">{{i+1}}</th>
                 <td>{{item.libelle}}</td>
-                <td><button class="btn btn-success" (click)="voirPiece(item.nomFichier)">Visualiser</button></td>
+                <td><button class="btn btn-success" (click)="voirPiece(item.url)">Visualiser</button></td>
             </tr>
             </tbody>
         </table>
