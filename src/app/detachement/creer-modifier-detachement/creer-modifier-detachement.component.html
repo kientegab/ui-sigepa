@@ -36,10 +36,10 @@
             </div>
 
             <div class="field col-6 md:col-6">
-                <label for="typeDemande">Type Demande :</label>
+                <label for="typeDemandes">Type Demande :</label>
                 <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" [options]="typeDemandes"
-                    [(ngModel)]="demande.typeDemande" optionLabel="libelle" inputId="typeDemande" name="typeDemande"
-                    placeholder="Sélectionner le type de Demande..." [filter]="true" appendTo="body" [showClear]="true">
+                    [(ngModel)]="demande.typeDemande" optionLabel="libelle" inputId="typeDemandes"
+                     name="typeDemandes" placeholder="Sélectionner le type de Demande..."  [filter]="true" appendTo="body" [showClear]="true">
                 </p-dropdown>
             </div>
 
@@ -54,7 +54,7 @@
 
             <div class="form-group col-md-4">
                 <label for="matricule">Numéro Matricule</label>
-                <input type="text" pInputText [(ngModel)]="matricule" class="form-control" name="matricule"
+                <input type="text" pInputText [(ngModel)]="demande.agent!.matricule" class="form-control" name="matricule"
                     id="matricule" (ngModelChange)="onChangeMatricule()">
             </div>
 

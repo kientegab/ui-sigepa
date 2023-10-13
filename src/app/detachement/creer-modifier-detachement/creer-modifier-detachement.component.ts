@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Demande, IDemande} from "../../shared/model/demande.model";
-import {ITypeDemande} from "../../shared/model/typeDemande.model";
+import {ITypeDemande, TypeDemande} from "../../shared/model/typeDemande.model";
 import {IPiece, Piece} from "../../shared/model/piece.model";
 import {DemandeService} from "../../shared/service/demande-service.service";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
@@ -42,7 +42,8 @@ export class CreerModifierDetachementComponent {
     dialogErrorMessage: any;
     timeoutHandle: any;
     isOpInProgress!: boolean;
-    typeDemandes: ITypeDemande[]=[];
+  
+    
     pieces: IPiece[] = [];
     file: Blob | string = '';
     piecesJointes: IPieceJointe [] = [];
@@ -56,9 +57,12 @@ export class CreerModifierDetachementComponent {
     selectedPieces: IPiece[] = [];
     multiple=true;
     motifs: IMotif[] = [];
-    selectedTypeDemandeur?: ITypeDemandeur;
+    selectedTypeDemandeur?: ITypeDemandeur| undefined;
     idDmd: number | undefined;
     duree: IDuree = new Duree();
+
+    typeDemandes: ITypeDemande []=[];
+    typeDemande?: number;
     typeDemandeurs: ITypeDemandeur[]=[{
         code:'AGENT',
         libelle: 'AGENT'
@@ -68,16 +72,33 @@ export class CreerModifierDetachementComponent {
         libelle: 'STRUCTURE'
     }];
 
+  
+   
    
 
-
-
    // motifs: IMotif[] = [];
+   affectTypeDemande () {
+    const type = new TypeDemande ();
+    type.id = this.typeDemande
+    this.demande.typeDemande = type
+
+   }
+
 
  
  
     agent: IAgent  = new Agent ();
-    matricule: string = '';
+
+    
+    motif:  IMotif  = new Motif ();
+
+
+
+    //matricule: string = '';
+    
+
+  
+
 
     agentInfo: any; // C'est où vous stockerez les informations de l'agent
     isFetchingAgentInfo: boolean = false; // Pour gérer l'état de chargement
@@ -102,7 +123,10 @@ motifWithPieces: { motif: string, pieces: IPiece[] }[] = [];
 //     { label: 'STRUCTURE', value: TypeDemandeur.STRUCTURE },
 //   ];
 
+// affectTypeDemande(){
 
+//   this.demande.typeDemande = this.typeDemandes
+// }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -134,10 +158,15 @@ piecesFilters: IPiece[] = [];
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////Récupération de l'objet rapporteur à travers l'id////////////////////////////////
+  // const rapporteur = this.participants.find(
+  //   item=> item.id == this.rapporteurId
+  // )
+  // this.reunion.rapporteur = rapporteur?.nom+' '+rapporteur?.prenom 
   
   
   
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // onMotifChange() {
 //     if (this.selectedMotif) {
@@ -172,12 +201,12 @@ loadPieces() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 onChangeMatricule() {
-    if (this.matricule) {
+    if (this.demande.agent!.matricule) {
       this.isFetchingAgentInfo = true; // Activez l'indicateur de chargement
       console.warn("agent================================================",this.agent)
       console.warn("agent================================================",this.agentInfo)
       // Faites une requête au service pour obtenir les informations de l'agent en utilisant this.matricule
-      this.agentService.getAgentInfoByMatricule(this.matricule)
+      this.agentService.getAgentInfoByMatricule(this.demande.agent!.matricule)
         .subscribe(
           (response) => {
             
@@ -255,6 +284,7 @@ onChangeMatricule() {
           this.agent.structure = { libelle: '' };
         }
 
+       
 
           if (!this.agent.superieurHierarchique) {
             this.agent.superieurHierarchique = { nom: '' };
@@ -274,7 +304,6 @@ onChangeMatricule() {
         this.demande.duree = { annee: 0 };
       }
       
-
       if (!this.demande.duree) {
         this.demande.duree = { mois: 0 };
       }
@@ -283,12 +312,18 @@ onChangeMatricule() {
         this.demande.duree = { jours: 0 };
       }
       
+      if (!this.demande.agent) {
+        this.demande.agent = { matricule: "" };
+      }
+      if (!this.demande.agent) {
+        this.demande.agent = { prenom: "" };
+      }
+     
 
-
-
-
-
-
+      // if (this.demande.motif!.typeDemandeur) {
+      //   this.demande.motif!.typeDemandeur = {libelle:""}
+      // }
+      
 
 
       /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -300,8 +335,7 @@ onChangeMatricule() {
           this.loadTypeDemande();
           // this.loadAgent();
          this.loadMotif();
-        this.loadTypeDemande();
-
+        //this.onChangeMatricule();
         
         
     }
@@ -326,6 +360,7 @@ onChangeMatricule() {
           // Réinitialiser le motif sélectionné
           this.selectedMotif = undefined;
         }
+
       }
 
       onMotifChange(): void {
@@ -383,6 +418,7 @@ onChangeMatricule() {
         this.typeDemandeService.findAll().subscribe(response => {
 
             this.typeDemandes = response.body!;
+            console.warn("typeDemandes================",this.typeDemandes)
         }, error => {
             this.message = { severity: 'error', summary: error.error };
             console.error(JSON.stringify(error));
@@ -400,7 +436,6 @@ onChangeMatricule() {
           console.error(JSON.stringify(error));
       });
   }
-
 
 
     // loadMotif() {
@@ -717,6 +752,10 @@ onChangeMatricule() {
       this.demandeService.find(this.idDmd!).subscribe(result => {
         if (result && result.body) {
           this.demande = cloneDeep(result.body);
+          // const type = new TypeDemande ();
+          // type.id = this.typeDemande
+          // this.demande.typeDemande = type
+          console.warn("==================TEST TYPE DEMANDE=============================",this.demande.typeDemande)
         }
       });
     }
