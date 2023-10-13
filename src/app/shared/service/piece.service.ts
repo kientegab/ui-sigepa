@@ -11,7 +11,7 @@ type EntityArrayResponseType = HttpResponse<IPiece[]>;
 
 // const pieceUrl = "assets/data/piece.json";
 const pieceUrl = environment.detachementUrl+'/pieces';
-const pieceShowUrl = environment.detachementUrl+'/pieces/recuperer-piece';
+const pieceShowUrl = environment.detachementUrl+'/files/recuperer-piece';
 
 @Injectable({
   providedIn: 'root'

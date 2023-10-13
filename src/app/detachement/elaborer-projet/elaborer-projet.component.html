@@ -1,8 +1,10 @@
+
 <ngx-extended-pdf-viewer
-    [src]="'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf'"
-    [useBrowserLocale]="true"
-    [(page)]="page"
-    pageViewMode="single"
-    [spread]="spreadMode"
-    [height]="'auto'">
+     [src]="'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf'"
+     [useBrowserLocale]="true"
+     [textLayer]="true" 
+     [showHandToolButton]="true" 
+     [showPresentationModeButton]="true"
+     [(page)]="page"
+    >
 </ngx-extended-pdf-viewer>

@@ -93,8 +93,13 @@
                       "karmaConfig": "karma.conf.js",
                       "inlineStyleLanguage": "scss",
                       "assets": [
-                          "src/favicon.ico", 
-                          "src/assets"
+                        "src/favicon.ico",
+                        "src/assets",
+                        {
+                          "glob": "**/*",
+                          "input": "node_modules/ngx-extended-pdf-viewer/assets/",
+                          "output": "/assets/"
+                        }
                       ],
                       "styles": [
                           "src/styles.scss"
