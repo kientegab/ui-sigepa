@@ -29,7 +29,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ValiderProjetComponent } from './valider-projet/valider-projet.component';
 import { ElaborerProjetComponent } from './elaborer-projet/elaborer-projet.component';
 import { DetailsDetachementAgentComponent } from './details-detachement-agent/details-detachement-agent.component';
-
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer'
 
 @NgModule({
   declarations: [
@@ -41,7 +41,8 @@ import { DetailsDetachementAgentComponent } from './details-detachement-agent/de
     ReceptionDetachementComponent,
     ValiderProjetComponent,
     ElaborerProjetComponent,
-    DetailsDetachementAgentComponent
+    DetailsDetachementAgentComponent,
+    
   ],
     imports: [
         CommonModule,
@@ -65,6 +66,8 @@ import { DetailsDetachementAgentComponent } from './details-detachement-agent/de
         CalendarModule,
         FileUploadModule,
         DropdownModule,
+        NgxExtendedPdfViewerModule,
+        
     ],
     providers: [ConfirmationService],
 })

@@ -16,8 +16,7 @@ import { MessagesModule } from 'primeng/messages';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 
 import { CdkStepper, CdkStepperModule } from '@angular/cdk/stepper';
@@ -53,6 +52,7 @@ import { MessageModule } from 'primeng/message';
         CalendarModule,
         CdkStepperModule,
         BrowserModule,
+        NgxExtendedPdfViewerModule,
         ArchwizardModule.forRoot(),
     ],
     providers: [
