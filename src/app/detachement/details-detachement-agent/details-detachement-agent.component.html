@@ -13,7 +13,7 @@
           <span class="va-m"><span class="font-bold">Date de demande:</span> {{demande.dateDemande}}</span>
         </div>
       </div>
-  
+
       <div class="row">
         <div class="col-md-6 details-item">
             <span class="va-m"><span class="font-bold">Type de demande:</span> {{demande.typeDemande?.libelle}}</span>
@@ -23,7 +23,7 @@
           <span class="va-m"><span class="font-bold">Motif : </span>Détachement pour exercer un mandat syndical</span>
         </div>
       </div>
-  
+
       <div class="row">
         <div class="col-md-6 details-item">
           <span class="va-m"><span class="font-bold">Structure de disponibilité : </span> {{demande.destination}}</span>
@@ -32,7 +32,7 @@
           <span class="va-m"><span class="font-bold">Date d'effet:</span> {{demande.dateEffet}}</span>
         </div>
       </div>
-  
+
       <div class="row">
         <div class="col-md-6 details-item">
           <span class="va-m"><span class="font-bold">Matricule agent:</span> {{ demande.agent?.matricule }}</span>
@@ -41,13 +41,32 @@
           <span class="va-m"><span class="font-bold">Nom agent:</span> {{ demande.agent?.nom }} {{ demande.agent?.prenom }}</span>
         </div>
       </div>
-  
+
       <div class="row">
         <div class="col-md-6 details-item">
           <span class="va-m"><span class="font-bold">Statut demande:</span> {{demande.statut}}</span>
         </div>
       </div>
-      
+
+    <div class="row">
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fichier</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of pieceJointes;let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.libelle}}</td>
+                <td><button class="btn btn-success" (click)="voirPiece(item.nomFichier)">Visualiser</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
       <p-divider></p-divider>
       <div class="row justify-content-center">
         <div class="p-ml-auto text-right">
