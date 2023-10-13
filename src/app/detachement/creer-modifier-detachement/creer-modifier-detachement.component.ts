@@ -776,6 +776,14 @@ this.getDemande();
             this.demande.dateEffet = new Date(this.demande.dateEffet)
 
           }
+
+          if (this.demande.motif) {
+
+            this.demande.motif = this.selectedMotif
+
+          }
+
+
           console.warn("==================TEST TYPE DEMANDE=============================",this.demande.typeDemande)
         }
       });
