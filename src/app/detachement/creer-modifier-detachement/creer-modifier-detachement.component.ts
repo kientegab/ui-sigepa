@@ -49,7 +49,9 @@ export class CreerModifierDetachementComponent {
     piecesJointes: IPieceJointe [] = [];
     fichier: Blob | string = '';
     listePieceFournies:  IPiecesFourniesDTO[] = [];
+
     structures: IStructure [] = [];
+
     selectedFile: File | null = null;
     selectedTypeMotif?:IMotif;
     selectedMotif: IMotif | undefined;
@@ -62,7 +64,10 @@ export class CreerModifierDetachementComponent {
     duree: IDuree = new Duree();
 
     typeDemandes: ITypeDemande []=[];
-    typeDemande?: number;
+
+
+
+    // typeDemande?: number;
     typeDemandeurs: ITypeDemandeur[]=[{
         code:'AGENT',
         libelle: 'AGENT'
@@ -77,12 +82,12 @@ export class CreerModifierDetachementComponent {
    
 
    // motifs: IMotif[] = [];
-   affectTypeDemande () {
-    const type = new TypeDemande ();
-    type.id = this.typeDemande
-    this.demande.typeDemande = type
+  //  affectTypeDemande () {
+  //   const type = new TypeDemande ();
+  //   type.id = this.typeDemande
+  //   this.demande.typeDemande = type
 
-   }
+  //  }
 
 
  
@@ -268,6 +273,8 @@ onChangeMatricule() {
 
       this.idDmd = +this.activatedRoute.snapshot.paramMap.get('id')!;
       this.getDemande();
+      this.loadTypeDemande();
+      this.loadMotif();
       
         // if (this.dynamicDialog.data) {
         //   this.demande = cloneDeep(this.dynamicDialog.data);
@@ -300,17 +307,17 @@ onChangeMatricule() {
           }
       
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (!this.demande.duree) {
-        this.demande.duree = { annee: 0 };
-      }
+      // if (!this.demande.duree) {
+      //   this.demande.duree = { annee: 0 };
+      // }
       
-      if (!this.demande.duree) {
-        this.demande.duree = { mois: 0 };
-      }
+      // if (!this.demande.duree) {
+      //   this.demande.duree = { mois: 0 };
+      // }
       
-      if (!this.demande.duree) {
-        this.demande.duree = { jours: 0 };
-      }
+      // if (!this.demande.duree) {
+      //   this.demande.duree = { jours: 0 };
+      // }
       
       if (!this.demande.agent) {
         this.demande.agent = { matricule: "" };
@@ -332,11 +339,9 @@ onChangeMatricule() {
 
           this.loadPieces();
           
-          this.loadTypeDemande();
-          // this.loadAgent();
-         this.loadMotif();
-        //this.onChangeMatricule();
         
+        //this.onChangeMatricule();
+        // this.onChangeMatricule();
         
     }
 
@@ -419,11 +424,19 @@ onChangeMatricule() {
 
             this.typeDemandes = response.body!;
             console.warn("typeDemandes================",this.typeDemandes)
+
+            if (this.demande.id) {
+              
+this.getDemande();
+
+            }
         }, error => {
             this.message = { severity: 'error', summary: error.error };
             console.error(JSON.stringify(error));
         });
     }
+
+
 
     loadStructure() {
       this.structureService.findListe().subscribe(response => {
@@ -752,9 +765,17 @@ onChangeMatricule() {
       this.demandeService.find(this.idDmd!).subscribe(result => {
         if (result && result.body) {
           this.demande = cloneDeep(result.body);
+          this.onChangeMatricule();
           // const type = new TypeDemande ();
           // type.id = this.typeDemande
           // this.demande.typeDemande = type
+          this.duree = this.demande.duree!;
+          
+          if (this.demande.dateEffet) {
+
+            this.demande.dateEffet = new Date(this.demande.dateEffet)
+
+          }
           console.warn("==================TEST TYPE DEMANDE=============================",this.demande.typeDemande)
         }
       });

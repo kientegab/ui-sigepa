@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit} from '@angular/core';
 import { Subscription } from 'rxjs';
 //import { Product } from 'src/app/demo/api/product';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import { AffiliationService } from 'src/app/shared/service/affiliation.service';
+
 
 import { Table } from 'primeng/table';
 
@@ -32,7 +32,7 @@ export class DashbordComponent implements OnInit, OnDestroy {
 
   cols: any[] = [];
 
-  constructor(private affiliationService: AffiliationService, private layoutService: LayoutService) {
+  constructor(private layoutService: LayoutService) {
     this.subscription = this.layoutService.configUpdate$.subscribe(config => {
       this.initCharts();
     });

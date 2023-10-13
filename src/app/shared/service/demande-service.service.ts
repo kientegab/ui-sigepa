@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { createRequestOption } from '../util/request-util';
 import { LazyLoadEvent } from 'primeng/api';
 import { environment } from 'src/environments/environment';
+import {IPieceJointe} from "../model/pieceJointe.model";
 
 type EntityResponseType = HttpResponse<IDemande>;
 type EntityArrayResponseType = HttpResponse<IDemande[]>;
@@ -12,6 +13,8 @@ type EntityArrayResponseType = HttpResponse<IDemande[]>;
 
 // const demandeUrl = "assets/data/demande.json";
 const demandeUrl = environment.detachementUrl+'/demandes';
+const reportUrl= environment.reportingUrl;
+const pieceUrl= environment.detachementUrl+'/piece-jointes';
 
 @Injectable({
   providedIn: 'root'
@@ -78,4 +81,11 @@ export class DemandeService {
     return this.http.post<IDemande>(`${demandeUrl}/avis-dgfp/${groupe.id}`, groupe.historique, { observe: 'response' });
   }
 
+  statDemande(){
+    return this.http.get<IDemande[]>(reportUrl+'/check-total-globale', { observe: 'response' });
+  }
+
+    findPiecesByDemande(idDemande: number): Observable<HttpResponse<IPieceJointe[]>> {
+        return this.http.get<IPieceJointe[]>(`${pieceUrl}/list/${idDemande}`, { observe: 'response' });
+    }
 }

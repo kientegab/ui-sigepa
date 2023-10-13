@@ -7,6 +7,8 @@ import { DemandeService } from 'src/app/shared/service/demande-service.service';
 import { AviserDetachementComponent } from '../aviser-detachement/aviser-detachement.component';
 import { ReceptionDetachementComponent } from '../reception-detachement/reception-detachement.component';
 import { ValiderProjetComponent } from '../valider-projet/valider-projet.component';
+import {IPieceJointe} from "../../shared/model/pieceJointe.model";
+import {PieceService} from "../../shared/service/piece.service";
 
 @Component({
   selector: 'app-details-detachement-agent',
@@ -15,7 +17,7 @@ import { ValiderProjetComponent } from '../valider-projet/valider-projet.compone
 })
 export class DetailsDetachementAgentComponent {
 
-  demande: IDemande = new Demande(); 
+  demande: IDemande = new Demande();
   @Input() data: IDemande = new Demande();
   idDmd: number | undefined;
   isOpInProgress!: boolean;
@@ -24,13 +26,15 @@ export class DetailsDetachementAgentComponent {
   message: any;
   timeoutHandle: any;
   demandes: any;
+    pieceJointes: IPieceJointe[] =[];
 
   constructor(
     private dialogRef: DynamicDialogRef,
     private dialogService: DialogService,
     private demandeService: DemandeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private pieceService: PieceService,
   ) {}
 
 
@@ -126,8 +130,27 @@ export class DetailsDetachementAgentComponent {
     this.demandeService.find(this.idDmd!).subscribe(result => {
       if (result && result.body) {
         this.demande = result.body;
+        this.getPieceByDmd(this.demande.id!)
       }
     });
   }
 
+  getPieceByDmd(dmdId: number){
+      this.demandeService.findPiecesByDemande(dmdId).subscribe(result => {
+          if (result && result.body) {
+              this.pieceJointes = result.body;
+          }
+      });
+  }
+
+    async voirPiece(filname?: string): Promise<void> {
+            if (filname) {
+                const link = await this.pieceService.visualiser(
+                    filname
+                );
+                if (link) {
+                    window.open(link, '_blank');
+                }
+            }
+    }
 }

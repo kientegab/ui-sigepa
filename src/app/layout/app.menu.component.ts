@@ -32,7 +32,16 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-chart-line',
                        // visible: this.authService.checkPermission([Authority.ADMIN], AuthenticationService.privileges),
                         items: [
-
+                            {
+                                label: 'detachement',
+                                icon: 'pi pi-fw pi-eye-slash',
+                                routerLink: ['/stat-demandes']
+                            },
+                            {
+                                label: 'disponibilité',
+                                icon: 'pi pi-fw pi-eye-slash',
+                                routerLink: ['/stat-demandes']
+                            },
                         ]
                     },
                     {

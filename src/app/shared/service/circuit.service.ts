@@ -21,7 +21,7 @@ export class CircuitService {
   }
 
   update(circuit: ICircuit): Observable<EntityResponseType> {
-    return this.http.put<ICircuit>(circuitUrl, circuit, { observe: 'response' });
+    return this.http.put<ICircuit>(circuitUrl+ '/update', circuit, { observe: 'response' });
   }
 
   findCommuneByIdProvince(id: number): Observable<EntityArrayResponseType> {

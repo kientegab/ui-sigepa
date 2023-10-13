@@ -86,6 +86,7 @@ const routes: Routes = [
     { path: 'auth/login', data: { breadcrumb: 'Auth' }, loadChildren: () => import('./account/login/login.module').then(m => m.LoginModule) },
     { path: 'detachements', data: { breadcrumb: 'Gestion des détachements' }, component: AppLayoutComponent, loadChildren: () => import('./detachement/detachement.module').then(m => m.DetachementModule) },
     { path: 'disponibilites', data: { breadcrumb: 'Gestion des disponibilités' },component: AppLayoutComponent, loadChildren: () => import('./disponibilite/disponibilite.module').then(m => m.DisponibiliteModule) },
+    { path: 'stat-demandes', data: { breadcrumb: 'Gestion des statistiques de demandes' },component: AppLayoutComponent, loadChildren: () => import('./statistique/demande/demande.module').then(m => m.DemandeModule) },
     { path: 'notfound', loadChildren: () => import('./shared/notfound/notfound.module').then(m => m.NotfoundModule) },
     
     { path: '**', redirectTo: '/notfound' }
