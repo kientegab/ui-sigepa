@@ -45,7 +45,9 @@ export class Demande implements IDemande {
         public structure?: IStructure[],
         // public listDemande?: ITypeDemande[]
 
-    ){}
+    ){
+        
+    }
 
 }
 

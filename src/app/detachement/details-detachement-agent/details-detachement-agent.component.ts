@@ -131,6 +131,7 @@ export class DetailsDetachementAgentComponent {
       if (result && result.body) {
         this.demande = result.body;
         this.getPieceByDmd(this.demande.id!)
+        console.warn("OBJET DEMANDE",this.demande)
       }
     });
   }

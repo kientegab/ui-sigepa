@@ -62,6 +62,7 @@ export class CreerModifierDetachementComponent {
 
     typeDemandes: ITypeDemande [] = [];
 
+    typeDemandeSelected: ITypeDemande = new TypeDemande(); 
 
     // typeDemande?: number;
     typeDemandeurs: ITypeDemandeur[] = [{
@@ -261,7 +262,7 @@ export class CreerModifierDetachementComponent {
     loadTypeDemande() {
         this.typeDemandeService.findAll().subscribe(response => {
             this.typeDemandes = response.body!;
-           console.warn("TYPE DEMANDE",this.typeDemandes);
+           console.warn("TYPE DEMANDE=================\n:",this.typeDemandes);
         }, error => {
             this.message = {severity: 'error', summary: error.error};
             console.error(JSON.stringify(error));
@@ -407,7 +408,10 @@ export class CreerModifierDetachementComponent {
         this.demandeService.find(this.idDmd!).subscribe(result => {
             if (result && result.body) {
                 this.demande = result.body;
-                console.warn("DEMANDE",this.demande);
+                console.warn("DEMANDE::::::::::::::::::::::::::::::::::::::",this.demande);
+                this.typeDemandeSelected = this.demande.typeDemande!;
+                console.warn("======================== ma demande :\n",this.typeDemandeSelected);
+               // this.demande.typeDemande = this.typeDemandeSelected;
                 this.onChangeMatricule();
                 this.duree = this.demande.duree!;
                 if (this.demande.dateEffet) {
