@@ -97,7 +97,7 @@ export class CreerModifierMotifComponent {
   }
   saveEntity(): void {
       this.motif.dureeMax = this.dure;
-      this.motif.typeDemandeur!.libelle = this.motif.typeDemandeurDto?.libelle;
+      this.motif.typeDemandeur = this.motif.typeDemandeurDto?.libelle;
       console.warn("MOTIF",this.motif);
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;

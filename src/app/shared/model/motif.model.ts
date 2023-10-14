@@ -7,7 +7,7 @@ export interface IMotif {
     libelle?: string;
     plafondAnnee?: number;
     dureeMax?:Duree;
-    typeDemandeur?:ITypeDemandeur;
+    typeDemandeur?:String;
     typeDemandeurDto?: ITypeDemandeur
 
 }
@@ -18,7 +18,7 @@ export class Motif implements IMotif {
         public libelle?: string,
         public plafondAnnee?: number,
         public dureeMax?: Duree,
-        public typeDemandeur?: ITypeDemandeur,
+        public typeDemandeur?: String,
         public typeDemandeurDto?: ITypeDemandeur
     ) { }
 

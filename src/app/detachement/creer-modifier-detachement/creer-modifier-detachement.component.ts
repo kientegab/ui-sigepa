@@ -43,6 +43,8 @@ export class CreerModifierDetachementComponent {
     dialogErrorMessage: any;
     timeoutHandle: any;
     isOpInProgress!: boolean;
+    pieceJointes: IPieceJointe[] = [];
+    isDisplay = true;
 
 
     pieces: IPiece[] = [];
@@ -407,13 +409,39 @@ export class CreerModifierDetachementComponent {
         this.demandeService.find(this.idDmd!).subscribe(result => {
             if (result && result.body) {
                 this.demande = result.body;
+                this.isDisplay = false;
                 console.warn("DEMANDE",this.demande);
                 this.onChangeMatricule();
                 this.duree = this.demande.duree!;
                 if (this.demande.dateEffet) {
                     this.demande.dateEffet = new Date(this.demande.dateEffet)
                 }
+                /** charger la liste des pieces jointes */
+                this.getPieceByDmd(this.demande.id!);
             }
         });
+    }
+
+    getPieceByDmd(dmdId: number){
+        this.demandeService.findPiecesByDemande(dmdId).subscribe(result => {
+            if (result && result.body) {
+                this.pieceJointes = result.body;
+            }
+        });
+    }
+
+    async voirPiece(filname?: string): Promise<void> {
+        if (filname) {
+            const link = await this.pieceService.visualiser(
+                filname
+            );
+            if (link) {
+                window.open(link, '_blank');
+            }
+        }
+    }
+
+    display(){
+        this.isDisplay = true;
     }
 }
