@@ -16,11 +16,10 @@ import {AgentService} from 'src/app/shared/service/agent.service';
 import {cloneDeep} from 'lodash';
 import {ITypeDemandeur} from 'src/app/shared/model/typeDemandeur.model';
 import {PieceService} from 'src/app/shared/service/piece.service';
-import {IPiecesFourniesDTO, PiecesFourniesDTO} from 'src/app/shared/model/piecesFourniesDTO.model';
 import {IStructure} from 'src/app/shared/model/structure.model';
 import {Duree, IDuree} from 'src/app/shared/model/duree.model';
 import {UploadFileService} from 'src/app/shared/service/upload.service';
-import {IPieceJointe} from 'src/app/shared/model/pieceJointe.model';
+import {IPieceJointe, pieceJointe} from 'src/app/shared/model/pieceJointe.model';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -45,6 +44,7 @@ export class CreerModifierDetachementComponent {
     isOpInProgress!: boolean;
     pieceJointes: IPieceJointe[] = [];
     isDisplay = true;
+    cloneePieces: IPieceJointe[] = [];
 
 
     pieces: IPiece[] = [];
@@ -339,11 +339,9 @@ export class CreerModifierDetachementComponent {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             this.demande.duree = this.duree;
-
-            this.demande.pieceJointes = this.piecesJointes;
-            console.warn("=================TEST=============================", this.demande.pieceJointes);
             this.demande.motif = this.selectedMotif;
             if (this.demande.id) {
+                console.warn("ALERT ICI",this.demande);
                 this.demandeService.update(this.demande).subscribe(
                     {
                         next: (response) => {
@@ -354,14 +352,15 @@ export class CreerModifierDetachementComponent {
                             this.isDialogOpInProgress = false;
                         },
                         error: (error) => {
-                            console.error("error" + JSON.stringify(error));
+                           // console.error("error" + JSON.stringify(error));
                             this.isOpInProgress = false;
                             this.isDialogOpInProgress = false;
-                            this.showMessage({severity: 'error', summary: error.error.message});
+                          //  this.showMessage({severity: 'error', summary: error.error.message});
 
                         }
                     });
             } else {
+                this.demande.pieceJointes = this.piecesJointes;
                 this.demandeService.create(this.demande).subscribe({
                     next: (response) => {
                         this.dialogRef.close(response);
@@ -391,18 +390,27 @@ export class CreerModifierDetachementComponent {
             if (file) {
                 this.uploadService.create(file).subscribe({
                     next: (response) => {
-                        response.body!.libelle = piece.libelle
-                        this.piecesJointes[index] = response.body!
+                        if(this.demande.id){
+                            response.body!.libelle = piece.libelle;
+                            response.body!.demande = this.demande.pieceJointes![index].demande
+                            response.body!.id = this.demande.pieceJointes![index].id;
+                            this.demande.pieceJointes![index] = response.body!;
+
+                        }else{
+                            response.body!.libelle = piece.libelle
+                            this.piecesJointes[index] = response.body!;
+                        }
+
                     },
                     error: (error) => {
                         console.error("error" + JSON.stringify(error));
 
                         this.showMessage({severity: 'error', summary: error.error.message});
-
                     }
                 });
             }
         }
+        console.warn("UPLOAD",this.pieceJointes);
     }
 
     getDemande(): void {
@@ -418,6 +426,13 @@ export class CreerModifierDetachementComponent {
                 }
                 /** charger la liste des pieces jointes */
                 this.getPieceByDmd(this.demande.id!);
+                /** charger typeDemandeur */
+                this.selectedTypeDemandeur = this.typeDemandeurs.find(item=>item.libelle ==this.demande.motif?.typeDemandeur);
+                /** charger motif,duree,agent */
+                this.selectedMotif = this.demande.motif;
+                this.duree = this.demande.duree!;
+                this.agent = this.demande.agent!;
+                this.onMotifChange();
             }
         });
     }
@@ -426,6 +441,9 @@ export class CreerModifierDetachementComponent {
         this.demandeService.findPiecesByDemande(dmdId).subscribe(result => {
             if (result && result.body) {
                 this.pieceJointes = result.body;
+                this.cloneePieces = cloneDeep(result.body);
+                this.demande.pieceJointes = this.pieceJointes;
+                console.warn("piece recup", this.pieceJointes);
             }
         });
     }
