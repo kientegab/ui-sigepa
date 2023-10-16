@@ -23,6 +23,7 @@ export interface IDemande {
     // piecesFourniesDTO?: IPiecesFourniesDTO[],
     duree?: IDuree,
     structure?: IStructure[]
+    // listDemande?: ITypeDemande[]
 }
 
 export class Demande implements IDemande {
@@ -41,7 +42,8 @@ export class Demande implements IDemande {
         public motif?: IMotif,
         // public piecesFourniesDTO?: IPiecesFourniesDTO[],
         public duree?: IDuree,
-        public structure?: IStructure[]
+        public structure?: IStructure[],
+        // public listDemande?: ITypeDemande[]
 
     ){}
 
