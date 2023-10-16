@@ -9,8 +9,7 @@
     padding-bottom: 5px;">
         <!-- <i class="{{isEditing() ? 'pi-pencil' : 'pi-plus'}} pi p-mr-1 mr-2"></i> -->
         <h3 class="mr-auto">
-            {{demande.id? 'Formulaire de modification' : 'Formulaire
-            d\'ajout de'}} demande
+            {{demande.id? "Formulaire de modification" : "Formulaire d'ajout de"}} demande
         </h3>
     </ng-template>
     <p-progressBar *ngIf="isOpInProgress" mode="indeterminate" color="#1e88e0"></p-progressBar>
@@ -21,7 +20,7 @@
                 d\'ajout de'}} demande</h4>
         </div>
     </ng-template> -->
-    <form (ngSubmit)="saveEntity()" #dtf="ngForm" style="margin-top:20px;">
+    <form  #dtf="ngForm" style="margin-top:20px;">
 
         <!--  -->
 
@@ -182,12 +181,29 @@
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
             </div>
-
-
             <br>
-
-
-            <div class="field col-12 md:col-12">
+            <div class="field col-12 md:col-12" *ngIf="demande.id" >
+                <p-fieldset legend="Liste des pièces existantes" [toggleable]="true">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Fichier</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of pieceJointes;let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{item.libelle}}</td>
+                            <td><button class="btn btn-success" (click)="voirPiece(item.url)">Visualiser</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" (click)="display()">Modifier les pièces jointes </button>
+                </p-fieldset>
+            </div>
+            <div class="field col-12 md:col-12" *ngIf="isDisplay">
                 <div class="card">
                     <table class="table table-sm border-none">
                         <thead>
@@ -229,7 +245,7 @@
                     icon="pi pi-trash"></button>
                 <button label="Annuler" (click)="clear()" class="p-button-filter mr-3" pButton
                     icon="pi pi-times"></button>
-                <button type="submit" [disabled]="!dtf.form.valid" label="{{isEditing() ? 'Enregistrer' : 'Ajouter'}}"
+                <button (click)="saveEntity()" [disabled]="!dtf.form.valid" label="{{isEditing() ? 'Enregistrer' : 'Ajouter'}}"
                     icon="pi {{isEditing() ? 'pi-save' : 'pi-plus'}}"
                     class="  {{isEditing() ? 'p-button-primary' : 'p-button-success'}}" pButton>
                 </button>
