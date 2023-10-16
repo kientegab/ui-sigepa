@@ -42,7 +42,6 @@ export class DetailsDetachementComponent {
     // }
     this.idDmd = +this.route.snapshot.paramMap.get('id')!;
     this.getDemande();
-    console.log("DEMANDE ========", this.demande);
   }
 
   /** Permet d'afficher un modal pour la reception */
@@ -129,8 +128,18 @@ export class DetailsDetachementComponent {
     this.demandeService.find(this.idDmd!).subscribe(result => {
       if (result && result.body) {
         this.demande = result.body;
+        console.log("DEMANDE ========", this.demande);
       }
     });
   }
+
+  // loadPieceJointes() {
+  //   this.pi.findListe().subscribe(response => {
+  //       this.motifs = response.body!;
+  //   }, error => {
+  //       this.message = { severity: 'error', summary: error.error };
+  //       console.error(JSON.stringify(error));
+  //   });
+  // }
 
 }

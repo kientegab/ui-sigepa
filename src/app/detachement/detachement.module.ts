@@ -29,6 +29,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ValiderProjetComponent } from './valider-projet/valider-projet.component';
 import { ElaborerProjetComponent } from './elaborer-projet/elaborer-projet.component';
 import { DetailsDetachementAgentComponent } from './details-detachement-agent/details-detachement-agent.component';
+import { FieldsetModule } from 'primeng/fieldset';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { DetailsDetachementAgentComponent } from './details-detachement-agent/de
         PaginatorModule,
         CalendarModule,
         FileUploadModule,
-        DropdownModule
+        DropdownModule,
+        FieldsetModule
     ],
     providers: [ConfirmationService],
 })
