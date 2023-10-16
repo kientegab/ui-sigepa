@@ -347,6 +347,7 @@ export class CreerModifierDetachementComponent {
                         next: (response) => {
                             this.dialogRef.close(response);
                             this.dialogRef.destroy();
+                            this.router.navigate(['detachements']);
                             this.showMessage({severity: 'success', summary: 'demande modifié avec succès'});
 
                             this.isDialogOpInProgress = false;
