@@ -9,6 +9,7 @@ import { ReceptionDetachementComponent } from '../reception-detachement/receptio
 import { ValiderProjetComponent } from '../valider-projet/valider-projet.component';
 import {IPieceJointe} from "../../shared/model/pieceJointe.model";
 import {PieceService} from "../../shared/service/piece.service";
+import { IHistorique } from 'src/app/shared/model/historique.model';
 
 @Component({
   selector: 'app-details-detachement-agent',
@@ -26,7 +27,8 @@ export class DetailsDetachementAgentComponent {
   message: any;
   timeoutHandle: any;
   demandes: any;
-    pieceJointes: IPieceJointe[] =[];
+  pieceJointes: IPieceJointe[] =[];
+  historiques: IHistorique[] =[];
 
   constructor(
     private dialogRef: DynamicDialogRef,
@@ -130,7 +132,8 @@ export class DetailsDetachementAgentComponent {
     this.demandeService.find(this.idDmd!).subscribe(result => {
       if (result && result.body) {
         this.demande = result.body;
-        this.getPieceByDmd(this.demande.id!)
+        this.getPieceByDmd(this.demande.id!);
+        this.getHistoriquesByDmd(this.demande.id!)
       }
     });
   }
@@ -143,14 +146,23 @@ export class DetailsDetachementAgentComponent {
       });
   }
 
-    async voirPiece(filname?: string): Promise<void> {
-            if (filname) {
-                const link = await this.pieceService.visualiser(
-                    filname
-                );
-                if (link) {
-                    window.open(link, '_blank');
-                }
-            }
-    }
+  async voirPiece(filname?: string): Promise<void> {
+          if (filname) {
+              const link = await this.pieceService.visualiser(
+                  filname
+              );
+              if (link) {
+                  window.open(link, '_blank');
+              }
+          }
+  }
+
+  getHistoriquesByDmd(dmdId: number){
+    this.demandeService.findHistoriquesByDemande(dmdId).subscribe(result => {
+        if (result && result.body) {
+            this.historiques = result.body;
+            console.log("Listes historiques ======", this.historiques);
+        }
+    });
+}
 }

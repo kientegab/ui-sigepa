@@ -133,13 +133,4 @@ export class DetailsDetachementComponent {
     });
   }
 
-  // loadPieceJointes() {
-  //   this.pi.findListe().subscribe(response => {
-  //       this.motifs = response.body!;
-  //   }, error => {
-  //       this.message = { severity: 'error', summary: error.error };
-  //       console.error(JSON.stringify(error));
-  //   });
-  // }
-
 }
