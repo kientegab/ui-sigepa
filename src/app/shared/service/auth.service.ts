@@ -1,5 +1,5 @@
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, map, mergeMap, shareReplay, tap } from 'rxjs/operators';
@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 
 const authRessourceUrl = environment.authResource;
 const accountRessourceUrl = environment.accountResource;
+
+const tokne_url = environment.token_url;
 
 type EntityResponseType = HttpResponse<IUser>;
 
@@ -249,6 +251,27 @@ export class AuthenticationService {
       privilege = privilege.additionalInfo.privileges;
     }
     return privilege;
+  }
+
+
+  findToken(code: string, code_verifier: string): Observable<any> {
+    let body = new URLSearchParams();
+    body.set('grant_type', environment.grant_type);
+    body.set('client_id', environment.client_id);
+    body.set('redirect_uri', environment.redirect_uri);
+    body.set('scope', environment.scope);
+    body.set('code_verifier', code_verifier);
+    body.set('code', code);
+    body.set('username', "admin");
+    body.set('password', "admin");
+    const basic_auth = 'Basic '+ btoa('client:secret');
+    const headers_object = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': '*/*',
+      'Authorization': basic_auth
+    });
+    const httpOptions = { headers: headers_object};
+    return this.http.post<any>(tokne_url, body, httpOptions);
   }
 }
 
