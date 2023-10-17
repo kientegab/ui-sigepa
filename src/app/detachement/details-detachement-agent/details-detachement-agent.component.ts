@@ -10,6 +10,7 @@ import { ValiderProjetComponent } from '../valider-projet/valider-projet.compone
 import {IPieceJointe} from "../../shared/model/pieceJointe.model";
 import {PieceService} from "../../shared/service/piece.service";
 import { IHistorique } from 'src/app/shared/model/historique.model';
+import { TokenService } from 'src/app/shared/service/token.service';
 
 @Component({
   selector: 'app-details-detachement-agent',
@@ -23,17 +24,20 @@ export class DetailsDetachementAgentComponent {
   idDmd: number | undefined;
   isOpInProgress!: boolean;
   isDialogOpInProgress!: boolean;
+  isLoggedIn = false;
   showDialog = false;
   message: any;
   timeoutHandle: any;
   demandes: any;
   pieceJointes: IPieceJointe[] =[];
   historiques: IHistorique[] =[];
+  matricule!: string;
 
   constructor(
     private dialogRef: DynamicDialogRef,
     private dialogService: DialogService,
     private demandeService: DemandeService,
+    private tokenStorageService: TokenService,
     private route: ActivatedRoute,
     private router: Router,
     private pieceService: PieceService,
@@ -44,6 +48,13 @@ export class DetailsDetachementAgentComponent {
     // if (this.dynamicDialog.data) {
     //   this.demande = cloneDeep(this.dynamicDialog.data);
     // }
+    this.isLoggedIn = !!this.tokenStorageService.getAccessToken();
+
+    if(this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.matricule = user.matricule;
+    }
+
     this.idDmd = +this.route.snapshot.paramMap.get('id')!;
     this.getDemande();
   }
