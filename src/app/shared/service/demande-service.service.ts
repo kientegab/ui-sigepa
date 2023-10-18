@@ -79,6 +79,10 @@ export class DemandeService {
     return this.http.post<IDemande>(`${demandeUrl}/avis-dgfp/${groupe.id}`, groupe.historique, { observe: 'response' });
   }
 
+  aviserSG(groupe: IDemande): Observable<EntityResponseType> {
+    return this.http.post<IDemande>(`${demandeUrl}/valider-demande/${groupe.id}`, groupe.historique, { observe: 'response' });
+  }
+
   statDemande(){
     return this.http.get<IDemande[]>(reportUrl+'/check-total-globale', { observe: 'response' });
   }
