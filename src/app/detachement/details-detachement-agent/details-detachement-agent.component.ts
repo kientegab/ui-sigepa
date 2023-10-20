@@ -83,7 +83,7 @@ export class DetailsDetachementAgentComponent {
   openModalAviser(demande: IDemande): void {
     this.dialogService.open(AviserDetachementComponent,
     {
-      header: 'Aviser une demande (Profil SG)',
+      header: 'Aviser une demande',
       width: '40%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
@@ -97,13 +97,13 @@ export class DetailsDetachementAgentComponent {
       }
 
     });
-
   }
-   /** Permet d'afficher un modal pour aviser une demande */
+
+  /** Permet d'afficher un modal pour aviser une demande */
    openModalValiderProjet(demande: IDemande): void {
     this.dialogService.open(ValiderProjetComponent,
     {
-      header: 'Valider un projet (Profil SG) ',
+      header: 'Valider un projet',
       width: '40%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
