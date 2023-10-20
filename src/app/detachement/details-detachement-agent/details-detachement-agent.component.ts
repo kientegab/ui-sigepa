@@ -103,7 +103,7 @@ export class DetailsDetachementAgentComponent {
    openModalValiderProjet(demande: IDemande): void {
     this.dialogService.open(ValiderProjetComponent,
     {
-      header: 'Viser un projet (Profil DCMEF) ',
+      header: 'Valider un projet (Profil SG) ',
       width: '40%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
@@ -175,5 +175,5 @@ export class DetailsDetachementAgentComponent {
             console.log("Listes historiques ======", this.historiques);
         }
     });
-}
+  }
 }
