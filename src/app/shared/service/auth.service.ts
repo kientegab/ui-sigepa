@@ -36,9 +36,13 @@ export class AuthenticationService {
     private router: Router
   ) { }
 
-  // login(request: ILoginVM): Observable<ILoginVM> {
-  //   return this.http.post(authRessourceUrl, request);
+  // login(request: ILoginVM): Observable<any> {
+  //   return this.http.post(authRessourceUrl, request,{ observe: 'response' });
   // }
+
+  login(request: ILoginVM): Observable<any> {
+    return this.http.post(authRessourceUrl,request,{ observe: 'response' });
+  }
 
   storeUrl(url: string): void {
     window.sessionStorage.setItem(this.previousUrlKey, url);
@@ -52,9 +56,9 @@ export class AuthenticationService {
     window.sessionStorage.removeItem(this.previousUrlKey);
   }
 
-  login(credentials: ILoginVM): Observable<ILoginVM | null> {
-    return this.loginNext(credentials).pipe(mergeMap(() => this.identity(true)));
-  }
+  // login(credentials: ILoginVM): Observable<ILoginVM | null> {
+  //   return this.loginNext(credentials).pipe(mergeMap(() => this.identity(true)));
+  // }
 
   loginNext(credentials: ILoginVM): Observable<void> {
     return this.http
@@ -72,10 +76,27 @@ export class AuthenticationService {
 
   }
 
+
+
+
+
+
+
+
   authenticate(identity: User | null): void {
     this.userIdentity = identity;
     this.authenticationState.next(this.userIdentity);
   }
+
+
+
+
+
+
+
+
+
+
 
   hasAnyAuthority(authorities: string[] | string): boolean {
     if (!this.userIdentity || !this.userIdentity.profile?.privilegeCollection) {

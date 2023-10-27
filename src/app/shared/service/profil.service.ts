@@ -9,7 +9,9 @@ import { LazyLoadEvent } from 'primeng/api';
 type EntityResponseType = HttpResponse<IProfil>;
 type EntityArrayResponseType = HttpResponse<IProfil[]>;
 
-const resourceUrl = environment.profilUrl;
+const resourceUrl = "assets/data/profil.json";
+// const demandeUrl = "assets/data/demande.json";
+
 
 @Injectable({
   providedIn: 'root'

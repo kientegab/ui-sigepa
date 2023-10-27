@@ -5,9 +5,11 @@ import { MenuItem, Message } from 'primeng/api';
 import { LISTE_TYPE_AGENT } from 'src/app/shared/constants/liste.constants';
 import { CanActivateRequest, CreateAccountRequest, ICanActivateRequest, ICreateAccountRequest } from 'src/app/shared/model/can-activate-request';
 import { IMinistere } from 'src/app/shared/model/ministere.model';
+import { IProfil, Profil } from 'src/app/shared/model/profil';
 import { IStructureMinistere } from 'src/app/shared/model/structure-ministere.model';
 import { IStructure } from 'src/app/shared/model/structure.model';
 import { MinistereService } from 'src/app/shared/service/ministere-service';
+import { ProfilService } from 'src/app/shared/service/profil.service';
 import { UserService } from 'src/app/shared/service/user.service';
 
 enum Step {
@@ -42,21 +44,27 @@ export class AccountComponent implements OnInit {
   stepItems!: MenuItem[];
   ministeres: IMinistere[]= [];
   structures: IStructure[]= [];
+  profils: IProfil [] = [];
 
   dossierTypes!: any[];
   selectedType: any;
+
+  profil: IProfil = new Profil()
 
   typeAgents= LISTE_TYPE_AGENT;
 
   constructor(
     private accountService: UserService,
     private ministereService: MinistereService,
+    private profilService: ProfilService
 
   ) { }
 
   ngOnInit() {
     this.loadMinistere();
     this.loadStructure();
+    this.loadProfil();
+    
     this.stepItems = [
       { label: 'Verification' },
       { label: 'Creation du Compte' }
@@ -69,6 +77,18 @@ export class AccountComponent implements OnInit {
             this.ministeres = result.body || [];
         }
     });
+}
+
+loadProfil(): void {
+  this.profilService.findAll().subscribe(result => {
+      if (result && result.body) {
+        console.log("===============================",result.body)
+          this.profils = result.body || [];
+         
+          
+        
+      }
+  });
 }
 
 loadStructure(): void {
@@ -96,8 +116,15 @@ loadStructure(): void {
   }
 
   create() {
-    this.accountRequest.noMatricule = this.request.noMatricule;
+    // this.accountRequest.noMatricule = this.request.noMatricule;
+    this.profil = { name: "SH" };
+
+   // this.request.profil = this.profil
+    //this.request.profil = this.profil
+    this.request.profil= { name: "SH" };
     this.isOpInProgress = true;
+    console.log("Profils=====================================================",this.profil)
+    console.log("Profils=====================================================",this.request)
     this.accountService.create(this.accountRequest).subscribe(() => {
       this.showMessage({ severity: 'success', summary: 'Compte d\'utilisateur crée avec succès' });
       setTimeout(() => {
@@ -111,7 +138,14 @@ loadStructure(): void {
       this.isOpInProgress = false;
       this.handleError(error);
     });
+
+
   }
+
+
+
+
+
 
   clearDialogMessages() {
     this.dialogErrorMessage = null;
