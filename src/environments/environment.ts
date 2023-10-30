@@ -1,5 +1,5 @@
 const commonAppURI: string = 'http://localhost:8081/api/';
-const commonAuth: string = 'http://localhost:8081/api/auth/';
+const commonAuth: string = 'http://localhost:8080/api/auth/';
 const domaineUrl: string='localhost:4200'
 
 export const environment = {
@@ -24,10 +24,10 @@ export const environment = {
   sectionUrl : commonAppURI +'sections',
   secteurActiviteUrl: commonAppURI +'secteur-activites',
   secteurVillageUrl: commonAppURI +'secteur-villages',
-  userUrl: commonAuth +'utilisateurs',
+  userUrl: commonAuth +'register',
   profilUrl: commonAuth +'profiles',
   privilegeUrl: commonAuth +'privileges',
-  authResource: commonAuth +'utilisateurs/signin',
+  authResource: commonAuth +'authenticate',
   accountResource: commonAuth +'utilisateurs/validate',
   visaUrl: commonAuth + 'visas',
   motifUrl: commonAppURI + 'motifs',

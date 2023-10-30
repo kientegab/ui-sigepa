@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js'; 
 import { environment } from 'src/environments/environment';
 
-const ACCESS_TOKEN = 'access_token';
+const ACCESS_TOKEN = 'auth-token';
 const REFRESH_TOKEN = 'refresh_token';
 const CODE_VERIFIER = 'code_verifier';
 const USER_KEY = 'auth_user';
@@ -19,6 +19,10 @@ export class TokenService {
     localStorage.setItem(ACCESS_TOKEN, access_token);
     localStorage.removeItem(REFRESH_TOKEN);
     localStorage.setItem(REFRESH_TOKEN, refresh_token);
+  }
+  public saveToken(token: string): void {
+    window.sessionStorage.removeItem(ACCESS_TOKEN);
+    window.sessionStorage.setItem(ACCESS_TOKEN, token);
   }
 
   getAccessToken(): string | null {
@@ -74,9 +78,9 @@ export class TokenService {
     localStorage.removeItem(CODE_VERIFIER);
   }
 
-  saveUser(user: any): void {
-    localStorage.removeItem(USER_KEY);
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
+  public saveUser(user: any): void {
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   getUser(): any {
