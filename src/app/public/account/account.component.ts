@@ -6,10 +6,10 @@ import { LISTE_TYPE_AGENT } from 'src/app/shared/constants/liste.constants';
 import { CanActivateRequest, CreateAccountRequest, ICanActivateRequest, ICreateAccountRequest } from 'src/app/shared/model/can-activate-request';
 import { IMinistere } from 'src/app/shared/model/ministere.model';
 import { IProfil, Profil } from 'src/app/shared/model/profil';
-import { IStructureMinistere } from 'src/app/shared/model/structure-ministere.model';
 import { IStructure } from 'src/app/shared/model/structure.model';
 import { MinistereService } from 'src/app/shared/service/ministere-service';
 import { ProfilService } from 'src/app/shared/service/profil.service';
+import { StructureService } from 'src/app/shared/service/structure.service';
 import { UserService } from 'src/app/shared/service/user.service';
 
 enum Step {
@@ -56,7 +56,8 @@ export class AccountComponent implements OnInit {
   constructor(
     private accountService: UserService,
     private ministereService: MinistereService,
-    private profilService: ProfilService
+    private profilService: ProfilService,
+    private structureService: StructureService
 
   ) { }
 
@@ -82,22 +83,44 @@ export class AccountComponent implements OnInit {
 loadProfil(): void {
   this.profilService.findAll().subscribe(result => {
       if (result && result.body) {
-        console.log("===============================",result.body)
+        console.log("Profil::===============================",result.body)
           this.profils = result.body || [];
          
           
         
       }
   });
+
+
+  if (!this.request.superieur) {
+    this.request.superieur = {matricule: ''};
 }
 
-loadStructure(): void {
-  this.ministereService.findAll().subscribe(result => {
-      if (result && result.body) {
-          this.structures =  [];
-      }
+}
+
+// loadStructure(): void {
+//   this.structureService.findAll().subscribe(result => {
+//       if (result && result.body) {
+//         console.log("Structures::::::::::::::=",result.body)
+//           this.structures =  result.body;
+//       }
+//   });
+// }
+
+
+loadStructure() {
+  this.structureService.findListe().subscribe(response => {
+
+      this.structures = response.body!;
+
+      console.warn("Structures================", this.structures)
+  }, error => {
+      this.message = {severity: 'error', summary: error.error};
+      console.error(JSON.stringify(error));
   });
 }
+
+
   canActivate() {
     this.isOpInProgress = true;
     this.accountService.canActivate(this.request).subscribe(response => {
