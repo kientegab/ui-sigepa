@@ -75,7 +75,7 @@ export class LoginComponent {
 				   this.isLoginFailed = false;
 				   this.isLoggedIn = true;
 				  this.setRoute(user.profil);
-				// this.router.navigate(['/admin']);
+				 this.router.navigate(['/admin']);
 				   this.saveSuccess = true;
 				   console.warn("user::::::::::::::::::::::::::",data.body!)
 				   console.warn("user::::::::::::::::::::::::::",user.idToken)

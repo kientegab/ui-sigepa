@@ -66,7 +66,7 @@
                         <div class="field col-6 md:col-6">
                             <label for="superieur">Matricule du supérieur hiérarchique</label>
                             <input id="matricule" name="matricule" #matricule="ngModel"
-                                [(ngModel)]="request.superieur!.matricule" pInputText required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
+                                [(ngModel)]="request.superieur!.matricule"  (ngModelChange)="LoadAgentByMatricule()" pInputText required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                             <div class="p-error" *ngIf="matricule.invalid && (matricule.dirty || matricule.touched) ">
                                 <span>Veillez renseigner le No. matricule</span>
                             </div>
@@ -78,7 +78,7 @@
                             <label for="ministeres">Ministeres</label>
                             <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" id="profil"
                                 name="ministeres"  [options]="ministeres"
-                                [(ngModel)]="request.ministeres" optionLabel="libelle" [required]="true" [filter]="true"
+                                [(ngModel)]="request.ministere" optionLabel="libelle" [required]="true" [filter]="true"
                                 appendTo="body" [showClear]="true">
                             </p-dropdown>
                             <div class="p-error" *ngIf="!ministeres">
@@ -91,7 +91,7 @@
                             <label for="structures">Structures</label>
                             <p-dropdown autoWidth="false" styleClass="mb-3" [style]="{'width':'100%'}" id="structures"
                                 name="structures"  [options]="structures"
-                                [(ngModel)]="request.structures" optionLabel="libelle" [required]="true" [filter]="true"
+                                [(ngModel)]="request.structure" optionLabel="libelle" [required]="true" [filter]="true"
                                 appendTo="body" [showClear]="true">
                             </p-dropdown>
                             <div class="p-error" *ngIf="!structures">
@@ -141,7 +141,7 @@
 
                         <div class="field col-6 md:col-6">
                             <label for="email">Addresse Email</label>
-                        <input id="email" name="email" type="email" #email="ngModel" [(ngModel)]="accountRequest.email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                        <input id="email" name="email" type="email" #email="ngModel" [(ngModel)]="request.email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                             pInputText email required />
                         <div class="p-error" *ngIf="email.invalid && (email.dirty || email.touched) ">
                             <span>Veillez renseigner votre addresse email</span>
@@ -154,7 +154,7 @@
                         
                         <div class="field col-6 md:col-6">
                             <label for="username">Username</label>
-                        <input id="username" name="username" type="username" #email="ngModel" [(ngModel)]="accountRequest.username" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                        <input id="username" name="username" type="username" #email="ngModel" [(ngModel)]="request.username" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                             pInputText email required />
                        
                         
@@ -162,7 +162,7 @@
                         <div class="field col-6 md:col-6">
                             <label for="password">Mot de Passe</label>
                             <p-password id="password" name="password" #password="ngModel" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                                [(ngModel)]="accountRequest.password" [toggleMask]="true" [feedback]="false" minlength="6"
+                                [(ngModel)]="request.password" [toggleMask]="true" [feedback]="false" minlength="6"
                                 required>
                             </p-password>
                             <div class="p-error" *ngIf="password.invalid && (password.dirty || password.touched) ">
@@ -183,7 +183,7 @@
                                 <span>Veillez renseigner la confirmation du mot de passe</span>
                             </div>
                             <div class="p-error"
-                                *ngIf="(confirmation.dirty || confirmation.touched) && accountRequest.password !== pwdConfirmation">
+                                *ngIf="(confirmation.dirty || confirmation.touched) && request.password !== pwdConfirmation">
                                 <span>Les mots de passe ne sont pas les memes</span>
                             </div>
                         </div>
@@ -256,10 +256,10 @@
                         <button type="submit" pButton label="Creer"
                             icon="pi {{isOpInProgress ? 'pi-spinner pi-spin' : 'pi-user-plus'}}"
                             class="p-button-raised p-button-text p-button-secondary p-mr-2"
-                            [disabled]="!(cf.form.valid && accountRequest.password === pwdConfirmation)">
+                            [disabled]="!(cf.form.valid && request.password === pwdConfirmation)">
                         </button>
                         <button type="reset" pButton label="Effacer" icon="pi pi-times-circle"
-                            class="p-button-raised p-button-text p-button-secondary">
+                            class="p-button-raised p-button-text p-button-secondary"  (click)="resetForm()">
                         </button>
                     </div>
                 </form>

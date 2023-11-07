@@ -2,6 +2,7 @@ import { IAgent } from "./agent.model";
 import { IMinistere } from "./ministere.model";
 import { IProfil } from "./profil";
 import { IStructure } from "./structure.model";
+import { IUser } from "./user";
 
 export interface ICanActivateRequest {
     nom?: string;
@@ -9,6 +10,10 @@ export interface ICanActivateRequest {
     telephone?:String;
     username?:String;
 	matricule?: string;
+    email?: string;
+    usernames?: string;
+    password?: string;
+    
  
 	dateNaissance?: Date;
 	dateRecrutement?: Date;
@@ -16,9 +21,9 @@ export interface ICanActivateRequest {
     structure?: IStructure;
     typeAgent?: string;
     profil?: IProfil;
-    ministeres?: IMinistere[];
-    structures?: IStructure[];
-    superieur?: IAgent
+    // ministeres?: IMinistere[];
+    // structures?: IStructure[];
+    superieur?: ICanActivateRequest
 }
 export class CanActivateRequest implements ICanActivateRequest{
     constructor(
@@ -33,9 +38,12 @@ export class CanActivateRequest implements ICanActivateRequest{
     public structure?: IStructure,
     public typeAgent?: string,
     public profil?: IProfil,
-    public ministeres?: IMinistere[],
-    public structures?: IStructure[],
-    public superieur?: IAgent
+    public email?: string,
+    public usernames?: string,
+    public password?: string,
+    // public ministeres?: IMinistere[],
+    // public structures?: IStructure[],
+    public superieur?: ICanActivateRequest
     ){}
 
 }
