@@ -77,8 +77,8 @@ export class AccountComponent implements OnInit {
     this.loadProfil();
     this.LoadAgentByMatricule();
 
-    if (!this.request.superieur) {
-      this.request.superieur = {
+    if (!this.request.superieurHierarchique) {
+      this.request.superieurHierarchique = {
         matricule: '' // Valeur par défaut ou vide
       };
     }
@@ -109,8 +109,8 @@ loadProfil(): void {
   });
 
 
-  if (!this.request.superieur) {
-    this.request.superieur = {matricule: ''};
+  if (!this.request.superieurHierarchique) {
+    this.request.superieurHierarchique = {matricule: ''};
 }
 
 }
@@ -157,12 +157,12 @@ loadStructure() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 LoadAgentByMatricule() {
-  if (this.request.superieur && this.request.superieur.matricule) {
+  if (this.request.superieurHierarchique && this.request.superieurHierarchique.matricule) {
     this.isFetchingAgentInfo = true; // Activez l'indicateur de chargement
     console.warn("agent================================================", this.agent)
     console.warn("agent================================================", this.agentInfo)
     // Faites une requête au service pour obtenir les informations de l'agent en utilisant this.matricule
-    this.agentService.getAgentInfoByMatricule(this.request.superieur.matricule)
+    this.agentService.getAgentInfoByMatricule(this.request.superieurHierarchique.matricule)
         .subscribe(
             (response) => {
 
@@ -220,7 +220,7 @@ LoadAgentByMatricule() {
     // this.request.profil= { name: "SH" };
 
     
-    this.request.superieur = this.agent;
+    this.request.superieurHierarchique = this.agent;
     
     
     this.isOpInProgress = true;

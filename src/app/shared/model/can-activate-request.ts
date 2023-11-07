@@ -23,7 +23,7 @@ export interface ICanActivateRequest {
     profil?: IProfil;
     // ministeres?: IMinistere[];
     // structures?: IStructure[];
-    superieur?: ICanActivateRequest
+    superieurHierarchique?: ICanActivateRequest
 }
 export class CanActivateRequest implements ICanActivateRequest{
     constructor(
@@ -32,18 +32,14 @@ export class CanActivateRequest implements ICanActivateRequest{
     public telephone?:String,
     public username?:String,
     public matricule?: string,
-    public dateNaissance?: Date,
-    public dateRecrutement?: Date,
     public ministere?: IMinistere,
     public structure?: IStructure,
-    public typeAgent?: string,
     public profil?: IProfil,
     public email?: string,
-    public usernames?: string,
     public password?: string,
     // public ministeres?: IMinistere[],
     // public structures?: IStructure[],
-    public superieur?: ICanActivateRequest
+    public superieurHierarchique?: ICanActivateRequest
     ){}
 
 }
