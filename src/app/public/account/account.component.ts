@@ -5,7 +5,7 @@ import { MenuItem, Message } from 'primeng/api';
 import { LISTE_TYPE_AGENT } from 'src/app/shared/constants/liste.constants';
 import { CanActivateRequest, CreateAccountRequest, ICanActivateRequest, ICreateAccountRequest } from 'src/app/shared/model/can-activate-request';
 import { IMinistere } from 'src/app/shared/model/ministere.model';
-import { IProfil, Profil } from 'src/app/shared/model/profil';
+import { IProfil, Profil } from 'src/app/shared/model/profil-old';
 import { IStructureMinistere } from 'src/app/shared/model/structure-ministere.model';
 import { IStructure } from 'src/app/shared/model/structure.model';
 import { MinistereService } from 'src/app/shared/service/ministere-service';

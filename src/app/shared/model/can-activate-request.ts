@@ -1,5 +1,5 @@
 import { IMinistere } from "./ministere.model";
-import { IProfil } from "./profil";
+import { IProfil } from "./profil-old";
 import { IStructure } from "./structure.model";
 
 export interface ICanActivateRequest {

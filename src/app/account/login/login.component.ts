@@ -32,7 +32,7 @@ export class LoginComponent {
 
 	constructor(
 		private layoutService: LayoutService,
-		private tokenStorage: TokenService,
+		private tokenService: TokenService,
 		private authService: AuthenticationService,
 		private router: Router
 		) {}
@@ -66,50 +66,45 @@ export class LoginComponent {
 		this.authService
 		  .login(this.account)
 		  .subscribe( 
-		   (data) => {
-			   if(data.body){
-				console.warn("DATA::::::::::::::::::::::::::",data.body!)
+			(data) => {
+				if(data.body){
+				//    console.warn("DATA::::::::::::::::::::::::::",data.body!);
 				   let user = data.body!;
-				   this.tokenStorage.saveToken(user.idToken);
-				   this.tokenStorage.saveUser(user);
+				   this.tokenService.saveToken(user.access_token);
+				   this.tokenService.saveUser(user);
 				   this.isLoginFailed = false;
 				   this.isLoggedIn = true;
-				  this.setRoute(user.profil);
-				// this.router.navigate(['/admin']);
+				   // this.setRoute(user.profil);
+				   this.router.navigate(['/admin']);
 				   this.saveSuccess = true;
-				   console.warn("user::::::::::::::::::::::::::",data.body!)
-				   console.warn("user::::::::::::::::::::::::::",user.idToken)
 				   // this.message = 'Échec de la connexion, nom d\'utilisateur ou mot de passe incorrect';
-				   
-			   }
-
+			    }
 		   },
 		   err => {
 			   this.errorMessage= 'Matricule ou mot de passe incorrect!!'
 			   // this.errorMessage = err.error.message;
 			   this.isLoginFailed = true;
-			 }
+			}
+		);
+	}
 
-		  );
-	 }
 
-
-	 setRoute(profil: string) {
-		switch (profil) {
-		  case 'ROLE_ADMIN':
-			this.router.navigate(['/admin']);
-			break;
-		  case 'ROLE_AG':
-			this.router.navigate(['agent']);
-			break;
-		  case 'ROLE_DRH':
-			this.router.navigate(['drh']);
-			break;
-		  default:
-			this.router.navigate(['superieur']);
-			break;
-		}
-	  }
+	setRoute(profil: string) {
+	switch (profil) {
+		case 'ROLE_ADMIN':
+		this.router.navigate(['/admin']);
+		break;
+		case 'ROLE_AG':
+		this.router.navigate(['agent']);
+		break;
+		case 'ROLE_DRH':
+		this.router.navigate(['drh']);
+		break;
+		default:
+		this.router.navigate(['superieur']);
+		break;
+	}
+	}
 	  
   showMessage(message: Message) {
     this.message = message;
