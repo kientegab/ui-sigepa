@@ -11,6 +11,7 @@ import { IDemande, Demande } from 'src/app/shared/model/demande.model';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
 import { environment } from 'src/environments/environment';
 import { ValiderProjetComponent } from '../valider-projet/valider-projet.component';
+import { TokenService } from 'src/app/shared/service/token.service';
 
 @Component({
   selector: 'app-detachement-agents',
@@ -38,7 +39,6 @@ export class DetachementAgentsComponent {
   message: any;
   dialogErrorMessage: any;
   enableCreate = true;
-
   page = CURRENT_PAGE;
   previousPage?: number;
   maxSize = MAX_SIZE_PAGE;
@@ -46,9 +46,10 @@ export class DetachementAgentsComponent {
   predicate!: string;
   ascending!: boolean;
   reverse: any;
-
   filtreNumero: string | undefined;
   items: MenuItem[] = [];
+  matricule?:string;
+  isLoggedIn = false;
 
 
 
@@ -56,18 +57,27 @@ export class DetachementAgentsComponent {
     private demandeService: DemandeService,
     private activatedRoute: ActivatedRoute,
     private dialogService: DialogService,
+    private tokenService: TokenService,
     private router: Router
-    ){}
+  ){}
 
 
-   ngOnInit(): void {
-        this.activatedRoute.data.subscribe(
-          () => {
-            this.loadAll();
-          }
-        );
+  ngOnInit(): void {
 
+    this.isLoggedIn = !!this.tokenService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenService.getUser();
+      this.matricule = user.username;
+      // console.log("========= user matricule ==========", this.matricule);
+    }
+
+    this.activatedRoute.data.subscribe(
+      () => {
+        this.loadAll();
       }
+    );
+  }
 
       ngOnDestroy(): void {
         if (this.routeData) {

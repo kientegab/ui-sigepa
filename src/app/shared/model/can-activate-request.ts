@@ -1,6 +1,6 @@
 import { IAgent } from "./agent.model";
 import { IMinistere } from "./ministere.model";
-import { IProfil } from "./profil";
+import { IProfil } from "./profil-old";
 import { IStructure } from "./structure.model";
 import { IUser } from "./user";
 

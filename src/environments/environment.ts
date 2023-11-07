@@ -26,7 +26,7 @@ export const environment = {
   secteurActiviteUrl: commonAppURI +'secteur-activites',
   secteurVillageUrl: commonAppURI +'secteur-villages',
   userUrl: commonAuth +'register',
-  profilUrl: commonAuth +'profiles',
+  profilUrl: commonAuth +'profils',
   privilegeUrl: commonAuth +'privileges',
   authResource: commonAuth +'authenticate',
   accountResource: commonAuth +'utilisateurs/validate',
