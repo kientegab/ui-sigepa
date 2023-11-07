@@ -20,10 +20,10 @@ export class TokenService {
     localStorage.removeItem(REFRESH_TOKEN);
     localStorage.setItem(REFRESH_TOKEN, refresh_token);
   }
-  public saveToken(token: string): void {
-    window.sessionStorage.removeItem(ACCESS_TOKEN);
-    window.sessionStorage.setItem(ACCESS_TOKEN, token);
-  }
+  // public saveToken(token: string): void {
+  //   window.sessionStorage.removeItem(ACCESS_TOKEN);
+  //   window.sessionStorage.setItem(ACCESS_TOKEN, token);
+  // }
 
   getAccessToken(): string | null {
     return localStorage.getItem(ACCESS_TOKEN);
@@ -78,18 +78,31 @@ export class TokenService {
     localStorage.removeItem(CODE_VERIFIER);
   }
 
+
+  // ================================== NEW ===============================================
+
+  public saveToken(token: string): void {
+    window.sessionStorage.removeItem(ACCESS_TOKEN);
+    window.sessionStorage.setItem(ACCESS_TOKEN, token);
+  }
+
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   getUser(): any {
-    const user = localStorage.getItem(USER_KEY);
+    const user = window.sessionStorage.getItem(USER_KEY);
     if(user) {
+      console.log("======= get user saved json========= : ", JSON.parse(user));
+      console.log("======= get user saved ========= : ", user);
       return JSON.parse(user);
     }
-
     return {};
+  }
+
+  public getToken(): string | null {
+    return window.sessionStorage.getItem(ACCESS_TOKEN);
   }
   
 }
