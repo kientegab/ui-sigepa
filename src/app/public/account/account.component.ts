@@ -7,7 +7,7 @@ import { LISTE_TYPE_AGENT } from 'src/app/shared/constants/liste.constants';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
 import { CanActivateRequest, CreateAccountRequest, ICanActivateRequest, ICreateAccountRequest } from 'src/app/shared/model/can-activate-request';
 import { IMinistere } from 'src/app/shared/model/ministere.model';
-import { IProfil, Profil } from 'src/app/shared/model/profil-old';
+import { IProfil, Profil } from 'src/app/shared/model/profil.model';
 import { IStructure } from 'src/app/shared/model/structure.model';
 import { AgentService } from 'src/app/shared/service/agent.service';
 import { MinistereService } from 'src/app/shared/service/ministere-service';

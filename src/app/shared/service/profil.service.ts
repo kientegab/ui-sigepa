@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { LazyLoadEvent } from 'primeng/api';
 import { IProfil } from '../model/profil.model';
 
+
+
 type EntityResponseType = HttpResponse<IProfil>;
 type EntityArrayResponseType = HttpResponse<IProfil[]>;
 
