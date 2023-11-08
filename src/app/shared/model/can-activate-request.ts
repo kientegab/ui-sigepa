@@ -11,7 +11,6 @@ export interface ICanActivateRequest {
     username?:String;
 	matricule?: string;
     email?: string;
-    usernames?: string;
     password?: string;
     
  
@@ -30,7 +29,6 @@ export class CanActivateRequest implements ICanActivateRequest{
     public nom?: string,
     public prenom?: string,
     public telephone?:String,
-    public username?:String,
     public matricule?: string,
     public ministere?: IMinistere,
     public structure?: IStructure,
@@ -46,7 +44,7 @@ export class CanActivateRequest implements ICanActivateRequest{
 export interface ICreateAccountRequest {
     email?: string;
    // noMatricule?: string;
-    username?:String;
+    matricule?:String;
     password?: string;
     
   }
@@ -54,7 +52,7 @@ export interface ICreateAccountRequest {
 export class CreateAccountRequest implements ICreateAccountRequest{
 constructor(
     public email?: string,
-    public username?:String,
+    public matricule?:String,
    // public noMatricule?: string,
     public password?: string
 ){}
