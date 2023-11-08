@@ -58,7 +58,8 @@ export class DetachementAgentsComponent {
     private activatedRoute: ActivatedRoute,
     private dialogService: DialogService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private tokenStorage: TokenService,
   ){}
 
 
@@ -74,7 +75,8 @@ export class DetachementAgentsComponent {
 
     this.activatedRoute.data.subscribe(
       () => {
-        this.loadAll();
+       // this.loadAll();
+          this.loadAgentDmds();
       }
     );
   }
@@ -89,7 +91,8 @@ export class DetachementAgentsComponent {
       }
 
       filtrer(): void {
-        this.loadAll();
+       // this.loadAll();
+          this.loadAgentDmds();
       }
 
       resetFilter(): void {
@@ -113,10 +116,11 @@ export class DetachementAgentsComponent {
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
           },
         });
-        this.loadAll();
+      //  this.loadAll();
+          this.loadAgentDmds();
       }
 
-      loadAll(): void {
+      /*loadAll(): void {
         const req = this.buildReq();
         this.demandeService.query(req).subscribe(result => {
           if (result && result.body) {
@@ -124,7 +128,17 @@ export class DetachementAgentsComponent {
             this.demandes = result.body || [];
           }
         });
-      }
+      }*/
+
+    loadAgentDmds(): void {
+        const req = this.buildReq();
+        this.demandeService.findAgentDmds(req,this.tokenStorage.getUser().matricule).subscribe(result => {
+            if (result && result.body) {
+                this.totalRecords = Number(result.headers.get('X-Total-Count'));
+                this.demandes = result.body || [];
+            }
+        });
+    }
 
 
       sortMethod(): string[] {
@@ -163,7 +177,8 @@ export class DetachementAgentsComponent {
           }).onClose.subscribe(result => {
             if(result){
               this.isDialogOpInProgress = false;
-              this.loadAll();
+            //  this.loadAll();
+                this.loadAgentDmds();
               this.showMessage({ severity: 'success', summary: 'Demande modifiée avec succès' });
             }
 
@@ -174,8 +189,8 @@ export class DetachementAgentsComponent {
       openModalDetailAgent(demande:IDemande): void {
         this.router.navigate(['detachements','details-ags', demande.id]);
       }
-      
-     
+
+
 
       // Errors
       handleError(error: HttpErrorResponse) {
@@ -199,9 +214,9 @@ export class DetachementAgentsComponent {
             this.isDialogOpInProgress = false;
             this.showMessage({ severity: 'success', summary: 'Projet validé avec succès' });
           }
-    
+
         });
-    
+
       }
       // Messages
       clearDialogMessages() {
@@ -215,5 +230,5 @@ export class DetachementAgentsComponent {
         }, 5000);
       }
 
-      
+
 }

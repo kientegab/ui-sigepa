@@ -68,6 +68,7 @@ export class AuthenticationService {
 
   private authenticateSuccess(response: any, rememberMe: boolean): void {
     const jwt = response.accessToken;
+    this.getUserInfo(jwt);
     if (rememberMe) {
       this.saveToken(jwt);
     } else {
@@ -75,6 +76,20 @@ export class AuthenticationService {
     }
 
   }
+
+     getUserInfo(token: string) {
+        let payload;
+        if (token) {
+            payload = token.split(".")[1];
+            payload = window.atob(payload);
+            console.warn("user",payload);
+            return JSON.parse(payload);
+        } else {
+            return null;
+        }
+    }
+
+
 
 
 
