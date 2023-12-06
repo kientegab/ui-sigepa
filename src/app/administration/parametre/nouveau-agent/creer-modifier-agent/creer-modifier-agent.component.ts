@@ -39,7 +39,8 @@ export class CreerModifierAgentComponent {
   request: ICanActivateRequest = new CanActivateRequest();
 
   agent: IAgent = new Agent ();
-
+  idAgt: number | undefined;
+  isDisplay = true;
   accountRequest: ICreateAccountRequest = new CreateAccountRequest();
   pwdConfirmation: any;
 
@@ -79,8 +80,20 @@ export class CreerModifierAgentComponent {
     this.loadProfil();
     this.LoadAgentByMatricule();
 
+   // this.idAgt= +this.activatedRoute.snapshot.paramMap.get('id')!;
+  
+    // if(this.idAgt){
+    //     this.getAgent();
+    // }
+
     if (!this.request.superieurHierarchique) {
       this.request.superieurHierarchique = {
+        matricule: '' // Valeur par défaut ou vide
+      };
+    }
+
+    if (!this.agent.superieurHierarchique) {
+      this.agent.superieurHierarchique = {
         matricule: '' // Valeur par défaut ou vide
       };
     }
@@ -126,6 +139,9 @@ loadProfil(): void {
 //   });
 // }
 
+isEditing() {
+  return !!this.agent.id;
+}
 
 loadStructure() {
   this.structureService.findListe().subscribe(response => {
@@ -156,6 +172,20 @@ loadStructure() {
       this.handleError(error);
     });
   }
+
+
+
+
+//   getAgent(): void {
+//     this.agentService.find(this.idAgt!).subscribe(result => {
+//         if (result && result.body) {
+//             this.agent = result.body;
+//             this.isDisplay = false;
+//             console.warn("Agent",this.agent);
+//             this.LoadAgentByMatricule();          
+//         }
+//     });
+// }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 LoadAgentByMatricule() {
