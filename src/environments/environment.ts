@@ -24,7 +24,7 @@ export const environment = {
   sectionUrl : commonAppURI +'sections',
   secteurActiviteUrl: commonAppURI +'secteur-activites',
   secteurVillageUrl: commonAppURI +'secteur-villages',
-  userUrl: commonAuth +'utilisateurs',
+  userUrl: commonAuth +'register',
   profilUrl: commonAuth +'profiles',
   privilegeUrl: commonAuth +'privileges',
   authResource: commonAuth +'utilisateurs/signin',
