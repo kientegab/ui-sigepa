@@ -9,7 +9,6 @@ export const environment = {
 
   // detachementUrl: 'http://10.53.218.146:8081/api',
   detachementUrl: 'http://localhost:8081/api',
-  authentificationUrl: 'http://localhost:8080/api/auth',
 
   circuitUrl:commonAppURI + 'circuit',
   communeUrl: commonAppURI +'communes',
@@ -25,10 +24,10 @@ export const environment = {
   sectionUrl : commonAppURI +'sections',
   secteurActiviteUrl: commonAppURI +'secteur-activites',
   secteurVillageUrl: commonAppURI +'secteur-villages',
-  userUrl: commonAuth +'register',
-  profilUrl: commonAuth +'profils',
+  userUrl: commonAuth +'utilisateurs',
+  profilUrl: commonAuth +'profiles',
   privilegeUrl: commonAuth +'privileges',
-  authResource: commonAuth +'authenticate',
+  authResource: commonAuth +'utilisateurs/signin',
   accountResource: commonAuth +'utilisateurs/validate',
   visaUrl: commonAuth + 'visas',
   motifUrl: commonAppURI + 'motifs',

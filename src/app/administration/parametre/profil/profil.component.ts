@@ -110,7 +110,8 @@ export class ProfilComponent {
         const req = this.buildReq();
         this.profilService.query(req).subscribe(result => {
           if (result && result.body) {
-            this.totalRecords = Number(result.headers.get('X-Total-Count'));
+            this.totalRecords =result.body.length;
+            // this.totalRecords = Number(result.headers.get('X-Total-Count'));
             this.profils = result.body || [];
           }
         });
