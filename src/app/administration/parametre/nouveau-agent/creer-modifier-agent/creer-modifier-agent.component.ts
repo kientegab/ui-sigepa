@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService, Message } from 'primeng/api';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LISTE_TYPE_AGENT } from 'src/app/shared/constants/liste.constants';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
 import { CanActivateRequest, CreateAccountRequest, ICanActivateRequest, ICreateAccountRequest } from 'src/app/shared/model/can-activate-request';
@@ -61,6 +62,7 @@ export class CreerModifierAgentComponent {
   typeAgents= LISTE_TYPE_AGENT;
 
   constructor(
+    private dialogRef: DynamicDialogRef,
     private accountService: UserService,
     private ministereService: MinistereService,
     private profilService: ProfilService,
@@ -194,30 +196,13 @@ LoadAgentByMatricule() {
 }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   create() {
     // this.accountRequest.noMatricule = this.request.noMatricule;
     // this.profil = { name: "SH" };
 
    // this.request.profil = this.profil
     //this.request.profil = this.profil
-     this.request.profil= { id: 2 };
+    // this.request.profil= { id: 2 };
 
     
     this.request.superieurHierarchique = this.agent;
@@ -228,44 +213,49 @@ LoadAgentByMatricule() {
     console.log("Création de compte=====================================================",this.request);
     console.warn("Supérieur à envoyé================================================", this.agent)
 
-    this.accountService.create(this.request).subscribe(() => {
-      this.showMessage({ severity: 'success', summary: 'Compte d\'utilisateur crée avec succès' });
-      this.resetForm();
-      this.router.navigate(['/login']);
-      setTimeout(() => {
-        this.accountService.login();
-      }, 2000);
-      this.accountRequest = {};
-      this.pwdConfirmation = null;
-      this.form.reset();
-      this.isOpInProgress = false;
-    }, error => {
-      this.isOpInProgress = false;
-      this.handleError(error);
-    });
+    this.accountService.create(this.request).subscribe(
+      
+      
+      {
+        next: (response) => {
+          this.dialogRef.close(response);
+          this.dialogRef.destroy();
+          this.router.navigate(['admin/agents']);
+          this.showMessage({
+              severity: 'success',
+              summary: 'agent créé avec succès',
 
+          });
 
+              this.resetForm();
+  //     this.router.navigate(['agents']);
+       setTimeout(() => {
+         this.accountService.login();
+       }, 2000);
+       this.accountRequest = {};
+       this.pwdConfirmation = null;
+       this.form.reset();
+       this.isOpInProgress = false;
+  //   }, 
 
+          this.isDialogOpInProgress = false;
+      },
+      error: (error) => {
+         console.error("error" + JSON.stringify(error));
+         this.isOpInProgress = false;
+         this.isDialogOpInProgress = false;
+         this.showMessage({severity: 'error', summary: error.error.message});
+
+     }
+      
+  
+  
   }
-
-
-  // create() {
-  //   this.isOpInProgress = true;
-  
-  //   // Traitement de la création du compte ici
-  
-  //   this.accountService.create(this.request).subscribe(
-  //     () => {
-  //       this.showMessage({ severity: 'success', summary: 'Compte d\'utilisateur crée avec succès' });;
-  //       this.resetForm();
-  //       this.isOpInProgress = false;
-  //     },
-  //     (error) => {
-  //       this.isOpInProgress = false;
-  //       this.handleError(error);
-  //     }
-  //   );
-  // }
+      
+    )
+      
+}
+      
   
 
   
