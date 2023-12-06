@@ -1,30 +1,30 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuItem, Message, MessageService } from 'primeng/api';
+import { MenuItem, MessageService, Message } from 'primeng/api';
 import { LISTE_TYPE_AGENT } from 'src/app/shared/constants/liste.constants';
 import { Agent, IAgent } from 'src/app/shared/model/agent.model';
 import { CanActivateRequest, CreateAccountRequest, ICanActivateRequest, ICreateAccountRequest } from 'src/app/shared/model/can-activate-request';
 import { IMinistere } from 'src/app/shared/model/ministere.model';
-import { IProfil, Profil } from 'src/app/shared/model/profil.model';
+import { IProfil, Profil } from 'src/app/shared/model/profil-old';
 import { IStructure } from 'src/app/shared/model/structure.model';
 import { AgentService } from 'src/app/shared/service/agent.service';
 import { MinistereService } from 'src/app/shared/service/ministere-service';
 import { ProfilService } from 'src/app/shared/service/profil.service';
 import { StructureService } from 'src/app/shared/service/structure.service';
 import { UserService } from 'src/app/shared/service/user.service';
-
 enum Step {
   CANACTIVATE, CREATION
 }
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  selector: 'app-creer-modifier-agent',
+  templateUrl: './creer-modifier-agent.component.html',
+  styleUrls: ['./creer-modifier-agent.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class CreerModifierAgentComponent {
 
+  
   @ViewChild('cf') form!: NgForm;
 
   activeStep = Step.CANACTIVATE;
@@ -294,4 +294,5 @@ showMessage(message: Message) {
         this.message = null;
     }, 5000);
 }
+
 }
