@@ -11,6 +11,7 @@ import {IPieceJointe} from "../../shared/model/pieceJointe.model";
 import {PieceService} from "../../shared/service/piece.service";
 import { IHistorique } from 'src/app/shared/model/historique.model';
 import { TokenService } from 'src/app/shared/service/token.service';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-details-detachement-agent',
@@ -46,7 +47,7 @@ export class DetailsDetachementAgentComponent {
     private tokenService: TokenService,
     private route: ActivatedRoute,
     private router: Router,
-    private pieceService: PieceService 
+    private pieceService: PieceService
   ) {}
 
 
@@ -121,7 +122,24 @@ export class DetailsDetachementAgentComponent {
 
   }
   openModalElaborerProjet(demande:IDemande): void {
-    this.router.navigate(['detachements','elaborer', demande.id]);
+      this.demandeService.printArrete(this.demande.id!,false).subscribe({
+          next: (response) => {
+              saveAs(response, 'Arrete' + this.demande.numero + '.pdf')
+              this.dialogRef.close(response);
+              this.dialogRef.destroy();
+              this.showMessage({
+                  severity: 'success',
+                  summary: 'Document telechargé avec succès',
+              });
+          },
+          error: (error) => {
+              console.error("error" + JSON.stringify(error));
+              this.isOpInProgress = false;
+              this.showMessage({ severity: 'error', summary: error.error.message });
+
+          }
+      });
+   // this.router.navigate(['detachements','elaborer', demande.id]);
   }
 
   showMessage(message: Message) {

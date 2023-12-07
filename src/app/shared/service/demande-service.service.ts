@@ -17,6 +17,7 @@ const demandeUrl = environment.detachementUrl+'/demandes';
 const reportUrl= environment.reportingUrl;
 const pieceUrl= environment.detachementUrl+'/piece-jointes';
 const historiqueUrl= environment.detachementUrl+'/positions';
+const exportUrl= environment.detachementUrl+'/exports';
 
 @Injectable({
   providedIn: 'root'
@@ -109,4 +110,8 @@ export class DemandeService {
       const options = createRequestOption(req);
       return this.http.get<IDemande[]>(`${demandeUrl}/list-page/demandes-ministere/${matricule}`, { params: options, observe: 'response' });
   }
+
+    printArrete(dmdId: number,isRegularisation: boolean): Observable<Blob> {
+        return this.http.get(`${exportUrl}/arrete-detachement/${dmdId}/${isRegularisation}`, { responseType: 'blob' });
+    }
 }
