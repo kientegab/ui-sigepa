@@ -22,12 +22,15 @@
         <span class="va-m"><span class="font-bold">Motif : </span>{{ demande.motif?.libelle }}</span>
       </div>
     </div>
-
+  
     <div class="row">
       <div class="col-md-6 details-item">
         <span class="va-m"><span class="font-bold">Structure de disponibilité : </span> {{ demande.destination?.libelle }}</span>
       </div>
+    
       <div class="col-md-6 details-item">
+        <div></div>
+        <br>
         <span class="va-m"><span class="font-bold">Date d'effet : </span> {{ demande.dateEffet }}</span>
       </div>
     </div>
@@ -129,8 +132,8 @@
                 <!-- <td>{{item.libelle}}</td> -->
                 <td> MFP_SPMABG_2023-0001.pdf</td>
                 <td>
-                  <button description="Visualiser" icon="pi pi-eye" label="Visualiser"  (click)="voirPiece('item.url')"  class="p-button-primary mr-2"pButton >
-                  </button>
+                  <!-- <button description="Visualiser" icon="pi pi-eye" label="Visualiser"  (click)="voirPiece('item.url')"  class="p-button-primary mr-2"pButton >
+                  </button> -->
                 </td>
               </tr>
             </tbody>
