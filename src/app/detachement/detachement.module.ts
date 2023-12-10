@@ -30,6 +30,8 @@ import { ValiderProjetComponent } from './valider-projet/valider-projet.componen
 import { ElaborerProjetComponent } from './elaborer-projet/elaborer-projet.component';
 import { DetailsDetachementAgentComponent } from './details-detachement-agent/details-detachement-agent.component';
 import {FieldsetModule} from "primeng/fieldset";
+import { DetailDetachementElaborationComponent } from './detail-detachement-elaboration/detail-detachement-elaboration.component';
+import { ValiderElaborationModalComponent } from './valider-elaboration-modal/valider-elaboration-modal.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import {FieldsetModule} from "primeng/fieldset";
     ReceptionDetachementComponent,
     ValiderProjetComponent,
     ElaborerProjetComponent,
-    DetailsDetachementAgentComponent
+    DetailsDetachementAgentComponent,
+    DetailDetachementElaborationComponent,
+    ValiderElaborationModalComponent
   ],
     imports: [
         CommonModule,
