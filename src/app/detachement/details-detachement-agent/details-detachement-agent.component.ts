@@ -6,12 +6,11 @@ import { IDemande, Demande } from 'src/app/shared/model/demande.model';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
 import { AviserDetachementComponent } from '../aviser-detachement/aviser-detachement.component';
 import { ReceptionDetachementComponent } from '../reception-detachement/reception-detachement.component';
-import { ValiderProjetComponent } from '../valider-projet/valider-projet.component';
 import {IPieceJointe} from "../../shared/model/pieceJointe.model";
 import {PieceService} from "../../shared/service/piece.service";
 import { IHistorique } from 'src/app/shared/model/historique.model';
 import { TokenService } from 'src/app/shared/service/token.service';
-import { saveAs } from "file-saver";
+import {saveAs} from "file-saver";
 
 @Component({
   selector: 'app-details-detachement-agent',
@@ -41,6 +40,7 @@ export class DetailsDetachementAgentComponent {
   disableElaborer = true;
   disableValiderElaboration = true;
   disableSignerElaboration = true;
+    disableExporterElaboration = true;
 
 
   constructor(
@@ -201,10 +201,31 @@ export class DetailsDetachementAgentComponent {
             if (this.demande.statut === 'PROJET_VALIDE' && (this.profil === 'SG')) {
                 this.disableSignerElaboration = false;
             }
+            if (this.demande.statut === 'PROJET_SIGNE') {
+                this.disableExporterElaboration = false;
+            }
         }
       }
     });
   }
+
+    exporter(){
+        this.demandeService.printArrete(this.demande.id!,false).subscribe({
+            next: (response) => {
+                saveAs(response, 'Arrete' + this.demande.numero + '.pdf')
+                this.showMessage({
+                    severity: 'success',
+                    summary: 'Document telechargé avec succès',
+                });
+            },
+            error: (error) => {
+                console.error("error" + JSON.stringify(error));
+                this.isOpInProgress = false;
+                this.showMessage({ severity: 'error', summary: error.error.message });
+
+            }
+        });
+    }
 
   getPieceByDmd(dmdId: number){
     this.demandeService.findPiecesByDemande(dmdId).subscribe(result => {
