@@ -4,20 +4,15 @@ import {Article} from "../../shared/model/article.model";
 import {Ampliation} from "../../shared/model/ampliation.model";
 import {Demande, IDemande} from "../../shared/model/demande.model";
 import {AviserDetachementComponent} from "../aviser-detachement/aviser-detachement.component";
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {DialogService} from "primeng/dynamicdialog";
 import {DemandeService} from "../../shared/service/demande-service.service";
 import {TokenService} from "../../shared/service/token.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {PieceService} from "../../shared/service/piece.service";
 import {Message} from "primeng/api";
-import {saveAs} from "file-saver";
 import {ReceptionDetachementComponent} from "../reception-detachement/reception-detachement.component";
 import {Historique, IHistorique} from "../../shared/model/historique.model";
-import {AmpliationService} from "../../shared/service/ampliation-service.service";
-import {ArticleService} from "../../shared/service/article.service";
-import {VisaService} from "../../shared/service/visa-service";
-import {ValiderProjetComponent} from "../valider-projet/valider-projet.component";
 import {ValiderElaborationModalComponent} from "../valider-elaboration-modal/valider-elaboration-modal.component";
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-detail-detachement-elaboration',
@@ -58,11 +53,6 @@ export class DetailDetachementElaborationComponent {
         private tokenService: TokenService,
         private route: ActivatedRoute,
         private router: Router,
-        private pieceService: PieceService,
-        private dialogRef: DynamicDialogRef,
-        private ampliationService: AmpliationService,
-        private articleService: ArticleService,
-        private visaService: VisaService
     ) {}
 
     ngOnInit(): void {
@@ -158,9 +148,7 @@ export class DetailDetachementElaborationComponent {
             this.demandeService.signerElaborationSG(this.demande).subscribe(
                 {
                     next: (response: any) => {
-                        this.router.navigate(['detachements','agents']);
-                        this.showMessage({ severity: 'success', summary: "Projet d'arrete signé avec succès"});
-
+                        this.print();
                     },
                     error: (error: { error: { message: any; }; }) => {
                         console.error("error" + JSON.stringify(error));
@@ -247,6 +235,25 @@ export class DetailDetachementElaborationComponent {
             }
 
         });
+    }
+
+    print(){
+       this.demandeService.printArrete(this.demande.id!,false).subscribe({
+          next: (response) => {
+              saveAs(response, 'Arrete' + this.demande.numero + '.pdf')
+              this.showMessage({
+                  severity: 'success',
+                  summary: 'Document telechargé avec succès',
+              });
+              this.router.navigate(['detachements','agents']);
+          },
+          error: (error) => {
+              console.error("error" + JSON.stringify(error));
+              this.isOpInProgress = false;
+              this.showMessage({ severity: 'error', summary: error.error.message });
+
+          }
+      });
     }
     }
 
