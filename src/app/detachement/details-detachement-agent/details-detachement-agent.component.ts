@@ -39,6 +39,9 @@ export class DetailsDetachementAgentComponent {
   disableAviserSG = true;
   disableReceptionner = true;
   disableElaborer = true;
+  disableValiderElaboration = true;
+  disableSignerElaboration = true;
+
 
   constructor(
     private dialogRef: DynamicDialogRef,
@@ -102,7 +105,7 @@ export class DetailsDetachementAgentComponent {
 
   /** Permet d'afficher un modal pour aviser une demande */
    openModalValiderProjet(demande: IDemande): void {
-    this.dialogService.open(ValiderProjetComponent,
+    /*this.dialogService.open(ValiderProjetComponent,
     {
       header: 'Valider un projet',
       width: '40%',
@@ -119,10 +122,11 @@ export class DetailsDetachementAgentComponent {
       }
 
     });
-
+*/
+      this.router.navigate(['detachements','elaborer', demande.id]);
   }
   openModalElaborerProjet(demande:IDemande): void {
-      this.demandeService.printArrete(this.demande.id!,false).subscribe({
+     /* this.demandeService.printArrete(this.demande.id!,false).subscribe({
           next: (response) => {
               saveAs(response, 'Arrete' + this.demande.numero + '.pdf')
               this.dialogRef.close(response);
@@ -138,8 +142,8 @@ export class DetailsDetachementAgentComponent {
               this.showMessage({ severity: 'error', summary: error.error.message });
 
           }
-      });
-   // this.router.navigate(['detachements','elaborer', demande.id]);
+      });*/
+   this.router.navigate(['detachements','elaborer', demande.id]);
   }
 
   showMessage(message: Message) {
@@ -191,6 +195,12 @@ export class DetailsDetachementAgentComponent {
           if (this.demande.statut === 'DEMANDE_VALIDEE' && (this.profil === 'STDRH' || this.profil === 'STDGF')) {
             this.disableElaborer = false;
           }
+            if (this.demande.statut === 'PROJET_ELABORE' && (this.profil === 'DRH')) {
+                this.disableValiderElaboration = false;
+            }
+            if (this.demande.statut === 'PROJET_VALIDE' && (this.profil === 'SG')) {
+                this.disableSignerElaboration = false;
+            }
         }
       }
     });
@@ -223,6 +233,10 @@ export class DetailsDetachementAgentComponent {
         }
     });
   }
+
+    openModalSignatureProjet(demande:IDemande): void {
+        this.router.navigate(['detachements','elaborer', demande.id]);
+    }
 
 
 }

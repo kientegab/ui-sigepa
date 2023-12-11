@@ -114,4 +114,16 @@ export class DemandeService {
     printArrete(dmdId: number,isRegularisation: boolean): Observable<Blob> {
         return this.http.get(`${exportUrl}/arrete-detachement/${dmdId}/${isRegularisation}`, { responseType: 'blob' });
     }
+
+    elaborationSTDRH(demande: IDemande): Observable<EntityResponseType> {
+        return this.http.post<IDemande>(`${demandeUrl}/elaborer/${demande.id}`, demande.historique, { observe: 'response' });
+    }
+    validerElaborationDRH(demande: IDemande): Observable<EntityResponseType> {
+        return this.http.post<IDemande>(`${demandeUrl}/valider-projet/${demande.id}`, demande.historique, { observe: 'response' });
+    }
+
+    signerElaborationSG(demande: IDemande): Observable<EntityResponseType> {
+        return this.http.post<IDemande>(`${demandeUrl}/signer-projet/${demande.id}`, demande.historique, { observe: 'response' });
+    }
+
 }
