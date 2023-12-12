@@ -31,12 +31,14 @@ import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
 import { ResourceInterceptor } from './shared/interceptors/resource.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TemplateUsagerComponent } from './template-usager/template-usager.component';
 
 
 
 @NgModule({
     declarations: [
         AppComponent,
+        TemplateUsagerComponent,
       //  CreerModifierEmploiComponent,
         // ActionToolBarIudComponent
     ],
