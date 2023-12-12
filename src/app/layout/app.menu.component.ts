@@ -59,6 +59,11 @@ export class AppMenuComponent implements OnInit {
                             icon: 'pi pi-lock',
                             //visible: this.authService.checkPermission([Authority.ADMIN, Authority.VIEW_USER], AuthenticationService.privileges),
                             items: [
+                                {
+                                    label: 'Agents',
+                                    icon: 'pi pi-fw pi-eye-slash',
+                                    routerLink: ['/admin/agents']
+                                }
                             ]
                         },
                         {
@@ -204,7 +209,6 @@ export class AppMenuComponent implements OnInit {
                                         icon: 'pi pi-fw pi-eye-slash',
                                         routerLink: ['/detachements/agents']
                                     },
-                                    
                                 ]
                             },
                             {
