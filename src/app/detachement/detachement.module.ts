@@ -32,6 +32,8 @@ import { DetailsDetachementAgentComponent } from './details-detachement-agent/de
 import {FieldsetModule} from "primeng/fieldset";
 import { DetailDetachementElaborationComponent } from './detail-detachement-elaboration/detail-detachement-elaboration.component';
 import { ValiderElaborationModalComponent } from './valider-elaboration-modal/valider-elaboration-modal.component';
+import { VerifierProjetComponent } from './verifier-projet/verifier-projet.component';
+import { ViserProjetComponent } from './viser-projet/viser-projet.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { ValiderElaborationModalComponent } from './valider-elaboration-modal/va
     ElaborerProjetComponent,
     DetailsDetachementAgentComponent,
     DetailDetachementElaborationComponent,
-    ValiderElaborationModalComponent
+    ValiderElaborationModalComponent,
+    VerifierProjetComponent,
+    ViserProjetComponent
   ],
     imports: [
         CommonModule,

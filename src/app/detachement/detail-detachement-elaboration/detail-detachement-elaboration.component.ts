@@ -13,6 +13,8 @@ import {ReceptionDetachementComponent} from "../reception-detachement/reception-
 import {Historique, IHistorique} from "../../shared/model/historique.model";
 import {ValiderElaborationModalComponent} from "../valider-elaboration-modal/valider-elaboration-modal.component";
 import { saveAs } from "file-saver";
+import { VerifierProjetComponent } from '../verifier-projet/verifier-projet.component';
+import { ViserProjetComponent } from '../viser-projet/viser-projet.component';
 
 @Component({
   selector: 'app-detail-detachement-elaboration',
@@ -38,6 +40,9 @@ export class DetailDetachementElaborationComponent {
     disableElaborer = true;
     disableValiderElaboration = true;
     disableSignerElaboration = true;
+    disableVerifierSTDCMEF = true;
+    diableViserDCMEF = true;
+    disableExporterElaboration = true
 
     demande: Demande = new  Demande();
     username!: string;
@@ -105,6 +110,32 @@ export class DetailDetachementElaborationComponent {
                     }
                     if (this.demande.statut === 'PROJET_VALIDE' && (this.profil === 'SG')) {
                         this.disableSignerElaboration = false;
+                    }
+
+
+
+                    if ((this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') &&   (this.demande.statut === 'PROJET_ELABORE') && (this.profil === 'STDCMEF')) {
+                        this.disableVerifierSTDCMEF = false;
+                    }
+        
+        
+                    if ((this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') &&   (this.demande.statut === 'PROJET_VERIFIE') && (this.profil === 'DCMEF')) {
+                      this.diableViserDCMEF=false;
+                  }
+        
+        
+                    if ( (this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') &&   (this.demande.statut === 'PROJET_VISE') && (this.profil === 'DRH')) {
+                      this.disableValiderElaboration = false;
+                  }
+        
+        
+                  if ((this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') && this.demande.statut === 'PROJET_VALIDE' && (this.profil === 'SG')) {
+                    this.disableSignerElaboration = false;
+                }
+        
+                   
+                    if ((this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') && this.demande.statut === 'PROJET_SIGNE') {
+                        this.disableExporterElaboration = false;
                     }
                 }
             }
@@ -207,6 +238,48 @@ export class DetailDetachementElaborationComponent {
         });
 
     }
+
+
+    openModalVerifierProjet(demande:IDemande): void {
+        this.dialogService.open(VerifierProjetComponent,
+            {
+                header: 'Vérifier le projet',
+                width: '40%',
+                contentStyle: { overflow: 'auto' },
+                baseZIndex: 10000,
+                maximizable: true,
+                closable: true,
+                data: demande
+            }).onClose.subscribe(result => {
+            if(result){
+                this.isDialogOpInProgress = false;
+                window.location.reload();
+                this.showMessage({ severity: 'success', summary: 'Demande verifiée avec succès' });
+            }
+
+        });
+     }
+    
+     openModalViserProjet(demande:IDemande): void {
+        this.dialogService.open(ViserProjetComponent,
+            {
+                header: 'Viser une demande',
+                width: '40%',
+                contentStyle: { overflow: 'auto' },
+                baseZIndex: 10000,
+                maximizable: true,
+                closable: true,
+                data: demande
+            }).onClose.subscribe(result => {
+            if(result){
+                this.isDialogOpInProgress = false;
+                window.location.reload();
+                this.showMessage({ severity: 'success', summary: 'Demande visée avec succès' });
+            }
+
+        });
+    }
+    
 
     showMessage(message: Message) {
         this.message = message;

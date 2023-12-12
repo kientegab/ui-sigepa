@@ -10,6 +10,8 @@ import { DetailsDetachementAgentComponent } from './details-detachement-agent/de
 import {
     DetailDetachementElaborationComponent
 } from "./detail-detachement-elaboration/detail-detachement-elaboration.component";
+import { VerifierProjetComponent } from './verifier-projet/verifier-projet.component';
+import { ViserProjetComponent } from './viser-projet/viser-projet.component';
 
 const routes: Routes = [
   { path: '', component: DetachementComponent },
@@ -19,7 +21,10 @@ const routes: Routes = [
   { path: 'details/:id',  component: DetailsDetachementComponent },
   { path: 'details-ags/:id',  component: DetailsDetachementAgentComponent },
   { path: 'elaborer/:id',  component: DetailDetachementElaborationComponent },
-  { path: 'valider/:id',  component: ValiderProjetComponent }
+  { path: 'valider/:id',  component: ValiderProjetComponent },
+  { path: 'verifier/:id',  component: VerifierProjetComponent },
+  { path: 'viser/:id',  component: ViserProjetComponent }
+
 ];
 
 @NgModule({

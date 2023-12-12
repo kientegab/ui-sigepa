@@ -33,6 +33,9 @@ export class DetailsDetachementAgentComponent {
   historiques: IHistorique[] =[];
   username!: string;
   profil!: string;
+
+  disableVerifierSTDCMEF = true;
+  diableViserDCMEF = true;
   disableAviserSH = true;
   disableAviserDRH = true;
   disableAviserSG = true;
@@ -146,6 +149,54 @@ export class DetailsDetachementAgentComponent {
    this.router.navigate(['detachements','elaborer', demande.id]);
   }
 
+
+  openModalVerifierProjet(demande:IDemande): void {
+    /* this.demandeService.printArrete(this.demande.id!,false).subscribe({
+         next: (response) => {
+             saveAs(response, 'Arrete' + this.demande.numero + '.pdf')
+             this.dialogRef.close(response);
+             this.dialogRef.destroy();
+             this.showMessage({
+                 severity: 'success',
+                 summary: 'Document telechargé avec succès',
+             });
+         },
+         error: (error) => {
+             console.error("error" + JSON.stringify(error));
+             this.isOpInProgress = false;
+             this.showMessage({ severity: 'error', summary: error.error.message });
+
+         }
+     });*/
+  this.router.navigate(['detachements','elaborer', demande.id]);
+ }
+
+ openModalViserProjet(demande:IDemande): void {
+  /* this.demandeService.printArrete(this.demande.id!,false).subscribe({
+       next: (response) => {
+           saveAs(response, 'Arrete' + this.demande.numero + '.pdf')
+           this.dialogRef.close(response);
+           this.dialogRef.destroy();
+           this.showMessage({
+               severity: 'success',
+               summary: 'Document telechargé avec succès',
+           });
+       },
+       error: (error) => {
+           console.error("error" + JSON.stringify(error));
+           this.isOpInProgress = false;
+           this.showMessage({ severity: 'error', summary: error.error.message });
+
+       }
+   });*/
+this.router.navigate(['detachements','elaborer', demande.id]);
+}
+
+
+
+
+
+
   showMessage(message: Message) {
     this.message = message;
     this.timeoutHandle = setTimeout(() => {
@@ -204,6 +255,41 @@ export class DetailsDetachementAgentComponent {
             if (this.demande.statut === 'PROJET_SIGNE') {
                 this.disableExporterElaboration = false;
             }
+
+//////////////////////////////////////////////////////////////////Renouvellement&Fin///////////////////////////////////////////////////////////////////////////////////
+
+ if ((this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') &&   (this.demande.statut === 'PROJET_ELABORE') && (this.profil === 'STDCMEF')) {
+                this.disableVerifierSTDCMEF = false;
+            }
+
+
+            if ((this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') &&   (this.demande.statut === 'PROJET_VERIFIE') && (this.profil === 'DCMEF')) {
+              this.diableViserDCMEF=false;
+          }
+
+
+            if ( (this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') &&   (this.demande.statut === 'PROJET_VISE') && (this.profil === 'DRH')) {
+              this.disableValiderElaboration = false;
+          }
+
+
+          if ((this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') && this.demande.statut === 'PROJET_VALIDE' && (this.profil === 'SG')) {
+            this.disableSignerElaboration = false;
+        }
+
+           
+            if ((this.demande.typeDemande?.libelle ==='Demande de renouvellement de détachement'||this.demande.typeDemande?.libelle ==='Demande de fin de détachement de détachement') && this.demande.statut === 'PROJET_SIGNE') {
+                this.disableExporterElaboration = false;
+            }
+
+
+
+////////////////////////////////////////////////////////////////////////Rectification&Annulation///////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
       }
     });

@@ -68,6 +68,21 @@ export class DemandeService {
     return this.http.post<IDemande>(`${demandeUrl}/receptionner/${groupe.id}`, groupe.historique, { observe: 'response' });
   }
 
+
+
+  
+  verifierProjetSTDCMEF(groupe: IDemande): Observable<EntityResponseType>{
+    return this.http.post<IDemande>(`${demandeUrl}/verifier-projet/${groupe.id}`, groupe.historique, { observe: 'response' });
+
+  }
+
+ viserProjetDCMEF(demande: IDemande): Observable<EntityResponseType>{
+  return this.http.post<IDemande>(`${demandeUrl}/viser-projet/${demande.id}`, demande.historique, { observe: 'response' });
+  }
+
+
+
+
   aviserSH(groupe: IDemande): Observable<EntityResponseType> {
     return this.http.post<IDemande>(`${demandeUrl}/avis-sh/${groupe.id}`, groupe.historique, { observe: 'response' });
   }
@@ -126,4 +141,5 @@ export class DemandeService {
         return this.http.post<IDemande>(`${demandeUrl}/signer-projet/${demande.id}`, demande.historique, { observe: 'response' });
     }
 
+    
 }

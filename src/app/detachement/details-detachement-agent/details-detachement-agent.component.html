@@ -166,10 +166,27 @@
       pButton></button>
     </div>
 
+
     <div class="p-ml-auto text-right">
       <button description="elaborer" icon="pi pi-pencil" label="Procéder a l'élaboration" [hidden]="disableElaborer" (click)="openModalElaborerProjet(demande)" class="p-button-success mr-2"
       pButton></button>
   </div>
+
+
+  <div class="p-ml-auto text-right">
+    <button description="verifier" icon="pi pi-pencil" label="Procéder a la vérification" [hidden]="disableVerifierSTDCMEF" (click)="openModalVerifierProjet(demande)" class="p-button-success mr-2"
+    pButton></button>
+</div>
+
+
+<div class="p-ml-auto text-right">
+  <button description="viser" icon="pi pi-pencil" label="Viser projet" [hidden]="diableViserDCMEF" (click)="openModalViserProjet(demande)" class="p-button-success mr-2"
+  pButton></button>
+</div>
+
+
+
+
 
  <div class="p-ml-auto text-right">
     <button description="valider" icon="pi pi-pencil" [hidden]="disableValiderElaboration" label="Procéder à la validation" (click)="openModalValiderProjet(demande)" class="p-button-success mr-2"

@@ -143,6 +143,20 @@
             <button description="elaborer" icon="pi pi-pencil" label="Declencher processus Elaboration" [hidden]="disableElaborer" (click)="elaborer()" class="p-button-success mr-2"
                     pButton></button>
         </div>
+
+
+        <div class="p-ml-auto text-right">
+            <button description="verifier" icon="pi pi-pencil" label="Avis" [hidden]="disableVerifierSTDCMEF" (click)="openModalVerifierProjet(demande)" class="p-button-success mr-2"
+            pButton></button>
+        </div>
+        
+        
+        <div class="p-ml-auto text-right">
+          <button description="viser" icon="pi pi-pencil" label="Procéder au visas" [hidden]="diableViserDCMEF" (click)="openModalViserProjet(demande)" class="p-button-success mr-2"
+          pButton></button>
+        </div>
+
+
         <div class="p-ml-auto text-right">
             <button description="valider le projet" icon="pi pi-pencil" label="Valider Elaboration" [hidden]="disableValiderElaboration" (click)="openModalValiderElaborerProjet(demande)" class="p-button-success mr-2"
                     pButton></button>
