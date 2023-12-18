@@ -15,6 +15,9 @@ import {ValiderElaborationModalComponent} from "../valider-elaboration-modal/val
 import { saveAs } from "file-saver";
 import { VerifierProjetComponent } from '../verifier-projet/verifier-projet.component';
 import { ViserProjetComponent } from '../viser-projet/viser-projet.component';
+import { VisaProjetComponent } from '../visa-projet/visa-projet.component';
+import { ArticleProjetComponent } from '../article-projet/article-projet.component';
+import { AmpliationProjetComponent } from '../ampliation-projet/ampliation-projet.component';
 
 @Component({
   selector: 'app-detail-detachement-elaboration',
@@ -66,6 +69,72 @@ export class DetailDetachementElaborationComponent {
         this.getDemande();
 
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+openModalVisa(demande:IDemande): void {
+    this.dialogService.open(VisaProjetComponent,
+        {
+            header: 'Ajouter un visa',
+            width: '40%',
+            contentStyle: { overflow: 'auto' },
+            baseZIndex: 10000,
+            maximizable: true,
+            closable: true,
+            data: demande
+        }).onClose.subscribe(result => {
+        if(result){
+            this.isDialogOpInProgress = false;
+            window.location.reload();
+            this.showMessage({ severity: 'success', summary: 'Visa ajouté avec succès' });
+        }
+
+    });
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+openModalArticle(demande:IDemande): void {
+    this.dialogService.open(ArticleProjetComponent,
+        {
+            header: 'Ajouter un article',
+            width: '40%',
+            contentStyle: { overflow: 'auto' },
+            baseZIndex: 10000,
+            maximizable: true,
+            closable: true,
+            data: demande
+        }).onClose.subscribe(result => {
+        if(result){
+            this.isDialogOpInProgress = false;
+            window.location.reload();
+            this.showMessage({ severity: 'success', summary: 'article ajouté avec succès' });
+        }
+
+    });
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+openModalAmpliation(demande:IDemande): void {
+    this.dialogService.open(AmpliationProjetComponent,
+        {
+            header: 'Ajouter une ampliation',
+            width: '40%',
+            contentStyle: { overflow: 'auto' },
+            baseZIndex: 10000,
+            maximizable: true,
+            closable: true,
+            data: demande
+        }).onClose.subscribe(result => {
+        if(result){
+            this.isDialogOpInProgress = false;
+            window.location.reload();
+            this.showMessage({ severity: 'success', summary: 'ampliation ajouté avec succès' });
+        }
+
+    });
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     getDemande(): void {
         this.demandeService.find(this.idDmd!).subscribe(result => {
@@ -328,5 +397,8 @@ export class DetailDetachementElaborationComponent {
           }
       });
     }
+
+
+
     }
 
