@@ -53,8 +53,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let item of visas">
-                            <th scope="row"></th>
+                        <tr *ngFor="let item of visas;let i = index">
+                            <th scope="row">{{i+1}}</th>
                             <td>{{item.code}}</td>
                             <td>{{item.libelle}}</td>
                         </tr>
@@ -148,6 +148,19 @@
                     pButton></button>
         </div>
 
+        <div class="p-ml-auto text-right">
+            <button description="rejeter demande sg" icon="pi pi-pencil" label="Rejeter demande" [hidden]="disableRejeterDemande" (click)="rejeterDemande()" class="p-button-success mr-2"
+                    pButton></button>
+        </div>
+
+
+        <div class="p-ml-auto text-right">
+            <button description="rejeter projet sg" icon="pi pi-pencil" label="Rejeter projet" [hidden]="disableRejeterProjet" (click)="rejeterElaboration()" class="p-button-success mr-2"
+                    pButton></button>
+        </div>
+
+
+        
         <div class="p-ml-auto text-right">
             <button description="receptionner" icon="pi pi-folder-open" label="Receptionner" [hidden]="disableReceptionner" (click)="openModalReceptionner(demande)" class="p-button-primary mr-2"
                     pButton></button>

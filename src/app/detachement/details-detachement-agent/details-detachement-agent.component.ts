@@ -8,7 +8,7 @@ import { AviserDetachementComponent } from '../aviser-detachement/aviser-detache
 import { ReceptionDetachementComponent } from '../reception-detachement/reception-detachement.component';
 import {IPieceJointe} from "../../shared/model/pieceJointe.model";
 import {PieceService} from "../../shared/service/piece.service";
-import { IHistorique } from 'src/app/shared/model/historique.model';
+import { Historique, IHistorique } from 'src/app/shared/model/historique.model';
 import { TokenService } from 'src/app/shared/service/token.service';
 import {saveAs} from "file-saver";
 
@@ -34,6 +34,10 @@ export class DetailsDetachementAgentComponent {
   username!: string;
   profil!: string;
 
+  // historiques: IHistorique[] =[];
+  historique:IHistorique = new Historique();
+
+  
   disableVerifierSTDCMEF = true;
   diableViserDCMEF = true;
   disableAviserSH = true;
@@ -44,7 +48,7 @@ export class DetailsDetachementAgentComponent {
   disableValiderElaboration = true;
   disableSignerElaboration = true;
     disableExporterElaboration = true;
-
+    disableRejeterDemande = true;
 
   constructor(
     private dialogRef: DynamicDialogRef,
@@ -240,8 +244,8 @@ this.router.navigate(['detachements','elaborer', demande.id]);
           }
 
           if((this.demande.statut === 'AVIS_DRH' || this.demande.statut === 'AVIS_DGFP') && this.profil === 'SG') {
-            this.disableAviserSG = false;
-          }
+            this.disableAviserSG = false && this.disableRejeterDemande == false;
+        }
 
           if (this.demande.statut === 'DEMANDE_VALIDEE' && (this.profil === 'STDRH' || this.profil === 'STDGF')) {
             this.disableElaborer = false;
@@ -344,6 +348,25 @@ this.router.navigate(['detachements','elaborer', demande.id]);
     openModalSignatureProjet(demande:IDemande): void {
         this.router.navigate(['detachements','elaborer', demande.id]);
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+rejeterDemande(): void {
+  this.isDialogOpInProgress = true;
+  if (this.demande) {
+      this.demande.historique = this.historique;
+      this.demandeService.rejeterSG(this.demande).subscribe(
+          {
+              // next: (response: any) => {
+              //     this.print();
+              // },
+              error: (error: { error: { message: any; }; }) => {
+                  console.error("error" + JSON.stringify(error));
+                  this.isOpInProgress = false;
+                  this.showMessage({ severity: 'error', summary: error.error.message });
 
+              }
+          });
+
+  }
+}
 
 }

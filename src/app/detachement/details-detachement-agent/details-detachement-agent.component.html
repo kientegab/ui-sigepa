@@ -199,6 +199,11 @@
       </div>
 
       <div class="p-ml-auto text-right">
+        <button description="rejeter" icon="pi pi-pencil" label="Rejeter demande" [hidden]="disableRejeterDemande" (click)="rejeterDemande()" class="p-button-success mr-2"
+                pButton></button>
+    </div>
+
+      <div class="p-ml-auto text-right">
           <button description="telecharger" icon="pi pi-pencil" [hidden]="disableExporterElaboration" label="Exporter l'arrete signé" (click)="exporter()" class="p-button-success mr-2"
                   pButton></button>
       </div>

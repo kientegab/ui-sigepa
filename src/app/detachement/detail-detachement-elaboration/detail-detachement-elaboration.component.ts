@@ -46,6 +46,11 @@ export class DetailDetachementElaborationComponent {
     disableVerifierSTDCMEF = true;
     diableViserDCMEF = true;
     disableExporterElaboration = true
+    disableRejeterDemande = true;
+    disableRejeterProjet = true;
+
+
+
 
     demande: Demande = new  Demande();
     username!: string;
@@ -167,7 +172,7 @@ openModalAmpliation(demande:IDemande): void {
                     }
 
                     if((this.demande.statut === 'AVIS_DRH' || this.demande.statut === 'AVIS_DGFP') && this.profil === 'SG') {
-                        this.disableAviserSG = false;
+                        this.disableAviserSG = false && this.disableRejeterDemande == false;
                     }
 
                     if (this.demande.statut === 'DEMANDE_VALIDEE' && (this.profil === 'STDRH')) {
@@ -177,8 +182,9 @@ openModalAmpliation(demande:IDemande): void {
                     if (this.demande.statut === 'PROJET_ELABORE' && (this.profil === 'DRH')) {
                         this.disableValiderElaboration = false;
                     }
+                    
                     if (this.demande.statut === 'PROJET_VALIDE' && (this.profil === 'SG')) {
-                        this.disableSignerElaboration = false;
+                        this.disableSignerElaboration = false && this.disableRejeterProjet == false;
                     }
 
 
@@ -260,6 +266,48 @@ openModalAmpliation(demande:IDemande): void {
 
         }
     }
+
+    rejeterElaboration(): void {
+        this.isDialogOpInProgress = true;
+        if (this.demande) {
+            this.demande.historique = this.historique;
+            this.demandeService.rejeterElaborationSG(this.demande).subscribe(
+                {
+                    next: (response: any) => {
+                        this.print();
+                    },
+                    error: (error: { error: { message: any; }; }) => {
+                        console.error("error" + JSON.stringify(error));
+                        this.isOpInProgress = false;
+                        this.showMessage({ severity: 'error', summary: error.error.message });
+
+                    }
+                });
+
+        }
+    }
+
+    rejeterDemande(): void {
+        this.isDialogOpInProgress = true;
+        if (this.demande) {
+            this.demande.historique = this.historique;
+            this.demandeService.rejeterSG(this.demande).subscribe(
+                {
+                    next: (response: any) => {
+                        this.print();
+                    },
+                    error: (error: { error: { message: any; }; }) => {
+                        console.error("error" + JSON.stringify(error));
+                        this.isOpInProgress = false;
+                        this.showMessage({ severity: 'error', summary: error.error.message });
+
+                    }
+                });
+
+        }
+    }
+
+
 
 
     openModalAviser(demande: IDemande): void {
