@@ -4,8 +4,11 @@ import { NgForm } from '@angular/forms';
 import { cloneDeep } from 'lodash';
 import { ConfirmationService, Message } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { IAmpliation, Ampliation } from 'src/app/shared/model/ampliation.model';
-import { AmpliationService } from 'src/app/shared/service/ampliation-service.service';
+import { AmpliationDemande, IAmpliationDemande } from 'src/app/shared/model/ampliationDemande.model';
+import { Demande, IDemande } from 'src/app/shared/model/demande.model';
+import { AmpliationProjetService } from 'src/app/shared/service/ampliation-projet.service';
+// import { IAmpliationDemande, Ampliation } from 'src/app/shared/model/ampliation.model';
+//import { AmpliationProjetService } from 'src/app/shared/service/ampliation-service.service';
 
 @Component({
   selector: 'app-ampliation-projet',
@@ -15,9 +18,11 @@ import { AmpliationService } from 'src/app/shared/service/ampliation-service.ser
 export class AmpliationProjetComponent {
 
   @ViewChild('dtf') form!: NgForm;
-  ampliation: IAmpliation = new Ampliation();
-  @Input() data: IAmpliation = new Ampliation();
-  ampliations: IAmpliation[]=[];
+  ampliation: IAmpliationDemande = new AmpliationDemande();
+  @Input() data: IAmpliationDemande = new AmpliationDemande();
+  ampliations: IAmpliationDemande[]=[];
+  demande: IDemande = new Demande();
+  demandes: IDemande[] = [];
   error: string | undefined;
   showDialog = false;
   isDialogOpInProgress!: boolean;
@@ -27,7 +32,7 @@ export class AmpliationProjetComponent {
   isOpInProgress!: boolean;
 
   constructor(
-    private ampliationService: AmpliationService,
+    private ampliationProjetService: AmpliationProjetService,
     private dialogRef: DynamicDialogRef,
     private dynamicDialog: DynamicDialogConfig,
     private confirmationService: ConfirmationService
@@ -36,7 +41,8 @@ export class AmpliationProjetComponent {
   ngOnInit(): void {
    
     if (this.dynamicDialog.data) {
-      this.ampliation = cloneDeep(this.dynamicDialog.data);
+      this.demande = cloneDeep(this.dynamicDialog.data);
+      // this.demandes.push(this.demande);
     }
   }
 
@@ -69,31 +75,15 @@ export class AmpliationProjetComponent {
   saveEntity(): void {
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
-    if (this.ampliation) {
-      if (this.ampliation.id) {
-        this.ampliationService.update(this.ampliation).subscribe(
-          {
-            next: (response) => {
-              this.dialogRef.close(response);
-              this.dialogRef.destroy();
-              this.showMessage({ severity: 'success', summary: 'ampliation modifié avec succès' });
-             
-            },
-            error: (error) => {
-              console.error("error" + JSON.stringify(error));
-              this.isOpInProgress = false;
-              this.showMessage({ severity: 'error', summary: error.error.message });
-
-            }
-          });
-      } else {
-        this.ampliationService.create(this.ampliation).subscribe({
+    this.ampliation.demande = this.demande;
+    console.log("ampliation a envoyé", this.ampliation)
+        this.ampliationProjetService.create(this.ampliation).subscribe({
           next: (response) => {
             this.dialogRef.close(response);
             this.dialogRef.destroy();
             this.showMessage({
               severity: 'success',
-              summary: 'ampliation creer avec succès',
+              summary: 'visa creer avec succès',
             });
           },
           error: (error) => {
@@ -103,8 +93,7 @@ export class AmpliationProjetComponent {
 
           }
         });
-      }
+      
     }
-  }
 
 }

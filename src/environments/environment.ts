@@ -34,6 +34,7 @@ export const environment = {
   motifUrl: commonAppURI + 'motifs',
   ministereUrl: commonAuth + 'ministeres',
   ampliationUrl:commonAuth + 'ampliations',
+  ampliationProjetUrl:commonAuth + 'ampliation-demandes',
   demandeUrl:commonAppURI + 'demandes',
    // typeEmployeurUrl: commonAppURI +'typeEmployeur',
 

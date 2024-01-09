@@ -49,6 +49,7 @@ export class DetailsDetachementAgentComponent {
   disableSignerElaboration = true;
     disableExporterElaboration = true;
     disableRejeterDemande = true;
+    disableRejeterProjet=true;
 
   constructor(
     private dialogRef: DynamicDialogRef,
@@ -255,6 +256,7 @@ this.router.navigate(['detachements','elaborer', demande.id]);
             }
             if (this.demande.statut === 'PROJET_VALIDE' && (this.profil === 'SG')) {
                 this.disableSignerElaboration = false;
+                this.disableRejeterProjet = false;
             }
             if (this.demande.statut === 'PROJET_SIGNE') {
                 this.disableExporterElaboration = false;
@@ -354,6 +356,27 @@ rejeterDemande(): void {
   if (this.demande) {
       this.demande.historique = this.historique;
       this.demandeService.rejeterSG(this.demande).subscribe(
+          {
+              // next: (response: any) => {
+              //     this.print();
+              // },
+              error: (error: { error: { message: any; }; }) => {
+                  console.error("error" + JSON.stringify(error));
+                  this.isOpInProgress = false;
+                  this.showMessage({ severity: 'error', summary: error.error.message });
+
+              }
+          });
+
+  }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+rejeterElaboration(): void {
+  this.isDialogOpInProgress = true;
+  if (this.demande) {
+      this.demande.historique = this.historique;
+      this.demandeService.rejeterElaborationSG(this.demande).subscribe(
           {
               // next: (response: any) => {
               //     this.print();

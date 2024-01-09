@@ -2,10 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { cloneDeep } from 'lodash';
-import { Message } from 'primeng/api';
+import { ConfirmationService, Message } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Article, IArticle } from 'src/app/shared/model/article.model';
-import { ArticleService } from 'src/app/shared/service/article.service';
+import { ArticleDemande, IArticleDemande } from 'src/app/shared/model/articleDemande.model';
+import { Demande, IDemande } from 'src/app/shared/model/demande.model';
+import { ArticleProjetService } from 'src/app/shared/service/article-projet.service';
+// import { Article, IArticleDemande } from 'src/app/shared/model/article.model';
+// import { articleProjetService } from 'src/app/shared/service/article.service';
 
 @Component({
   selector: 'app-article-projet',
@@ -16,8 +19,10 @@ export class ArticleProjetComponent {
 
 
   @ViewChild('dtf') form!: NgForm;
-  article: IArticle = new Article();
-  @Input() data: IArticle = new Article();
+  article: IArticleDemande = new ArticleDemande();
+  @Input() data: IArticleDemande = new ArticleDemande();
+  demande: IDemande = new Demande();
+  demandes: IDemande[] = [];
   error: string | undefined;
   showDialog = false;
   isDialogOpInProgress!: boolean;
@@ -27,17 +32,20 @@ export class ArticleProjetComponent {
   isOpInProgress!: boolean;
 
   constructor(
-    private articleService: ArticleService,
+    private articleProjetService: ArticleProjetService,
     private dialogRef: DynamicDialogRef,
-    private dynamicDialog: DynamicDialogConfig
+    private dynamicDialog: DynamicDialogConfig,
+    private confirmationService: ConfirmationService
+
   ) { }
 
   ngOnInit(): void {
+   
     if (this.dynamicDialog.data) {
-      this.article = cloneDeep(this.dynamicDialog.data);
+      this.demande = cloneDeep(this.dynamicDialog.data);
+      // this.demandes.push(this.demande);
     }
   }
-
 
   clear(): void {
     this.form.resetForm();
@@ -67,31 +75,15 @@ export class ArticleProjetComponent {
   saveEntity(): void {
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
-    if (this.article) {
-      if (this.article.id) {
-        this.articleService.update(this.article).subscribe(
-          {
-            next: (response) => {
-              this.dialogRef.close(response);
-              this.dialogRef.destroy();
-              this.showMessage({ severity: 'success', summary: 'article modifié avec succès' });
-             
-            },
-            error: (error) => {
-              console.error("error" + JSON.stringify(error));
-              this.isOpInProgress = false;
-              this.showMessage({ severity: 'error', summary: error.error.message });
-
-            }
-          });
-      } else {
-        this.articleService.create(this.article).subscribe({
+    this.article.demande = this.demande;
+    console.log("article a envoyé", this.article)
+        this.articleProjetService.create(this.article).subscribe({
           next: (response) => {
             this.dialogRef.close(response);
             this.dialogRef.destroy();
             this.showMessage({
               severity: 'success',
-              summary: 'article creer avec succès',
+              summary: 'visa creer avec succès',
             });
           },
           error: (error) => {
@@ -101,9 +93,8 @@ export class ArticleProjetComponent {
 
           }
         });
-      }
+      
     }
-  }
 
   
 }

@@ -9,8 +9,10 @@ import { Subscription } from 'rxjs';
 import { CreerModifierVisaComponent } from 'src/app/administration/parametre/visa/creer-modifier-visa/creer-modifier-visa.component';
 import { DetailsvisaComponent } from 'src/app/administration/parametre/visa/details-visa/details-visa.component';
 import { CURRENT_PAGE, MAX_SIZE_PAGE } from 'src/app/shared/constants/pagination.constants';
-import { IVisa, Visa } from 'src/app/shared/model/visa.model';
-import { VisaService } from 'src/app/shared/service/visa-service';
+import { IDemande, Demande } from 'src/app/shared/model/demande.model';
+import { IVisaDemande, VisaDemande } from 'src/app/shared/model/visaDemande.model';
+import { VisaProjetService } from 'src/app/shared/service/visa-projet.service';
+//import { visaProjetService } from 'src/app/shared/service/visa-service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -21,9 +23,12 @@ import { environment } from 'src/environments/environment';
 export class VisaProjetComponent {
  
   @ViewChild('dtf') form!: NgForm;
-  visa: IVisa = new Visa();
-  @Input() data: IVisa = new Visa();
-  visas: IVisa[]=[];
+  visa: IVisaDemande = new VisaDemande();
+  @Input() data: IVisaDemande = new VisaDemande();
+
+  demande: IDemande = new Demande();
+  demandes: IDemande[] = [];
+  // visas: IVisaDemande[]=[];
   error: string | undefined;
   showDialog = false;
   isDialogOpInProgress!: boolean;
@@ -33,7 +38,7 @@ export class VisaProjetComponent {
   isOpInProgress!: boolean;
 
   constructor(
-    private visaService: VisaService,
+    private visaProjetService: VisaProjetService,
     private dialogRef: DynamicDialogRef,
     private dynamicDialog: DynamicDialogConfig,
     private confirmationService: ConfirmationService
@@ -42,7 +47,8 @@ export class VisaProjetComponent {
   ngOnInit(): void {
    
     if (this.dynamicDialog.data) {
-      this.visa = cloneDeep(this.dynamicDialog.data);
+      this.demande = cloneDeep(this.dynamicDialog.data);
+      // this.demandes.push(this.demande);
     }
   }
 
@@ -75,25 +81,9 @@ export class VisaProjetComponent {
   saveEntity(): void {
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
-    if (this.visa) {
-      if (this.visa.id) {
-        this.visaService.update(this.visa).subscribe(
-          {
-            next: (response) => {
-              this.dialogRef.close(response);
-              this.dialogRef.destroy();
-              this.showMessage({ severity: 'success', summary: 'visa modifié avec succès' });
-             
-            },
-            error: (error) => {
-              console.error("error" + JSON.stringify(error));
-              this.isOpInProgress = false;
-              this.showMessage({ severity: 'error', summary: error.error.message });
-
-            }
-          });
-      } else {
-        this.visaService.create(this.visa).subscribe({
+    this.visa.demande = this.demande;
+    console.log("visaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a envoyé", this.visa)
+        this.visaProjetService.create(this.visa).subscribe({
           next: (response) => {
             this.dialogRef.close(response);
             this.dialogRef.destroy();
@@ -109,9 +99,11 @@ export class VisaProjetComponent {
 
           }
         });
-      }
+      
     }
+  
+
   }
 
 
-}
+
