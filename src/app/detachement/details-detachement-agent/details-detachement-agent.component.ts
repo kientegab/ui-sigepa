@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Message } from 'primeng/api';
+import { ConfirmationService, Message } from 'primeng/api';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { IDemande, Demande } from 'src/app/shared/model/demande.model';
 import { DemandeService } from 'src/app/shared/service/demande-service.service';
@@ -58,7 +58,8 @@ export class DetailsDetachementAgentComponent {
     private tokenService: TokenService,
     private route: ActivatedRoute,
     private router: Router,
-    private pieceService: PieceService
+    private pieceService: PieceService,
+    private confirmationService: ConfirmationService
   ) {}
 
 
@@ -110,6 +111,22 @@ export class DetailsDetachementAgentComponent {
 
     });
   }
+
+
+  showConfirmation() {
+    this.confirmationService.confirm({
+      header: 'Confirmation',
+      message: 'Êtes-vous sûr de vouloir rejeter cette demande?',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Oui',
+      rejectLabel: 'Non',
+      accept: () => {
+        // Logique à exécuter si l'utilisateur clique sur "Oui"
+        this.rejeterDemande();
+      }
+    });
+  }
+
 
   /** Permet d'afficher un modal pour aviser une demande */
    openModalValiderProjet(demande: IDemande): void {
@@ -245,7 +262,8 @@ this.router.navigate(['detachements','elaborer', demande.id]);
           }
 
           if((this.demande.statut === 'AVIS_DRH' || this.demande.statut === 'AVIS_DGFP') && this.profil === 'SG') {
-            this.disableAviserSG = false && this.disableRejeterDemande == false;
+            this.disableAviserSG = false;
+            this.disableRejeterDemande = false;
         }
 
           if (this.demande.statut === 'DEMANDE_VALIDEE' && (this.profil === 'STDRH' || this.profil === 'STDGF')) {
@@ -352,24 +370,28 @@ this.router.navigate(['detachements','elaborer', demande.id]);
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 rejeterDemande(): void {
-  this.isDialogOpInProgress = true;
-  if (this.demande) {
-      this.demande.historique = this.historique;
-      this.demandeService.rejeterSG(this.demande).subscribe(
-          {
-              // next: (response: any) => {
-              //     this.print();
-              // },
-              error: (error: { error: { message: any; }; }) => {
-                  console.error("error" + JSON.stringify(error));
-                  this.isOpInProgress = false;
-                  this.showMessage({ severity: 'error', summary: error.error.message });
+  this.confirmationService.confirm({
+    header: 'Confirmation',
+    message: 'Êtes-vous sûr de vouloir rejeter cette demande?',
+    accept: () => {
+      // Code à exécuter si l'utilisateur clique sur le bouton "Accepter" dans la boîte de dialogue de confirmation
+      this.isDialogOpInProgress = true;
 
-              }
-          });
-
-  }
+      if (this.demande) {
+        this.demande.historique = this.historique;
+        this.demandeService.rejeterSG(this.demande).subscribe({
+          // ...
+        });
+        window.location.reload();
+      }
+    },
+    reject: () => {
+      // Code à exécuter si l'utilisateur clique sur le bouton "Annuler" dans la boîte de dialogue de confirmation
+      // Vous pouvez ne rien faire ici si vous ne souhaitez pas exécuter d'action spécifique lors du rejet
+    },
+  });
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 rejeterElaboration(): void {

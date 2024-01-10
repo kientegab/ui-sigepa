@@ -243,4 +243,10 @@ export class DetachementComponent {
     }, 5000);
   }
 
+
+  isEditButtonVisible(demande: any): boolean {
+    return demande.statut === 'DEMANDE_REJETEE';
+  }
+
+
 }

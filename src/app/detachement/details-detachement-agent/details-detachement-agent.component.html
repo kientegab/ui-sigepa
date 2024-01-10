@@ -146,6 +146,14 @@
   <p-divider></p-divider>
   <div class="row justify-content-center">
 
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+    <div class="p-ml-auto text-right">
+      <button description="rejeter demande sg" icon="pi pi-times" label="Rejeter demande" [hidden]="disableRejeterDemande" (click)="rejeterDemande()" class="p-button p-button-danger mr-2"
+              pButton></button>
+    </div>
+
+    
     <div class="p-ml-auto text-right">
       <button description="aviser sh" icon="pi pi-pencil" label="Aviser" [hidden]="disableAviserSH" (click)="openModalAviser(demande)" class="p-button-success mr-2"
       pButton></button>
@@ -192,6 +200,7 @@
 
 
 
+
  <div class="p-ml-auto text-right">
     <button description="valider" icon="pi pi-pencil" [hidden]="disableValiderElaboration" label="Procéder à la validation" (click)="openModalValiderProjet(demande)" class="p-button-success mr-2"
     pButton></button>
@@ -202,10 +211,7 @@
                   pButton></button>
       </div>
 
-      <div class="p-ml-auto text-right">
-        <button description="rejeter" icon="pi pi-pencil" label="Rejeter demande" [hidden]="disableRejeterDemande" (click)="rejeterDemande()" class="p-button-success mr-2"
-                pButton></button>
-    </div>
+  
 
       <div class="p-ml-auto text-right">
           <button description="telecharger" icon="pi pi-pencil" [hidden]="disableExporterElaboration" label="Exporter l'arrete signé" (click)="exporter()" class="p-button-success mr-2"
