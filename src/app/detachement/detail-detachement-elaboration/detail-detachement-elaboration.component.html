@@ -170,6 +170,13 @@
                         <th scope="row">{{i+1}}</th>
                         <td>{{item.code}}</td>
                         <td>{{item.libelle}}</td>
+
+                        <td class="actionsStyle">
+                            <app-actions-toolbar-iud 
+                            (edit)="openModalEdit(ampliationDemande)" [enableBtnEdit]="enableBtnEdit"
+                            >
+                          </app-actions-toolbar-iud>
+                          </td>
                     </tr>
                     </tbody>
                 </table>
@@ -206,7 +213,7 @@
             <button description="rejeter demande sg" icon="pi pi-pencil" label="Rejeter demande" [hidden]="disableRejeterDemande" (click)="rejeterDemande()" class="p-button-success mr-2"
                     pButton></button>
         </div>
-
+        <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
         <div class="p-ml-auto text-right">
             <button description="rejeter projet sg" icon="pi pi-times" label="Rejeter projet" [hidden]="disableRejeterProjet" (click)="rejeterElaboration()" class="p-button p-button-danger mr-2"

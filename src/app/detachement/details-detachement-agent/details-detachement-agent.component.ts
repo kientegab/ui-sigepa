@@ -11,6 +11,7 @@ import {PieceService} from "../../shared/service/piece.service";
 import { Historique, IHistorique } from 'src/app/shared/model/historique.model';
 import { TokenService } from 'src/app/shared/service/token.service';
 import {saveAs} from "file-saver";
+import { AmpliationDemande, IAmpliationDemande } from 'src/app/shared/model/ampliationDemande.model';
 
 @Component({
   selector: 'app-details-detachement-agent',
@@ -21,6 +22,7 @@ export class DetailsDetachementAgentComponent {
 
   demande: IDemande = new Demande();
   @Input() data: IDemande = new Demande();
+  ampliationDemande: IAmpliationDemande = new AmpliationDemande();
   idDmd: number | undefined;
   isOpInProgress!: boolean;
   isDialogOpInProgress!: boolean;
@@ -87,9 +89,7 @@ export class DetailsDetachementAgentComponent {
           window.location.reload();
           this.showMessage({ severity: 'success', summary: 'Demande receptionnée avec succès' });
         }
-
       });
-
   }
   /** Permet d'afficher un modal pour aviser une demande */
   openModalAviser(demande: IDemande): void {
@@ -269,13 +269,20 @@ this.router.navigate(['detachements','elaborer', demande.id]);
           if (this.demande.statut === 'DEMANDE_VALIDEE' && (this.profil === 'STDRH' || this.profil === 'STDGF')) {
             this.disableElaborer = false;
           }
+
+
             if (this.demande.statut === 'PROJET_ELABORE' && (this.profil === 'DRH')) {
                 this.disableValiderElaboration = false;
             }
+
+            if (this.demande.statut === 'PROJET_REJETE' && (this.profil === 'STDRH')) {
+              this.disableElaborer = false;
+          }
             if (this.demande.statut === 'PROJET_VALIDE' && (this.profil === 'SG')) {
                 this.disableSignerElaboration = false;
                 this.disableRejeterProjet = false;
             }
+
             if (this.demande.statut === 'PROJET_SIGNE') {
                 this.disableExporterElaboration = false;
             }

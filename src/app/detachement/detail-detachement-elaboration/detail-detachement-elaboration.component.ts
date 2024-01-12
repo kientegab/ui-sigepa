@@ -8,7 +8,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {DemandeService} from "../../shared/service/demande-service.service";
 import {TokenService} from "../../shared/service/token.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Message} from "primeng/api";
+import {ConfirmationService, Message} from "primeng/api";
 import {ReceptionDetachementComponent} from "../reception-detachement/reception-detachement.component";
 import {Historique, IHistorique} from "../../shared/model/historique.model";
 import {ValiderElaborationModalComponent} from "../valider-elaboration-modal/valider-elaboration-modal.component";
@@ -24,7 +24,7 @@ import { AmpliationService } from 'src/app/shared/service/ampliation-service.ser
 import { VisaDemande } from 'src/app/shared/model/visaDemande.model';
 import { VisaProjetService } from 'src/app/shared/service/visa-projet.service';
 import { ArticleDemande } from 'src/app/shared/model/articleDemande.model';
-import { AmpliationDemande } from 'src/app/shared/model/ampliationDemande.model';
+import { AmpliationDemande, IAmpliationDemande } from 'src/app/shared/model/ampliationDemande.model';
 import { ArticleProjetService } from 'src/app/shared/service/article-projet.service';
 import { AmpliationProjetService } from 'src/app/shared/service/ampliation-projet.service';
 
@@ -41,12 +41,15 @@ export class DetailDetachementElaborationComponent {
     message: any;
     timeoutHandle: any;
     isLoggedIn = false;
-
+    totalRecords: number = 0;
     visas: Visa[] = [];
     visaDemandes: VisaDemande[] = [];
     articleDemandes: ArticleDemande[] = [];
     ampliationDemandes: AmpliationDemande[] = [];
-
+    ampliationDemande:IAmpliationDemande = new AmpliationDemande();
+    demandes: Demande[]=[];
+    enableBtnDelete=true;
+    enableBtnEdit= true;
     articles:  Article[] = [];
     ampliations: Ampliation[] = [];
     disableAviserSH = true;
@@ -85,11 +88,13 @@ export class DetailDetachementElaborationComponent {
         private tokenService: TokenService,
         private route: ActivatedRoute,
         private router: Router,
+        private confirmationService: ConfirmationService
     ) {}
 
     ngOnInit(): void {
 
         this.idDmd = +this.route.snapshot.paramMap.get('id')!;
+    //    this.getAmpliationDemande();
         this.getDemande();
         this.loadVisa();
         this.loadArticle();
@@ -97,11 +102,49 @@ export class DetailDetachementElaborationComponent {
         this.loadVisaDemandes(this.idDmd);
         this.loadArticlesDemandes(this.idDmd);
         this.loadAmpliationsDemandes(this.idDmd);
+      
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    onDelete(ampliationDemande: IAmpliationDemande) {
+    //    this.getAmpliationDemande();
+        console.log("ampliationDemandeId",ampliationDemande);
+        if (ampliationDemande.id) {
+          this.confirmationService.confirm({
+            message: 'Etes-vous sûr de vouloir supprimer ce ampliation?',
+            accept: () => {
+              this.deleteAmpliation(ampliationDemande);
+            }
+          });
+        } else {
+          // Gérer le cas où l'id est indéfini
+          console.error('L\'ID de l\'ampliationDemande est indéfini.');
+        }
+      }
+      
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    deleteAmpliation(selection: any) {
+        this.isOpInProgress = true;
+        this.ampliationDemandeService.delete(selection.id).subscribe(() => {
+          this.ampliationDemandes = this.ampliationDemandes.filter(ampliationDemande => ampliationDemande.id !== selection.id);
+      //    this.demandes = this.demandes.filter(demande => demande.id !== selection.id);
+          selection = null;
+          this.isOpInProgress = false;
+        this.totalRecords--;
+          this.showMessage({
+            severity: 'success',
+            summary: 'ampliation supprimée avec succès',
+          });
+        }, (error) => {
+          console.error("ampliation " + JSON.stringify(error));
+          this.isOpInProgress = false;
+          this.showMessage({ severity: 'error', summary: error.error.message });
+        });
+      }
+
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 openModalVisa(demande:IDemande): void {
     this.dialogService.open(VisaProjetComponent,
         {
@@ -115,7 +158,7 @@ openModalVisa(demande:IDemande): void {
         }).onClose.subscribe(result => {
         if(result){
             this.isDialogOpInProgress = false;
-           // window.location.reload();
+            window.location.reload();
             this.showMessage({ severity: 'success', summary: 'Visa ajouté avec succès' });
         }
 
@@ -227,7 +270,37 @@ loadAmpliationsDemandes(idDemande:number):void {
     }
 );
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+getAmpliationDemande(id:number): void {
+    this.ampliationDemandeService.find(id).subscribe(result => {
+        if (result && result.body) {
+            this.ampliationDemande = result.body;
+        }})
+        console.log("contenu des ampliations demandes",this.ampliationDemande) 
+       }
 
+       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+       openModalEdit(ampliationDemande: IAmpliationDemande): void {
+        this.dialogService.open(AmpliationProjetComponent,
+          {
+            header: 'Modifier un ampliation',
+            width: '60%',
+            contentStyle: { overflow: 'auto' },
+            baseZIndex: 10000,
+            maximizable: true,
+            closable: true,
+            data: ampliationDemande
+          }).onClose.subscribe(result => {
+            if(result){
+              this.isDialogOpInProgress = false;
+              this.loadAmpliationsDemandes(this.idDmd!);
+              this.showMessage({ severity: 'success', summary: 'ampliation modifiée avec succès' });
+            }
+           
+          });
+
+      }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     getDemande(): void {
         this.demandeService.find(this.idDmd!).subscribe(result => {
@@ -275,7 +348,7 @@ loadAmpliationsDemandes(idDemande:number):void {
                         this.disableRejeterProjet = false;
                     }
                     
-                    if (this.demande.statut === 'REJETE' && (this.profil === 'STDRH')) {
+                    if (this.demande.statut === 'PROJET_REJETE' && (this.profil === 'STDRH')) {
                         this.disableElaborer = false;
                         this.disableVisaProjet = false;
                         this.disableArticleProjet = false;
@@ -372,25 +445,47 @@ loadAmpliationsDemandes(idDemande:number):void {
         }
     }
 
+
+    showConfirmation() {
+        this.confirmationService.confirm({
+          header: 'Confirmation',
+          message: 'Êtes-vous sûr de vouloir rejeter le projet élaboré?',
+          icon: 'pi pi-exclamation-triangle',
+          acceptLabel: 'Oui',
+          rejectLabel: 'Non',
+          accept: () => {
+            // Logique à exécuter si l'utilisateur clique sur "Oui"
+            this.rejeterDemande();
+          }
+        });
+      }
+
+
+
+
+
     rejeterElaboration(): void {
-        this.isDialogOpInProgress = true;
-        if (this.demande) {
-            this.demande.historique = this.historique;
-            this.demandeService.rejeterElaborationSG(this.demande).subscribe(
-                {
-                    next: (response: any) => {
-                        this.print();
-                    },
-                    error: (error: { error: { message: any; }; }) => {
-                        console.error("error" + JSON.stringify(error));
-                        this.isOpInProgress = false;
-                        this.showMessage({ severity: 'error', summary: error.error.message });
-
-                    }
-                });
-
-        }
-    }
+        this.confirmationService.confirm({
+          header: 'Confirmation',
+          message: 'Êtes-vous sûr de vouloir rejeter le projet élaboré?',
+          accept: () => {
+            // Code à exécuter si l'utilisateur clique sur le bouton "Accepter" dans la boîte de dialogue de confirmation
+            this.isDialogOpInProgress = true;
+      
+            if (this.demande) {
+              this.demande.historique = this.historique;
+              this.demandeService.rejeterElaborationSG(this.demande).subscribe({
+                // ...
+              });
+              window.location.reload();
+            }
+          },
+          reject: () => {
+            // Code à exécuter si l'utilisateur clique sur le bouton "Annuler" dans la boîte de dialogue de confirmation
+            // Vous pouvez ne rien faire ici si vous ne souhaitez pas exécuter d'action spécifique lors du rejet
+          },
+        });
+      }
 
     rejeterDemande(): void {
         this.isDialogOpInProgress = true;

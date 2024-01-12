@@ -72,28 +72,107 @@ export class AmpliationProjetComponent {
       this.message = null;
     }, 5000);
   }
+
+
+
   saveEntity(): void {
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
-    this.ampliation.demande = this.demande;
-    console.log("ampliation a envoyé", this.ampliation)
-        this.ampliationProjetService.create(this.ampliation).subscribe({
-          next: (response) => {
-            this.dialogRef.close(response);
-            this.dialogRef.destroy();
-            this.showMessage({
-              severity: 'success',
-              summary: 'visa creer avec succès',
-            });
-          },
-          error: (error) => {
-            console.error("error" + JSON.stringify(error));
-            this.isOpInProgress = false;
-            this.showMessage({ severity: 'error', summary: error.error.message });
 
-          }
+    console.log("ID de l'ampliation :", this.ampliation.id);
+
+    if (this.ampliation && this.ampliation.id) {
+        console.log("Mise à jour d'ampliation");
+
+        this.ampliation.demande = this.demande;
+        console.log("ampliation à envoyer", this.ampliation);
+
+        this.ampliationProjetService.update(this.ampliation).subscribe({
+            next: (response) => {
+                console.log("Réponse de mise à jour :", response);
+
+                this.dialogRef.close(response);
+                this.dialogRef.destroy();
+                this.showMessage({ severity: 'success', summary: 'ampliation modifié avec succès' });
+            },
+            error: (error) => {
+                console.error("Erreur de mise à jour :", JSON.stringify(error));
+                this.isOpInProgress = false;
+                this.showMessage({ severity: 'error', summary: error.error.message });
+            }
         });
-      
-    }
+    } else {
+        console.log("Création d'ampliation");
 
+        this.ampliation.demande = this.demande;
+        console.log("ampliation à envoyer", this.ampliation);
+
+        this.ampliationProjetService.create(this.ampliation).subscribe({
+            next: (response) => {
+                console.log("Réponse de création :", response);
+
+                this.dialogRef.close(response);
+                this.dialogRef.destroy();
+                this.showMessage({ severity: 'success', summary: 'visa creer avec succès' });
+            },
+            error: (error) => {
+                console.error("Erreur de création :", JSON.stringify(error));
+                this.isOpInProgress = false;
+                this.showMessage({ severity: 'error', summary: error.error.message });
+            }
+        });
+    }
+}
+
+
+
+
+    // saveEntity(): void {
+    //   this.clearDialogMessages();
+    //   this.isDialogOpInProgress = true;
+    //   if (this.ampliation) {
+    //     if (this.ampliation.id) {
+    //       this.ampliationService.update(this.ampliation).subscribe(
+    //         {
+    //           next: (response) => {
+    //             this.dialogRef.close(response);
+    //             this.dialogRef.destroy();
+    //             this.showMessage({ severity: 'success', summary: 'ampliation modifié avec succès' });
+               
+    //           },
+    //           error: (error) => {
+    //             console.error("error" + JSON.stringify(error));
+    //             this.isOpInProgress = false;
+    //             this.showMessage({ severity: 'error', summary: error.error.message });
+  
+    //           }
+    //         });
+    //     } else {
+    //       this.ampliationService.create(this.ampliation).subscribe({
+    //         next: (response) => {
+    //           this.dialogRef.close(response);
+    //           this.dialogRef.destroy();
+    //           this.showMessage({
+    //             severity: 'success',
+    //             summary: 'ampliation creer avec succès',
+    //           });
+    //         },
+    //         error: (error) => {
+    //           console.error("error" + JSON.stringify(error));
+    //           this.isOpInProgress = false;
+    //           this.showMessage({ severity: 'error', summary: error.error.message });
+  
+    //         }
+    //       });
+    //     }
+    //   }
+    // }
+
+
+
+
+
+
+
+    
 }
