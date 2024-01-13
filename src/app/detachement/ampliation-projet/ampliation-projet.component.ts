@@ -18,7 +18,7 @@ import { AmpliationProjetService } from 'src/app/shared/service/ampliation-proje
 export class AmpliationProjetComponent {
 
   @ViewChild('dtf') form!: NgForm;
-  ampliation: IAmpliationDemande = new AmpliationDemande();
+  ampliationDemande: IAmpliationDemande = new AmpliationDemande();
   @Input() data: IAmpliationDemande = new AmpliationDemande();
   ampliations: IAmpliationDemande[]=[];
   demande: IDemande = new Demande();
@@ -41,7 +41,12 @@ export class AmpliationProjetComponent {
   ngOnInit(): void {
    
     if (this.dynamicDialog.data) {
-      this.demande = cloneDeep(this.dynamicDialog.data);
+
+      console.log("=========================Test=====================",this.dynamicDialog.data)
+      this.ampliationDemande = cloneDeep(this.dynamicDialog.data);
+
+     // this.ampliation = cloneDeep(this.dynamicDialog.data);
+
       // this.demandes.push(this.demande);
     }
   }
@@ -53,7 +58,7 @@ export class AmpliationProjetComponent {
     this.dialogRef.destroy();
   }
   isEditing() {
-    return !!this.ampliation.id;
+    return !!this.ampliationDemande.id;
   }
 
   clearDialogMessages() {
@@ -79,15 +84,14 @@ export class AmpliationProjetComponent {
     this.clearDialogMessages();
     this.isDialogOpInProgress = true;
 
-    console.log("ID de l'ampliation :", this.ampliation.id);
+    console.log("ID de l'ampliation :", this.ampliationDemande.id);
 
-    if (this.ampliation && this.ampliation.id) {
+    if (this.ampliationDemande && this.ampliationDemande.id) {
         console.log("Mise à jour d'ampliation");
 
-        this.ampliation.demande = this.demande;
-        console.log("ampliation à envoyer", this.ampliation);
+        console.log("ampliation à envoyer", this.ampliationDemande);
 
-        this.ampliationProjetService.update(this.ampliation).subscribe({
+        this.ampliationProjetService.update(this.ampliationDemande).subscribe({
             next: (response) => {
                 console.log("Réponse de mise à jour :", response);
 
@@ -104,10 +108,10 @@ export class AmpliationProjetComponent {
     } else {
         console.log("Création d'ampliation");
 
-        this.ampliation.demande = this.demande;
-        console.log("ampliation à envoyer", this.ampliation);
+    //    this.ampliationDemande.demande = this.demande;
+        console.log("ampliation à envoyer", this.ampliationDemande);
 
-        this.ampliationProjetService.create(this.ampliation).subscribe({
+        this.ampliationProjetService.create(this.ampliationDemande).subscribe({
             next: (response) => {
                 console.log("Réponse de création :", response);
 

@@ -187,6 +187,11 @@ openModalArticle(demande:IDemande): void {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 openModalAmpliation(demande:IDemande): void {
+
+    const demandeAmpliation = new AmpliationDemande();
+
+    demandeAmpliation.demande = demande;
+
     this.dialogService.open(AmpliationProjetComponent,
         {
             header: 'Ajouter une ampliation',
@@ -195,7 +200,7 @@ openModalAmpliation(demande:IDemande): void {
             baseZIndex: 10000,
             maximizable: true,
             closable: true,
-            data: demande
+            data: demandeAmpliation
         }).onClose.subscribe(result => {
         if(result){
             this.isDialogOpInProgress = false;
@@ -282,6 +287,8 @@ getAmpliationDemande(id:number): void {
        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
        openModalEdit(ampliationDemande: IAmpliationDemande): void {
+
+        console.log("=========AmpliationDemande=========",ampliationDemande)
         this.dialogService.open(AmpliationProjetComponent,
           {
             header: 'Modifier un ampliation',

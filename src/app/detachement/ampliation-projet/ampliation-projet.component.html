@@ -9,7 +9,7 @@
     padding-bottom: 5px;">
     <i class="{{isEditing() ? 'pi-pencil' : 'pi-plus'}} pi p-mr-1 mr-2"></i>
     <h3 class="mr-auto">
-      {{ampliation.id ? 'Formulaire de modification' : 'Formulaire d\'ajout de'}} ampliation
+      {{ampliationDemande.id ? 'Formulaire de modification' : 'Formulaire d\'ajout de'}} ampliation
     </h3>
   </ng-template>
   <p-progressBar *ngIf="isDialogOpInProgress" mode="indeterminate" color="#1e88e0"></p-progressBar>
@@ -23,11 +23,11 @@
 <div class="formgrid grid">
 <div class="field col-12 md:col-12">
     <label for="code">Code :</label>
-    <input type="number" id="code" name="code" #code="ngModel" [(ngModel)]="ampliation.code" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    <input type="number" id="code" name="code" #code="ngModel" [(ngModel)]="ampliationDemande.code" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
 </div>
 <div class="field col-12 md:col-12">
     <label for="libelle">Libelle :</label>
-    <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="ampliation.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    <input type="text" id="libelle" name="libelle" #libelle="ngModel" [(ngModel)]="ampliationDemande.libelle" required   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
 </div>
 </div>
 
