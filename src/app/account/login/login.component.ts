@@ -64,6 +64,8 @@ export class LoginComponent {
 	//   }
 
 	seConnecter(): void {
+
+		console.log("le JSON envoyé pour l'authentification:::::::::::::::::",this.account);
 		this.authService.login(this.account).subscribe(
 			(data) => {
 				if (data.body) {
