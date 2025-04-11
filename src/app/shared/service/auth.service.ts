@@ -64,15 +64,13 @@ export class AuthenticationService {
   loginNext(credentials: ILoginVM): Observable<void> {
     return this.http
       .post(authRessourceUrl, credentials)
-      .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe!)));
+      .pipe(map(response => this.authenticateSuccess(response)));
   }
 
-  private authenticateSuccess(response: any, rememberMe: boolean): void {
+  private authenticateSuccess(response: any): void {
     const jwt = response.accessToken;
     this.getUserInfo(jwt);
-    if (rememberMe) {
-      this.saveToken(jwt);
-    } else {
+   {
       this.saveToken(jwt);
     }
 

@@ -21,6 +21,7 @@ import {cloneDeep} from "lodash";
 import {DemandeDisponibiliteService} from "../../shared/service/demande-disponibilite-service.service";
 import {TypeDmdDisponibilite} from "../../shared/model/type-dmd-disponibilite";
 import {ActivatedRoute, Router} from "@angular/router";
+import { TokenService } from 'src/app/shared/service/token.service';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -92,6 +93,7 @@ export class CreerModifierDisponibiliteComponent implements OnInit{
         private uploadService: UploadFileService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
+          private tokenStorage: TokenService
 
     ) {
     }
@@ -111,12 +113,17 @@ export class CreerModifierDisponibiliteComponent implements OnInit{
         if (!this.agent.structure.libelle) {
             this.agent.structure.libelle = '';
         }
+
+        if (!this.demande.superieurHierarchique) {
+            this.demande.superieurHierarchique = {matricule: ""};
+        }
        // this.loadTypeDemande();
         this.loadPieces();
         this.loadMotif();
         this.loadStructure();
         this.openCalendar();
         this.initObjet();
+        this.onChangeMatricule();
 
     }
 
@@ -283,11 +290,12 @@ export class CreerModifierDisponibiliteComponent implements OnInit{
 
 
     onChangeMatricule() {
-        this.numeroMatricule = this.demande.agent!.matricule!;
-        if (this.numeroMatricule) {
+        this.demande.agent!.matricule = this.tokenStorage.getUser().matricule;
+       // this.numeroMatricule = this.tokenStorage.getUser().matricule;
+        if (this.demande.agent!.matricule) {
             this.isFetchingAgentInfo = true; // Activez l'indicateur de chargement
             // Faites une requête au service pour obtenir les informations de l'agent en utilisant this.numeroMatricule
-            this.agentService.getAgentInfoByMatricule(this.numeroMatricule)
+            this.agentService.getAgentInfoByMatricule(this.demande.agent!.matricule)
                 .subscribe(
                     (response) => {
                         // Vérifiez que la réponse est réussie

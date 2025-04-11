@@ -161,6 +161,16 @@ export class DemandeDisponibiliteService {
       );
     }
     
-
+  abandonner(id: number): Observable<HttpResponse<{}>> {
+    return this.http.post<any>(`${demandeUrl}/abandonner/${id}`, { observe: 'response' });
+  }
     
+
+    downloadActe(id: number): Observable<Blob> {
+      return this.http.get(`${demandeUrl}/download/${id}`, { responseType: 'blob' });
+    }
+
+     generateRecipisse(demandeId: number): Observable<Blob> {
+        return this.http.get(`${exportUrl}/recepisse-demande/${demandeId}`, { responseType: 'blob' });
+      }
 }

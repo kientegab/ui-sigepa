@@ -1,8 +1,8 @@
-const commonAppURI: string = 'https://localhost:8081/api/';
-const commonAuth: string = 'https://localhost:8080/api/auth/';
-const detachement: string = 'https://localhost:8081/api/detachements'
+const commonAppURI: string = 'http://localhost:8081/api/';
+const commonAuth: string = 'http://localhost:8080/api/auth/';
+const detachement: string = 'http://localhost:8081/api/detachements'
 
-const domaineUrl: string='https://localhost:4200'
+const domaineUrl: string='http://localhost:4200'
 
 export const environment = {
   production: true,
@@ -10,11 +10,11 @@ export const environment = {
   recordsPerPage: 20,
 
   // detachementUrl: 'http://10.53.218.146:8081/api',
-  detachementUrl: 'https://localhost:8081/api/detachements',
-  authentificationUrl: 'https://localhost:8080/api/auth',
-  disponibiliteUrl: 'https://localhost:8082/api/disponibilites',
-  uploadFileDetatchement: 'https://localhost:8081/api/detachements/demandes/upload',
-  uploadFileDisponibilite:'https://localhost:8082/api/demandes/upload',
+  detachementUrl: 'http://localhost:8081/api/detachements',
+  authentificationUrl: 'http://localhost:8080/api/auth',
+  disponibiliteUrl: 'http://localhost:8082/api/disponibilites',
+  uploadFileDetatchement: 'http://localhost:8081/api/detachements/demandes/upload',
+  uploadFileDisponibilite:'http://localhost:8082/api/demandes/upload',
   circuitUrl:commonAppURI + 'circuit',
   communeUrl: commonAppURI +'communes',
   pieceUrl: commonAppURI +'pieces',
@@ -116,17 +116,17 @@ export const environment = {
 
   // === reporting, statistiques === //
   reportingUrl: commonAppURI +'reports',
-  authorize_uri: 'https://localhost:9000/oauth2/authorize?',
+  authorize_uri: 'http://localhost:9000/oauth2/authorize?',
   client_id : 'client',
-  redirect_uri: 'https://localhost:4200/authorized',
+  redirect_uri: 'http://localhost:4200/authorized',
   scope: 'openid',
   response_type: 'code',
   response_mode: 'form_post',
   code_challenge_method: 'S256',
-  token_url: 'https://localhost:9000/oauth2/token',
+  token_url: 'http://localhost:9000/oauth2/token',
   grant_type: 'authorization_code',
-  resource_url: 'https://localhost:8080/resource/',
-  logout_url: 'https://localhost:9000/oauth2/logout',
+  resource_url: 'http://localhost:8080/resource/',
+  logout_url: 'http://localhost:9000/oauth2/logout',
   secret_pkce: 'secret'
 };
 /****** */
